@@ -15,4 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\stiebel-eltron-apiserver.SharedKernel\stiebel-eltron-apiserver.SharedKernel.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\Core\" />
+  </ItemGroup>
 </Project>

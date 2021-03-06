@@ -10,7 +10,7 @@
   
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'stiebel_eltron_apiserver.Web' " />
   <ItemGroup>
-    <PackageReference Include="Ardalis.ApiEndpoints" Version="2.0.0" />
+    <PackageReference Include="Ardalis.ApiEndpoints" Version="3.0.0" />
     <PackageReference Include="Ardalis.ListStartupServices" Version="1.1.3" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
