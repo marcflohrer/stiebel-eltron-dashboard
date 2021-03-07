@@ -61,7 +61,7 @@ namespace stiebel_eltron_apiserver.Infrastructure.Data
 
         private IQueryable<T> ApplySpecification<T>(ISpecification<T> spec) where T : BaseEntity
         {
-            var evaluator = new SpecificationEvaluator<T>();
+            var evaluator = new SpecificationEvaluator();
             return evaluator.GetQuery(_dbContext.Set<T>().AsQueryable(), spec);
         }
     }
