@@ -3,7 +3,6 @@ services:
   postgres:
     image: postgres
     hostname: postgres
-# if you need to connect from outside, comment this in:
     ports:
       - 5432:5432
     env_file:
@@ -17,9 +16,10 @@ services:
     depends_on:
       - postgres
     ports:
-      - 5555:80
-    env_file:
-      - admin.env # configure pgadmin
+      - 5555:8082
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     restart: unless-stopped
  
 volumes:
