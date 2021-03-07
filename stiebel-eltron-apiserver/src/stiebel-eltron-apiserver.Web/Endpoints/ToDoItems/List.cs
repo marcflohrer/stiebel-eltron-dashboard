@@ -10,7 +10,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace stiebel_eltron_apiserver.Web.Endpoints.ToDoItems
 {
-    public class List : BaseAsyncEndpoint<List<ToDoItemResponse>>
+    public class List : BaseAsyncEndpoint
+        .WithoutRequest
+        .WithResponse<List<ToDoItemResponse>>
     {
         private readonly IRepository _repository;
 

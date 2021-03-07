@@ -8,7 +8,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace stiebel_eltron_apiserver.Web.Endpoints.ToDoItems
 {
-    public class Update : BaseAsyncEndpoint<UpdateToDoItemRequest,ToDoItemResponse>
+    public class Update : BaseAsyncEndpoint
+        .WithRequest<UpdateToDoItemRequest>
+        .WithResponse<ToDoItemResponse>
     {
         private readonly IRepository _repository;
 
