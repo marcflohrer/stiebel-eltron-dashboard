@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+    gen:
+        build:
+            args:
+                ConnectionString: "Server=db;Database=master;User=sa;Password=${DatabasePassword};"
+            context: .
+            dockerfile: Dockerfile_DbScaffold
+        volumes:
+            - ./Data/Generated:/app/DbModels:rw       
+        depends_on:
+            - db             
+    db:
+        image: "mcr.microsoft.com/mssql/server:2019-latest"
+        ports:
+            - "1433:1433" 
+            - "1434:1434" 
+            - "1431:1431"
+        volumes:
+            - ./mssql/data:/var/opt/mssql/data:rw
+            - ./mssql/logs:/var/opt/mssql/log:rw
+        environment:
+            SA_PASSWORD: ${DatabasePassword}
+            ACCEPT_EULA: "Y"

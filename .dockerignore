@@ -1,0 +1,12 @@
+# directories
+**/bin/
+**/obj/
+**/out/
+**/mssql/
+
+# files
+Dockerfile*
+*.md
+**/*.md
+stiebel-eltron-apiserver.db
+.env

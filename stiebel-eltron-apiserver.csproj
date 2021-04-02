@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>d1e11783-8483-409b-956e-0f20d5dff1b4</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="mssql\.DS_Store" />
+    <None Remove="mssql\logs\log_3.trc" />
+    <None Remove="mssql\logs\log_2.trc" />
+    <None Remove="mssql\logs\log.trc" />
+    <None Remove="mssql\logs\log_1.trc" />
+    <None Remove="mssql\logs\system_health_0_132613232480020000.xel" />
+    <None Remove="mssql\logs\system_health_0_132613222576970000.xel" />
+    <None Remove="mssql\logs\sqlagentstartup.log" />
+    <None Remove="mssql\logs\errorlog.1" />
+    <None Remove="mssql\logs\system_health_0_132613229238090000.xel" />
+    <None Remove="mssql\logs\HkEngineEventFile_0_132613222493040000.xel" />
+    <None Remove="mssql\logs\HkEngineEventFile_0_132613229171920000.xel" />
+    <None Remove="mssql\logs\errorlog.3" />
+    <None Remove="mssql\logs\HkEngineEventFile_0_132613232427790000.xel" />
+    <None Remove="mssql\logs\errorlog.2" />
+    <None Remove="mssql\logs\errorlog" />
+    <None Remove="mssql\log\log.trc" />
+    <None Remove="mssql\log\system_health_0_132613215790240000.xel" />
+    <None Remove="mssql\log\sqlagentstartup.log" />
+    <None Remove="mssql\log\errorlog.1" />
+    <None Remove="mssql\log\HkEngineEventFile_0_132613215658050000.xel" />
+    <None Remove="mssql\log\errorlog" />
+    <None Remove="mssql\data\.tempdb2.ndf.icloud" />
+    <None Remove="mssql\data\.model_msdbdata.mdf.icloud" />
+    <None Remove="mssql\data\model_msdblog.ldf" />
+    <None Remove="mssql\data\model_replicatedmaster.ldf" />
+    <None Remove="mssql\data\.templog.ldf.icloud" />
+    <None Remove="mssql\data\.model.mdf.icloud" />
+    <None Remove="mssql\data\.master.mdf.icloud" />
+    <None Remove="mssql\data\.msdbdata.mdf.icloud" />
+    <None Remove="mssql\data\.tempdb.mdf.icloud" />
+    <None Remove="mssql\data\Entropy.bin" />
+    <None Remove="mssql\data\.mastlog.ldf.icloud" />
+    <None Remove="mssql\data\.modellog.ldf.icloud" />
+    <None Remove="mssql\data\.model_replicatedmaster.mdf.icloud" />
+    <None Remove="mssql\data\msdblog.ldf" />
+    <None Remove="etc\ssl\openssl.cnf" />
+    <None Remove="stiebel-eltron-apiserver.db" />
+  </ItemGroup>
+  <ItemGroup>    
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4" />
+  </ItemGroup>
+</Project>
