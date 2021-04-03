@@ -3,7 +3,8 @@ services:
     web:
         build:
             args:
-                ConnectionString: "Server=db;Database=master;User=sa;Password=${DatabasePassword};"        
+                ConnectionString: "${DatabaseConnectionString};" 
+                ServiceWeltPassword: "${ServiceWeltPassword}"       
             context: .      
         ports:
             - "80:6003"

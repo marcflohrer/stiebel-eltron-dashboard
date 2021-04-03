@@ -3,7 +3,8 @@ services:
     web:
         build:
             args:
-                ConnectionString: "Server=db;Database=master;User=sa;Password=${DatabasePassword};"
+                ConnectionString: "${DatabaseConnectionString};"
+                ServiceWeltPassword: "${ServiceWeltPassword}"
             context: .
             dockerfile: Dockerfile_DbMigrate    
         ports:

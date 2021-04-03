@@ -93,6 +93,8 @@ First thing should be to change the default database password in the .env file:
 
   ```.env
   DatabasePassword="YourStr0ngP@ssword!"
+  DatabaseConnectionString="Server=db;Database=master;User=sa;Password=YourStr0ngP@ssword!;"
+  ServiceWeltPassword="<Y0urStr0ng$ἔrvicἔWἔltP@sswØrd>"
   ```
 
 To start up the app run
