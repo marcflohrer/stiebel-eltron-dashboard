@@ -24,7 +24,9 @@ namespace StiebelEltronApiServerTests
             }));
             var tidyUpDirtyHtml = autoMoqer.GetMock<ITidyUpDirtyHtml>();
             _ = tidyUpDirtyHtml.Setup(mock => mock.GetTidyHtml(It.IsAny<string>())).Returns(ServiceWeltMockData.HeatPumpWebsiteTidiedUp);
-            var scrapingService = new ScrapingService(serviceWeltFacade.Object, tidyUpDirtyHtml.Object);
+            var xpathService = autoMoqer.Create<XpathService>();
+            autoMoqer.SetInstance<IXpathService>(xpathService);
+            var scrapingService = autoMoqer.Create<ScrapingService>();
 
             // Act
             var result = scrapingService.GetHeatPumpInformationAsync(sessionId, false).Result;
@@ -55,7 +57,9 @@ namespace StiebelEltronApiServerTests
             var tidyUpDirtyHtml = autoMoqer.GetMock<ITidyUpDirtyHtml>();
             _ = tidyUpDirtyHtml.Setup(mock => mock.GetTidyHtml(ServiceWeltMockData.LoginWebSite)).Returns(ServiceWeltMockData.LoginWebSite);
             _ = tidyUpDirtyHtml.Setup(mock => mock.GetTidyHtml(ServiceWeltMockData.HeatPumpWebsite)).Returns(ServiceWeltMockData.HeatPumpWebsiteTidiedUp);
-            var scrapingService = new ScrapingService(serviceWeltFacade.Object, tidyUpDirtyHtml.Object);
+            var xpathService = autoMoqer.Create<XpathService>();
+            autoMoqer.SetInstance<IXpathService>(xpathService);
+            var scrapingService = autoMoqer.Create<ScrapingService>();
 
             // Act
             var result = scrapingService.GetHeatPumpInformationAsync(sessionNotLoggedIn, false).Result;
