@@ -31,7 +31,7 @@ namespace StiebelEltronApiServerTests
         [InlineData(14)]
         [InlineData(15)]
         [InlineData(16)]
-        public void WhenScrapingServiceWeltTotalPowerConsumptionIsReturned(int testDataIndex)
+        public void WhenTidyingUpCleanHtmlSameIsReturned(int testDataIndex)
         {
             var autoMoqer = new AutoMoqer();
             var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
@@ -42,6 +42,18 @@ namespace StiebelEltronApiServerTests
             _output.WriteLine("Testing TestSnippet" +testDataIndex +".html" );
             var tidyHtml = tidyUpDirtyHtml.GetTidyHtml(inputHtml);
 
+            Assert.Equal(outputHtml, tidyHtml);
+        }
+
+        [Fact]
+        public void WhenTidyingUpDirtyHtmlTidyHtmlIsReturned()
+        {
+            var autoMoqer = new AutoMoqer();
+            var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
+            var inputHtml = ServiceWeltMockData.HeatPumpWebsite;
+            var outputHtml = ServiceWeltMockData.HeatPumpWebsiteTidiedUp;
+            
+            var tidyHtml = tidyUpDirtyHtml.GetTidyHtml(inputHtml);
             Assert.Equal(outputHtml, tidyHtml);
         }
     }

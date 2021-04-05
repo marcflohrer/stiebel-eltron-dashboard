@@ -9,12 +9,16 @@ namespace StiebelEltronApiServer.Services
     public class TidyUpDirtyHtml : ITidyUpDirtyHtml
     {
         
+        private MatchCollection GetMatches(string input, string pattern)
+        {
+            var devTagRegex = new Regex(pattern);
+            return devTagRegex.Matches(input);
+        }
+
         public string GetTidyHtml(string dirtyHtml)
         {
-            string htmlTagPattern = "<[A-z \"=\\/:.0-9#!?;,)_(-]+[/]*>";
-            Regex htmlTagRegex = new Regex(htmlTagPattern);
+            var tags = GetMatches(dirtyHtml, "<[A-z \"=\\/:.0-9%#!?;,)_(-]+[/]*>");
             var tagStack = new Stack<TagContext>();
-            var tags = htmlTagRegex.Matches(dirtyHtml);
 
             var openingTagNameRegex = new Regex("(?<=<)[A-z]+");
             var closingTagNameRegex = new Regex("(?<=</)[A-z]+");
