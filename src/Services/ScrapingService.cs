@@ -39,14 +39,14 @@ namespace StiebelEltronApiServer.Services
             var tidyHtml = _tidyUpDirtyHtml.GetTidyHtml(dirtyHtml);
             htmlDocument.LoadHtml(tidyHtml);
             var documentNode = htmlDocument.DocumentNode;
-            var rawTotalPowerConsumption = _xpathService.GetValueFor(htmlDocument, ScrapingValue.TotalPowerConsumption);
-            
-            if (rawTotalPowerConsumption == null && !retry)
+            var totalPowerConsumption = _xpathService.GetValueFor(htmlDocument, ScrapingValue.TotalPowerConsumption);
+
+            if (totalPowerConsumption == null && !retry)
             {
                 sessionId = await _serviceWeltFacade.LoginAsync();
                 return await GetHeatPumpInformationAsync(sessionId, true);
             }
-            else if (rawTotalPowerConsumption == null && retry)
+            else if (totalPowerConsumption == null && retry)
             {
                 throw new Exception($"Unknown error while scraping ServiceWelt website.");
             }
@@ -55,7 +55,7 @@ namespace StiebelEltronApiServer.Services
                 _sessionId = serviceWelt.SessionId;
                 return new HeatPump
                 {
-                    TotalPowerConsumption = rawTotalPowerConsumption
+                    TotalPowerConsumption = totalPowerConsumption
                 };
             }
             throw new Exception($"Login failed for user!");

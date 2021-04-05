@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using StiebelEltronApiServer.Services;
 
 namespace StiebelEltronApiserver
 {
@@ -40,6 +40,10 @@ namespace StiebelEltronApiserver
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
+            services.AddTransient<IXpathService, XpathService>()
+                .AddTransient<ITidyUpDirtyHtml, TidyUpDirtyHtml>()
+                .AddTransient<IScrapingService, ScrapingService>()
+                .AddTransient<IServiceWeltFacade, ServiceWeltFacade>();
 
             services.AddIdentityCore<ApplicationUser>()
                 .AddRoles<IdentityRole>()

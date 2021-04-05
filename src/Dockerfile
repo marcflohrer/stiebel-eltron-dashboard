@@ -10,7 +10,7 @@ FROM build AS publish
 RUN dotnet publish -c Release -o /app --runtime linux-musl-x64 stiebel-eltron-apiserver.csproj
 RUN chmod +x ./stiebel-eltron-apiserver
 
-FROM mcr.microsoft.com/dotnet/runtime-deps:5.0-alpine AS final
+FROM mcr.microsoft.com/dotnet/runtime-deps:5.0.4-alpine3.13 AS final
 ARG ConnectionString=default_connection_string
 ENV ConnectionString=$ConnectionString
 
