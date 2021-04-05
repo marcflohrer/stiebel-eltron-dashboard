@@ -93,8 +93,7 @@ namespace StiebelEltronApiServer.Services
             }
             
             dirtyHtml = dirtyHtml.Replace("&nbsp;", string.Empty);
-            var cleanerHtml = dirtyHtml.Replace("&copy;", string.Empty);
-            return cleanerHtml;
+            return dirtyHtml.Replace("&copy;", string.Empty);
         }
     }
 
