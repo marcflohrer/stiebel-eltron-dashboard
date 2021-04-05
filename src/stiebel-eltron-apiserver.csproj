@@ -44,6 +44,11 @@
     <None Remove="mssql\data\msdblog.ldf" />
     <None Remove="etc\ssl\openssl.cnf" />
     <None Remove="stiebel-eltron-apiserver.db" />
+    <None Remove="stiebel-eltron-apiserver-tests\obj\Debug\net5.0\stiebel-eltron-apiserver-tests.csprojAssemblyReference.cache" />
+    <None Remove="stiebel-eltron-apiserver-tests\obj\stiebel-eltron-apiserver-tests.csproj.nuget.g.props" />
+    <None Remove="stiebel-eltron-apiserver-tests\obj\stiebel-eltron-apiserver-tests.csproj.nuget.g.targets" />
+    <None Remove="stiebel-eltron-apiserver-tests\obj\project.nuget.cache" />
+    <None Remove="stiebel-eltron-apiserver-tests\obj\Debug\net5.0\stiebel-eltron-apiserver-tests.assets.cache" />
   </ItemGroup>
   <ItemGroup>    
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
@@ -54,5 +59,13 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.32" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="stiebel-eltron-apiserver-tests\UnitTest1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="stiebel-eltron-apiserver-tests\obj\project.assets.json" />
+    <Content Remove="stiebel-eltron-apiserver-tests\obj\stiebel-eltron-apiserver-tests.csproj.nuget.dgspec.json" />
   </ItemGroup>
 </Project>

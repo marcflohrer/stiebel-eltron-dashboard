@@ -3,17 +3,20 @@ services:
     web:
         build:
             args:
-                ConnectionString: "${DatabaseConnectionString};"
+                ConnectionString: "${DatabaseConnectionString};" 
+                ServiceWeltUser: "${ServiceWeltUser}"
                 ServiceWeltPassword: "${ServiceWeltPassword}"
-            context: .
-            dockerfile: Dockerfile_DbMigrate    
+                ServiceWeltUrl: "${ServiceWeltUrl}"       
+            context: .      
         ports:
             - "80:6003"
             - "443:6004"
         volumes:
-            - ./web/root/.aspnet/DataProtection-Keys:/root/.aspnet/DataProtection-Keys:rw            
+            - ./web/root/.aspnet/DataProtection-Keys:/root/.aspnet/DataProtection-Keys:rw
+        environment:
+            DOTNET_CLI_TELEMETRY_OPTOUT: 1
         depends_on:
-            - db
+            - db            
     db:
         image: "mcr.microsoft.com/mssql/server:2019-latest"
         ports:

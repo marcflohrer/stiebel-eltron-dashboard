@@ -15,21 +15,8 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![Apache 2.0 License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
-
-
-<!-- PROJECT LOGO -->
 <br />
-<p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
   <h3 align="center">SQL Server on Linux + ASP.NET 5.0 stiebel-eltron-apiserver demo</h3>
 
@@ -85,6 +72,8 @@ This section lists major frameworks and projects that were used:
 * [Asp.net](https://dotnet.microsoft.com/apps/aspnet)
 * [SQL Server on Linux](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-overview?view=sql-server-ver15)
 * [aspnetcore/src/Identity/samples/IdentitySample.Mvc/](https://github.com/dotnet/aspnetcore/tree/main/src/Identity/samples/IdentitySample.Mvc)
+* [EntityFramework Core](https://docs.microsoft.com/en-us/ef/core/)
+* [HTML Agility Pack](https://github.com/zzzprojects/html-agility-pack)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -94,7 +83,9 @@ First thing should be to change the default database password in the .env file:
   ```.env
   DatabasePassword="YourStr0ngP@ssword!"
   DatabaseConnectionString="Server=db;Database=master;User=sa;Password=YourStr0ngP@ssword!;"
+  ServiceWeltUser="<My-ServiceWelt-User-Name-Goes-here>"
   ServiceWeltPassword="<Y0urStr0ng$ἔrvicἔWἔltP@sswØrd>"
+  ServiceWeltUrl="http://192.XXX.XXX"
   ```
 
 To start up the app run
@@ -137,22 +128,8 @@ You need docker and docker-compose on the machine where you want to run the appl
 
 3. Start the app:
 
-  ```sh
-  startup-app.sh
-  ```
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+   ```sh
+   startup-app.sh
+   ```
+  
+4. Open [http://localhost](http://localhost) in any browser.

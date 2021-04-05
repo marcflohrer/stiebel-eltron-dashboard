@@ -1,16 +1,21 @@
 version: "3.9"
 services:
-    gen:
+    web:
         build:
             args:
                 ConnectionString: "${DatabaseConnectionString};"
+                ServiceWeltUser: "${ServiceWeltUser}"
                 ServiceWeltPassword: "${ServiceWeltPassword}"
+                ServiceWeltUrl: "${ServiceWeltUrl}"
             context: .
-            dockerfile: Dockerfile_DbScaffold
+            dockerfile: Dockerfile_DbMigrate    
+        ports:
+            - "80:6003"
+            - "443:6004"
         volumes:
-            - ./Data/Generated:/app/DbModels:rw       
+            - ./web/root/.aspnet/DataProtection-Keys:/root/.aspnet/DataProtection-Keys:rw            
         depends_on:
-            - db             
+            - db
     db:
         image: "mcr.microsoft.com/mssql/server:2019-latest"
         ports:
