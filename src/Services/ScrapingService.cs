@@ -22,40 +22,46 @@ namespace StiebelEltronApiServer.Services
             _tidyUpDirtyHtml = tidyUpDirtyHtml;
         }
 
-        public async Task<HeatPump> GetHeatPumpInformationAsync(bool retry)
+        public async Task<HeatPump> GetHeatPumpInformationAsync(){
+            return await GetHeatPumpInformationAsync(string.Empty, false);
+        }
+
+        public async Task<HeatPump> GetHeatPumpInformationAsync(string sessionId = "", bool retry = false)
         {
+            if(!string.IsNullOrEmpty(sessionId) && string.IsNullOrEmpty(_sessionId)){
+                _sessionId = sessionId;
+            }else if(!string.IsNullOrEmpty(_sessionId) && string.IsNullOrEmpty(sessionId)){
+                sessionId = _sessionId;
+            }
             var htmlDocument = new HtmlDocument();
-            var content = await _serviceWeltFacade.GetHeatPumpWebsiteAsync(_sessionId);
-            _sessionId = content.SessionId;
-            var dirtyHtml = content.HtmlDocument;
+            var serviceWelt = await _serviceWeltFacade.GetHeatPumpWebsiteAsync(sessionId);
+            _sessionId = serviceWelt.SessionId;
+            var dirtyHtml = serviceWelt.HtmlDocument;
             var tidyHtml = _tidyUpDirtyHtml.GetTidyHtml(dirtyHtml);
             htmlDocument.LoadHtml(tidyHtml);
             var documentNode = htmlDocument.DocumentNode;
             var rawTotalPowerConsumption = documentNode
-                .SelectSingleNode(xpathOfElement["totalPowerConsumption"])?.InnerText ?? "Node not found!";
-            return new HeatPump{
-                TotalPowerConsumption = rawTotalPowerConsumption
-            };
-
-            /*if (totalPowerConsumptionUnparsed == null && !retry)
+                .SelectSingleNode(xpathOfElement["totalPowerConsumption"])?
+                .InnerText;
+            
+            if (rawTotalPowerConsumption == null && !retry)
             {
-                _sessionId = await _serviceWeltFacade.LoginAsync();
-                return await GetHeatPumpInformationAsync(true);
+                sessionId = await _serviceWeltFacade.LoginAsync();
+                return await GetHeatPumpInformationAsync(sessionId, true);
             }
-            else if (totalPowerConsumptionUnparsed == null && retry)
+            else if (rawTotalPowerConsumption == null && retry)
             {
                 throw new Exception($"Unknown error while scraping ServiceWelt website.");
             }
             else
             {
-                _sessionId = content.SessionId;
+                _sessionId = serviceWelt.SessionId;
                 return new HeatPump
                 {
-                    TotalPowerConsumption = totalPowerConsumptionUnparsed
+                    TotalPowerConsumption = rawTotalPowerConsumption
                 };
             }
             throw new Exception($"Login failed for user!");
-            */
         }
     }
 }

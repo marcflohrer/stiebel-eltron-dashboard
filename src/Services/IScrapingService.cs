@@ -5,6 +5,7 @@ namespace StiebelEltronApiServer.Services
 {
     public interface IScrapingService
     {
-        public Task<HeatPump> GetHeatPumpInformationAsync(bool retry = false);
+        public Task<HeatPump> GetHeatPumpInformationAsync();
+        public Task<HeatPump> GetHeatPumpInformationAsync(string sessionId = "", bool retry = false);
     }
 }
