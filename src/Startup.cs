@@ -41,6 +41,7 @@ namespace StiebelEltronApiserver
 
             services.AddMvc();
             services.AddTransient<IXpathService, XpathService>()
+                .AddTransient<IHtmlParser, HtmlParser>()
                 .AddTransient<ITidyUpDirtyHtml, TidyUpDirtyHtml>()
                 .AddTransient<IScrapingService, ScrapingService>()
                 .AddTransient<IServiceWeltFacade, ServiceWeltFacade>();

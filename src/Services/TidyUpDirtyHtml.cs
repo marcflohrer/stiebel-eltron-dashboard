@@ -1,98 +1,54 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using static StiebelEltronApiServer.Services.Tags;
 
-namespace StiebelEltronApiServer.Services
-{
-    public class TidyUpDirtyHtml : ITidyUpDirtyHtml
-    {
-        
-        private MatchCollection GetMatches(string input, string pattern)
-        {
-            var devTagRegex = new Regex(pattern);
-            return devTagRegex.Matches(input);
+namespace StiebelEltronApiServer.Services {
+    public class TidyUpDirtyHtml : ITidyUpDirtyHtml {
+        private readonly IHtmlParser _htmlParser;
+        public TidyUpDirtyHtml (IHtmlParser htmlParser) {
+            _htmlParser = htmlParser;
+        }
+        private MatchCollection GetMatches (string input, string pattern) {
+            var devTagRegex = new Regex (pattern);
+            return devTagRegex.Matches (input);
         }
 
-        public string GetTidyHtml(string dirtyHtml)
-        {
-            var tags = GetMatches(dirtyHtml, "<[A-z \"=\\/:.0-9%#!?;,)_(-]+[/]*>");
-            var tagStack = new Stack<TagContext>();
+        public string GetTidyHtml (string dirtyHtml) {
+            var tags = GetMatches (dirtyHtml, "<[A-z \"=\\/:.0-9%#!?;,)_(-]+[/]*>");
 
-            var openingTagNameRegex = new Regex("(?<=<)[A-z]+");
-            var closingTagNameRegex = new Regex("(?<=</)[A-z]+");
-            var tagIdRegex = new Regex("(?<= [A-z]+=\")[A-z ]+(?=\")");
-            var currentPosition = 0;
-            var unopenedTags = new List<SubStringIndices>();
-            foreach (Match match in tags)
-            {
-                currentPosition = match.Index;
-                // skip self-closing tags
-                if(match.Value.EndsWith("/>"))
-                {
-                    continue;
-                }
-                // skip comments
-                if(match.Value.StartsWith("<!--"))
-                {
-                    continue;
-                }
-                if(match.Value.StartsWith("</"))
-                {
-                    var tagName = closingTagNameRegex.Match(match.Value);
-                    // skip <?xml tag
-                    if(string.IsNullOrEmpty(tagName.Value))
-                    {
-                        continue;
-                    }
-                    var tag = tagName.Value;
-                    var recentOpenTag = tagStack.Peek().tag;
-                    if(tag == recentOpenTag)
-                    {
-                        tagStack.Pop();
-                    }
-                    else if(tag != recentOpenTag)
-                    {
-                        var endPosition = currentPosition + match.Value.Length - 1;
-                        Console.WriteLine("Found unopened tag at position: " + currentPosition + ", end position: " + endPosition);
-                        unopenedTags.Add(new SubStringIndices(currentPosition, endPosition));
-                    }
-                }else if(match.Value.StartsWith("<"))
-                {
-                    var tagName = openingTagNameRegex.Match(match.Value);
-                    // skip <?xml tag
-                    if(string.IsNullOrEmpty(tagName.Value))
-                    {
-                        continue;
-                    }
-                    if(!Tags.TagMap.ContainsKey(tagName.Value)){
-                        Console.WriteLine("Custom tag detected: " + tagName.Value);
-                    }
-                    var tag = tagName.Value;
-                    var tagId = tagIdRegex.Match(match.Value);
-                    tagStack.Push(new TagContext(tag, tagId.Value));
-                }
-            }
-            var dirtyHtmlCharArray = dirtyHtml.ToCharArray();
-            foreach(var unopenedTag in unopenedTags)
-            {
+            var scanResult = _htmlParser.ParseTagTree (dirtyHtml, tags);
+            var tagStack = scanResult.tagStack;
+            var unopenedTags = scanResult.unopenedTags;
+
+            var dirtyHtmlCharArray = dirtyHtml.ToCharArray ();
+            dirtyHtml = RemoveUnopenedTags (dirtyHtmlCharArray, unopenedTags);
+            dirtyHtml = CloseUnclosedTags (dirtyHtml, tagStack);
+
+            dirtyHtml = dirtyHtml.Replace ("&nbsp;", string.Empty);
+            return dirtyHtml.Replace ("&copy;", string.Empty);
+        }
+
+        private static string RemoveUnopenedTags (char[] dirtyHtmlCharArray, IReadOnlyList<SubStringIndices> unopenedTags) {
+            foreach (var unopenedTag in unopenedTags) {
                 var i = unopenedTag.start;
-                do{
+                do {
                     dirtyHtmlCharArray[i] = ' ';
                 }
-                while(i++ < unopenedTag.end);
+                while (i++ < unopenedTag.end);
             }
-            dirtyHtml = new string(dirtyHtmlCharArray);
-            while(tagStack.TryPop(out var unclosedTag))
-            {
-                dirtyHtml += "</"+unclosedTag+">";
+            return new string (dirtyHtmlCharArray);
+        }
+
+        private static string CloseUnclosedTags (string dirtyHtml, Stack<TagContext> tagStack) {
+            while (tagStack.TryPop (out var unclosedTag)) {
+                dirtyHtml += "</" + unclosedTag + ">";
             }
-            
-            dirtyHtml = dirtyHtml.Replace("&nbsp;", string.Empty);
-            return dirtyHtml.Replace("&copy;", string.Empty);
+
+            return dirtyHtml;
         }
     }
+    
+    public record SubStringIndices (int start, double end);
 
-    public record SubStringIndices(int start, double end);
 }

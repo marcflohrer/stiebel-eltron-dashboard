@@ -34,6 +34,8 @@ namespace StiebelEltronApiServerTests
         public void WhenTidyingUpCleanHtmlSameIsReturned(int testDataIndex)
         {
             var autoMoqer = new AutoMoqer();
+            var htmlParser = autoMoqer.Create<HtmlParser>();
+            autoMoqer.SetInstance<IHtmlParser>(htmlParser);
             var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
             var inputHtml = ServiceWeltMockData.GetHtml(testDataIndex);
             var outputHtml = inputHtml.Replace("&nbsp;", string.Empty);
@@ -49,6 +51,8 @@ namespace StiebelEltronApiServerTests
         public void WhenTidyingUpDirtyHtmlTidyHtmlIsReturned()
         {
             var autoMoqer = new AutoMoqer();
+            var htmlParser = autoMoqer.Create<HtmlParser>();
+            autoMoqer.SetInstance<IHtmlParser>(htmlParser);
             var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
             var inputHtml = ServiceWeltMockData.HeatPumpWebsite;
             var outputHtml = ServiceWeltMockData.HeatPumpWebsiteTidiedUp;
