@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
-using StiebelEltronApiserver.Models;
-using StiebelEltronApiserver.Models.ManageViewModels;
-using StiebelEltronApiserver.Services;
+using StiebelEltronApiServer.Models;
+using StiebelEltronApiServer.Models.ManageViewModels;
+using StiebelEltronApiServer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

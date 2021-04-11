@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace StiebelEltronApiserver.Models.ManageViewModels
+namespace StiebelEltronApiServer.Models.ManageViewModels
 {
     public class ConfigureTwoFactorViewModel
     {

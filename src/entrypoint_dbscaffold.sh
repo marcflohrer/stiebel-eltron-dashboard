@@ -46,4 +46,4 @@ done
 
 >&2 echo "SQL Server is up - starting scaffolding ..."
 dotnet user-secrets init && dotnet user-secrets set "${ConnectionStringName}" "Server=db;Database=master;User=sa;Password=$1;"
-dotnet ef dbcontext scaffold Name="${ConnectionStringName}" Microsoft.EntityFrameworkCore.SqlServer -o DbModels -f --context ApplicationDb --context-dir DbModels --namespace StiebelEltronApiserver.Models --context-namespace StiebelEltronApiserver.Models
+dotnet ef dbcontext scaffold Name="${ConnectionStringName}" Microsoft.EntityFrameworkCore.SqlServer -o DbModels -f --context ApplicationDb --context-dir DbModels --namespace StiebelEltronApiServer.Models --context-namespace StiebelEltronApiServer.Models

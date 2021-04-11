@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>d1e11783-8483-409b-956e-0f20d5dff1b4</UserSecretsId>
+    <RootNamespace>StiebelEltronApiServer</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

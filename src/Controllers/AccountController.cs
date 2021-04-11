@@ -1,16 +1,16 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using StiebelEltronApiserver.Models.AccountViewModels;
-using StiebelEltronApiserver.Models;
-using StiebelEltronApiserver.Services;
+using StiebelEltronApiServer.Models.AccountViewModels;
+using StiebelEltronApiServer.Models;
+using StiebelEltronApiServer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
-namespace StiebelEltronApiserver.Controllers
+namespace StiebelEltronApiServer.Controllers
 {
     [Authorize]
     public class AccountController : Controller

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StiebelEltronApiserver.Models.AccountViewModels
+namespace StiebelEltronApiServer.Models.AccountViewModels
 {
     public class RegisterViewModel
     {

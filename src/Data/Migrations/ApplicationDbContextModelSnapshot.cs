@@ -1,10 +1,10 @@
 using System;
-using StiebelEltronApiserver.Models;
+using StiebelEltronApiServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace StiebelEltronApiserver.Data.Migrations
+namespace StiebelEltronApiServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

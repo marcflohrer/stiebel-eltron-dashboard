@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace StiebelEltronApiserver.Models.AccountViewModels
+namespace StiebelEltronApiServer.Models.AccountViewModels
 {
     public class SendCodeViewModel
     {

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace StiebelEltronApiserver.Services
+namespace StiebelEltronApiServer.Services
 {
     public interface IEmailSender
     {

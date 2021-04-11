@@ -1,11 +1,11 @@
 using System;
-using StiebelEltronApiserver.Models;
+using StiebelEltronApiServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace StiebelEltronApiserver.Data.Migrations
+namespace StiebelEltronApiServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]

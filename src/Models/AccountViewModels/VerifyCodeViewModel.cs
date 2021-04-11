@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StiebelEltronApiserver.Models.AccountViewModels
+namespace StiebelEltronApiServer.Models.AccountViewModels
 {
     public class VerifyCodeViewModel
     {

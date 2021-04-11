@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace StiebelEltronApiserver
+namespace StiebelEltronApiServer
 {
     public static class MessageServices
     {

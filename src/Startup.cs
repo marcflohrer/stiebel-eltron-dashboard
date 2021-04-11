@@ -1,5 +1,5 @@
-using StiebelEltronApiserver.Models;
-using StiebelEltronApiserver.Services;
+using StiebelEltronApiServer.Models;
+using StiebelEltronApiServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using StiebelEltronApiServer.Services;
 
-namespace StiebelEltronApiserver
+namespace StiebelEltronApiServer
 {
     public class Startup
     {

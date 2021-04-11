@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace StiebelEltronApiserver.Models
+namespace StiebelEltronApiServer.Models
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser

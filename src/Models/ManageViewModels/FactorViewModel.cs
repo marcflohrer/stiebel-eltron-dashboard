@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StiebelEltronApiserver.Models.ManageViewModels
+namespace StiebelEltronApiServer.Models.ManageViewModels
 {
     public class FactorViewModel
     {

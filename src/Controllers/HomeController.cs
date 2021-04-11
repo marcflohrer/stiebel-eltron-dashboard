@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace StiebelEltronApiserver.Controllers
+namespace StiebelEltronApiServer.Controllers
 {
     public class HomeController : Controller
     {
