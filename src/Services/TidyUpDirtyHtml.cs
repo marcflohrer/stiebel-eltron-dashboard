@@ -46,10 +46,7 @@ namespace StiebelEltronApiServer.Services
                     {
                         continue;
                     }
-                    if(!Tags.TagMap.ContainsKey(tagName.Value)){
-                        throw new Exception("Unknown tag: " + tagName.Value);
-                    }
-                    var tag = Tags.TagMap[tagName.Value];
+                    var tag = tagName.Value;
                     var recentOpenTag = tagStack.Peek().tag;
                     if(tag == recentOpenTag)
                     {
@@ -70,9 +67,9 @@ namespace StiebelEltronApiServer.Services
                         continue;
                     }
                     if(!Tags.TagMap.ContainsKey(tagName.Value)){
-                        throw new Exception("Unknown tag: " + tagName.Value);
+                        Console.WriteLine("Custom tag detected: " + tagName.Value);
                     }
-                    var tag = Tags.TagMap[tagName.Value];
+                    var tag = tagName.Value;
                     var tagId = tagIdRegex.Match(match.Value);
                     tagStack.Push(new TagContext(tag, tagId.Value));
                 }

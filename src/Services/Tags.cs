@@ -113,7 +113,7 @@ namespace StiebelEltronApiServer.Services
           { "video", Tag.video },
           { "wbr", Tag.wbr }, 
       };
-      public record TagContext(Tag tag, string id);
+      public record TagContext(string tag, string id);
       public enum Tag
         {
             a,
