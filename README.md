@@ -71,7 +71,7 @@ This section lists major frameworks and projects that were used:
 * [docker](https://docs.docker.com/)
 * [Asp.net](https://dotnet.microsoft.com/apps/aspnet)
 * [SQL Server on Linux](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-overview?view=sql-server-ver15)
-* [aspnetcore/src/Identity/samples/IdentitySample.Mvc/](https://github.com/dotnet/aspnetcore/tree/main/src/Identity/samples/IdentitySample.Mvc)
+* [aspnetcore/src/Identity/samples/IdentitySample.Mvc/](https://github.com/dotnet/aspnetcore/tree/main/src/Identity/samples/IdentitySample.Mvc) that is [licensed under Apache 2.0](legal/aspnetcore/LICENSE)
 * [EntityFramework Core](https://docs.microsoft.com/en-us/ef/core/)
 * [HTML Agility Pack](https://github.com/zzzprojects/html-agility-pack)
 * [Xunit](https://xunit.net/)
