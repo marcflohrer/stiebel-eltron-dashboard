@@ -2,8 +2,9 @@
 using StiebelEltronApiServer.Models;
 using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace StiebelEltronApiServer.Services
@@ -24,20 +25,15 @@ namespace StiebelEltronApiServer.Services
 
         public async Task<ServiceWelt> GetHeatPumpWebsiteAsync(string sessionId)
         {
+            var body = $"make=send&user={_serviceWeltUser}&pass={_serviceWeltPassword}";
             var heatPumpUrl = BuildHeatPumpUrl(_serviceWeltBaseUrl);
-            var httpResponseMessage = await GetUrl(_serviceWeltBaseUrl, heatPumpUrl, sessionId);
+            var httpResponseMessage = await PostUrl(_serviceWeltBaseUrl, heatPumpUrl, body, new Guid().ToString());;
             var content = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (httpResponseMessage.Headers.TryGetValues("Cookie", out var sessId))
-            {
-                sessionId = sessId.FirstOrDefault()?.Split("=")[1] ?? "No sessionId found in " + sessId.FirstOrDefault();
-            }
             return new ServiceWelt()
             {
-                HtmlDocument = content,
-                SessionId = sessionId
+                HtmlDocument = content
             };
         }
-
 
         private string BuildHeatPumpUrl(string baseUrl)
         {
@@ -51,42 +47,40 @@ namespace StiebelEltronApiServer.Services
             return heatPumpUrl;
         }
 
-        private static HttpClient BuildHttpClient(string baseUrl, string sessionId)
+        private static HttpClient BuildHttpClient(string baseUrl, string sessionId, HttpClientHandler handler)
         {
-            var httpClient = new HttpClient();
+            var httpClient = new HttpClient(handler);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.BaseAddress = new Uri(baseUrl);
-            httpClient.DefaultRequestHeaders
-                .Accept
-                .Add(new MediaTypeWithQualityHeaderValue("text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"));
-            httpClient.DefaultRequestHeaders.Add("Content-Type", "application/x-www-form-urlencoded");
-            httpClient.DefaultRequestHeaders.Add("Sec-GPC", "1");
-            httpClient.DefaultRequestHeaders.Add("Referer", baseUrl);
-            httpClient.DefaultRequestHeaders.Add("Accept-Language", "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7");
             httpClient.DefaultRequestHeaders.Add("Cookie", $"PHPSESSID={sessionId}");
+            httpClient.DefaultRequestHeaders.Add("accept-language", "de-DE");
+            httpClient.DefaultRequestHeaders.Add("accept", "application/xhtml+xml");
+            httpClient.DefaultRequestHeaders.Add("accept-encoding", "gzip, deflate");
+            httpClient.DefaultRequestHeaders.Add("Referer", baseUrl);
             return httpClient;
         }
 
         private static async Task<HttpResponseMessage> PostUrl(string baseUrl, string fullUrl, string content, string sessionId)
         {
-            var httpClient = BuildHttpClient(baseUrl, sessionId);
-            var response = httpClient.PostAsync(fullUrl, new StringContent(content));
-            return await response;
-        }
-
-        public async Task<string> LoginAsync()
-        {
-            var response = await PostUrl(_serviceWeltBaseUrl, _serviceWeltBaseUrl, $"make=send&user={_serviceWeltUser}&pass={_serviceWeltPassword}", new Guid().ToString());
-            if (response.Headers.TryGetValues("PHPSESSID", out var phpSessionIds))
-            {
-                return phpSessionIds.FirstOrDefault();
-            }
-            throw new Exception($"Login failed for user {_serviceWeltUser}! ");
+            CookieContainer cookieContainer = new CookieContainer();
+            using HttpClientHandler handler = new HttpClientHandler{
+                UseDefaultCredentials = true,
+                AllowAutoRedirect = true,
+                UseCookies = true,
+                CookieContainer = cookieContainer
+            };
+            using var httpClient = BuildHttpClient(baseUrl, sessionId, handler);
+            var response = await httpClient.PostAsync(fullUrl, new StringContent(content, Encoding.ASCII, "application/x-www-form-urlencoded"));
+            response.EnsureSuccessStatusCode();
+            return response;
         }
 
         private static async Task<HttpResponseMessage> GetUrl(string baseUrl, string fullUrl, string sessionId)
         {
-            var httpClient = BuildHttpClient(baseUrl, sessionId);
+            using var httpClientHandler = new HttpClientHandler{
+                UseCookies = true
+            };
+            using var httpClient = BuildHttpClient(baseUrl, sessionId, httpClientHandler);
             var httpResponseMessage = httpClient.GetAsync(fullUrl);
             return await httpResponseMessage;
         }

@@ -47,6 +47,24 @@ namespace StiebelEltronApiServerTests
             Assert.Equal(outputHtml, tidyHtml);
         }
 
+        [Theory]
+        [InlineData("<a><b></a>", "<a><b></b></a>")]
+        [InlineData("<a><b><p></p></a>", "<a><b><p></p></b></a>")]
+        [InlineData("<a><p></p></b></a>", "<a><p></p>    </a>")]
+        public void WhenTidyingUpCleanHtmlIsReturned(string dirtyHtml, string exptectedTidyHtml)
+        {
+            var autoMoqer = new AutoMoqer();
+            var htmlParser = autoMoqer.Create<HtmlParser>();
+            autoMoqer.SetInstance<IHtmlParser>(htmlParser);
+            var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
+            
+            _output.WriteLine($"Cleaning {dirtyHtml}" );
+            var actualTidyHtml = tidyUpDirtyHtml.GetTidyHtml(dirtyHtml);
+            _output.WriteLine($"Cleaned: {actualTidyHtml}" );
+
+            Assert.Equal(exptectedTidyHtml, actualTidyHtml);
+        }        
+
         [Fact]
         public void WhenTidyingUpDirtyHtmlTidyHtmlIsReturned()
         {

@@ -2,12 +2,14 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 ARG ConnectionString=default_connection_string
 ENV ConnectionString=$ConnectionString
 WORKDIR /app
+COPY stiebel-eltron-apiserver.csproj .
+RUN dotnet restore
 COPY . .
-RUN ["dotnet", "restore"]
-RUN ["dotnet", "build"]
+RUN dotnet build stiebel-eltron-apiserver.csproj -c Release -o /app/build
 RUN chmod +x ./entrypoint_dbscaffold.sh
+
 FROM build AS publish
-RUN ["dotnet", "publish", "stiebel-eltron-apiserver.csproj", "-c", "Release", "-o", "/app" ]
+RUN dotnet publish stiebel-eltron-apiserver.csproj -c Release -o /app
 FROM publish AS final
 WORKDIR /app
 COPY --from=publish /app/entrypoint_dbscaffold.sh .

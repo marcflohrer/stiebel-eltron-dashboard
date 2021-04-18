@@ -19,7 +19,6 @@ namespace StiebelEltronApiServerTests
             var serviceWeltFacade = autoMoqer.GetMock<IServiceWeltFacade>();
             _ = serviceWeltFacade.Setup(mock => mock.GetHeatPumpWebsiteAsync(It.IsAny<string>())).Returns(Task.FromResult(new ServiceWelt()
             {
-                SessionId = sessionId,
                 HtmlDocument = ServiceWeltMockData.HeatPumpWebsite
             }));
             var tidyUpDirtyHtml = autoMoqer.GetMock<ITidyUpDirtyHtml>();
@@ -29,10 +28,10 @@ namespace StiebelEltronApiServerTests
             var scrapingService = autoMoqer.Create<ScrapingService>();
 
             // Act
-            var result = scrapingService.GetHeatPumpInformationAsync(sessionId, false).Result;
+            var result = scrapingService.GetHeatPumpInformationAsync(sessionId).Result;
 
             // Assert
-            Assert.Equal("17,739MWh", result.TotalPowerConsumption);
+            Assert.Equal(17739000.0, result.TotalPowerConsumption);
         }
 
         [Fact]
@@ -44,16 +43,8 @@ namespace StiebelEltronApiServerTests
             var sessionNotLoggedIn = "NOTLOGGEDIN";
             _ = serviceWeltFacade.Setup(mock => mock.GetHeatPumpWebsiteAsync(It.Is<string>(i => i == sessionNotLoggedIn))).Returns(Task.FromResult(new ServiceWelt()
             {
-                SessionId = sessionNotLoggedIn,
-                HtmlDocument = ServiceWeltMockData.LoginWebSite
-            }));
-            var sessionLoggedIn = "LOGGEDIN";
-            _ = serviceWeltFacade.Setup(mock => mock.GetHeatPumpWebsiteAsync(It.Is<string>(i => i == sessionLoggedIn))).Returns(Task.FromResult(new ServiceWelt()
-            {
-                SessionId = sessionLoggedIn,
                 HtmlDocument = ServiceWeltMockData.HeatPumpWebsite
             }));
-            serviceWeltFacade.Setup(mock => mock.LoginAsync()).Returns(Task.FromResult(sessionLoggedIn));
             var tidyUpDirtyHtml = autoMoqer.GetMock<ITidyUpDirtyHtml>();
             _ = tidyUpDirtyHtml.Setup(mock => mock.GetTidyHtml(ServiceWeltMockData.LoginWebSite)).Returns(ServiceWeltMockData.LoginWebSite);
             _ = tidyUpDirtyHtml.Setup(mock => mock.GetTidyHtml(ServiceWeltMockData.HeatPumpWebsite)).Returns(ServiceWeltMockData.HeatPumpWebsiteTidiedUp);
@@ -62,11 +53,10 @@ namespace StiebelEltronApiServerTests
             var scrapingService = autoMoqer.Create<ScrapingService>();
 
             // Act
-            var result = scrapingService.GetHeatPumpInformationAsync(sessionNotLoggedIn, false).Result;
+            var result = scrapingService.GetHeatPumpInformationAsync(sessionNotLoggedIn).Result;
 
             // Assert
-            Assert.Equal("17,739MWh", result.TotalPowerConsumption);
-            serviceWeltFacade.Verify(mock => mock.LoginAsync(), Times.Once);
+            Assert.Equal(17739000.0, result.TotalPowerConsumption);
         }
     }
 }

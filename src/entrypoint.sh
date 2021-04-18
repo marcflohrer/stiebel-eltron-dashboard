@@ -11,7 +11,7 @@ apk update && apk add wget && \
   apk add libgdiplus --repository https://dl-3.alpinelinux.org/alpine/edge/testing/ && \
   wget https://dot.net/v1/dotnet-install.sh && \
   chmod +x ./dotnet-install.sh && \
-  /bin/bash -c "./dotnet-install.sh -c 5.0" && \
+  /bin/bash -c "./dotnet-install.sh -c 5.0" > /dev/null && \
   export PATH="$PATH:/root/.dotnet/" && \
   cd /root/.dotnet/ && \
   chmod +x dotnet && \
@@ -19,7 +19,22 @@ apk update && apk add wget && \
   cd /app
 
 until dotnet user-secrets init && dotnet user-secrets set ConnectionStrings:DefaultConnection "$1" --project .; do
->&2 echo "Setting up user secret: " $1
+>&2 echo "Setting up user secret #1: " $1
+sleep 1
+done
+
+until dotnet user-secrets init && dotnet user-secrets set ServiceWeltUrl "$2" --project .; do
+>&2 echo "Setting up user secret #2: " $2
+sleep 1
+done
+
+until dotnet user-secrets init && dotnet user-secrets set ServiceWeltUser "$3" --project .; do
+>&2 echo "Setting up user secret #3: " $3
+sleep 1
+done
+
+until dotnet user-secrets init && dotnet user-secrets set ServiceWeltPassword "$4" --project .; do
+>&2 echo "Setting up user secret #4: " $4
 sleep 1
 done
 
@@ -28,3 +43,5 @@ done
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!1!!!!!!11!!!!!"
 >&2 echo "Running entrypoint.sh :: APP RUNNING !!!!!!!!!!11!!!!!"
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!1!!!!!!11!!!!!"
+
+docker system prune -f

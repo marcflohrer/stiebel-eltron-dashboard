@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using static StiebelEltronApiServer.Services.Tags;
 
@@ -18,15 +19,30 @@ namespace StiebelEltronApiServer.Services {
             var tags = GetMatches (dirtyHtml, "<[A-z \"=\\/:.0-9%#!?;,)_(-]+[/]*>");
 
             var scanResult = _htmlParser.ParseTagTree (dirtyHtml, tags);
-            var tagStack = scanResult.tagStack;
+            var unclosedTags = scanResult.unclosedTags;
             var unopenedTags = scanResult.unopenedTags;
 
-            var dirtyHtmlCharArray = dirtyHtml.ToCharArray ();
-            dirtyHtml = RemoveUnopenedTags (dirtyHtmlCharArray, unopenedTags);
-            dirtyHtml = CloseUnclosedTags (dirtyHtml, tagStack);
+            var tidierHtml = dirtyHtml;
+            var fragments = new List<string>();
+            foreach(var unclosedTag in unclosedTags){
+                fragments.Add(tidierHtml.Substring(0, unclosedTag.index));
+                fragments.Add($"</{unclosedTag.tag}>");
+                fragments.Add(tidierHtml.Substring(unclosedTag.index, tidierHtml.Length - unclosedTag.index));
+            }
+            if(!fragments.Any()){
+                fragments.Add(tidierHtml);
+            }
+            var fragmentsCombined = string.Empty;
+            foreach(string fragment in fragments){
+                fragmentsCombined += fragment;
+            }
+            tidierHtml = fragmentsCombined;
 
-            dirtyHtml = dirtyHtml.Replace ("&nbsp;", string.Empty);
-            return dirtyHtml.Replace ("&copy;", string.Empty);
+            var tidierHtmlCharArray = tidierHtml.ToCharArray ();            
+            dirtyHtml = RemoveUnopenedTags (tidierHtmlCharArray, unopenedTags);
+            
+            var tidyHtml = new string (tidierHtmlCharArray).Replace ("&nbsp;", string.Empty);
+            return tidyHtml.Replace ("&copy;", string.Empty);
         }
 
         private static string RemoveUnopenedTags (char[] dirtyHtmlCharArray, IReadOnlyList<SubStringIndices> unopenedTags) {

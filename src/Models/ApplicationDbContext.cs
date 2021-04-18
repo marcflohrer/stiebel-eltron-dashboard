@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using StiebelEltronApiServer.Models;
 
 namespace StiebelEltronApiServer.Models
 {
@@ -15,9 +14,7 @@ namespace StiebelEltronApiServer.Models
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
 
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
-            modelBuilder.Entity<HeatPump>(entity =>
+            modelBuilder.Entity<HeatPumpData>(entity =>
             {
                 entity.HasIndex(e => e.Id, "Id");
 

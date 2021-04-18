@@ -7,7 +7,7 @@ namespace StiebelEltronApiServer.Services
 {
     public class HtmlParser : IHtmlParser
     {
-        public ScanResult ParseTagTree(string dirtyHtml, MatchCollection tags){
+        public ParseResult ParseTagTree(string dirtyHtml, MatchCollection tags){
             var currentPosition = 0;
             
             var openingTagNameRegex = new Regex("(?<=<)[A-z]+");
@@ -16,6 +16,7 @@ namespace StiebelEltronApiServer.Services
 
             var tagStack = new Stack<TagContext>();
             var unopenedTags = new List<SubStringIndices>();
+            var unclosedTags = new List<UnclosedTag>();
 
             foreach (Match match in tags)
             {
@@ -39,16 +40,34 @@ namespace StiebelEltronApiServer.Services
                         continue;
                     }
                     var tag = tagName.Value;
-                    var recentOpenTag = tagStack.Peek().tag;
-                    if (tag == recentOpenTag)
+                    var recentOpenTag = tagStack.Peek();
+                    if (tag == recentOpenTag.tag)
                     {
                         tagStack.Pop();
                     }
-                    else if (tag != recentOpenTag)
+                    else if (tag != recentOpenTag.tag)
                     {
-                        var endPosition = currentPosition + match.Value.Length - 1;
-                        Console.WriteLine("Found unopened tag at position: " + currentPosition + ", end position: " + endPosition);
-                        unopenedTags.Add(new SubStringIndices(currentPosition, endPosition));
+                        var tagList = tagStack.ToArray();
+                        var tempTagStack = new Stack<TagContext>(tagList);
+                        var foundOpeningTag = false;
+                        var endPosition = 0;
+                        TagContext top;
+                        while(tempTagStack.Count > 0){
+                            top = tempTagStack.Peek();
+                            if(tag == top.tag){
+                                foundOpeningTag = true;
+                                break;
+                            }
+                            top = tempTagStack.Pop();     
+                        }
+                        endPosition = currentPosition + match.Value.Length - 1;
+                        Console.WriteLine("[DEBUG] Found unopened tag at position: " + currentPosition + ", end position: " + endPosition);
+                        
+                        if(!foundOpeningTag){
+                            unopenedTags.Add(new SubStringIndices(currentPosition, endPosition));
+                        }else{
+                            unclosedTags.Add(new UnclosedTag(recentOpenTag.tag, currentPosition));
+                        }
                     }
                 }
                 else if (match.Value.StartsWith("<"))
@@ -59,18 +78,14 @@ namespace StiebelEltronApiServer.Services
                     {
                         continue;
                     }
-                    if (!Tags.TagMap.ContainsKey(tagName.Value))
-                    {
-                        Console.WriteLine("Custom tag detected: " + tagName.Value);
-                    }
                     var tag = tagName.Value;
                     var tagId = tagIdRegex.Match(match.Value);
-                    tagStack.Push(new TagContext(tag, tagId.Value));
+                    tagStack.Push(new TagContext(tag, tagId));
                 }
             }
 
-            return new ScanResult(tagStack, unopenedTags);
+            return new ParseResult(unclosedTags, unopenedTags);
         }
     }
-    public record ScanResult(Stack<TagContext> tagStack, IReadOnlyList<SubStringIndices> unopenedTags);
+    public record ParseResult(IReadOnlyList<UnclosedTag> unclosedTags, IReadOnlyList<SubStringIndices> unopenedTags);
 }

@@ -13,7 +13,8 @@ services:
             - "80:6003"
             - "443:6004"
         volumes:
-            - ./web/root/.aspnet/DataProtection-Keys:/root/.aspnet/DataProtection-Keys:rw            
+            - ./web/root/.aspnet/DataProtection-Keys:/root/.aspnet/DataProtection-Keys:rw    
+            - ./Data/Migrations:/app/Data/Migrations:rw          
         depends_on:
             - db
     db:

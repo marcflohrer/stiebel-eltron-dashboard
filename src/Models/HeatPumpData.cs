@@ -1,9 +1,9 @@
 namespace StiebelEltronApiServer.Models
 {
-    public class HeatPump
+    public class HeatPumpData
     {
         public int Id { get; set; }
 
-        public string TotalPowerConsumption { get; set; }
+        public double TotalPowerConsumption { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using StiebelEltronApiServer.Models;
+using StiebelEltronApiServer.Repositories;
 using StiebelEltronApiServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using StiebelEltronApiServer.Services;
+using StiebelEltronApiServer.Extensions;
 
 namespace StiebelEltronApiServer
 {
@@ -32,19 +33,33 @@ namespace StiebelEltronApiServer
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("DefaultConnection") ?? Configuration["DefaultConnection"];
-            if(connection == null){
+            if (string.IsNullOrWhiteSpace(connection))
+            {
                 throw new Exception("Database connetion is not set.");
             }
             // Add framework services.
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // DbContext pooling: AddDbContextPool enables pooling of DbContext instances. 
+            // Context pooling can increase throughput in high-scale scenarios such as web servers by reusing context instances, 
+            // rather than creating new instances for each request.
+            services.AddDbContextPool<ApplicationDbContext>(options =>
+                options.UseSqlServer(connection));
 
             services.AddMvc();
             services.AddTransient<IXpathService, XpathService>()
                 .AddTransient<IHtmlParser, HtmlParser>()
                 .AddTransient<ITidyUpDirtyHtml, TidyUpDirtyHtml>()
                 .AddTransient<IScrapingService, ScrapingService>()
-                .AddTransient<IServiceWeltFacade, ServiceWeltFacade>();
+                .AddTransient<IServiceWeltFacade, ServiceWeltFacade>()
+                .AddTransient<IHeatPumpDataRepository, HeatPumpDataRepository>()
+                .AddTransient<IUnitOfWork, UnitOfWork>()
+                .AddHostedService<ApplicationLifetimeService>()
+                .Configure<HostOptions>(opts => opts.ShutdownTimeout = TimeSpan.FromSeconds(45))
+                .AddCronJob<CollectHeatPumpDataJob>(c =>
+                {
+                    c.TimeZoneInfo = TimeZoneInfo.Local;
+                    c.CronExpression = @"0 * * * *";
+                });
 
             services.AddIdentityCore<ApplicationUser>()
                 .AddRoles<IdentityRole>()

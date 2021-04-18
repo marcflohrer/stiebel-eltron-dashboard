@@ -14,7 +14,9 @@ namespace StiebelEltronApiServer {
                 webBuilder.AddUserSecrets<Program> ();
             })
             .ConfigureWebHostDefaults (webBuilder => {
-                webBuilder.UseStartup<Startup> ();
+                webBuilder
+                .SuppressStatusMessages(true)
+                .UseStartup<Startup> ();
             });
     }
 }

@@ -6,6 +6,7 @@
     <RootNamespace>StiebelEltronApiServer</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'stiebel-eltron-apiserver' " />
   <ItemGroup>
     <None Remove="mssql\.DS_Store" />
     <None Remove="mssql\logs\log_3.trc" />
@@ -63,6 +64,7 @@
 <PrivateAssets>all</PrivateAssets>
 </PackageReference>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.32" />
+    <PackageReference Include="Cronos" Version="0.7.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="stiebel-eltron-apiserver-tests\UnitTest1.cs" />

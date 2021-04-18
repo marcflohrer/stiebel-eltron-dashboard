@@ -74,6 +74,8 @@ This section lists major frameworks and projects that were used:
 * [aspnetcore/src/Identity/samples/IdentitySample.Mvc/](https://github.com/dotnet/aspnetcore/tree/main/src/Identity/samples/IdentitySample.Mvc)
 * [EntityFramework Core](https://docs.microsoft.com/en-us/ef/core/)
 * [HTML Agility Pack](https://github.com/zzzprojects/html-agility-pack)
+* [Xunit](https://xunit.net/)
+* [Cronos](https://github.com/HangfireIO/Cronos)
 
 <!-- GETTING STARTED -->
 ## Getting Started

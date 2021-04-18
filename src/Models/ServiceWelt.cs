@@ -2,7 +2,6 @@
 {
     public record ServiceWelt
     {
-        public string SessionId;
         public string HtmlDocument;
     }
 }
