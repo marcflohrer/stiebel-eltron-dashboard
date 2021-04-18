@@ -29,7 +29,7 @@ namespace StiebelEltronApiServer.Controllers
             Console.WriteLine($"Index: Max Total Power Consumption: {maxTotalPowerConsumption}");
             var model = new HeatPumpDataViewModel
             {
-                MaxTotalPowerConsumption = maxTotalPowerConsumption.TotalPowerConsumption
+                MaxTotalPowerConsumption = maxTotalPowerConsumption.TotalPowerConsumption / Math.Pow(10,6)
             };
             return View(model);
         }

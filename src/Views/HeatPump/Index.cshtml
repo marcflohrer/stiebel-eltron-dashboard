@@ -3,110 +3,42 @@
     Layout = "/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Heat Pump";
 }
-<div class="jumbotron">
-    <h1>Heat Pump Information</h1>
-    <p class="lead">This page shows information about the heat pump.</p>
-    <p><a href="http://www.asp.net/identity" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
 
-<div class="row">
-    <div class="col-md-4">
-        <dl>
-            <dt>Initialize ASP.NET Identity</dt>            
-        </dl>
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="https://www.planetware.com/wpimages/2020/03/canada-best-lakes-moraine-lake.jpg" alt="Los Angeles">
+      <h3>Los Angeles</h3>
+        <p>We had such a great time in LA!</p>
     </div>
-    <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
-        <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
-    <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
-    <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
-    <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
-    <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
-    <div class="col-md-4">
-        <dl>
-            <dt>Two-Factor Authentication</dt>
-            <dd>
-                This sample shows how you can use Two-Factor authentication. This sample has a SMS and email service registered where you can send SMS or email for sending the security code.
-                You can add more two-factor authentication factors such as QR codes and plug them into ASP.NET Identity.
-                <ul>
-                    <li>
-                        Maximum Total Power Consumption @Model.MaxTotalPowerConsumption
-                    </li>
-                    <li>
-                        Maximum Total Power Consumption @Model.MaxTotalPowerConsumption
-                    </li>
 
-                    <li>
-                        Maximum Total Power Consumption @Model.MaxTotalPowerConsumption
-                    </li>
-                    <li>
-                       Maximum Total Power Consumption @Model.MaxTotalPowerConsumption
-                    </li>
-                    <li>
-                        Maximum Total Power Consumption @Model.MaxTotalPowerConsumption
-                    </li>
-                    <li>
-                        Maximum Total Power Consumption @Model.MaxTotalPowerConsumption
-                    </li>
-                    <li>
-                        Maximum Total Power Consumption @Model.MaxTotalPowerConsumption
-                    </li>
-                    <li>
-                        Maximum Total Power Consumption @Model.MaxTotalPowerConsumption
-                    </li>
-                    <li>
-                        Maximum Total Power Consumption @Model.MaxTotalPowerConsumption
-                    </li>
-                </ul>
-            </dd>
-        </dl>
+    <div class="item">
+      <img src="https://wallpapertag.com/wallpaper/full/3/1/a/475500-boston-skyline-wallpaper-1920x1080-ipad-pro.jpg" alt="Chicago">
+      <h3>Los Angeles</h3>
+      <p>We had such a great time in LA!</p>
     </div>
-    <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
-    <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
-    <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
-    <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
-    <div class="col-md-4">
-        <dl>
-            <dt>Maximum Total Power Consumption @Model.MaxTotalPowerConsumption</dt>
-        </dl>
-    </div> 
+
+    <div class="item">
+      <img src="https://wallpapertag.com/wallpaper/full/d/4/a/325281-full-size-tree-wallpaper-1920x1080-for-phones.jpg" alt="New York">
+      <h3>Gesamtstromverbrauch</h3>
+      <p>@Model.MaxTotalPowerConsumption MWh</p>
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
