@@ -45,7 +45,7 @@ namespace StiebelEltronApiServer.Services {
             return tidyHtml.Replace ("&copy;", string.Empty);
         }
 
-        private static string RemoveUnopenedTags (char[] dirtyHtmlCharArray, IReadOnlyList<SubStringIndices> unopenedTags) {
+        private static string RemoveUnopenedTags (char[] dirtyHtmlCharArray, IList<SubStringIndices> unopenedTags) {
             foreach (var unopenedTag in unopenedTags) {
                 var i = unopenedTag.start;
                 do {

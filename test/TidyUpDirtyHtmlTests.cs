@@ -38,13 +38,13 @@ namespace StiebelEltronApiServerTests
             autoMoqer.SetInstance<IHtmlParser>(htmlParser);
             var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
             var inputHtml = ServiceWeltMockData.GetHtml(testDataIndex);
-            var outputHtml = inputHtml.Replace("&nbsp;", string.Empty);
-            outputHtml = outputHtml.Replace("&copy;", string.Empty);
+            var expectedHtml = inputHtml.Replace("&nbsp;", string.Empty);
+            expectedHtml = expectedHtml.Replace("&copy;", string.Empty);
             
             _output.WriteLine("Testing TestSnippet" +testDataIndex +".html" );
             var tidyHtml = tidyUpDirtyHtml.GetTidyHtml(inputHtml);
 
-            Assert.Equal(outputHtml, tidyHtml);
+            Assert.Equal(expectedHtml, tidyHtml);
         }
 
         [Theory]

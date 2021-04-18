@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using static StiebelEltronApiServer.Services.Tags;
@@ -7,16 +6,16 @@ namespace StiebelEltronApiServer.Services
 {
     public class HtmlParser : IHtmlParser
     {
-        public ParseResult ParseTagTree(string dirtyHtml, MatchCollection tags){
-            var currentPosition = 0;
-            
-            var openingTagNameRegex = new Regex("(?<=<)[A-z]+");
-            var closingTagNameRegex = new Regex("(?<=</)[A-z]+");
-            var tagIdRegex = new Regex("(?<= [A-z]+=\")[A-z ]+(?=\")");
+        private readonly Regex openingTagNameRegex = new Regex("(?<=<)[A-z]+");
+        public static readonly Regex ClosingTagNameRegex = new Regex("(?<=</)[A-z]+");
+        private readonly Regex tagIdRegex = new Regex("(?<= [A-z]+=\")[A-z ]+(?=\")");
 
+        public ParseResult ParseTagTree(string dirtyHtml, MatchCollection tags)
+        {
+            var currentPosition = 0;
             var tagStack = new Stack<TagContext>();
-            var unopenedTags = new List<SubStringIndices>();
-            var unclosedTags = new List<UnclosedTag>();
+            var unopenedTags = new List<SubStringIndices>() as IList<SubStringIndices>;
+            var unclosedTags = new List<UnclosedTag>() as IList<UnclosedTag>;
 
             foreach (Match match in tags)
             {
@@ -33,42 +32,15 @@ namespace StiebelEltronApiServer.Services
                 }
                 if (match.Value.StartsWith("</"))
                 {
-                    var tagName = closingTagNameRegex.Match(match.Value);
+                    var tagName = ClosingTagNameRegex.Match(match.Value);
                     // skip <?xml tag
                     if (string.IsNullOrEmpty(tagName.Value))
                     {
                         continue;
                     }
-                    var tag = tagName.Value;
-                    var recentOpenTag = tagStack.Peek();
-                    if (tag == recentOpenTag.tag)
-                    {
-                        tagStack.Pop();
-                    }
-                    else if (tag != recentOpenTag.tag)
-                    {
-                        var tagList = tagStack.ToArray();
-                        var tempTagStack = new Stack<TagContext>(tagList);
-                        var foundOpeningTag = false;
-                        var endPosition = 0;
-                        TagContext top;
-                        while(tempTagStack.Count > 0){
-                            top = tempTagStack.Peek();
-                            if(tag == top.tag){
-                                foundOpeningTag = true;
-                                break;
-                            }
-                            top = tempTagStack.Pop();     
-                        }
-                        endPosition = currentPosition + match.Value.Length - 1;
-                        Console.WriteLine("[DEBUG] Found unopened tag at position: " + currentPosition + ", end position: " + endPosition);
-                        
-                        if(!foundOpeningTag){
-                            unopenedTags.Add(new SubStringIndices(currentPosition, endPosition));
-                        }else{
-                            unclosedTags.Add(new UnclosedTag(recentOpenTag.tag, currentPosition));
-                        }
-                    }
+                    var tempParseResult = TagMismatchDetector.DetectUnmatchedTags(tagStack, match, currentPosition, unopenedTags, unclosedTags);
+                    unopenedTags = tempParseResult.unopenedTags;
+                    unclosedTags = tempParseResult.unclosedTags;
                 }
                 else if (match.Value.StartsWith("<"))
                 {
@@ -78,14 +50,14 @@ namespace StiebelEltronApiServer.Services
                     {
                         continue;
                     }
-                    var tag = tagName.Value;
-                    var tagId = tagIdRegex.Match(match.Value);
-                    tagStack.Push(new TagContext(tag, tagId));
+                    tagStack.Push(new TagContext(tagName.Value, tagIdRegex.Match(match.Value)));
                 }
             }
 
             return new ParseResult(unclosedTags, unopenedTags);
         }
+
+        
     }
-    public record ParseResult(IReadOnlyList<UnclosedTag> unclosedTags, IReadOnlyList<SubStringIndices> unopenedTags);
+    public record ParseResult(IList<UnclosedTag> unclosedTags, IList<SubStringIndices> unopenedTags);
 }
