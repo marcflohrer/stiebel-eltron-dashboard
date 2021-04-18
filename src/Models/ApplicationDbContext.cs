@@ -6,7 +6,7 @@ namespace StiebelEltronApiServer.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
-
+        public DbSet<HeatPumpData> HeatPumpData { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

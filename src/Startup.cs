@@ -23,8 +23,6 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
  b. You must cause any modified files to carry prominent notices stating that You changed the files; and
  "
 */
-
-
 using StiebelEltronApiServer.Models;
 using StiebelEltronApiServer.Repositories;
 using StiebelEltronApiServer.Services;
