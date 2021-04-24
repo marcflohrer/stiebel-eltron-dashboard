@@ -9,4 +9,4 @@ dotnet user-secrets set ServiceWeltUrl "${ServiceWeltUrl}" --project .
 docker-compose up --build --remove-orphans
 dotnet user-secrets clear
 cd mssql/logs/ && find . ! -name . -prune ! -name ../Models -exec rm {} \; && cd ../..
-docker system prune -y
+#docker system prune -f
