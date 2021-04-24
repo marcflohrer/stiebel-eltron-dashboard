@@ -242,14 +242,128 @@ namespace StiebelEltronApiServer.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("StiebelEltronApiServer.Models.HeatPumpData", b =>
+            modelBuilder.Entity("StiebelEltronApiServer.Models.HeatPumpDatum", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("ActualSpeedDensifier")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AntiFreezeTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CompressorInletTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CondenserTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("DefrostStarts")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DefrostTime")
+                        .HasColumnType("float");
+
+                    b.Property<double>("EvaporatorTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ExhaustAirTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("FanPowerRel")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HighPressure")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HotGasTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("InletTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("IntermediateInjectionTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("LowPressure")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OilSumpTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OutdoorTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHeatingDay")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHeatingSum")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHotWaterDay")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHotWaterSum")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PressureMedium")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStages1")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStages2")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStagesHeatQuantityHeatingSum")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStagesHeatQuantityHotWaterTotal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReturnTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerDefrost")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerHeating")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerHotWater")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SettingSpeedCompressed")
+                        .HasColumnType("float");
+
                     b.Property<double>("TotalPowerConsumption")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHeatingDay")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHeatingTotal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHotWaterDay")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHotWaterTotal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VoltageInverter")
+                        .HasColumnType("float");
+
+                    b.Property<double>("WaterVolumeCurrent")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -257,6 +371,366 @@ namespace StiebelEltronApiServer.Data.Migrations
                     b.HasIndex(new[] { "Id" }, "Id");
 
                     b.ToTable("HeatPumpData");
+                });
+
+            modelBuilder.Entity("StiebelEltronApiServer.Models.HeatPumpDataPerPeriod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("ActualSpeedDensifierAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ActualSpeedDensifierMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ActualSpeedDensifierMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AntiFreezeTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AntiFreezeTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AntiFreezeTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CompressorInletTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CompressorInletTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CompressorInletTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CondenserTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CondenserTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CondenserTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("DefrostStartsDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DefrostStartsEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DefrostStartsStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DefrostTimeDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DefrostTimeEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DefrostTimeStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("EvaporatorTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("EvaporatorTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("EvaporatorTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ExhaustAirTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ExhaustAirTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ExhaustAirTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("FanPowerRelAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("FanPowerRelMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("FanPowerRelMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HighPressureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HighPressureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HighPressureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HotGasTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HotGasTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HotGasTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("InletTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("InletTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("InletTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("IntermediateInjectionTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("IntermediateInjectionTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("IntermediateInjectionTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("LowPressureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("LowPressureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("LowPressureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OilSumpTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OilSumpTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OilSumpTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OutdoorTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OutdoorTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OutdoorTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<string>("PeriodKind")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PeriodNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PowerConsumptionHeatingDayDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHeatingDayEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHeatingDayStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHeatingSumDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHeatingSumEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHeatingSumStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHotWaterDayDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHotWaterDayEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHotWaterDayStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHotWaterSumDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHotWaterSumEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHotWaterSumStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PressureMediumAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PressureMediumMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PressureMediumMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStages1Delta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStages1End")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStages1Start")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStages2Delta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStages2End")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStages2Start")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStagesHeatQuantityHeatingSumDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStagesHeatQuantityHeatingSumEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStagesHeatQuantityHeatingSumStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStagesHeatQuantityHotWaterTotalDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStagesHeatQuantityHotWaterTotalEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStagesHeatQuantityHotWaterTotalStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReturnTemperatureAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReturnTemperatureMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReturnTemperatureMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerDefrostDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerDefrostEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerDefrostStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerHeatingDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerHeatingEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerHeatingStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerHotWaterDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerHotWaterEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerHotWaterStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SettingSpeedCompressedAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SettingSpeedCompressedMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SettingSpeedCompressedMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalPowerConsumptionDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalPowerConsumptionEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalPowerConsumptionStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHeatingDayDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHeatingDayEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHeatingDayStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHeatingTotalDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHeatingTotalEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHeatingTotalStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHotWaterDayDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHotWaterDayEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHotWaterDayStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHotWaterTotalDelta")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHotWaterTotalEnd")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHotWaterTotalStart")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VoltageInverterAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VoltageInverterMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VoltageInverterMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("WaterVolumeCurrentAverage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("WaterVolumeCurrentMax")
+                        .HasColumnType("float");
+
+                    b.Property<double>("WaterVolumeCurrentMin")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Year")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HeatPumpDataPerPeriods");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

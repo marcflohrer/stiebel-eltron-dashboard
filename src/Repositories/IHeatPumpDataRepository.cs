@@ -5,8 +5,8 @@ namespace StiebelEltronApiServer.Repositories
 {
     public interface IHeatPumpDataRepository
     {
-        public void InsertHeatPumpData(HeatPumpData heatPump);
+        public void InsertHeatPumpData(HeatPumpDatum heatPumpDatum);
 
-        public Task<HeatPumpData> GetMaxTotalPowerConsumption();
+        public Task<HeatPumpDatum> GetMaxTotalPowerConsumption();
     }
 }

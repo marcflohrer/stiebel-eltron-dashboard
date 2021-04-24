@@ -12,10 +12,10 @@ namespace StiebelEltronApiServer.Repositories {
             _applicationDbContext = applicationDbContext;
         }
 
-        public async Task<HeatPumpData> GetMaxTotalPowerConsumption() {
+        public async Task<HeatPumpDatum> GetMaxTotalPowerConsumption() {
             var maxTotalPowerConsumption = 0.0;
             if(_applicationDbContext.HeatPumpData == null){
-                Console.WriteLine($"No db table found {nameof(HeatPumpData)}");
+                Console.WriteLine($"No db table found {nameof(HeatPumpDatum)}");
                 maxTotalPowerConsumption = -2.0;
             }
             if(!_applicationDbContext.HeatPumpData.Any()){
@@ -24,12 +24,12 @@ namespace StiebelEltronApiServer.Repositories {
             }
             maxTotalPowerConsumption = await _applicationDbContext.HeatPumpData.Select(h => h.TotalPowerConsumption).MaxAsync();
             Console.WriteLine($"Max total power consumption {maxTotalPowerConsumption}");
-            return new HeatPumpData{
+            return new HeatPumpDatum{
                 TotalPowerConsumption = maxTotalPowerConsumption
             };
         }
 
-        public void InsertHeatPumpData (HeatPumpData heatPump) {
+        public void InsertHeatPumpData (HeatPumpDatum heatPump) {
             _applicationDbContext.Add(heatPump);
         }
     }

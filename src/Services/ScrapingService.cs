@@ -18,11 +18,11 @@ namespace StiebelEltronApiServer.Services {
             _xpathService = xpathService;
         }
 
-        public async Task<HeatPumpData> GetHeatPumpInformationAsync () {
+        public async Task<HeatPumpDatum> GetHeatPumpInformationAsync () {
             return await GetHeatPumpInformationAsync (string.Empty);
         }
 
-        public async Task<HeatPumpData> GetHeatPumpInformationAsync (string sessionId = "1997d0dc84ee423f6b46fcd7ae1a3891") {
+        public async Task<HeatPumpDatum> GetHeatPumpInformationAsync (string sessionId = "1997d0dc84ee423f6b46fcd7ae1a3891") {
             if (!string.IsNullOrEmpty (sessionId) && string.IsNullOrEmpty (_sessionId)) {
                 _sessionId = sessionId;
             } else if (!string.IsNullOrEmpty (_sessionId) && string.IsNullOrEmpty (sessionId)) {
@@ -54,7 +54,7 @@ namespace StiebelEltronApiServer.Services {
                 } else {
                     throw new Exception ("Unknown unit: " + totalPowerConsumption);
                 }
-                return new HeatPumpData {
+                return new HeatPumpDatum {
                     TotalPowerConsumption = totalPowerConsumptionDouble
                 };
             }
