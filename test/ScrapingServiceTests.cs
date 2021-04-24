@@ -25,6 +25,14 @@ namespace StiebelEltronApiServerTests
             _ = tidyUpDirtyHtml.Setup(mock => mock.GetTidyHtml(It.IsAny<string>())).Returns(ServiceWeltMockData.HeatPumpWebsiteTidiedUp);
             var xpathService = autoMoqer.Create<XpathService>();
             autoMoqer.SetInstance<IXpathService>(xpathService);
+            
+            var unitService = autoMoqer.Create<UnitService>();
+            autoMoqer.SetInstance<IUnitService>(unitService);
+            var valueParser = autoMoqer.Create<ValueParser>();
+            autoMoqer.SetInstance<IValueParser>(valueParser);
+            var websiteParser = autoMoqer.Create<WebsiteParser>();
+            autoMoqer.SetInstance<IWebsiteParser>(websiteParser);
+
             var scrapingService = autoMoqer.Create<ScrapingService>();
 
             // Act
@@ -50,6 +58,14 @@ namespace StiebelEltronApiServerTests
             _ = tidyUpDirtyHtml.Setup(mock => mock.GetTidyHtml(ServiceWeltMockData.HeatPumpWebsite)).Returns(ServiceWeltMockData.HeatPumpWebsiteTidiedUp);
             var xpathService = autoMoqer.Create<XpathService>();
             autoMoqer.SetInstance<IXpathService>(xpathService);
+
+            var unitService = autoMoqer.Create<UnitService>();
+            autoMoqer.SetInstance<IUnitService>(unitService);
+            var valueParser = autoMoqer.Create<ValueParser>();
+            autoMoqer.SetInstance<IValueParser>(valueParser);
+            var websiteParser = autoMoqer.Create<WebsiteParser>();
+            autoMoqer.SetInstance<IWebsiteParser>(websiteParser);
+
             var scrapingService = autoMoqer.Create<ScrapingService>();
 
             // Act

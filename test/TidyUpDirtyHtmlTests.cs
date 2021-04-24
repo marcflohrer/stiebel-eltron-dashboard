@@ -34,8 +34,8 @@ namespace StiebelEltronApiServerTests
         public void WhenTidyingUpCleanHtmlSameIsReturned(int testDataIndex)
         {
             var autoMoqer = new AutoMoqer();
-            var htmlParser = autoMoqer.Create<HtmlParser>();
-            autoMoqer.SetInstance<IHtmlParser>(htmlParser);
+            var htmlParser = autoMoqer.Create<HtmlScanner>();
+            autoMoqer.SetInstance<IHtmlScanner>(htmlParser);
             var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
             var inputHtml = ServiceWeltMockData.GetHtml(testDataIndex);
             var expectedHtml = inputHtml.Replace("&nbsp;", string.Empty);
@@ -54,8 +54,8 @@ namespace StiebelEltronApiServerTests
         public void WhenTidyingUpCleanHtmlIsReturned(string dirtyHtml, string exptectedTidyHtml)
         {
             var autoMoqer = new AutoMoqer();
-            var htmlParser = autoMoqer.Create<HtmlParser>();
-            autoMoqer.SetInstance<IHtmlParser>(htmlParser);
+            var htmlParser = autoMoqer.Create<HtmlScanner>();
+            autoMoqer.SetInstance<IHtmlScanner>(htmlParser);
             var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
             
             _output.WriteLine($"Cleaning {dirtyHtml}" );
@@ -69,8 +69,8 @@ namespace StiebelEltronApiServerTests
         public void WhenTidyingUpDirtyHtmlTidyHtmlIsReturned()
         {
             var autoMoqer = new AutoMoqer();
-            var htmlParser = autoMoqer.Create<HtmlParser>();
-            autoMoqer.SetInstance<IHtmlParser>(htmlParser);
+            var htmlParser = autoMoqer.Create<HtmlScanner>();
+            autoMoqer.SetInstance<IHtmlScanner>(htmlParser);
             var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
             var inputHtml = ServiceWeltMockData.HeatPumpWebsite;
             var outputHtml = ServiceWeltMockData.HeatPumpWebsiteTidiedUp;

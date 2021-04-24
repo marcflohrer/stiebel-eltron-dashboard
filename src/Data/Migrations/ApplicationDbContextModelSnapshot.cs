@@ -242,137 +242,6 @@ namespace StiebelEltronApiServer.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("StiebelEltronApiServer.Models.HeatPumpDatum", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("ActualSpeedDensifier")
-                        .HasColumnType("float");
-
-                    b.Property<double>("AntiFreezeTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<double>("CompressorInletTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<double>("CondenserTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("DefrostStarts")
-                        .HasColumnType("float");
-
-                    b.Property<double>("DefrostTime")
-                        .HasColumnType("float");
-
-                    b.Property<double>("EvaporatorTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ExhaustAirTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<double>("FanPowerRel")
-                        .HasColumnType("float");
-
-                    b.Property<double>("HighPressure")
-                        .HasColumnType("float");
-
-                    b.Property<double>("HotGasTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<double>("InletTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<double>("IntermediateInjectionTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<double>("LowPressure")
-                        .HasColumnType("float");
-
-                    b.Property<double>("OilSumpTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<double>("OutdoorTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PowerConsumptionHeatingDay")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PowerConsumptionHeatingSum")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PowerConsumptionHotWaterDay")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PowerConsumptionHotWaterSum")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PressureMedium")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ReheatingStages1")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ReheatingStages2")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ReheatingStagesHeatQuantityHeatingSum")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ReheatingStagesHeatQuantityHotWaterTotal")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ReturnTemperature")
-                        .HasColumnType("float");
-
-                    b.Property<double>("RuntimeVaporizerDefrost")
-                        .HasColumnType("float");
-
-                    b.Property<double>("RuntimeVaporizerHeating")
-                        .HasColumnType("float");
-
-                    b.Property<double>("RuntimeVaporizerHotWater")
-                        .HasColumnType("float");
-
-                    b.Property<double>("SettingSpeedCompressed")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalPowerConsumption")
-                        .HasColumnType("float");
-
-                    b.Property<double>("VaporizerHeatQuantityHeatingDay")
-                        .HasColumnType("float");
-
-                    b.Property<double>("VaporizerHeatQuantityHeatingTotal")
-                        .HasColumnType("float");
-
-                    b.Property<double>("VaporizerHeatQuantityHotWaterDay")
-                        .HasColumnType("float");
-
-                    b.Property<double>("VaporizerHeatQuantityHotWaterTotal")
-                        .HasColumnType("float");
-
-                    b.Property<double>("VoltageInverter")
-                        .HasColumnType("float");
-
-                    b.Property<double>("WaterVolumeCurrent")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Id" }, "Id");
-
-                    b.ToTable("HeatPumpData");
-                });
-
             modelBuilder.Entity("StiebelEltronApiServer.Models.HeatPumpDataPerPeriod", b =>
                 {
                     b.Property<int>("Id")
@@ -417,10 +286,14 @@ namespace StiebelEltronApiServer.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
                     b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
                     b.Property<double>("DefrostStartsDelta")
                         .HasColumnType("float");
@@ -730,7 +603,145 @@ namespace StiebelEltronApiServer.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex(new[] { "Id" }, "Id");
+
                     b.ToTable("HeatPumpDataPerPeriods");
+                });
+
+            modelBuilder.Entity("StiebelEltronApiServer.Models.HeatPumpDatum", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("ActualSpeedDensifier")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AntiFreezeTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CompressorInletTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CondenserTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
+                    b.Property<double>("DefrostStarts")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DefrostTime")
+                        .HasColumnType("float");
+
+                    b.Property<double>("EvaporatorTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ExhaustAirTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("FanPowerRel")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HighPressure")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HotGasTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("InletTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("IntermediateInjectionTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("LowPressure")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OilSumpTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OutdoorTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHeatingDay")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHeatingSum")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHotWaterDay")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PowerConsumptionHotWaterSum")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PressureMedium")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStages1")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStages2")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStagesHeatQuantityHeatingSum")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReheatingStagesHeatQuantityHotWaterTotal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReturnTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerDefrost")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerHeating")
+                        .HasColumnType("float");
+
+                    b.Property<double>("RuntimeVaporizerHotWater")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SettingSpeedCompressed")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalPowerConsumption")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHeatingDay")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHeatingTotal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHotWaterDay")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VaporizerHeatQuantityHotWaterTotal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VoltageInverter")
+                        .HasColumnType("float");
+
+                    b.Property<double>("WaterVolumeCurrent")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Id" }, "Id")
+                        .HasDatabaseName("Id1");
+
+                    b.ToTable("HeatPumpData");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

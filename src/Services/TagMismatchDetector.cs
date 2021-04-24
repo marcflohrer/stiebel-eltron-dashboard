@@ -9,7 +9,7 @@ namespace StiebelEltronApiServer.Services
     {
         public static ParseResult DetectUnmatchedTags(Stack<TagContext> tagStack, Match match, int currentPosition, in IList<SubStringIndices> unopenedTags, in IList<UnclosedTag> unclosedTags)
         {
-            var tagName = HtmlParser.ClosingTagNameRegex.Match(match.Value);
+            var tagName = HtmlScanner.ClosingTagNameRegex.Match(match.Value);
 
             var tag = tagName.Value;
             var recentOpenTag = tagStack.Peek();

@@ -6,8 +6,8 @@ using static StiebelEltronApiServer.Services.Tags;
 
 namespace StiebelEltronApiServer.Services {
     public class TidyUpDirtyHtml : ITidyUpDirtyHtml {
-        private readonly IHtmlParser _htmlParser;
-        public TidyUpDirtyHtml (IHtmlParser htmlParser) {
+        private readonly IHtmlScanner _htmlParser;
+        public TidyUpDirtyHtml (IHtmlScanner htmlParser) {
             _htmlParser = htmlParser;
         }
         private MatchCollection GetMatches (string input, string pattern) {

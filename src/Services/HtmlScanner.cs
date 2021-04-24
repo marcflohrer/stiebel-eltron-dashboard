@@ -4,7 +4,7 @@ using static StiebelEltronApiServer.Services.Tags;
 
 namespace StiebelEltronApiServer.Services
 {
-    public class HtmlParser : IHtmlParser
+    public class HtmlScanner : IHtmlScanner
     {
         private readonly Regex openingTagNameRegex = new Regex("(?<=<)[A-z]+");
         public static readonly Regex ClosingTagNameRegex = new Regex("(?<=</)[A-z]+");

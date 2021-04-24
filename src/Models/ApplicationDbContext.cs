@@ -6,8 +6,8 @@ namespace StiebelEltronApiServer.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
-        public virtual DbSet<HeatPumpDataPerPeriod> HeatPumpDataPerPeriods { get; set; }
-        public virtual DbSet<HeatPumpDatum> HeatPumpData { get; set; }
+        public DbSet<HeatPumpDataPerPeriod> HeatPumpDataPerPeriods { get; set; }
+        public DbSet<HeatPumpDatum> HeatPumpData { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -16,6 +16,15 @@ namespace StiebelEltronApiServer.Models
             // Add your customizations after calling base.OnModelCreating(builder);
 
             modelBuilder.Entity<HeatPumpDatum>(entity =>
+            {
+                entity.HasIndex(e => e.Id, "Id");
+
+                entity.Property(e => e.DateCreated).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
+                entity.Property(e => e.DateUpdated).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+            });
+
+            modelBuilder.Entity<HeatPumpDataPerPeriod>(entity =>
             {
                 entity.HasIndex(e => e.Id, "Id");
 

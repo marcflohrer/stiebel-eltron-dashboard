@@ -71,12 +71,15 @@ namespace StiebelEltronApiServer
 
             services.AddMvc();
             services.AddTransient<IXpathService, XpathService>()
-                .AddTransient<IHtmlParser, HtmlParser>()
+                .AddTransient<IHtmlScanner, HtmlScanner>()
                 .AddTransient<ITidyUpDirtyHtml, TidyUpDirtyHtml>()
                 .AddTransient<IScrapingService, ScrapingService>()
                 .AddTransient<IServiceWeltFacade, ServiceWeltFacade>()
                 .AddTransient<IHeatPumpDataRepository, HeatPumpDataRepository>()
+                .AddTransient<IUnitService, UnitService>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
+                .AddTransient<IValueParser, ValueParser>()
+                .AddTransient<IWebsiteParser, WebsiteParser>()
                 .AddHostedService<ApplicationLifetimeService>()
                 .Configure<HostOptions>(opts => opts.ShutdownTimeout = TimeSpan.FromSeconds(45))
                 .AddCronJob<CollectHeatPumpDataJob>(c =>
