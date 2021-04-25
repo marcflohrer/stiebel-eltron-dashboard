@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using StiebelEltronApiServer.Extensions;
 using StiebelEltronApiServer.Models;
 
 namespace StiebelEltronApiServer.Services {
@@ -16,11 +17,12 @@ namespace StiebelEltronApiServer.Services {
             _serviceWeltFacade = serviceWeltFacade;
             _tidyUpDirtyHtml = tidyUpDirtyHtml;
             _websiteParser = websiteParser;
+            HtmlDocumentExtensions.WebsiteParser = _websiteParser;
         }
 
-        public async Task<HeatPumpDatum> GetHeatPumpInformationAsync () {
-            return await GetHeatPumpInformationAsync (string.Empty);
-        }
+        public async Task<HeatPumpDatum> GetHeatPumpInformationAsync() => await GetHeatPumpInformationAsync(string.Empty);
+
+        public double GetValueFrom(HtmlDocument htmlDocument, ScrapingValue value) => _websiteParser.GetValueFromSite(htmlDocument, value);
 
         public async Task<HeatPumpDatum> GetHeatPumpInformationAsync (string sessionId = "1997d0dc84ee423f6b46fcd7ae1a3891") {
             if (!string.IsNullOrEmpty (sessionId) && string.IsNullOrEmpty (_sessionId)) {
@@ -39,43 +41,43 @@ namespace StiebelEltronApiServer.Services {
             htmlDocument.LoadHtml (outerHtml);
             var utcNow = DateTime.UtcNow;
             return new HeatPumpDatum {
-                TotalPowerConsumption = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.TotalPowerConsumption),
-                    ActualSpeedDensifier = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.ActualSpeedDensifier),
-                    AntiFreezeTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.AntiFreezeTemperature),
-                    CompressorInletTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.CompressorInletTemperature),
-                    CondenserTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.CondenserTemperature),
-                    DefrostStarts = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.DefrostStarts),
-                    DefrostTime = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.DefrostTime),
-                    EvaporatorTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.EvaporatorTemperature),
-                    ExhaustAirTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.ExhaustAirTemperature),
-                    FanPowerRel = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.FanPowerRel),
-                    HighPressure = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.HighPressure),
-                    HotGasTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.HotGasTemperature),
-                    InletTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.InletTemperature),
-                    IntermediateInjectionTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.IntermediateInjectionTemperature),
-                    LowPressure = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.LowPressure),
-                    OilSumpTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.OilSumpTemperature),
-                    OutdoorTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.OutdoorTemperature),
-                    PowerConsumptionHeatingDay = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.PowerConsumptionHeatingDay),
-                    PowerConsumptionHeatingSum = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.PowerConsumptionHeatingSum),
-                    PowerConsumptionHotWaterDay = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.PowerConsumptionHotWaterDay),
-                    PowerConsumptionHotWaterSum = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.PowerConsumptionHotWaterSum),
-                    PressureMedium = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.PressureMedium),
-                    ReheatingStages1 = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.ReheatingStages1),
-                    ReheatingStages2 = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.ReheatingStages2),
-                    ReheatingStagesHeatQuantityHeatingSum = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.ReheatingStagesHeatQuantityHeatingSum),
-                    ReheatingStagesHeatQuantityHotWaterTotal = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.ReheatingStagesHeatQuantityHotWaterTotal),
-                    ReturnTemperature = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.ReturnTemperature),
-                    RuntimeVaporizerDefrost = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.RuntimeVaporizerDefrost),
-                    RuntimeVaporizerHeating = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.RuntimeVaporizerHeating),
-                    RuntimeVaporizerHotWater = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.RuntimeVaporizerHotWater),
-                    SettingSpeedCompressed = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.SettingSpeedCompressed),
-                    VaporizerHeatQuantityHeatingDay = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.VaporizerHeatQuantityHeatingDay),
-                    VaporizerHeatQuantityHeatingTotal = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.VaporizerHeatQuantityHeatingTotal),
-                    VaporizerHeatQuantityHotWaterDay = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.VaporizerHeatQuantityHotWaterDay),
-                    VaporizerHeatQuantityHotWaterTotal = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.VaporizerHeatQuantityHotWaterTotal),
-                    VoltageInverter = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.VoltageInverter),
-                    WaterVolumeCurrent = _websiteParser.GetValueFromSite (htmlDocument, ScrapingValue.WaterVolumeCurrent),
+                TotalPowerConsumption = htmlDocument.ParseFor(ScrapingValue.TotalPowerConsumption),
+                    ActualSpeedDensifier = htmlDocument.ParseFor(ScrapingValue.ActualSpeedDensifier),
+                    AntiFreezeTemperature = htmlDocument.ParseFor(ScrapingValue.AntiFreezeTemperature),
+                    CompressorInletTemperature = htmlDocument.ParseFor(ScrapingValue.CompressorInletTemperature),
+                    CondenserTemperature = htmlDocument.ParseFor(ScrapingValue.CondenserTemperature),
+                    DefrostStarts = htmlDocument.ParseFor(ScrapingValue.DefrostStarts),
+                    DefrostTime = htmlDocument.ParseFor(ScrapingValue.DefrostTime),
+                    EvaporatorTemperature = htmlDocument.ParseFor(ScrapingValue.EvaporatorTemperature),
+                    ExhaustAirTemperature = htmlDocument.ParseFor(ScrapingValue.ExhaustAirTemperature),
+                    FanPowerRel = htmlDocument.ParseFor(ScrapingValue.FanPowerRel),
+                    HighPressure = htmlDocument.ParseFor(ScrapingValue.HighPressure),
+                    HotGasTemperature = htmlDocument.ParseFor(ScrapingValue.HotGasTemperature),
+                    InletTemperature = htmlDocument.ParseFor(ScrapingValue.InletTemperature),
+                    IntermediateInjectionTemperature = htmlDocument.ParseFor(ScrapingValue.IntermediateInjectionTemperature),
+                    LowPressure = htmlDocument.ParseFor(ScrapingValue.LowPressure),
+                    OilSumpTemperature = htmlDocument.ParseFor(ScrapingValue.OilSumpTemperature),
+                    OutdoorTemperature = htmlDocument.ParseFor(ScrapingValue.OutdoorTemperature),
+                    PowerConsumptionHeatingDay = htmlDocument.ParseFor(ScrapingValue.PowerConsumptionHeatingDay),
+                    PowerConsumptionHeatingSum = htmlDocument.ParseFor(ScrapingValue.PowerConsumptionHeatingSum),
+                    PowerConsumptionHotWaterDay = htmlDocument.ParseFor(ScrapingValue.PowerConsumptionHotWaterDay),
+                    PowerConsumptionHotWaterSum = htmlDocument.ParseFor(ScrapingValue.PowerConsumptionHotWaterSum),
+                    PressureMedium = htmlDocument.ParseFor(ScrapingValue.PressureMedium),
+                    ReheatingStages1 = htmlDocument.ParseFor(ScrapingValue.ReheatingStages1),
+                    ReheatingStages2 = htmlDocument.ParseFor(ScrapingValue.ReheatingStages2),
+                    ReheatingStagesHeatQuantityHeatingSum = htmlDocument.ParseFor(ScrapingValue.ReheatingStagesHeatQuantityHeatingSum),
+                    ReheatingStagesHeatQuantityHotWaterTotal = htmlDocument.ParseFor(ScrapingValue.ReheatingStagesHeatQuantityHotWaterTotal),
+                    ReturnTemperature = htmlDocument.ParseFor(ScrapingValue.ReturnTemperature),
+                    RuntimeVaporizerDefrost = htmlDocument.ParseFor(ScrapingValue.RuntimeVaporizerDefrost),
+                    RuntimeVaporizerHeating = htmlDocument.ParseFor(ScrapingValue.RuntimeVaporizerHeating),
+                    RuntimeVaporizerHotWater = htmlDocument.ParseFor(ScrapingValue.RuntimeVaporizerHotWater),
+                    SettingSpeedCompressed = htmlDocument.ParseFor(ScrapingValue.SettingSpeedCompressed),
+                    VaporizerHeatQuantityHeatingDay = htmlDocument.ParseFor(ScrapingValue.VaporizerHeatQuantityHeatingDay),
+                    VaporizerHeatQuantityHeatingTotal = htmlDocument.ParseFor(ScrapingValue.VaporizerHeatQuantityHeatingTotal),
+                    VaporizerHeatQuantityHotWaterDay = htmlDocument.ParseFor(ScrapingValue.VaporizerHeatQuantityHotWaterDay),
+                    VaporizerHeatQuantityHotWaterTotal = htmlDocument.ParseFor(ScrapingValue.VaporizerHeatQuantityHotWaterTotal),
+                    VoltageInverter = htmlDocument.ParseFor(ScrapingValue.VoltageInverter),
+                    WaterVolumeCurrent = htmlDocument.ParseFor(ScrapingValue.WaterVolumeCurrent),
                     DateCreated = utcNow,
                     DateUpdated = utcNow
             };
