@@ -1,10 +1,11 @@
-﻿using System;
+﻿using StiebelEltronApiServer.Models.Shared;
+using System;
 
 #nullable disable
 
 namespace StiebelEltronApiServer.Models
 {
-    public partial class HeatPumpDatum
+    public partial class HeatPumpDatum : ValueObject
     {
         public int Id { get; set; }
         public double TotalPowerConsumption { get; set; }

@@ -2,10 +2,10 @@ using HtmlAgilityPack;
 
 namespace StiebelEltronApiServer.Services {
     public interface IXpathService {
-        public string GetValueFor (HtmlDocument htmlDocument, ScrapingValue scrapingValue);
+        public string GetValueFor (HtmlDocument htmlDocument, Metric scrapingValue);
     }
 
-    public enum ScrapingValue {
+    public enum Metric {
         TotalPowerConsumption,
         ActualSpeedDensifier,
         AntiFreezeTemperature,

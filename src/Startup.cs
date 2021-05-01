@@ -80,6 +80,7 @@ namespace StiebelEltronApiServer
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IValueParser, ValueParser>()
                 .AddTransient<IWebsiteParser, WebsiteParser>()
+                .AddTransient<IStatisticsService, StatisticsService>()
                 .AddHostedService<ApplicationLifetimeService>()
                 .Configure<HostOptions>(opts => opts.ShutdownTimeout = TimeSpan.FromSeconds(45))
                 .AddCronJob<CollectHeatPumpDataJob>(c =>

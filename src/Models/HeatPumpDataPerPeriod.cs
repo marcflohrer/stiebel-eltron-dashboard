@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-
+using StiebelEltronApiServer.Models.Shared;
 #nullable disable
 
 namespace StiebelEltronApiServer.Models
 {
-    public partial class HeatPumpDataPerPeriod
+    public partial class HeatPumpDataPerPeriod : ValueObject
     {
+        [IgnoreMember]     
         public int Id { get; set; }
         public double ReturnTemperatureMin { get; set; }
         public double ReturnTemperatureMax { get; set; }
@@ -122,7 +122,11 @@ namespace StiebelEltronApiServer.Models
         public double Year { get; set; }
         public string PeriodKind { get; set; }
         public string PeriodNumber { get; set; }
+        [IgnoreMember]  
         public DateTime DateUpdated { get; set; }
+        [IgnoreMember]  
         public DateTime DateCreated { get; set; }
+        public DateTime First { get; set; }
+        public DateTime Last { get; set; }
     }
 }

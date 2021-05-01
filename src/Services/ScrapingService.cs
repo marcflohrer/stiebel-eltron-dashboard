@@ -8,7 +8,6 @@ namespace StiebelEltronApiServer.Services {
     public class ScrapingService : IScrapingService {
         private readonly IServiceWeltFacade _serviceWeltFacade;
         private readonly ITidyUpDirtyHtml _tidyUpDirtyHtml;
-        private readonly IWebsiteParser _websiteParser;
         private string _sessionId = "1997d0dc84ee423f6b46fcd7ae1a3891";
 
         public ScrapingService (IServiceWeltFacade serviceWeltFacade,
@@ -16,13 +15,10 @@ namespace StiebelEltronApiServer.Services {
             IWebsiteParser websiteParser) {
             _serviceWeltFacade = serviceWeltFacade;
             _tidyUpDirtyHtml = tidyUpDirtyHtml;
-            _websiteParser = websiteParser;
-            HtmlDocumentExtensions.WebsiteParser = _websiteParser;
+            HtmlDocumentExtensions.WebsiteParser = websiteParser;
         }
 
         public async Task<HeatPumpDatum> GetHeatPumpInformationAsync() => await GetHeatPumpInformationAsync(string.Empty);
-
-        public double GetValueFrom(HtmlDocument htmlDocument, ScrapingValue value) => _websiteParser.GetValueFromSite(htmlDocument, value);
 
         public async Task<HeatPumpDatum> GetHeatPumpInformationAsync (string sessionId = "1997d0dc84ee423f6b46fcd7ae1a3891") {
             if (!string.IsNullOrEmpty (sessionId) && string.IsNullOrEmpty (_sessionId)) {
@@ -41,43 +37,43 @@ namespace StiebelEltronApiServer.Services {
             htmlDocument.LoadHtml (outerHtml);
             var utcNow = DateTime.UtcNow;
             return new HeatPumpDatum {
-                TotalPowerConsumption = htmlDocument.ParseFor(ScrapingValue.TotalPowerConsumption),
-                    ActualSpeedDensifier = htmlDocument.ParseFor(ScrapingValue.ActualSpeedDensifier),
-                    AntiFreezeTemperature = htmlDocument.ParseFor(ScrapingValue.AntiFreezeTemperature),
-                    CompressorInletTemperature = htmlDocument.ParseFor(ScrapingValue.CompressorInletTemperature),
-                    CondenserTemperature = htmlDocument.ParseFor(ScrapingValue.CondenserTemperature),
-                    DefrostStarts = htmlDocument.ParseFor(ScrapingValue.DefrostStarts),
-                    DefrostTime = htmlDocument.ParseFor(ScrapingValue.DefrostTime),
-                    EvaporatorTemperature = htmlDocument.ParseFor(ScrapingValue.EvaporatorTemperature),
-                    ExhaustAirTemperature = htmlDocument.ParseFor(ScrapingValue.ExhaustAirTemperature),
-                    FanPowerRel = htmlDocument.ParseFor(ScrapingValue.FanPowerRel),
-                    HighPressure = htmlDocument.ParseFor(ScrapingValue.HighPressure),
-                    HotGasTemperature = htmlDocument.ParseFor(ScrapingValue.HotGasTemperature),
-                    InletTemperature = htmlDocument.ParseFor(ScrapingValue.InletTemperature),
-                    IntermediateInjectionTemperature = htmlDocument.ParseFor(ScrapingValue.IntermediateInjectionTemperature),
-                    LowPressure = htmlDocument.ParseFor(ScrapingValue.LowPressure),
-                    OilSumpTemperature = htmlDocument.ParseFor(ScrapingValue.OilSumpTemperature),
-                    OutdoorTemperature = htmlDocument.ParseFor(ScrapingValue.OutdoorTemperature),
-                    PowerConsumptionHeatingDay = htmlDocument.ParseFor(ScrapingValue.PowerConsumptionHeatingDay),
-                    PowerConsumptionHeatingSum = htmlDocument.ParseFor(ScrapingValue.PowerConsumptionHeatingSum),
-                    PowerConsumptionHotWaterDay = htmlDocument.ParseFor(ScrapingValue.PowerConsumptionHotWaterDay),
-                    PowerConsumptionHotWaterSum = htmlDocument.ParseFor(ScrapingValue.PowerConsumptionHotWaterSum),
-                    PressureMedium = htmlDocument.ParseFor(ScrapingValue.PressureMedium),
-                    ReheatingStages1 = htmlDocument.ParseFor(ScrapingValue.ReheatingStages1),
-                    ReheatingStages2 = htmlDocument.ParseFor(ScrapingValue.ReheatingStages2),
-                    ReheatingStagesHeatQuantityHeatingSum = htmlDocument.ParseFor(ScrapingValue.ReheatingStagesHeatQuantityHeatingSum),
-                    ReheatingStagesHeatQuantityHotWaterTotal = htmlDocument.ParseFor(ScrapingValue.ReheatingStagesHeatQuantityHotWaterTotal),
-                    ReturnTemperature = htmlDocument.ParseFor(ScrapingValue.ReturnTemperature),
-                    RuntimeVaporizerDefrost = htmlDocument.ParseFor(ScrapingValue.RuntimeVaporizerDefrost),
-                    RuntimeVaporizerHeating = htmlDocument.ParseFor(ScrapingValue.RuntimeVaporizerHeating),
-                    RuntimeVaporizerHotWater = htmlDocument.ParseFor(ScrapingValue.RuntimeVaporizerHotWater),
-                    SettingSpeedCompressed = htmlDocument.ParseFor(ScrapingValue.SettingSpeedCompressed),
-                    VaporizerHeatQuantityHeatingDay = htmlDocument.ParseFor(ScrapingValue.VaporizerHeatQuantityHeatingDay),
-                    VaporizerHeatQuantityHeatingTotal = htmlDocument.ParseFor(ScrapingValue.VaporizerHeatQuantityHeatingTotal),
-                    VaporizerHeatQuantityHotWaterDay = htmlDocument.ParseFor(ScrapingValue.VaporizerHeatQuantityHotWaterDay),
-                    VaporizerHeatQuantityHotWaterTotal = htmlDocument.ParseFor(ScrapingValue.VaporizerHeatQuantityHotWaterTotal),
-                    VoltageInverter = htmlDocument.ParseFor(ScrapingValue.VoltageInverter),
-                    WaterVolumeCurrent = htmlDocument.ParseFor(ScrapingValue.WaterVolumeCurrent),
+                TotalPowerConsumption = htmlDocument.ParseFor(Metric.TotalPowerConsumption),
+                    ActualSpeedDensifier = htmlDocument.ParseFor(Metric.ActualSpeedDensifier),
+                    AntiFreezeTemperature = htmlDocument.ParseFor(Metric.AntiFreezeTemperature),
+                    CompressorInletTemperature = htmlDocument.ParseFor(Metric.CompressorInletTemperature),
+                    CondenserTemperature = htmlDocument.ParseFor(Metric.CondenserTemperature),
+                    DefrostStarts = htmlDocument.ParseFor(Metric.DefrostStarts),
+                    DefrostTime = htmlDocument.ParseFor(Metric.DefrostTime),
+                    EvaporatorTemperature = htmlDocument.ParseFor(Metric.EvaporatorTemperature),
+                    ExhaustAirTemperature = htmlDocument.ParseFor(Metric.ExhaustAirTemperature),
+                    FanPowerRel = htmlDocument.ParseFor(Metric.FanPowerRel),
+                    HighPressure = htmlDocument.ParseFor(Metric.HighPressure),
+                    HotGasTemperature = htmlDocument.ParseFor(Metric.HotGasTemperature),
+                    InletTemperature = htmlDocument.ParseFor(Metric.InletTemperature),
+                    IntermediateInjectionTemperature = htmlDocument.ParseFor(Metric.IntermediateInjectionTemperature),
+                    LowPressure = htmlDocument.ParseFor(Metric.LowPressure),
+                    OilSumpTemperature = htmlDocument.ParseFor(Metric.OilSumpTemperature),
+                    OutdoorTemperature = htmlDocument.ParseFor(Metric.OutdoorTemperature),
+                    PowerConsumptionHeatingDay = htmlDocument.ParseFor(Metric.PowerConsumptionHeatingDay),
+                    PowerConsumptionHeatingSum = htmlDocument.ParseFor(Metric.PowerConsumptionHeatingSum),
+                    PowerConsumptionHotWaterDay = htmlDocument.ParseFor(Metric.PowerConsumptionHotWaterDay),
+                    PowerConsumptionHotWaterSum = htmlDocument.ParseFor(Metric.PowerConsumptionHotWaterSum),
+                    PressureMedium = htmlDocument.ParseFor(Metric.PressureMedium),
+                    ReheatingStages1 = htmlDocument.ParseFor(Metric.ReheatingStages1),
+                    ReheatingStages2 = htmlDocument.ParseFor(Metric.ReheatingStages2),
+                    ReheatingStagesHeatQuantityHeatingSum = htmlDocument.ParseFor(Metric.ReheatingStagesHeatQuantityHeatingSum),
+                    ReheatingStagesHeatQuantityHotWaterTotal = htmlDocument.ParseFor(Metric.ReheatingStagesHeatQuantityHotWaterTotal),
+                    ReturnTemperature = htmlDocument.ParseFor(Metric.ReturnTemperature),
+                    RuntimeVaporizerDefrost = htmlDocument.ParseFor(Metric.RuntimeVaporizerDefrost),
+                    RuntimeVaporizerHeating = htmlDocument.ParseFor(Metric.RuntimeVaporizerHeating),
+                    RuntimeVaporizerHotWater = htmlDocument.ParseFor(Metric.RuntimeVaporizerHotWater),
+                    SettingSpeedCompressed = htmlDocument.ParseFor(Metric.SettingSpeedCompressed),
+                    VaporizerHeatQuantityHeatingDay = htmlDocument.ParseFor(Metric.VaporizerHeatQuantityHeatingDay),
+                    VaporizerHeatQuantityHeatingTotal = htmlDocument.ParseFor(Metric.VaporizerHeatQuantityHeatingTotal),
+                    VaporizerHeatQuantityHotWaterDay = htmlDocument.ParseFor(Metric.VaporizerHeatQuantityHotWaterDay),
+                    VaporizerHeatQuantityHotWaterTotal = htmlDocument.ParseFor(Metric.VaporizerHeatQuantityHotWaterTotal),
+                    VoltageInverter = htmlDocument.ParseFor(Metric.VoltageInverter),
+                    WaterVolumeCurrent = htmlDocument.ParseFor(Metric.WaterVolumeCurrent),
                     DateCreated = utcNow,
                     DateUpdated = utcNow
             };

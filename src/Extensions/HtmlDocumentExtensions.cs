@@ -17,6 +17,6 @@ namespace StiebelEltronApiServer.Extensions
                 _websiteParser = value;
             }
         }
-        public static double ParseFor(this HtmlDocument htmlDocument, ScrapingValue scrapingValue) => _websiteParser.GetValueFromSite(htmlDocument, scrapingValue);
+        public static double ParseFor(this HtmlDocument htmlDocument, Metric scrapingValue) => _websiteParser.GetValueFromSite(htmlDocument, scrapingValue);
     }
 }

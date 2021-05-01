@@ -10,8 +10,8 @@ namespace StiebelEltronApiServer.Services {
             _valueParser = valueParser;
             _unitService = unitService;
         }
-        public double GetValueFromSite (HtmlDocument htmlDocument, ScrapingValue scrapingValue) {
-            return _unitService.GetBaseUnitValue(_valueParser.GetValueWithUnit(_xpathService.GetValueFor (htmlDocument, ScrapingValue.TotalPowerConsumption)));
+        public double GetValueFromSite (HtmlDocument htmlDocument, Metric scrapingValue) {
+            return _unitService.GetBaseUnitValue(_valueParser.GetValueWithUnit(_xpathService.GetValueFor (htmlDocument, Metric.TotalPowerConsumption)));
         }
     }
 }

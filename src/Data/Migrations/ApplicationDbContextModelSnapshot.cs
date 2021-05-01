@@ -340,6 +340,9 @@ namespace StiebelEltronApiServer.Data.Migrations
                     b.Property<double>("FanPowerRelMin")
                         .HasColumnType("float");
 
+                    b.Property<DateTime>("First")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("HighPressureAverage")
                         .HasColumnType("float");
 
@@ -375,6 +378,9 @@ namespace StiebelEltronApiServer.Data.Migrations
 
                     b.Property<double>("IntermediateInjectionTemperatureMin")
                         .HasColumnType("float");
+
+                    b.Property<DateTime>("Last")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("LowPressureAverage")
                         .HasColumnType("float");
