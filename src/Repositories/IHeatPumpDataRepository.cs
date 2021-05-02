@@ -1,4 +1,5 @@
 using StiebelEltronApiServer.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StiebelEltronApiServer.Repositories
@@ -8,5 +9,8 @@ namespace StiebelEltronApiServer.Repositories
         public void InsertHeatPumpData(HeatPumpDatum heatPumpDatum);
 
         public Task<HeatPumpDatum> GetMaxTotalPowerConsumption();
+        HeatPumpDatum[] GetLastYear();
+        
+        public void RemoveRange(IEnumerable<HeatPumpDatum> heatPumpDatum);
     }
 }

@@ -81,12 +81,18 @@ namespace StiebelEltronApiServer
                 .AddTransient<IValueParser, ValueParser>()
                 .AddTransient<IWebsiteParser, WebsiteParser>()
                 .AddTransient<IStatisticsService, StatisticsService>()
+                .AddTransient<IHeatPumpStatisticsCalculator, HeatPumpStatisticsCalculator>()
                 .AddHostedService<ApplicationLifetimeService>()
                 .Configure<HostOptions>(opts => opts.ShutdownTimeout = TimeSpan.FromSeconds(45))
                 .AddCronJob<CollectHeatPumpDataJob>(c =>
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
                     c.CronExpression = @"0 * * * *";
+                })
+                .AddCronJob<HeatPumpStatisticsCalculatorJob>(c =>
+                {
+                    c.TimeZoneInfo = TimeZoneInfo.Local;
+                    c.CronExpression = @"0 0 * * *";
                 });
 
             services.AddIdentityCore<ApplicationUser>()

@@ -3,14 +3,17 @@ using StiebelEltronApiServer.Models;
 using System.Linq;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace StiebelEltronApiServer.Repositories {
     public class HeatPumpDataRepository : IHeatPumpDataRepository {
         private readonly ApplicationDbContext _applicationDbContext;
-         
-        public HeatPumpDataRepository (ApplicationDbContext applicationDbContext) {
-            _applicationDbContext = applicationDbContext;
-        }
+
+        public HeatPumpDataRepository(ApplicationDbContext applicationDbContext) 
+            => _applicationDbContext = applicationDbContext;
+
+        public HeatPumpDatum[] GetLastYear() 
+            => _applicationDbContext.HeatPumpData.Where(hpd => hpd.DateCreated >= DateTime.Now.Subtract(TimeSpan.FromDays(366))).ToArray();
 
         public async Task<HeatPumpDatum> GetMaxTotalPowerConsumption() {
             var maxTotalPowerConsumption = 0.0;
@@ -29,8 +32,10 @@ namespace StiebelEltronApiServer.Repositories {
             };
         }
 
-        public void InsertHeatPumpData (HeatPumpDatum heatPump) {
-            _applicationDbContext.Add(heatPump);
-        }
+        public void InsertHeatPumpData(HeatPumpDatum heatPump) 
+            => _applicationDbContext.HeatPumpData.Add(heatPump);
+
+        public void RemoveRange(IEnumerable<HeatPumpDatum> heatPumpData) 
+            => _applicationDbContext.HeatPumpData.RemoveRange(heatPumpData);
     }
 }

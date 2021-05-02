@@ -46,6 +46,9 @@ namespace StiebelEltronApiServer.Models.Shared
         private bool PropertiesAreEqual(object obj, PropertyInfo p)
         {
             var isEqual = object.Equals(p.GetValue(this, null), p.GetValue(obj, null));
+            if(!isEqual && p.GetValue(this, null).GetType() == typeof(System.Double)){
+                isEqual = Math.Abs((double)p.GetValue(this, null) - (double)p.GetValue(obj, null)) <= Double.Epsilon;
+            }
             if(!isEqual){
                 Console.WriteLine($"Not Equal: {p}");
             }

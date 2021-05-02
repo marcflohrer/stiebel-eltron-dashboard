@@ -12,19 +12,19 @@ namespace StiebelEltronApiServerTests
     public class StatisticsServiceTests
     {
         [Theory]
-        //[ClassData(typeof(StatisticsServiceTestDailyPeriodDataGenerator))]
         [MemberData(nameof(StatisticsServiceTestDailyPeriodDataGenerator.GetHeatPumpTestData), MemberType = typeof(StatisticsServiceTestDailyPeriodDataGenerator))]
         public void WhenScrapingServiceWeltTotalPowerConsumptionIsReturned(IEnumerable<HeatPumpDatum> heatPumpData, HeatPumpDataPerPeriod expectedHeatPumpDataPerPeriod)
         {
             var autoMoqer = new AutoMoqer();
             var fixture = new Fixture();
             var sessionId = fixture.Create<string>();
+            var now = heatPumpData.Select(h => h.DateCreated).Min();
 
             var statisticsService = autoMoqer.Create<StatisticsService>();
             var year = heatPumpData.FirstOrDefault().DateCreated.Year;
 
             // Act
-            var calculatedHeatPumpDataPerPeriod = statisticsService.GetHeatPumpDataPerPeriod(heatPumpData, year, "Day", 13);
+            var calculatedHeatPumpDataPerPeriod = statisticsService.GetHeatPumpDataPerPeriod(heatPumpData, year, "Day", 13, now);
 
             // Assert
             Assert.Equal(expectedHeatPumpDataPerPeriod, calculatedHeatPumpDataPerPeriod);
