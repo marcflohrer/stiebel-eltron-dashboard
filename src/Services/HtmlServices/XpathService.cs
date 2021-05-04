@@ -1,15 +1,18 @@
 using System.Collections.Generic;
 using HtmlAgilityPack;
 
-namespace StiebelEltronApiServer.Services {
-    public class XpathService : IXpathService {
-        public string GetValueFor (HtmlDocument htmlDocument, Metric scrapingValue) {
+namespace StiebelEltronApiServer.Services.HtmlServices
+{
+    public class XpathService : IXpathService
+    {
+        public string GetValueFor(HtmlDocument htmlDocument, Metric scrapingValue)
+        {
             return htmlDocument.DocumentNode
-                .SelectSingleNode (xpathOfElement[scrapingValue]) ?
+                .SelectSingleNode(xpathOfElement[scrapingValue])?
                 .InnerText;
         }
 
-        private readonly IDictionary<Metric, string> xpathOfElement = new Dictionary<Metric, string> () {
+        private readonly IDictionary<Metric, string> xpathOfElement = new Dictionary<Metric, string>() {
             {
             Metric.TotalPowerConsumption, "/html[1]/body[1]/div[2]/div[1]/form[1]/div[1]/div[2]/table[1]/tr[3]/td[2]"
             }, {

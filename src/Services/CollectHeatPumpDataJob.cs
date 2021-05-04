@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StiebelEltronApiServer.Extensions;
 using StiebelEltronApiServer.Repositories;
+using StiebelEltronApiServer.Services.HtmlServices;
 
 namespace StiebelEltronApiServer.Services
 {

@@ -1,5 +1,5 @@
 ﻿using AutoMoqCore;
-using StiebelEltronApiServer.Services;
+using StiebelEltronApiServer.Services.HtmlServices;
 using Xunit;
 using Xunit.Abstractions;
 

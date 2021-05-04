@@ -1,6 +1,6 @@
 using HtmlAgilityPack;
 
-namespace StiebelEltronApiServer.Services
+namespace StiebelEltronApiServer.Services.HtmlServices
 {
     public interface IWebsiteParser
     {

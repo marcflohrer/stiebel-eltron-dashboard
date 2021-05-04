@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using static StiebelEltronApiServer.Services.Tags;
+using static StiebelEltronApiServer.Services.HtmlServices.Tags;
 
-namespace StiebelEltronApiServer.Services
+namespace StiebelEltronApiServer.Services.HtmlServices
 {
     public static class TagMismatchDetector
     {

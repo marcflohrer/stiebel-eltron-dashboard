@@ -1,4 +1,4 @@
-﻿namespace StiebelEltronApiServer.Services
+﻿namespace StiebelEltronApiServer.Services.HtmlServices
 {
     public interface ITidyUpDirtyHtml
     {

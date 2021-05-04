@@ -1,5 +1,5 @@
 using HtmlAgilityPack;
-using StiebelEltronApiServer.Services;
+using StiebelEltronApiServer.Services.HtmlServices;
 
 namespace StiebelEltronApiServer.Extensions
 {

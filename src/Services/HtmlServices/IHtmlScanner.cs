@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace StiebelEltronApiServer.Services
+namespace StiebelEltronApiServer.Services.HtmlServices
 {
     public interface IHtmlScanner
     {

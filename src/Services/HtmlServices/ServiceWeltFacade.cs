@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using StiebelEltronApiServer.Models;
 using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StiebelEltronApiServer.Services
+namespace StiebelEltronApiServer.Services.HtmlServices
 {
     public class ServiceWeltFacade : IServiceWeltFacade
     {
@@ -18,16 +17,16 @@ namespace StiebelEltronApiServer.Services
 
         public ServiceWeltFacade(IConfiguration configuration)
         {
-            _serviceWeltBaseUrl = configuration["ServiceWeltUrl"] as string ?? throw new System.Exception("Missing configuration 'ServiceWeltUrl'");
-            _serviceWeltUser = configuration["ServiceWeltUser"] as string ?? throw new System.Exception("Missing configuration 'ServiceWeltUser'");
-            _serviceWeltPassword = configuration["ServiceWeltPassword"] as string ?? throw new System.Exception("Missing configuration 'ServiceWeltPassword'");
+            _serviceWeltBaseUrl = configuration["ServiceWeltUrl"] as string ?? throw new Exception("Missing configuration 'ServiceWeltUrl'");
+            _serviceWeltUser = configuration["ServiceWeltUser"] as string ?? throw new Exception("Missing configuration 'ServiceWeltUser'");
+            _serviceWeltPassword = configuration["ServiceWeltPassword"] as string ?? throw new Exception("Missing configuration 'ServiceWeltPassword'");
         }
 
         public async Task<ServiceWelt> GetHeatPumpWebsiteAsync(string sessionId)
         {
             var body = $"make=send&user={_serviceWeltUser}&pass={_serviceWeltPassword}";
             var heatPumpUrl = BuildHeatPumpUrl(_serviceWeltBaseUrl);
-            var httpResponseMessage = await PostUrl(_serviceWeltBaseUrl, heatPumpUrl, body, new Guid().ToString());;
+            var httpResponseMessage = await PostUrl(_serviceWeltBaseUrl, heatPumpUrl, body, new Guid().ToString()); ;
             var content = await httpResponseMessage.Content.ReadAsStringAsync();
             return new ServiceWelt()
             {
@@ -63,7 +62,8 @@ namespace StiebelEltronApiServer.Services
         private static async Task<HttpResponseMessage> PostUrl(string baseUrl, string fullUrl, string content, string sessionId)
         {
             CookieContainer cookieContainer = new CookieContainer();
-            using HttpClientHandler handler = new HttpClientHandler{
+            using HttpClientHandler handler = new HttpClientHandler
+            {
                 UseDefaultCredentials = true,
                 AllowAutoRedirect = true,
                 UseCookies = true,
@@ -77,7 +77,8 @@ namespace StiebelEltronApiServer.Services
 
         private static async Task<HttpResponseMessage> GetUrl(string baseUrl, string fullUrl, string sessionId)
         {
-            using var httpClientHandler = new HttpClientHandler{
+            using var httpClientHandler = new HttpClientHandler
+            {
                 UseCookies = true
             };
             using var httpClient = BuildHttpClient(baseUrl, sessionId, httpClientHandler);

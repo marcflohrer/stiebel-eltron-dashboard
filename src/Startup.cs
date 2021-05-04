@@ -36,6 +36,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using StiebelEltronApiServer.Extensions;
+using StiebelEltronApiServer.Services.HtmlServices;
 
 namespace StiebelEltronApiServer
 {

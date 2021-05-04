@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using static StiebelEltronApiServer.Services.Tags;
+using static StiebelEltronApiServer.Services.HtmlServices.Tags;
 
-namespace StiebelEltronApiServer.Services
+namespace StiebelEltronApiServer.Services.HtmlServices
 {
     public class HtmlScanner : IHtmlScanner
     {
@@ -57,7 +57,7 @@ namespace StiebelEltronApiServer.Services
             return new ParseResult(unclosedTags, unopenedTags);
         }
 
-        
+
     }
     public record ParseResult(IList<UnclosedTag> unclosedTags, IList<SubStringIndices> unopenedTags);
 }

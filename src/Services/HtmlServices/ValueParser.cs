@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace StiebelEltronApiServer.Services
+namespace StiebelEltronApiServer.Services.HtmlServices
 {
     public class ValueParser : IValueParser
     {
@@ -10,16 +10,20 @@ namespace StiebelEltronApiServer.Services
             var decimalValue = rawValue.Trim().Replace(',', '.');
             var number = new StringBuilder();
             var unit = new StringBuilder();
-            foreach(var d in decimalValue){
+            foreach (var d in decimalValue)
+            {
                 var isNumeric = int.TryParse(d.ToString(), out _);
                 var isDot = d == '.';
-                if(isNumeric || isDot){
+                if (isNumeric || isDot)
+                {
                     number.Append(d);
-                }else{
+                }
+                else
+                {
                     unit.Append(d);
                 }
             }
-            return (Double.Parse (number.ToString()), unit.ToString()); 
+            return (double.Parse(number.ToString()), unit.ToString());
         }
     }
 }

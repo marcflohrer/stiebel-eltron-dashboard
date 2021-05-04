@@ -3,6 +3,7 @@ using AutoMoqCore;
 using Moq;
 using StiebelEltronApiServer.Models;
 using StiebelEltronApiServer.Services;
+using StiebelEltronApiServer.Services.HtmlServices;
 using System.Threading.Tasks;
 using Xunit;
 
