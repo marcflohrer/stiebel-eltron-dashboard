@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace StiebelEltronApiServer.Repositories {
     public class HeatPumpDataRepository : IHeatPumpDataRepository {
@@ -13,7 +14,10 @@ namespace StiebelEltronApiServer.Repositories {
             => _applicationDbContext = applicationDbContext;
 
         public HeatPumpDatum[] GetLastYear() 
-            => _applicationDbContext.HeatPumpData.Where(hpd => hpd.DateCreated >= DateTime.Now.Subtract(TimeSpan.FromDays(366))).ToArray();
+             {
+                 var oneYearAgo = DateTime.UtcNow.Subtract(TimeSpan.FromDays(366));
+                 return _applicationDbContext.HeatPumpData.Where(a => a.DateCreated >= oneYearAgo).ToArray();
+             }
 
         public async Task<HeatPumpDatum> GetMaxTotalPowerConsumption() {
             var maxTotalPowerConsumption = 0.0;
