@@ -68,5 +68,14 @@ namespace StiebelEltronApiServer.Repositories
                     && hpdpp.PeriodKind == "Year")
                     .ToList();
         }
+
+        public List<HeatPumpDataPerPeriod> GetAllRecordsFromRecent366Days(DateTime now)
+        {
+            var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(365));
+            var year = startOfRequestedPeriod.Year;
+            var firstMonthOfRequestedPeriod = startOfRequestedPeriod.Month;
+            return _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp 
+                => hpdpp.DateCreated >= startOfRequestedPeriod).ToList();
+        }
     }
 }

@@ -33,7 +33,8 @@ namespace StiebelEltronApiServer.Services {
                 using var scope = _serviceScopeFactory.CreateScope ();
                 var unitOfWork = scope.ServiceProvider.GetService<IUnitOfWork> ();
                 var recordsOfRecentYear = unitOfWork.HeatPumpDataRepository.GetLastYear ();
-                var statisticsResult = _heatPumpStatisticsCalculator.Calculate (recordsOfRecentYear, DateTime.Now);                
+                var twelveMonthsPeriodAggregations = unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentTwelveMonths(DateTime.Now);
+                var statisticsResult = _heatPumpStatisticsCalculator.Calculate (recordsOfRecentYear,twelveMonthsPeriodAggregations, DateTime.Now);
                 if(statisticsResult.DataSetsToRemove.Any()){
                     unitOfWork.HeatPumpDataRepository.RemoveRange(statisticsResult.DataSetsToRemove);
                 }

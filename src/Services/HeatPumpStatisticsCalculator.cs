@@ -15,14 +15,33 @@ namespace StiebelEltronApiServer.Services
         {
             _statisticsService = statisticsService;
         }
-        public StatisticsResult Calculate(IList<HeatPumpDatum> heatPumpData, DateTime now){
+        public StatisticsResult Calculate(IList<HeatPumpDatum> heatPumpData, IList<HeatPumpDataPerPeriod> heatPumpDataPerPeriods, DateTime now){
+
             var result = new StatisticsResult(null,null);
-            var lastYear = heatPumpData.Where(hpd => hpd.DateCreated >= now.Subtract(TimeSpan.FromDays(366))).ToList();
+            
+            var latestYearlyStatistic = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Year").Select(h => h.DateCreated).Max();
+            var lastYear = heatPumpData.Where(hpd => hpd.DateCreated >= latestYearlyStatistic).ToList();
             var oldestRecordInRecent366Days = lastYear.Select(hpd => hpd.DateCreated).Min();
-            var dailyStatisticsContainer = GetEmptyDailyStatisticsContainer(oldestRecordInRecent366Days, now);            
-            var weeklyStatisticsContainer = GetEmptyWeeklyStatisticsContainer(oldestRecordInRecent366Days, now);
-            var monthlyStatisticsContainer = GetEmptyMonthlyStatisticsContainer(oldestRecordInRecent366Days, now);
             var yearlyStatisticsContainer = GetEmptyYearlyStatisticsContainer(oldestRecordInRecent366Days, now);
+            Console.WriteLine("Calculate yearly statistics: latest Stats: {latestYearlyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecent366Days}");
+            
+            var latestDailyStatistic = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Day").Select(h => h.DateCreated).Max();
+            var lastDay = heatPumpData.Where(hpd => hpd.DateCreated >= latestDailyStatistic).ToList();
+            var oldestRecordInRecent1Day = lastDay.Select(hpd => hpd.DateCreated).Min();
+            var dailyStatisticsContainer = GetEmptyDailyStatisticsContainer(oldestRecordInRecent1Day, now);            
+            Console.WriteLine("Calculate daily statistics: latest Stats: {latestDailyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecent1Day}");
+
+            var latestWeeklyStatistic = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Week").Select(h => h.DateCreated).Max();
+            var lastWeek = heatPumpData.Where(hpd => hpd.DateCreated >= latestWeeklyStatistic).ToList();
+            var oldestRecordInRecentWeek = lastWeek.Select(hpd => hpd.DateCreated).Min();
+            var weeklyStatisticsContainer = GetEmptyWeeklyStatisticsContainer(oldestRecordInRecentWeek, now);
+            Console.WriteLine("Calculate daily statistics: latest Stats: {latestWeeklyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecentWeek}");
+
+            var latestMonthlyStatistic = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Month").Select(h => h.DateCreated).Max();
+            var lastMonth = heatPumpData.Where(hpd => hpd.DateCreated >= latestMonthlyStatistic).ToList();
+            var oldestRecordInRecentMonth = lastMonth.Select(hpd => hpd.DateCreated).Min();
+            var monthlyStatisticsContainer = GetEmptyWeeklyStatisticsContainer(oldestRecordInRecentMonth, now);   
+            Console.WriteLine("Calculate daily statistics: latest Stats: {latestMonthlyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecentMonth}");         
             
             var statistics = new List<HeatPumpDataPerPeriod>();
             statistics.AddRange(GetDailyStatistics(heatPumpData, dailyStatisticsContainer, now));

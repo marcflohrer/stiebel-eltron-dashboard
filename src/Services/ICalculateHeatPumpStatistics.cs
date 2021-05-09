@@ -6,6 +6,6 @@ namespace StiebelEltronApiServer.Services
 {
     public interface IHeatPumpStatisticsCalculator
     {
-        StatisticsResult Calculate(IList<HeatPumpDatum> heatPumpData, DateTime now);
+        StatisticsResult Calculate(IList<HeatPumpDatum> heatPumpData, IList<HeatPumpDataPerPeriod> heatPumpDataPerPeriods, DateTime now);
     }
 }
