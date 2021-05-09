@@ -23,7 +23,7 @@ namespace StiebelEltronApiServerTests {
             return heatPumpDataPerPeriod;
         }
         public static HeatPumpDataPerPeriod SetPeriodNumber(this HeatPumpDataPerPeriod heatPumpDataPerPeriod, int value) {
-            heatPumpDataPerPeriod.PeriodNumber = value.ToString();
+            heatPumpDataPerPeriod.PeriodNumber = value;
             return heatPumpDataPerPeriod;
         }
         public static HeatPumpDataPerPeriod SetFirst(this HeatPumpDataPerPeriod heatPumpDataPerPeriod, DateTime value) {

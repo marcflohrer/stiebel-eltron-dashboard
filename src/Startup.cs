@@ -88,12 +88,12 @@ namespace StiebelEltronApiServer
                 .AddCronJob<CollectHeatPumpDataJob>(c =>
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
-                    c.CronExpression = @"0 * * * *";
+                    c.CronExpression = @"* * * * *";
                 })
                 .AddCronJob<HeatPumpStatisticsCalculatorJob>(c =>
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
-                    c.CronExpression = @"0 0 * * *";
+                    c.CronExpression = @"*/5 * * * *";
                 });
 
             services.AddIdentityCore<ApplicationUser>()

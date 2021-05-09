@@ -341,7 +341,9 @@ namespace StiebelEltronApiServer.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<DateTime>("First")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
                     b.Property<double>("HighPressureAverage")
                         .HasColumnType("float");
@@ -380,7 +382,9 @@ namespace StiebelEltronApiServer.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<DateTime>("Last")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
                     b.Property<double>("LowPressureAverage")
                         .HasColumnType("float");
@@ -412,8 +416,8 @@ namespace StiebelEltronApiServer.Data.Migrations
                     b.Property<string>("PeriodKind")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PeriodNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PeriodNumber")
+                        .HasColumnType("int");
 
                     b.Property<double>("PowerConsumptionHeatingDayDelta")
                         .HasColumnType("float");
@@ -744,8 +748,7 @@ namespace StiebelEltronApiServer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "Id" }, "Id")
-                        .HasDatabaseName("Id1");
+                    b.HasIndex(new[] { "Id" }, "Id1");
 
                     b.ToTable("HeatPumpData");
                 });

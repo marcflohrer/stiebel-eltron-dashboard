@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StiebelEltronApiServer.Models;
+using Newtonsoft.Json;
+using StiebelEltronApiServer.Extensions;
 using StiebelEltronApiServer.Models.HeatPumpViewModels;
 using StiebelEltronApiServer.Repositories;
 using System;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 
 namespace StiebelEltronApiServer.Controllers
 {
@@ -22,16 +25,39 @@ namespace StiebelEltronApiServer.Controllers
         //
         // GET: /HeatPump/Index
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             Console.WriteLine("Entering HeatPump/Index");
-            var maxTotalPowerConsumption = await _unitOfWork.HeatPumpDataRepository.GetMaxTotalPowerConsumption();
-            Console.WriteLine($"Index: Max Total Power Consumption: {maxTotalPowerConsumption}");
-            var model = new HeatPumpDataViewModel
-            {
-                MaxTotalPowerConsumption = maxTotalPowerConsumption.TotalPowerConsumption / Math.Pow(10,6)
-            };
-            return View(model);
+            var recentSevenDays = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentSevenDays(DateTime.Now);
+            if(!recentSevenDays.Any()){
+                Console.WriteLine($"Index: Recent 7 Days. No results. {recentSevenDays.Count()}");
+                return View();
+            }else{
+                Console.WriteLine($"Index: Recent 7 Days. Results: {recentSevenDays.Count()}");
+                foreach(var rsd in recentSevenDays)
+                {
+                    Console.WriteLine($"Index: Recent 7 Days. Results: {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} ");
+                }
+            }
+            return View(recentSevenDays);
         }
     }
+
+    [DataContract]
+	public class DataPoint
+	{
+		public DataPoint(double x, double y)
+		{
+			this.X = x;
+			this.Y = y;
+		}
+ 
+		//Explicitly setting the name to be used while serializing to JSON.
+		[DataMember(Name = "x")]
+		public Nullable<double> X = null;
+ 
+		//Explicitly setting the name to be used while serializing to JSON.
+		[DataMember(Name = "y")]
+		public Nullable<double> Y = null;
+	}
 }

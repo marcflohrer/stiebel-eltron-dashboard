@@ -9,7 +9,9 @@
     <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                <a asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>                
+            </li>
+            <li>
                 <a asp-controller="HeatPump" asp-action="Index" title="HeatPump">Wärmepumpe</a>
             </li>
             <li>

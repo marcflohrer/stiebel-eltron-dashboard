@@ -1,44 +1,85 @@
-﻿@model HeatPumpDataViewModel
+﻿@model List<HeatPumpDataPerPeriod>
 @{
-    Layout = "/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Heat Pump";
+    ViewData["Title"] = "Heat Pump";
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DateCreated.ToString("MMMM dd hh:mm")).ToList());
+    var MaxOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMax).ToList());
+    var MinOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMin).ToList());
+    var AvgOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureAverage).ToList());
 }
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
+<!DOCTYPE html>
 
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
-    <div class="item active">
-      <img src="https://www.planetware.com/wpimages/2020/03/canada-best-lakes-moraine-lake.jpg" alt="Los Angeles">
-      <h3>Los Angeles</h3>
-        <p>We had such a great time in LA!</p>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Line</title>
+</head>
+
+<body>
+    <meta http-equiv="refresh" content="60">
+    <div class="box-body">
+
+        <div class="chart-container">
+            <canvas id="chart" style="width:100%; height:500px"></canvas>
+        </div>
     </div>
+</body>
 
-    <div class="item">
-      <img src="https://wallpapertag.com/wallpaper/full/3/1/a/475500-boston-skyline-wallpaper-1920x1080-ipad-pro.jpg" alt="Chicago">
-      <h3>Los Angeles</h3>
-      <p>We had such a great time in LA!</p>
-    </div>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-    <div class="item">
-      <img src="https://wallpapertag.com/wallpaper/full/d/4/a/325281-full-size-tree-wallpaper-1920x1080-for-phones.jpg" alt="New York">
-      <h3>Gesamtstromverbrauch</h3>
-      <p>@Model.MaxTotalPowerConsumption MWh</p>
-    </div>
-  </div>
+<script type="text/javascript">
+    $(function () {
+        var chartName = "chart";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+            labels: @Html.Raw(XLabels),
+            datasets: [{
+                label: "Max. Außentemp. °C",
+                borderWidth: 1,
+                data: @Html.Raw(MaxOutDoorTemp),
+            },{
+                label: "Min. Außentemp. °C",
+                borderWidth: 1,
+                data: @Html.Raw(MinOutDoorTemp),
+            },{
+                label: "Durchschn. Außentemp. °C",
+                borderWidth: 1,
+                data: @Html.Raw(AvgOutDoorTemp),
+            }]
+        };
 
-  <!-- Left and right controls -->
-  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+        var options = {
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        beginAtZero: false
+                    },
+                    gridLines: {
+                        display: true,
+                        color: "rgba(rgba(236, 243, 225, 1))"
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        min: 0,
+                        beginAtZero: false
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            }
+        };
+
+        var myChart = new Chart(ctx, {
+            options: options,
+            data: data,
+            type: 'line'
+
+        });
+    });
+</script>

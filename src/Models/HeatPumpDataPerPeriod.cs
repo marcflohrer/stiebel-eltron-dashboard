@@ -121,7 +121,7 @@ namespace StiebelEltronApiServer.Models
         public double DefrostStartsDelta { get; set; }
         public double Year { get; set; }
         public string PeriodKind { get; set; }
-        public string PeriodNumber { get; set; }
+        public int PeriodNumber { get; set; }
         [IgnoreMember]  
         public DateTime DateUpdated { get; set; }
         [IgnoreMember]  

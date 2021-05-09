@@ -41,7 +41,7 @@ namespace StiebelEltronApiServer.Services {
                 foreach (var stats in statisticsResult.Statistics) {
                     var statsInDb = unitOfWork.HeatPumpStatisticsPerPeriodRepository.FindByYearAndPeriodNumber ((int) stats.Year, stats.PeriodNumber);
                     if (statsInDb != null) {
-                        continue;
+                        unitOfWork.HeatPumpStatisticsPerPeriodRepository.Update (statsInDb.UpdateWith(stats));
                     }
                     unitOfWork.HeatPumpStatisticsPerPeriodRepository.Add (stats);
                 }

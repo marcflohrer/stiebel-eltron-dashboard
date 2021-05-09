@@ -143,7 +143,7 @@ namespace StiebelEltronApiServerTests {
                     DefrostStartsDelta = 13,
                     Year = DateTime.Now.Year,
                     PeriodKind = "Day",
-                    PeriodNumber = "13",
+                    PeriodNumber = 13,
                     First = new DateTime(2021,5,1).Subtract (TimeSpan.FromHours (14)),
                     Last = new DateTime(2021,5,1).Subtract (TimeSpan.FromHours (1)),
                 }                

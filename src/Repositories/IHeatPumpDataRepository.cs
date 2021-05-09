@@ -1,16 +1,11 @@
-using StiebelEltronApiServer.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using StiebelEltronApiServer.Models;
 
 namespace StiebelEltronApiServer.Repositories
 {
-    public interface IHeatPumpDataRepository
-    {
-        public void InsertHeatPumpData(HeatPumpDatum heatPumpDatum);
-
-        public Task<HeatPumpDatum> GetMaxTotalPowerConsumption();
-        HeatPumpDatum[] GetLastYear();
-        
-        public void RemoveRange(IEnumerable<HeatPumpDatum> heatPumpDatum);
+    public interface IHeatPumpDataRepository {
+        public void InsertHeatPumpData (HeatPumpDatum heatPumpDatum);
+        HeatPumpDatum[] GetLastYear ();
+        public void RemoveRange (IEnumerable<HeatPumpDatum> heatPumpDatum);
     }
 }

@@ -120,7 +120,7 @@ namespace StiebelEltronApiServer.Services {
                     DefrostStartsDelta = heatPumpData.GetDeltaForMetric (h => h.DefrostStarts)?? Double.MinValue,
                     Year = year,
                     PeriodKind = periodKind,
-                    PeriodNumber = periodNumber.ToString (),
+                    PeriodNumber = periodNumber,
                     First = heatPumpData.GetFirst (),
                     Last = heatPumpData.GetLast (),
                     DateUpdated = now,
