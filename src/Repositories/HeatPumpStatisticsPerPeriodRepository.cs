@@ -29,12 +29,38 @@ namespace StiebelEltronApiServer.Repositories
             var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(7));
             var firstDay = startOfRequestedPeriod.DayOfYear;
             var year = startOfRequestedPeriod.Year;
-            return  _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp 
-                => hpdpp.Year == year 
-                    && hpdpp.PeriodKind == "Day" 
+            var list = _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp
+                => hpdpp.Year == year
+                    && hpdpp.PeriodKind == "Day"
                     && hpdpp.PeriodNumber >= firstDay
-                    && hpdpp.First != DateTime.MaxValue)
-                    .ToList();
+                    && hpdpp.First != DateTime.MaxValue);
+            var result = new List<HeatPumpDataPerPeriod>();
+            HeatPumpDataPerPeriod previous = null;
+            result = GetDistinctPeriodNumber(list, result, previous);
+            return result.Take(7).ToList();
+        }
+
+        private static List<HeatPumpDataPerPeriod> GetDistinctPeriodNumber(IQueryable<HeatPumpDataPerPeriod> list, List<HeatPumpDataPerPeriod> result, HeatPumpDataPerPeriod previous)
+        {
+            foreach (var elem in list)
+            {
+                if (previous == null)
+                {
+                    result.Add(elem);
+                    previous = elem;
+                    Console.WriteLine($" First: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
+                }
+                else if (previous.PeriodNumber < elem.PeriodNumber)
+                {
+                    result.Add(elem);
+                    previous = elem;
+                    Console.WriteLine($" Add: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
+                }else{
+                    Console.WriteLine($" Duplicate: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
+                }
+            }
+
+            return result;
         }
 
         public List<HeatPumpDataPerPeriod> GetRecentTwelveWeeks(DateTime now, CultureInfo cultureInfo)
@@ -42,11 +68,14 @@ namespace StiebelEltronApiServer.Repositories
             var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(12 * 7));
             var firstWeekNumberOfRequestedPeriod = startOfRequestedPeriod.WeekOfYear(cultureInfo);
             var year = startOfRequestedPeriod.Year;
-            return _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp 
+            var list = _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp 
                 => hpdpp.Year == year
                     && hpdpp.PeriodKind == "Week" 
-                    && hpdpp.PeriodNumber >= firstWeekNumberOfRequestedPeriod)
-                    .ToList();
+                    && hpdpp.PeriodNumber >= firstWeekNumberOfRequestedPeriod);
+            var result = new List<HeatPumpDataPerPeriod>();
+            HeatPumpDataPerPeriod previous = null;
+            result = GetDistinctPeriodNumber(list, result, previous);   
+            return result.Take(12).ToList();                    
         }
 
         public List<HeatPumpDataPerPeriod> GetRecentTwelveMonths(DateTime now)
@@ -54,19 +83,25 @@ namespace StiebelEltronApiServer.Repositories
             var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(365));
             var year = startOfRequestedPeriod.Year;
             var firstMonthOfRequestedPeriod = startOfRequestedPeriod.Month;
-            return _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp 
+            var list = _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp 
                 => hpdpp.Year == year 
                     && hpdpp.PeriodKind == "Month" 
-                    && hpdpp.PeriodNumber >= firstMonthOfRequestedPeriod)
-                    .ToList();
+                    && hpdpp.PeriodNumber >= firstMonthOfRequestedPeriod);
+            var result = new List<HeatPumpDataPerPeriod>();
+            HeatPumpDataPerPeriod previous = null;
+            result = GetDistinctPeriodNumber(list, result, previous);
+            return result.Take(12).ToList();
         }
 
         public List<HeatPumpDataPerPeriod> GetYearlyRecords(DateTime now)
         {
-            return _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp 
+            var list =  _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp 
                 => hpdpp.Year == now.Year 
-                    && hpdpp.PeriodKind == "Year")
-                    .ToList();
+                    && hpdpp.PeriodKind == "Year");
+            var result = new List<HeatPumpDataPerPeriod>();
+            HeatPumpDataPerPeriod previous = null;
+            result = GetDistinctPeriodNumber(list, result, previous); 
+            return result.ToList();                    
         }
 
         public List<HeatPumpDataPerPeriod> GetAllRecordsFromRecent366Days(DateTime now)
