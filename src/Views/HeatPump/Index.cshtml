@@ -33,20 +33,23 @@
     $(function () {
         var chartName = "chart";
         var ctx = document.getElementById(chartName).getContext('2d');
-        var data = {
+			var data = {
             labels: @Html.Raw(XLabels),
             datasets: [{
                 label: "Max. Außentemp. °C",
                 borderWidth: 1,
                 data: @Html.Raw(MaxOutDoorTemp),
+                fill: false            
             },{
                 label: "Min. Außentemp. °C",
                 borderWidth: 1,
                 data: @Html.Raw(MinOutDoorTemp),
+                fill: false
             },{
                 label: "Durchschn. Außentemp. °C",
                 borderWidth: 1,
-                data: @Html.Raw(AvgOutDoorTemp),
+                data: @Html.Raw(AvgOutDoorTemp), 
+                fill: false
             }]
         };
 
