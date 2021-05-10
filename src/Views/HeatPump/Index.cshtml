@@ -8,6 +8,9 @@
     var MinOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMax).Select(c => "rgba(140, 173, 88, 1)").ToList());
     var AvgOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureAverage).ToList());
     var AvgOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMax).Select(c => "rgba(132, 133, 135, 1)").ToList());
+
+    var PerformanceFactor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => (x.VaporizerHeatQuantityHeatingDayDelta + x.VaporizerHeatQuantityHotWaterDayDelta) / (x.PowerConsumptionHeatingDayDelta + x.PowerConsumptionHotWaterDayDelta)).ToList());
+    var PerformanceFactorColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMax).Select(c => "rgba(140, 173, 88, 1)").ToList());
 }
 <!DOCTYPE html>
 
@@ -19,11 +22,16 @@
 </head>
 
 <body>
-    <meta http-equiv="refresh" content="60">
     <div class="box-body">
-
-        <div class="chart-container">
-            <canvas id="chart" style="width:100%; height:500px"></canvas>
+        <div style="width: 48%; float:left; height:240px; margin:10px">
+            <div class="chart-container">
+                <canvas id="chart" style="width: 48%; height: 300px;"></canvas>
+            </div>
+        </div>
+        <div style="width: 48%; float:left; height:240px; margin:10px">
+            <div class="chart-container">
+                <canvas id="chart2" style="width: 48%; height:300px"></canvas>
+            </div>
         </div>
     </div>
 </body>
@@ -36,7 +44,7 @@
     $(function () {
         var chartName = "chart";
         var ctx = document.getElementById(chartName).getContext('2d');
-			var data = {
+		var data = {
             labels: @Html.Raw(XLabels),
             datasets: [{
                 label: "Max. Außentemp. °C",
@@ -96,7 +104,38 @@
             options: options,
             data: data,
             type: 'line'
+        });
 
+        var chart2Name = "chart2";
+        var ctx2 = document.getElementById(chart2Name).getContext('2d');
+			var data = {
+            labels: @Html.Raw(XLabels),
+            datasets: [{
+                label: "Arbeitszahl",
+                borderWidth: 1,
+                data: @Html.Raw(PerformanceFactor),
+                fill: false,
+                borderColor: 'rgba(233, 241, 221, 1)',
+                backgroundColor: @Html.Raw(PerformanceFactorColor),
+            }]
+        };
+
+        var data2 = {
+            labels: @Html.Raw(XLabels),
+            datasets: [{
+                label: "Arbeitszahl (Tag)",
+                borderWidth: 1,
+                data: @Html.Raw(PerformanceFactor),
+                fill: false,
+                borderColor: 'rgba(233, 241, 221, 1)',
+                backgroundColor: @Html.Raw(PerformanceFactorColor),
+            }]
+        };
+        
+        var myChart2 = new Chart(ctx2, {
+            options: options,
+            data: data2,
+            type: 'bar'
         });
     });
 </script>

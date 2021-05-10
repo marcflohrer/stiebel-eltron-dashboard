@@ -42,21 +42,20 @@ namespace StiebelEltronApiServer.Repositories
 
         private static List<HeatPumpDataPerPeriod> GetDistinctPeriodNumber(IQueryable<HeatPumpDataPerPeriod> list, List<HeatPumpDataPerPeriod> result, HeatPumpDataPerPeriod previous)
         {
-            foreach (var elem in list)
+            var orderedList = list.OrderBy(e => e.PeriodNumber);
+            foreach (var elem in orderedList)
             {
                 if (previous == null)
                 {
                     result.Add(elem);
                     previous = elem;
-                    Console.WriteLine($" First: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
+                    Console.WriteLine($"Previous: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
                 }
                 else if (previous.PeriodNumber < elem.PeriodNumber)
                 {
                     result.Add(elem);
                     previous = elem;
                     Console.WriteLine($" Add: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
-                }else{
-                    Console.WriteLine($" Duplicate: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
                 }
             }
 

@@ -76,6 +76,7 @@ This section lists major frameworks and projects that were used:
 * [HTML Agility Pack](https://github.com/zzzprojects/html-agility-pack)
 * [Xunit](https://xunit.net/)
 * [Cronos](https://github.com/HangfireIO/Cronos)
+* [Chart.Js](https://github.com/chartjs)
 
 <!-- GETTING STARTED -->
 ## Getting Started

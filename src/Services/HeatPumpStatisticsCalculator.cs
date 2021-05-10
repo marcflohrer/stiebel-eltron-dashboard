@@ -18,6 +18,7 @@ namespace StiebelEltronApiServer.Services
         public StatisticsResult Calculate(IList<HeatPumpDatum> heatPumpData, IList<HeatPumpDataPerPeriod> heatPumpDataPerPeriods, DateTime now){
 
             var result = new StatisticsResult(null,null);
+            Console.WriteLine("Calculate statistics!");
             
             var latestYearlyStatistic = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Year").Select(h => h.DateCreated).Max();
             var lastYear = heatPumpData.Where(hpd => hpd.DateCreated >= latestYearlyStatistic).ToList();
