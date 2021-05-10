@@ -1,16 +1,33 @@
 ﻿@model List<HeatPumpDataPerPeriod>
 @{
-    ViewData["Title"] = "Heat Pump";
-    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => new DateTime((int)x.Year, 1, 1).Add(TimeSpan.FromDays(x.PeriodNumber))).ToList());
+    ViewData["Title"] = "Wärmepumpe";
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => new DateTime((int)x.Year, 1,
+    1).Add(TimeSpan.FromDays(x.PeriodNumber))).ToList());
     var MaxOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMax).ToList());
-    var MaxOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMax).Select(c => "rgba(233, 241, 221, 1)").ToList());
+    var MaxOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+    x.OutdoorTemperatureMax).Select(c => "rgba(233, 241, 221, 1)").ToList());
     var MinOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMin).ToList());
-    var MinOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMax).Select(c => "rgba(140, 173, 88, 1)").ToList());
-    var AvgOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureAverage).ToList());
-    var AvgOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMax).Select(c => "rgba(132, 133, 135, 1)").ToList());
+    var MinOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+    x.OutdoorTemperatureMax).Select(c => "rgba(132, 133, 135, 1)").ToList());
+    var AvgOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+    x.OutdoorTemperatureAverage).ToList());
+    var AvgOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+    x.OutdoorTemperatureMax).Select(c => "rgba(140, 173, 88, 1)").ToList());
 
-    var PerformanceFactor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => (x.VaporizerHeatQuantityHeatingDayDelta + x.VaporizerHeatQuantityHotWaterDayDelta) / (x.PowerConsumptionHeatingDayDelta + x.PowerConsumptionHotWaterDayDelta)).ToList());
-    var PerformanceFactorColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMax).Select(c => "rgba(140, 173, 88, 1)").ToList());
+    var PerformanceFactor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+    (x.VaporizerHeatQuantityHeatingDayDelta + x.VaporizerHeatQuantityHotWaterDayDelta) / (x.PowerConsumptionHeatingDayDelta
+    + x.PowerConsumptionHotWaterDayDelta)).ToList());
+    var PerformanceFactorColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+    x.OutdoorTemperatureMax).Select(c => "rgba(140, 173, 88, 1)").ToList());
+
+    var ExhaustAirTemperature = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+    x.ExhaustAirTemperatureMax).ToList());
+    var ExhaustAirTemperatureColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+    x.ExhaustAirTemperatureMax).Select(c => "rgba(140, 173, 88, 1)").ToList());
+
+    var InletTemperature = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.InletTemperatureMax).ToList());
+    var InletTemperatureColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+    x.InletTemperatureMax).Select(c => "rgba(233, 241, 221, 1)").ToList());
 }
 <!DOCTYPE html>
 
@@ -23,14 +40,19 @@
 
 <body>
     <div class="box-body">
-        <div style="width: 48%; float:left; height:240px; margin:10px">
+        <div style="width: 48%; float:left; height:300px; margin:10px">
             <div class="chart-container">
-                <canvas id="chart" style="width: 48%; height: 300px;"></canvas>
+                <canvas id="outdoorTemperatureChart" style="width: 48%; height: 250px;"></canvas>
             </div>
         </div>
-        <div style="width: 48%; float:left; height:240px; margin:10px">
+        <div style="width: 48%; float:left; height:300px; margin:10px">
             <div class="chart-container">
-                <canvas id="chart2" style="width: 48%; height:300px"></canvas>
+                <canvas id="performanceFactorChart" style="width: 48%; height:250px"></canvas>
+            </div>
+        </div>
+        <div style="width: 48%; float:left; height:300px; margin:10px">
+            <div class="chart-container">
+                <canvas id="inletAndExhaustTemperature" style="width: 48%; height:250px"></canvas>
             </div>
         </div>
     </div>
@@ -42,9 +64,9 @@
 
 <script type="text/javascript">
     $(function () {
-        var chartName = "chart";
+        var chartName = "outdoorTemperatureChart";
         var ctx = document.getElementById(chartName).getContext('2d');
-		var data = {
+        var data = {
             labels: @Html.Raw(XLabels),
             datasets: [{
                 label: "Max. Außentemp. °C",
@@ -53,17 +75,17 @@
                 fill: false,
                 borderColor: 'rgba(233, 241, 221, 1)',
                 backgroundColor: @Html.Raw(MaxOutDoorTempColor),
-            },{
+            }, {
                 label: "Min. Außentemp. °C",
                 borderWidth: 1,
                 data: @Html.Raw(MinOutDoorTemp),
                 fill: false,
                 borderColor: 'rgba(140, 173, 88, 1)',
-                backgroundColor:  @Html.Raw(MinOutDoorTempColor),
-            },{
+                backgroundColor: @Html.Raw(MinOutDoorTempColor),
+            }, {
                 label: "Durchschn. Außentemp. °C",
                 borderWidth: 1,
-                data: @Html.Raw(AvgOutDoorTemp), 
+                data: @Html.Raw(AvgOutDoorTemp),
                 fill: false,
                 borderColor: 'rgba(132, 133, 135, 1)',
                 backgroundColor: @Html.Raw(AvgOutDoorTempColor),
@@ -109,12 +131,12 @@
 </script>
 <script type="text/javascript">
     $(function () {
-        var chartName = "chart2";
+        var chartName = "performanceFactorChart";
         var ctx = document.getElementById(chartName).getContext('2d');
-			var data = {
+        var data = {
             labels: @Html.Raw(XLabels),
             datasets: [{
-                label: "Arbeitszahl",
+                label: "Arbeitszahl (Tag)",
                 borderWidth: 1,
                 data: @Html.Raw(PerformanceFactor),
                 fill: false,
@@ -145,7 +167,7 @@
                     },
                     gridLines: {
                         display: true,
-                        color: "rgba(rgba(236, 243, 225, 1))"
+                        color: "rgba(rgba(171, 177, 177, 1))"
                     }
                 }],
                 xAxes: [{
@@ -164,11 +186,83 @@
                 }]
             }
         };
-        
+
         var myChart = new Chart(ctx, {
             options: options,
             data: data,
             type: 'bar'
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        var chartName = "inletAndExhaustTemperature";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+            labels: @Html.Raw(XLabels),
+            datasets: [{
+                label: "Vorlauftemperatur °C",
+                borderWidth: 1,
+                data: @Html.Raw(ExhaustAirTemperature),
+                fill: false,
+                borderColor: 'rgba(140, 173, 88, 1)',
+                backgroundColor: @Html.Raw(ExhaustAirTemperatureColor),
+            }, {
+                label: "Rücklauftemperatur °C",
+                borderWidth: 1,
+                data: @Html.Raw(InletTemperature),
+                fill: false,
+                borderColor: 'rgba(233, 241, 221, 1)',
+                backgroundColor: @Html.Raw(InletTemperatureColor),
+            }]
+        };
+
+        var data = {
+            labels: @Html.Raw(XLabels),
+            datasets: [{
+                label: "Vor- / Rücklauftemp. °C",
+                borderWidth: 1,
+                data: @Html.Raw(InletTemperature),
+                fill: false,
+                borderColor: 'rgba(233, 241, 221, 1)',
+                backgroundColor: @Html.Raw(InletTemperatureColor),
+            }]
+        };
+
+        var options = {
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        beginAtZero: false
+                    },
+                    gridLines: {
+                        display: true,
+                        color: "rgba(rgba(171, 177, 177, 1))"
+                    }
+                }],
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        parser: 'YYYY-MM-DD HH:mm:ss',
+                        unit: 'day'
+                    },
+                    ticks: {
+                        min: 0,
+                        beginAtZero: false
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            }
+        };
+
+        var myChart = new Chart(ctx, {
+            options: options,
+            data: data,
+            type: 'line'
         });
     });
 </script>

@@ -25,7 +25,7 @@ namespace test {
             var scrapingService = autoMoqer.Create<HeatPumpStatisticsCalculator> ();
 
             // Act
-            var actual = scrapingService.Calculate (heatPumpData.ToList (), now);
+            var actual = scrapingService.Calculate (heatPumpData.ToList (), new List<HeatPumpDataPerPeriod>(), now);
 
             // Assert
             Assert.Equal (expected.DataSetsToRemove, actual.DataSetsToRemove);
