@@ -105,9 +105,12 @@
             data: data,
             type: 'line'
         });
-
-        var chart2Name = "chart2";
-        var ctx2 = document.getElementById(chart2Name).getContext('2d');
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        var chartName = "chart2";
+        var ctx = document.getElementById(chartName).getContext('2d');
 			var data = {
             labels: @Html.Raw(XLabels),
             datasets: [{
@@ -120,7 +123,7 @@
             }]
         };
 
-        var data2 = {
+        var data = {
             labels: @Html.Raw(XLabels),
             datasets: [{
                 label: "Arbeitszahl (Tag)",
@@ -131,10 +134,40 @@
                 backgroundColor: @Html.Raw(PerformanceFactorColor),
             }]
         };
+
+        var options = {
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        beginAtZero: false
+                    },
+                    gridLines: {
+                        display: true,
+                        color: "rgba(rgba(236, 243, 225, 1))"
+                    }
+                }],
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        parser: 'YYYY-MM-DD HH:mm:ss',
+                        unit: 'day'
+                    },
+                    ticks: {
+                        min: 0,
+                        beginAtZero: false
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            }
+        };
         
-        var myChart2 = new Chart(ctx2, {
+        var myChart = new Chart(ctx, {
             options: options,
-            data: data2,
+            data: data,
             type: 'bar'
         });
     });
