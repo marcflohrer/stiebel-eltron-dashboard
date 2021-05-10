@@ -201,31 +201,19 @@
         var data = {
             labels: @Html.Raw(XLabels),
             datasets: [{
-                label: "Vorlauftemperatur °C",
+                label: "Vorlauftemp. °C",
+                borderWidth: 1,
+                data: @Html.Raw(InletTemperature),
+                fill: false,
+                borderColor: 'rgba(140, 173, 88, 1)',
+                backgroundColor: @Html.Raw(InletTemperatureColor),
+            },{
+                label: "Rücklauftemp. °C",
                 borderWidth: 1,
                 data: @Html.Raw(ExhaustAirTemperature),
                 fill: false,
-                borderColor: 'rgba(140, 173, 88, 1)',
+                borderColor: 'rgba(233, 241, 221, 1)',
                 backgroundColor: @Html.Raw(ExhaustAirTemperatureColor),
-            }, {
-                label: "Rücklauftemperatur °C",
-                borderWidth: 1,
-                data: @Html.Raw(InletTemperature),
-                fill: false,
-                borderColor: 'rgba(233, 241, 221, 1)',
-                backgroundColor: @Html.Raw(InletTemperatureColor),
-            }]
-        };
-
-        var data = {
-            labels: @Html.Raw(XLabels),
-            datasets: [{
-                label: "Vor- / Rücklauftemp. °C",
-                borderWidth: 1,
-                data: @Html.Raw(InletTemperature),
-                fill: false,
-                borderColor: 'rgba(233, 241, 221, 1)',
-                backgroundColor: @Html.Raw(InletTemperatureColor),
             }]
         };
 
