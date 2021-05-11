@@ -126,6 +126,7 @@ namespace StiebelEltronApiServer
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseRouting();

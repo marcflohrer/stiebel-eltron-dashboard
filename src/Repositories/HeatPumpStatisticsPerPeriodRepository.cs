@@ -29,14 +29,28 @@ namespace StiebelEltronApiServer.Repositories
             var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(7));
             var firstDay = startOfRequestedPeriod.DayOfYear;
             var year = startOfRequestedPeriod.Year;
+            Console.WriteLine($" ---> GetRecentSevenDays");
+            foreach(var h in _applicationDbContext.HeatPumpDataPerPeriods){
+                Console.WriteLine($" PeriodKind: {h.PeriodKind}, PeriodNumber: {h.PeriodNumber}, First:{h.First.ToString()}");
+                if(h.PeriodKind == "Day"){
+                    Console.WriteLine($" --> Day!!!");
+                    if(h.PeriodNumber >= firstDay){
+                        Console.WriteLine($"       --> >= firstDay:{firstDay}!!!");
+                        if(h.First != DateTime.MaxValue){
+                            Console.WriteLine($"       --> != DateTime.MaxValue !!!");
+                        }
+                    }
+                }
+            }
+            Console.WriteLine($" <--- GetRecentSevenDays");
             var list = _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp
                 => hpdpp.Year == year
                     && hpdpp.PeriodKind == "Day"
                     && hpdpp.PeriodNumber >= firstDay
                     && hpdpp.First != DateTime.MaxValue);
             var result = new List<HeatPumpDataPerPeriod>();
-            HeatPumpDataPerPeriod previous = null;
-            result = GetDistinctPeriodNumber(list, result, previous);
+            //HeatPumpDataPerPeriod previous = null;
+            //result = GetDistinctPeriodNumber(list, result, previous);
             return result.Take(7).ToList();
         }
 
