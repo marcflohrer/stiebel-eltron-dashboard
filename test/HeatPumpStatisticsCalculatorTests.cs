@@ -22,10 +22,10 @@ namespace test {
             var now = new DateTime (2021, 5, 1);
             var statisticsService = autoMoqer.Create<StatisticsService>();
             autoMoqer.SetInstance<IStatisticsService>(statisticsService);
-            var scrapingService = autoMoqer.Create<HeatPumpStatisticsCalculator> ();
+            var heatPumpStatisticsCalculator = autoMoqer.Create<HeatPumpStatisticsCalculator> ();
 
             // Act
-            var actual = scrapingService.Calculate (heatPumpData.ToList (), new List<HeatPumpDataPerPeriod>(), now);
+            var actual = heatPumpStatisticsCalculator.Calculate (heatPumpData.ToList (), new List<HeatPumpDataPerPeriod>(), now);
 
             // Assert
             Assert.Equal (expected.DataSetsToRemove, actual.DataSetsToRemove);

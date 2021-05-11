@@ -13,7 +13,7 @@ namespace StiebelEltronApiServerTests
             // Act
             var result = dateTime.ToEpoch();
             // Assert
-            Assert.Equal(1580515200, result);
+            Assert.Equal(1580515200000, result);
         }
     }
 }
