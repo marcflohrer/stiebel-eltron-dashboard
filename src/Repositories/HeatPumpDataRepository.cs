@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using StiebelEltronApiServer.Models;
 
-namespace StiebelEltronApiServer.Repositories {
+namespace StiebelEltronApiServer.Repositories
+{
     public class HeatPumpDataRepository : IHeatPumpDataRepository {
         private readonly ApplicationDbContext _applicationDbContext;
 

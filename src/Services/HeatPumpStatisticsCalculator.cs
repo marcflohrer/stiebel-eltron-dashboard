@@ -26,7 +26,7 @@ namespace StiebelEltronApiServer.Services
             }
             var lastDay = heatPumpData.Where(hpd => hpd.DateCreated >= latestDailyStatistic).ToList();
             var oldestRecordInRecent1Day = lastDay.Select(hpd => hpd.DateCreated).Min();
-            var dailyStatisticsContainer = GetEmptyDailyStatisticsContainer(oldestRecordInRecent1Day, now);            
+            var dailyStatisticsContainer = GetEmptyDailyStatisticsContainer(heatPumpData, oldestRecordInRecent1Day, now);            
             Console.WriteLine($"Calculate daily statistics: latest stats: {latestDailyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecent1Day}");
 
             var latestWeeklyStatistic = DateTime.MinValue;
@@ -35,7 +35,7 @@ namespace StiebelEltronApiServer.Services
             }
             var lastWeek = heatPumpData.Where(hpd => hpd.DateCreated >= latestWeeklyStatistic).ToList();
             var oldestRecordInRecentWeek = lastWeek.Select(hpd => hpd.DateCreated).Min();
-            var weeklyStatisticsContainer = GetEmptyWeeklyStatisticsContainer(oldestRecordInRecentWeek, now);
+            var weeklyStatisticsContainer = GetEmptyWeeklyStatisticsContainer(heatPumpData, oldestRecordInRecentWeek, now);
             Console.WriteLine($"Calculate weekly statistics: latest stats: {latestWeeklyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecentWeek}");
 
             var latestMonthlyStatistic = DateTime.MinValue;
@@ -44,7 +44,7 @@ namespace StiebelEltronApiServer.Services
             }
             var lastMonth = heatPumpData.Where(hpd => hpd.DateCreated >= latestMonthlyStatistic).ToList();
             var oldestRecordInRecentMonth = lastMonth.Select(hpd => hpd.DateCreated).Min();
-            var monthlyStatisticsContainer = GetEmptyMonthlyStatisticsContainer(oldestRecordInRecentMonth, now);   
+            var monthlyStatisticsContainer = GetEmptyMonthlyStatisticsContainer(heatPumpData, oldestRecordInRecentMonth, now);   
             Console.WriteLine($"Calculate monthly statistics: latest Stats: {latestMonthlyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecentMonth}");         
             
             var latestYearlyStatistic = DateTime.MinValue;
@@ -53,7 +53,7 @@ namespace StiebelEltronApiServer.Services
             }
             var lastYear = heatPumpData.Where(hpd => hpd.DateCreated >= latestYearlyStatistic).ToList();
             var oldestRecordInRecent366Days = lastYear.Select(hpd => hpd.DateCreated).Min();
-            var yearlyStatisticsContainer = GetEmptyYearlyStatisticsContainer(oldestRecordInRecent366Days, now);
+            var yearlyStatisticsContainer = GetEmptyYearlyStatisticsContainer(heatPumpData, oldestRecordInRecent366Days, now);
             Console.WriteLine($"Calculate yearly statistics: latest stats: {latestYearlyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecent366Days}");
 
             var statistics = new List<HeatPumpDataPerPeriod>();
@@ -89,82 +89,99 @@ namespace StiebelEltronApiServer.Services
             return result;
         }
 
-        private IList<PeriodStatistics> GetEmptyDailyStatisticsContainer(DateTime oldestRecord, DateTime now) 
-            => GetEmptyPeriodStatisticsContainer(oldestRecord, now, PeriodKind.Day, c => c.AddDays(1));
+        private IList<PeriodStatistics> GetEmptyDailyStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now) 
+            => GetEmptyPeriodStatisticsContainer(heatPumpData, oldestRecord, now, PeriodKind.Day, c => c.AddDays(1));
 
-        private IList<PeriodStatistics> GetEmptyWeeklyStatisticsContainer(DateTime oldestRecord, DateTime now) 
+        private IList<PeriodStatistics> GetEmptyWeeklyStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now) 
         {
             var periodStatistics = new List<PeriodStatistics>();
-            var current = oldestRecord;
-            while(current.DayOfWeek != DayOfWeek.Monday && current < now){
-                current = current.AddDays(1);
+            var startOfPeriod = oldestRecord;
+            while(startOfPeriod.DayOfWeek != DayOfWeek.Monday && startOfPeriod < now){
+                startOfPeriod = startOfPeriod.AddDays(1);
             }
-            while(current < now){
-                periodStatistics.Add(new PeriodStatistics(
-                    current.Year, 
-                    current.WeekOfYear(new CultureInfo("de-DE")), 
-                    PeriodKind.Week,
-                    current.Date, 
-                    current.AddDays(7), 
-                    null));
-                current = (current.AddDays(7));
+            while(startOfPeriod < now){
+                var endOfPeriod = startOfPeriod.AddDays(7);
+                var dataSetsInPeriod = heatPumpData.Where(h => h.DateCreated >= startOfPeriod && h.DateCreated < endOfPeriod);
+                if(dataSetsInPeriod.Any()){
+                    periodStatistics.Add(new PeriodStatistics(
+                        startOfPeriod.Year, 
+                        startOfPeriod.WeekOfYear(new CultureInfo("de-DE")), 
+                        PeriodKind.Week,
+                        startOfPeriod.Date, 
+                        startOfPeriod.AddDays(7), 
+                        null));
+                }
+                startOfPeriod = endOfPeriod;
             }
             return periodStatistics;
         }
 
-        private IList<PeriodStatistics> GetEmptyMonthlyStatisticsContainer(DateTime oldestRecord, DateTime now) 
+        private IList<PeriodStatistics> GetEmptyMonthlyStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now) 
         {
             var periodStatistics = new List<PeriodStatistics>();
-            var current = oldestRecord;
-            while(current.Day != 1 && current < now){
-                current = current.AddDays(1);
+            var startOfPeriod = oldestRecord;
+            // Find start of month
+            while(startOfPeriod.Day != 1 && startOfPeriod < now){
+                startOfPeriod = startOfPeriod.AddDays(1);
             }
-            while(current < now){
-                periodStatistics.Add(new PeriodStatistics(
-                    current.Year, 
-                    current.Day, 
-                    PeriodKind.Month,
-                    current.Date, 
-                    current.AddMonths(1), 
-                    null));
-                current = (current.AddMonths(1));
+            while(startOfPeriod < now){
+                var endOfPeriod = startOfPeriod.AddMonths(1);
+                var dataSetsInPeriod = heatPumpData.Where(h => h.DateCreated >= startOfPeriod && h.DateCreated < endOfPeriod);
+                if(dataSetsInPeriod.Any()){
+                    periodStatistics.Add(new PeriodStatistics(
+                        startOfPeriod.Year, 
+                        startOfPeriod.Day, 
+                        PeriodKind.Month,
+                        startOfPeriod.Date, 
+                        startOfPeriod.AddMonths(1), 
+                        null));
+                }
+                startOfPeriod = endOfPeriod;
             }
             return periodStatistics;
         }
 
-        private IList<PeriodStatistics> GetEmptyYearlyStatisticsContainer(DateTime oldestRecord, DateTime now) 
+        private IList<PeriodStatistics> GetEmptyYearlyStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now) 
         {
                 var periodStatistics = new List<PeriodStatistics>();
-            var current = oldestRecord;
-            while(current.Day != 1 && current.Month != 1 && current < now){
-                current = current.AddDays(1);
+            var startOfPeriod = oldestRecord;
+            while(startOfPeriod.Day != 1 && startOfPeriod.Month != 1 && startOfPeriod < now){
+                startOfPeriod = startOfPeriod.AddDays(1);
             }
-            while(current < now){
-                periodStatistics.Add(new PeriodStatistics(
-                    current.Year, 
-                    current.Year, 
-                    PeriodKind.Year,
-                    current.Date, 
-                    current.AddYears(1), 
-                    null));
-                current = (current.AddYears(1));
+            while(startOfPeriod < now){
+                var endOfPeriod = startOfPeriod.AddYears(1);
+                var dataSetsInPeriod = heatPumpData.Where(h => h.DateCreated >= startOfPeriod && h.DateCreated < endOfPeriod);
+                if(dataSetsInPeriod.Any()){
+                    periodStatistics.Add(new PeriodStatistics(
+                        startOfPeriod.Year, 
+                        startOfPeriod.Year, 
+                        PeriodKind.Year,
+                        startOfPeriod.Date, 
+                        endOfPeriod, 
+                        null));
+                }
+                startOfPeriod = endOfPeriod;
             }
             return periodStatistics;
         }    
 
-        private IList<PeriodStatistics> GetEmptyPeriodStatisticsContainer(DateTime oldestRecord, DateTime now, PeriodKind periodKind, Func<DateTime, DateTime> increaseByPeriod)
+        private IList<PeriodStatistics> GetEmptyPeriodStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now, PeriodKind periodKind, Func<DateTime, DateTime> increaseByPeriod)
         {
             var periodStatistics = new List<PeriodStatistics>();
-            var current = oldestRecord;
-            while(current < now){
-                periodStatistics.Add(new PeriodStatistics(
-                    current.Year, 
-                    current.DayOfYear, 
-                    PeriodKind.Day,
-                    current.Date, 
-                    increaseByPeriod(current), 
-                    null));
-                current = increaseByPeriod(current);
+            var startOfPeriod = oldestRecord;
+            while(startOfPeriod < now){
+                var endOfPeriod = increaseByPeriod(startOfPeriod);
+                var dataSetsInPeriod = heatPumpData.Where(h => h.DateCreated >= startOfPeriod && h.DateCreated < endOfPeriod);
+                if(dataSetsInPeriod.Any()){
+                    periodStatistics.Add(new PeriodStatistics(
+                        startOfPeriod.Year, 
+                        startOfPeriod.DayOfYear, 
+                        PeriodKind.Day,
+                        startOfPeriod.Date, 
+                        endOfPeriod, 
+                        null));
+                }
+                startOfPeriod = endOfPeriod;
             }
             return periodStatistics;
         }

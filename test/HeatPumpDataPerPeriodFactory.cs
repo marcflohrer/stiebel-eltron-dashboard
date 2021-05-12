@@ -32,21 +32,7 @@ namespace StiebelEltronApiServerTests
                         .SetLast(date)
                         .SetDateTimes<HeatPumpDataPerPeriod>(date));
                         index++;
-                }else{
-                    result.Add(new HeatPumpDataPerPeriod ()
-                        .SetMinDoubles (Double.MaxValue)
-                        .SetMaxDoubles<HeatPumpDataPerPeriod>(Double.MinValue)
-                        .SetAverageDoubles<HeatPumpDataPerPeriod>(Double.MinValue)
-                        .SetStartDoubles<HeatPumpDataPerPeriod>(Double.MinValue)
-                        .SetEndDoubles<HeatPumpDataPerPeriod>(Double.MinValue)
-                        .SetDeltaDoubles<HeatPumpDataPerPeriod>(Double.MinValue)
-                        .SetYear(start.Year)
-                        .SetPeriodKind(PeriodKind.Day.ToString())
-                        .SetPeriodNumber(date.DayOfYear)
-                        .SetDateTimes<HeatPumpDataPerPeriod>(incrementTime(i, start))
-                        .SetFirst(DateTime.MaxValue)
-                        .SetLast(DateTime.MinValue));
-                }                    
+                }                   
             }
             var firstRecord = start.AddDays(4);
             result.Add(new HeatPumpDataPerPeriod ()

@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using StiebelEltronApiServer.Extensions;
 using StiebelEltronApiServer.Models;
 
 namespace StiebelEltronApiServer.Services {
     public class StatisticsService : IStatisticsService {
         public HeatPumpDataPerPeriod GetHeatPumpDataPerPeriod (IEnumerable<HeatPumpDatum> heatPumpData, int year, string periodKind, int periodNumber, DateTime now) {
+            Console.WriteLine($"--> GetHeatPumpDataPerPeriod: heatPumpData.Count = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
             return new HeatPumpDataPerPeriod () {
                 ReturnTemperatureMin = heatPumpData.GetMinForMetric (h => h.ReturnTemperature) ?? Double.MinValue,
                     ReturnTemperatureMax = heatPumpData.GetMaxForMetric (h => h.ReturnTemperature) ?? Double.MinValue,
