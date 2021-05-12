@@ -22,13 +22,25 @@ textarea {
     z-index: 10 !important;
 }
 
-    .carousel-caption p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
 
 @media (min-width: 768px) {
     .carousel-caption {
         z-index: 10 !important;
     }
+}
+
+.float {
+    float: left;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    shape-outside: inset(calc(100% - 100px) 0 0);
+}
+
+.nav-header {
+    background-color: #8CAE5A;
 }

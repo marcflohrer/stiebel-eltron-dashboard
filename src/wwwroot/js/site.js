@@ -1,4 +1,4 @@
-﻿function drawChart (chartName, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
+﻿function drawChart (chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
     var ctx = document.getElementById(chartName).getContext('2d');
     var data = {
         labels: labels,
@@ -27,11 +27,14 @@
     };
 
     var options = {
+        title: {
+            display: true,
+            text: chartTitle
+        },
         maintainAspectRatio: false,
         scales: {
             yAxes: [{
                 ticks: {
-                    min: 0,
                     beginAtZero: false
                 },
                 gridLines: {

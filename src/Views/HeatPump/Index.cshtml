@@ -122,21 +122,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 <script src="js/site.js" asp-append-version="true"></script>
 <script type="text/javascript">
-    drawChart("outdoorTemperatureChart",
+    drawChart("outdoorTemperatureChart", 
+        "Außentemperatur °C",
         @Html.Raw(XLabels),
         @Html.Raw(MaxOutDoorTemp), @Html.Raw(MaxOutDoorTempColor),
         @Html.Raw(AverageOutDoorTemp), @Html.Raw(AverageOutDoorTempColor),
         @Html.Raw(MinOutDoorTempColor), @Html.Raw(MinOutDoorTempColor));
-    drawBarChart("performanceFactorChart", "Arbeitszahl (Tag)",
+    drawBarChart("performanceFactorChart", 
+        "Arbeitszahl (Tag)",
         @Html.Raw(XLabels),
         @Html.Raw(PerformanceFactor), @Html.Raw(PerformanceFactorColor)
     )
     drawChart("exhaustTemperatureChart",
+        "Rücklauftemperatur °C",
         @Html.Raw(XLabels),
         @Html.Raw(MaxExhaustAirTemperature), @Html.Raw(MaxExhaustAirTemperatureColor),
         @Html.Raw(AverageExhaustAirTemperature), @Html.Raw(AverageExhaustAirTemperatureColor),
         @Html.Raw(MinExhaustAirTemperature), @Html.Raw(MinExhaustAirTemperatureColor));
     drawChart("inletTemperatureChart",
+        "Vorlauftemperatur °C",
         @Html.Raw(XLabels),
         @Html.Raw(MaxInletTemperature), @Html.Raw(MaxInletTemperatureColor),
         @Html.Raw(AverageInletTemperature), @Html.Raw(AverageInletTemperatureColor),
