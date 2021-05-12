@@ -33,25 +33,22 @@ namespace StiebelEltronApiServer.Services {
                 using var scope = _serviceScopeFactory.CreateScope ();
                 var unitOfWork = scope.ServiceProvider.GetService<IUnitOfWork> ();
                 var recordsOfRecentYear = unitOfWork.HeatPumpDataRepository.GetLastYear ();
-                var twelveMonthsPeriodAggregations = unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentTwelveMonths (DateTime.Now);
-                if (twelveMonthsPeriodAggregations.Any ()) {
-                    var statisticsResult = _heatPumpStatisticsCalculator.Calculate (recordsOfRecentYear, twelveMonthsPeriodAggregations, DateTime.Now);
-                    if (statisticsResult.DataSetsToRemove.Any ()) {
-                        unitOfWork.HeatPumpDataRepository.RemoveRange (statisticsResult.DataSetsToRemove);
-                    }
-                    foreach (var stats in statisticsResult.Statistics) {
-                        var statsInDb = unitOfWork.HeatPumpStatisticsPerPeriodRepository.FindByYearAndPeriodNumber ((int) stats.Year, stats.PeriodNumber);
-                        if (statsInDb != null) {
-                            unitOfWork.HeatPumpStatisticsPerPeriodRepository.Update (statsInDb.UpdateWith (stats));
-                        }
-                        unitOfWork.HeatPumpStatisticsPerPeriodRepository.Add (stats);
-                    }
-                    _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob saving changes.");
-                    var changes = await unitOfWork.SaveChanges ();
-                    _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob saved {changes} changed database rows.");
-                } else {
-                    Console.WriteLine ("GetRecentTwelveMonths -> !Any()");
+                var allRecordsFromRecent366Days = unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetAllRecordsFromRecent366Days (DateTime.Now);                
+                var statisticsResult = _heatPumpStatisticsCalculator.Calculate (recordsOfRecentYear, allRecordsFromRecent366Days, DateTime.Now);
+                if (statisticsResult.DataSetsToRemove.Any ()) {
+                    unitOfWork.HeatPumpDataRepository.RemoveRange (statisticsResult.DataSetsToRemove);
                 }
+                foreach (var stats in statisticsResult.Statistics) {
+                    _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob add {stats.First}-{stats.Last}.");
+                    var statsInDb = unitOfWork.HeatPumpStatisticsPerPeriodRepository.FindByYearAndPeriodNumber ((int) stats.Year, stats.PeriodNumber);
+                    if (statsInDb != null) {
+                        unitOfWork.HeatPumpStatisticsPerPeriodRepository.Update (statsInDb.UpdateWith (stats));
+                    }
+                    unitOfWork.HeatPumpStatisticsPerPeriodRepository.Add (stats);
+                }
+                _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob saving changes.");
+                var changes = await unitOfWork.SaveChanges ();
+                _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob saved {changes} changed database rows.");
             } catch (Exception ex) {
                 Console.WriteLine (ex.Message);
             }
