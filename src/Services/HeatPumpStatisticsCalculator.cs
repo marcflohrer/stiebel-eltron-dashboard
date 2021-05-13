@@ -24,7 +24,7 @@ namespace StiebelEltronApiServer.Services
             
             var latestDailyStatistic = DateTime.MinValue;
             if(heatPumpDataPerPeriods.Any()){
-                latestDailyStatistic = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Day").Select(h => h.DateCreated).Max();
+                latestDailyStatistic = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Day").Select(h => h.DateUpdated).Max();
             }
             var lastDay = heatPumpData.Where(hpd => hpd.DateCreated >= latestDailyStatistic).ToList();
             if(lastDay.Any()){
@@ -43,7 +43,7 @@ namespace StiebelEltronApiServer.Services
                     }
                 }
             }else{
-                Console.WriteLine($"Not enough data for daily stats.");
+                Console.WriteLine($"Not enough data for daily stats. Latest heat pump {heatPumpData.Select(hpd => hpd.DateUpdated).Max()} latest statistic: {latestDailyStatistic}");
             }      
             Console.WriteLine($"--> latestWeeklyStatistic");
             var latestWeeklyStatistic = DateTime.MinValue;
@@ -56,6 +56,7 @@ namespace StiebelEltronApiServer.Services
             }
             var lastWeek = heatPumpData.Where(hpd => hpd.DateCreated >= latestWeeklyStatistic).ToList();
             if(lastWeek.Any()){
+                Console.WriteLine($"--> if(lastWeek.Any())");
                 var oldestRecordInRecentWeek = lastWeek.Select(hpd => hpd.DateCreated).Min();
                 var weeklyStatisticsContainer = GetEmptyWeeklyStatisticsContainer(heatPumpData, oldestRecordInRecentWeek, now);
                 if(weeklyStatisticsContainer.Any()){
@@ -66,9 +67,11 @@ namespace StiebelEltronApiServer.Services
                     }else{
                         Console.WriteLine($"!Any() <-- GetWeeklyStatistics(heatPumpData, weeklyStatisticsContainer, now)");
                     }
+                }else{
+                    Console.WriteLine($"<-- no weekly statistics container.");
                 }
             }else{
-                Console.WriteLine($"Not enough data for weekly stats.");
+                Console.WriteLine($"Not enough data for weekly stats. {weeklyStatisticCreationDates.Select(hpd => hpd).Max()} latest statistic: {latestWeeklyStatistic}");
             }
             
             var latestMonthlyStatistic = DateTime.MinValue;
@@ -89,10 +92,12 @@ namespace StiebelEltronApiServer.Services
                     }else{
                         Console.WriteLine($"!Any() <-- GetMonthlyStatistics(heatPumpData, monthlyStatisticsContainer, now)");
                     }
+                }else{
+                    Console.WriteLine($"<-- no monthly statistics container.");
                 }  
                 
             }else{
-                Console.WriteLine($"Not enough data for monthly stats.");
+                Console.WriteLine($"Not enough data for monthly stats. {monthlyStatisticCreationDates.Select(hpd => hpd).Max()} latest statistic: {latestMonthlyStatistic}");
             }
             
             var latestYearlyStatistic = DateTime.MinValue;
@@ -108,9 +113,11 @@ namespace StiebelEltronApiServer.Services
                 if(yearlyStatisticsContainer.Any()){
                     Console.WriteLine($"Calculate yearly statistics: latest stats: {latestYearlyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecent366Days}");
                     statistics.AddRange(GetYearlyStatistics(heatPumpData, yearlyStatisticsContainer, now));
+                }else{
+                    Console.WriteLine($"<-- no yearly statistics container.");
                 }
             }else{
-                Console.WriteLine($"Not enough data for yearly stats.");
+                Console.WriteLine($"Not enough data for yearly stats. {yearlyStatisticCreationDates.Select(hpd => hpd).Max()} latest statistic: {latestYearlyStatistic}");
             }
             var dataSetsToRemove = heatPumpData.Where(hpd => hpd.DateCreated < now.Subtract(TimeSpan.FromDays(366))).ToList();
             return new StatisticsResult(dataSetsToRemove, statistics);
