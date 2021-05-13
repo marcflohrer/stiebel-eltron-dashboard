@@ -8,7 +8,7 @@ namespace StiebelEltronApiServer.Services {
     public class StatisticsService : IStatisticsService {
         public HeatPumpDataPerPeriod GetHeatPumpDataPerPeriod (IEnumerable<HeatPumpDatum> heatPumpData, int year, string periodKind, int periodNumber, DateTime now) {
             Console.WriteLine($"--> GetHeatPumpDataPerPeriod: heatPumpData.Count = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
-            return new HeatPumpDataPerPeriod () {
+            var result = new HeatPumpDataPerPeriod () {
                 ReturnTemperatureMin = heatPumpData.GetMinForMetric (h => h.ReturnTemperature) ?? Double.MinValue,
                     ReturnTemperatureMax = heatPumpData.GetMaxForMetric (h => h.ReturnTemperature) ?? Double.MinValue,
                     ReturnTemperatureAverage = heatPumpData.GetAverageForMetric (h => h.ReturnTemperature) ?? Double.MinValue,
@@ -128,6 +128,8 @@ namespace StiebelEltronApiServer.Services {
                     DateUpdated = now,
                     DateCreated = now
             };
+            Console.WriteLine($"<-- GetHeatPumpDataPerPeriod: heatPumpData.Count = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
+            return result;
         }
     }
 }

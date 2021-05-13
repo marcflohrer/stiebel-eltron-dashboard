@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using static StiebelEltronApiServer.Services.HtmlServices.Tags;
+using Microsoft.Extensions.Logging;
 
 namespace StiebelEltronApiServer.Services.HtmlServices
 {
@@ -38,12 +39,10 @@ namespace StiebelEltronApiServer.Services.HtmlServices
 
                 if (!foundOpeningTag)
                 {
-                    Console.WriteLine("[DEBUG] Found unopened tag at position: " + currentPosition + ", end position: " + endPosition);
                     unopenedTags.Add(new SubStringIndices(currentPosition, endPosition));
                 }
                 else
                 {
-                    Console.WriteLine("[DEBUG] Found unclosed tag at position: " + currentPosition + ", end position: " + endPosition);
                     unclosedTags.Add(new UnclosedTag(recentOpenTag.tag, currentPosition));
                 }
             }
