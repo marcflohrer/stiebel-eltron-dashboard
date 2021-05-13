@@ -11,8 +11,12 @@
     var endColor = "rgba(132, 133, 135, 1)";
 
     var XLabels = "{}";
-    var PerformanceFactor = "{}";
-    var PerformanceFactorColor = "{}";
+    var PerformanceFactorStart = "{}";
+    var PerformanceFactorStartColor = "{}";
+    var PerformanceFactorEnd = "{}";
+    var PerformanceFactorEndColor = "{}";
+    var PerformanceFactorDelta = "{}";
+    var PerformanceFactorDeltaColor = "{}";
 
     var ReturnTemperatureMin = "{}";
     var ReturnTemperatureMax = "{}";
@@ -247,11 +251,17 @@
         XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => new DateTime((int)x.Year, 1,
         1).Add(TimeSpan.FromDays(x.PeriodNumber))).ToList());
 
-        PerformanceFactor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        (x.VaporizerHeatQuantityHeatingDayDelta + x.VaporizerHeatQuantityHotWaterDayDelta) / (x.PowerConsumptionHeatingDayDelta
-        + x.PowerConsumptionHotWaterDayDelta)).ToList());
-        PerformanceFactorColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x
-        => x.VaporizerHeatQuantityHeatingDayDelta).Select(c => averageColor).ToList());
+        PerformanceFactorStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => (x.VaporizerHeatQuantityHeatingDayStart + x.VaporizerHeatQuantityHotWaterDayStart) 
+        / (x.PowerConsumptionHeatingDayStart + x.PowerConsumptionHotWaterDayStart)).ToList());
+        PerformanceFactorStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.VaporizerHeatQuantityHeatingDayStart).Select(c => startColor).ToList());
+        
+        PerformanceFactorDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => (x.VaporizerHeatQuantityHeatingDayDelta + x.VaporizerHeatQuantityHotWaterDayDelta) 
+        / (x.PowerConsumptionHeatingDayDelta + x.PowerConsumptionHotWaterDayDelta)).ToList());
+        PerformanceFactorDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.VaporizerHeatQuantityHeatingDayDelta).Select(c => deltaColor).ToList());
+
+        PerformanceFactorEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => (x.VaporizerHeatQuantityHeatingDayEnd + x.VaporizerHeatQuantityHotWaterDayEnd) 
+        / (x.PowerConsumptionHeatingDayEnd + x.PowerConsumptionHotWaterDayEnd)).ToList());
+        PerformanceFactorEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.VaporizerHeatQuantityHeatingDayEnd).Select(c => endColor).ToList());
 
         ReturnTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.ReturnTemperatureMin).ToList());
         ReturnTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
