@@ -14,6 +14,7 @@ namespace StiebelEltronApiServer.Services.HtmlServices
 
         private readonly IDictionary<Metric, string> xpathOfElement = new Dictionary<Metric, string>() {
             {
+            // VD HEIZEN SUMME MWh   
             Metric.TotalPowerConsumption, "/html[1]/body[1]/div[2]/div[1]/form[1]/div[1]/div[2]/table[1]/tr[3]/td[2]"
             }, {
             // RÜCKLAUFTEMPERATUR °C
