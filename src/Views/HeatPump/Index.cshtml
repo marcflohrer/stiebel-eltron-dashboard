@@ -241,7 +241,7 @@
     var DefrostStartsStartColor = "{}";
     var DefrostStartsEndColor = "{}";
     var DefrostStartsDeltaColor = "{}";
-
+    
     if (Model == null)
     {
         Console.WriteLine("No data showed up in HeatPump/index.cshtml!");
@@ -793,271 +793,268 @@
     }
 }
 <!--Arbeitszahl-->
-<div style="width: 48%; float:left; height:300px; margin:10px">
+<div class="chart-style">
     <div class="chart-container">
-        <canvas id="PerformanceFactor" style="width: 48%; height:250px"></canvas>
+        <canvas id="PerformanceFactor" class="canvas-style"></canvas>
     </div>
 </div>
 
 <!--RÜCKLAUFTEMPERATUR °C-->
-<div style="width: 48%; float:left; height:300px; margin:10px">
+<div class="chart-style">
     <div class="chart-container">
-        <canvas id="ReturnTemperature" style="width: 48%; height: 250px;"></canvas>
+        <canvas id="ReturnTemperature" class="canvas-style"></canvas>
     </div>
 </div>
 
 <!--VORLAUFTEMPERATUR-->
-<div style="width: 48%; float:left; height:300px; margin:10px">
+<div class="chart-style">
     <div class="chart-container">
-        <canvas id="InletTemperature" style="width: 48%; height: 250px;"></canvas>
+        <canvas id="InletTemperature" class="canvas-style"></canvas>
     </div>
 </div>
 
-<div style="width: 48%; float:left; height:300px; margin:10px">
+<div class="chart-style">
     <div class="chart-container">
-        <canvas id="AntiFreezeTemperature" style="width: 48%; height: 250px;"></canvas>
+        <canvas id="AntiFreezeTemperature" class="canvas-style"></canvas>
     </div>
 </div>
 
 <!--AUSSENTEMPERATUR -->
-<div style="width: 48%; float:left; height:300px; margin:10px">
+<div class="chart-style">
     <div class="chart-container">
-        <canvas id="OutdoorTemperature" style="width: 48%; height: 250px;"></canvas>
+        <canvas id="OutdoorTemperature" class="canvas-style"></canvas>
     </div>
 </div>
 
 <!--FORTLUFTTEMPERATUR °C -->
-<div style="width: 48%; float:left; height:300px; margin:10px">
+<div class="chart-style">
     <div class="chart-container">
-        <canvas id="ExhaustAirTemperature" style="width: 48%; height: 250px;"></canvas>
+        <canvas id="ExhaustAirTemperature" class="canvas-style"></canvas>
     </div>
 </div>
 
 <!--VERDAMPFERTEMPERATUR °C-->
-<div style="width: 48%; float:left; height:300px; margin:10px">
+<div class="chart-style">
     <div class="chart-container">
-        <canvas id="EvaporatorTemperature" style="width: 48%; height: 250px;"></canvas>
+        <canvas id="EvaporatorTemperature" class="canvas-style"></canvas>
     </div>
 </div>
 
 <!--Gesamtverbrauch-->
-<div class="box-body">
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="TotalPowerConsumption" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="TotalPowerConsumption" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VERDICHTEREINTRITTSTEMPERATUR °C-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="CompressorInletTemperature" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VERDICHTEREINTRITTSTEMPERATUR °C-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="CompressorInletTemperature" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--ZWISCHENEINSPRITZUNGSTEMP °C-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="IntermediateInjectionTemperature" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--ZWISCHENEINSPRITZUNGSTEMP °C-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="IntermediateInjectionTemperature" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--HEISSGASTEMPERATUR °C-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="HotGasTemperature" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--HEISSGASTEMPERATUR °C-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="HotGasTemperature" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VERFLÜSSIGERTEMPERATUR °C-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="CondenserTemperature" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VERFLÜSSIGERTEMPERATUR °C-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="CondenserTemperature" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--ÖLSUMPFTEMPERATUR °C-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="OilSumpTemperature" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--ÖLSUMPFTEMPERATUR °C-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="OilSumpTemperature" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--DRUCK NIEDERDRUCK bar-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="LowPressure" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--DRUCK NIEDERDRUCK bar-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="LowPressure" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--DRUCK MITTELDRUCK bar -->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="PressureMedium" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--DRUCK MITTELDRUCK bar -->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="PressureMedium" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--DRUCK HOCHDRUCK bar -->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="HighPressure" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--DRUCK HOCHDRUCK bar -->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="HighPressure" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--WP WASSERVOLUMENSTROM l/min-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="WaterVolumeCurrent" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--WP WASSERVOLUMENSTROM l/min-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="WaterVolumeCurrent" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--SPANNUNG INVERTER V-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="VoltageInverter" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--SPANNUNG INVERTER V-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="VoltageInverter" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--ISTDREHZAHL VERDICHTER Hz-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="ActualSpeedDensifier" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--ISTDREHZAHL VERDICHTER Hz-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="ActualSpeedDensifier" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--SOLLDREHZAHL VERDICHTER Hz-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="SettingSpeedCompressed" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--SOLLDREHZAHL VERDICHTER Hz-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="SettingSpeedCompressed" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--LÜFTERLEISTUNG REL % -->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="FanPowerRel" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--LÜFTERLEISTUNG REL % -->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="FanPowerRel" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD HEIZEN TAG KWh -->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="VaporizerHeatQuantityHeatingDay" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD HEIZEN TAG KWh -->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="VaporizerHeatQuantityHeatingDay" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD HEIZEN SUMME MWh -->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="VaporizerHeatQuantityHeatingTotal" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD HEIZEN SUMME MWh -->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="VaporizerHeatQuantityHeatingTotal" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD WARMWASSER TAG KWh -->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="VaporizerHeatQuantityHotWaterDay" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD WARMWASSER TAG KWh -->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="VaporizerHeatQuantityHotWaterDay" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD WARMWASSER SUMME MWh  -->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="VaporizerHeatQuantityHotWaterTotal" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD WARMWASSER SUMME MWh  -->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="VaporizerHeatQuantityHotWaterTotal" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--NHZ HEIZEN SUMME  MWh  -->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="ReheatingStagesHeatQuantityHeatingSum" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--NHZ HEIZEN SUMME  MWh  -->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="ReheatingStagesHeatQuantityHeatingSum" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--NHZ WARMWASSER SUMME  MWh-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="ReheatingStagesHeatQuantityHotWaterTotal" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--NHZ WARMWASSER SUMME  MWh-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="ReheatingStagesHeatQuantityHotWaterTotal" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD HEIZEN TAG  KWh -->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="PowerConsumptionHeatingDay" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD HEIZEN TAG  KWh -->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="PowerConsumptionHeatingDay" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD HEIZEN SUMME MWh-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="PowerConsumptionHeatingSum" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD HEIZEN SUMME MWh-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="PowerConsumptionHeatingSum" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD WARMWASSER TAG KWh -->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="PowerConsumptionHotWaterDay" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD WARMWASSER TAG KWh -->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="PowerConsumptionHotWaterDay" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD WARMWASSER SUMME MWh-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="PowerConsumptionHotWaterSum" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD WARMWASSER SUMME MWh-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="PowerConsumptionHotWaterSum" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD WARMWASSER SUMME MWh-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="RuntimeVaporizerHeating" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD WARMWASSER SUMME MWh-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="RuntimeVaporizerHeating" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD WARMWASSER-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="RuntimeVaporizerHotWater" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD WARMWASSER-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="RuntimeVaporizerHotWater" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--VD ABTAUEN-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="RuntimeVaporizerDefrost" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--VD ABTAUEN-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="RuntimeVaporizerDefrost" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--NHZ 1-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="ReheatingStages1" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--NHZ 1-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="ReheatingStages1" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--NHZ 2-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="ReheatingStages2" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--NHZ 2-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="ReheatingStages2" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--ZEIT ABTAUEN-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="DefrostTime" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--ZEIT ABTAUEN-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="DefrostTime" class="canvas-style"></canvas>
     </div>
+</div>
 
-    <!--STARTS ABTAUEN-->
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="DefrostStarts" style="width: 48%; height: 250px;"></canvas>
-        </div>
+<!--STARTS ABTAUEN-->
+<div class="chart-style">
+    <div class="chart-container">
+        <canvas id="DefrostStarts" class="canvas-style"></canvas>
     </div>
-
 </div>
 <script src="//ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
@@ -1066,41 +1063,43 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 <script src="js/site.js" asp-append-version="true"></script>
 <script type="text/javascript">
-    drawBarChart("PerformanceFactor",
+    drawStartEndChart("PerformanceFactor",
         "Arbeitszahl (Tag)",
         @Html.Raw(XLabels),
-        @Html.Raw(PerformanceFactor), @Html.Raw(PerformanceFactorColor)
+        @Html.Raw(PerformanceFactorStart), @Html.Raw(PerformanceFactorStartColor),
+        @Html.Raw(PerformanceFactorDelta), @Html.Raw(PerformanceFactorDeltaColor),
+        @Html.Raw(PerformanceFactorEnd), @Html.Raw(PerformanceFactorEndColor)
     )
 
-    drawChart("TotalPowerConsumption",
+    drawMinMaxChart("TotalPowerConsumption",
         "VD HEIZEN SUMME MWh   ",
         @Html.Raw(XLabels),
         @Html.Raw(TotalPowerConsumptionStart), @Html.Raw(TotalPowerConsumptionStartColor),
         @Html.Raw(TotalPowerConsumptionDelta), @Html.Raw(TotalPowerConsumptionDeltaColor),
         @Html.Raw(TotalPowerConsumptionEnd), @Html.Raw(TotalPowerConsumptionEndColor));
 
-    drawChart("ReturnTemperature",
+    drawMinMaxChart("ReturnTemperature",
         "RÜCKLAUFTEMPERATUR °C",
         @Html.Raw(XLabels),
         @Html.Raw(ReturnTemperatureMax), @Html.Raw(ReturnTemperatureMaxColor),
         @Html.Raw(ReturnTemperatureAverage), @Html.Raw(ReturnTemperatureAverageColor),
         @Html.Raw(ReturnTemperatureMin), @Html.Raw(ReturnTemperatureMinColor));
 
-    drawChart("InletTemperature",
+    drawMinMaxChart("InletTemperature",
         "VORLAUFTEMPERATUR °C",
         @Html.Raw(XLabels),
         @Html.Raw(InletTemperatureMax), @Html.Raw(InletTemperatureMaxColor),
         @Html.Raw(InletTemperatureAverage), @Html.Raw(InletTemperatureAverageColor),
         @Html.Raw(InletTemperatureMin), @Html.Raw(InletTemperatureMinColor));
 
-    drawChart("AntiFreezeTemperature",
+    drawMinMaxChart("AntiFreezeTemperature",
         "FROSTSCHUTZTEMPERATUR °C",
         @Html.Raw(XLabels),
         @Html.Raw(AntiFreezeTemperatureMax), @Html.Raw(AntiFreezeTemperatureMaxColor),
         @Html.Raw(AntiFreezeTemperatureAverage), @Html.Raw(AntiFreezeTemperatureAverageColor),
         @Html.Raw(AntiFreezeTemperatureMin), @Html.Raw(AntiFreezeTemperatureMinColor));
 
-    drawChart("OutdoorTemperature",
+    drawMinMaxChart("OutdoorTemperature",
         "AUSSENTEMPERATUR °C",
         @Html.Raw(XLabels),
         @Html.Raw(OutdoorTemperatureMax), @Html.Raw(OutdoorTemperatureMaxColor),
@@ -1108,224 +1107,224 @@
         @Html.Raw(OutdoorTemperatureMin), @Html.Raw(OutdoorTemperatureMinColor));
 
 
-    drawChart("ExhaustAirTemperature",
+    drawMinMaxChart("ExhaustAirTemperature",
         "FORTLUFTTEMPERATUR °C",
         @Html.Raw(XLabels),
         @Html.Raw(ExhaustAirTemperatureMax), @Html.Raw(ExhaustAirTemperatureMaxColor),
         @Html.Raw(ExhaustAirTemperatureAverage), @Html.Raw(ExhaustAirTemperatureAverageColor),
         @Html.Raw(ExhaustAirTemperatureMin), @Html.Raw(ExhaustAirTemperatureMinColor));
 
-    drawChart("EvaporatorTemperature",
+    drawMinMaxChart("EvaporatorTemperature",
         "VERDAMPFERTEMPERATUR °C",
         @Html.Raw(XLabels),
         @Html.Raw(EvaporatorTemperatureMax), @Html.Raw(EvaporatorTemperatureMaxColor),
         @Html.Raw(EvaporatorTemperatureAverage), @Html.Raw(EvaporatorTemperatureAverageColor),
         @Html.Raw(EvaporatorTemperatureMin), @Html.Raw(EvaporatorTemperatureMinColor));
 
-    drawChart("CompressorInletTemperature",
+    drawMinMaxChart("CompressorInletTemperature",
         "VERDICHTEREINTRITTSTEMPERATUR °C",
         @Html.Raw(XLabels),
         @Html.Raw(CompressorInletTemperatureMax), @Html.Raw(CompressorInletTemperatureMaxColor),
         @Html.Raw(CompressorInletTemperatureAverage), @Html.Raw(CompressorInletTemperatureAverageColor),
         @Html.Raw(CompressorInletTemperatureMin), @Html.Raw(CompressorInletTemperatureMinColor));
 
-    drawChart("IntermediateInjectionTemperature",
+    drawMinMaxChart("IntermediateInjectionTemperature",
         "ZWISCHENEINSPRITZUNGSTEMP °C",
         @Html.Raw(XLabels),
         @Html.Raw(IntermediateInjectionTemperatureMax), @Html.Raw(IntermediateInjectionTemperatureMaxColor),
         @Html.Raw(IntermediateInjectionTemperatureAverage), @Html.Raw(IntermediateInjectionTemperatureAverageColor),
         @Html.Raw(IntermediateInjectionTemperatureMin), @Html.Raw(IntermediateInjectionTemperatureMinColor));
 
-    drawChart("HotGasTemperature",
+    drawMinMaxChart("HotGasTemperature",
         "HEISSGASTEMPERATUR °C",
         @Html.Raw(XLabels),
         @Html.Raw(HotGasTemperatureMax), @Html.Raw(HotGasTemperatureMaxColor),
         @Html.Raw(HotGasTemperatureAverage), @Html.Raw(HotGasTemperatureAverageColor),
         @Html.Raw(HotGasTemperatureMin), @Html.Raw(HotGasTemperatureMinColor));
 
-    drawChart("CondenserTemperature",
+    drawMinMaxChart("CondenserTemperature",
         "VERFLÜSSIGERTEMPERATUR °C",
         @Html.Raw(XLabels),
         @Html.Raw(CondenserTemperatureMax), @Html.Raw(CondenserTemperatureMaxColor),
         @Html.Raw(CondenserTemperatureAverage), @Html.Raw(CondenserTemperatureAverageColor),
         @Html.Raw(CondenserTemperatureMin), @Html.Raw(CondenserTemperatureMinColor));
 
-    drawChart("OilSumpTemperature",
+    drawMinMaxChart("OilSumpTemperature",
         "ÖLSUMPFTEMPERATUR °C",
         @Html.Raw(XLabels),
         @Html.Raw(OilSumpTemperatureMax), @Html.Raw(OilSumpTemperatureMaxColor),
         @Html.Raw(OilSumpTemperatureAverage), @Html.Raw(OilSumpTemperatureAverageColor),
         @Html.Raw(OilSumpTemperatureMin), @Html.Raw(OilSumpTemperatureMinColor));
 
-    drawChart("LowPressure",
+    drawMinMaxChart("LowPressure",
         "DRUCK NIEDERDRUCK bar",
         @Html.Raw(XLabels),
         @Html.Raw(LowPressureMax), @Html.Raw(LowPressureMaxColor),
         @Html.Raw(LowPressureAverage), @Html.Raw(LowPressureAverageColor),
         @Html.Raw(LowPressureMin), @Html.Raw(LowPressureMinColor));
 
-    drawChart("PressureMedium",
+    drawMinMaxChart("PressureMedium",
         "DRUCK MITTELDRUCK bar",
         @Html.Raw(XLabels),
         @Html.Raw(PressureMediumMax), @Html.Raw(PressureMediumMaxColor),
         @Html.Raw(PressureMediumAverage), @Html.Raw(PressureMediumAverageColor),
         @Html.Raw(PressureMediumMin), @Html.Raw(PressureMediumMinColor));
 
-    drawChart("HighPressure",
+    drawMinMaxChart("HighPressure",
         "DRUCK HOCHDRUCK bar",
         @Html.Raw(XLabels),
         @Html.Raw(HighPressureMax), @Html.Raw(HighPressureMaxColor),
         @Html.Raw(HighPressureAverage), @Html.Raw(HighPressureAverageColor),
         @Html.Raw(HighPressureMin), @Html.Raw(HighPressureMinColor));
 
-    drawChart("WaterVolumeCurrent",
+    drawMinMaxChart("WaterVolumeCurrent",
         "WP WASSERVOLUMENSTROM l/min",
         @Html.Raw(XLabels),
         @Html.Raw(WaterVolumeCurrentMax), @Html.Raw(WaterVolumeCurrentMaxColor),
         @Html.Raw(WaterVolumeCurrentAverage), @Html.Raw(WaterVolumeCurrentAverageColor),
         @Html.Raw(WaterVolumeCurrentMin), @Html.Raw(WaterVolumeCurrentMinColor));
 
-    drawChart("VoltageInverter",
+    drawMinMaxChart("VoltageInverter",
         "SPANNUNG INVERTER V",
         @Html.Raw(XLabels),
         @Html.Raw(VoltageInverterMax), @Html.Raw(VoltageInverterMaxColor),
         @Html.Raw(VoltageInverterAverage), @Html.Raw(VoltageInverterAverageColor),
         @Html.Raw(VoltageInverterMin), @Html.Raw(VoltageInverterMinColor));
 
-    drawChart("ActualSpeedDensifier",
+    drawMinMaxChart("ActualSpeedDensifier",
         "ISTDREHZAHL VERDICHTER Hz",
         @Html.Raw(XLabels),
         @Html.Raw(ActualSpeedDensifierMax), @Html.Raw(ActualSpeedDensifierMaxColor),
         @Html.Raw(ActualSpeedDensifierAverage), @Html.Raw(ActualSpeedDensifierAverageColor),
         @Html.Raw(ActualSpeedDensifierMin), @Html.Raw(ActualSpeedDensifierMinColor));
 
-    drawChart("SettingSpeedCompressed",
+    drawMinMaxChart("SettingSpeedCompressed",
         "SOLLDREHZAHL VERDICHTER Hz",
         @Html.Raw(XLabels),
         @Html.Raw(SettingSpeedCompressedMax), @Html.Raw(SettingSpeedCompressedMaxColor),
         @Html.Raw(SettingSpeedCompressedAverage), @Html.Raw(SettingSpeedCompressedAverageColor),
         @Html.Raw(SettingSpeedCompressedMin), @Html.Raw(SettingSpeedCompressedMinColor));
 
-    drawChart("FanPowerRel",
+    drawMinMaxChart("FanPowerRel",
         "LÜFTERLEISTUNG REL %",
         @Html.Raw(XLabels),
         @Html.Raw(FanPowerRelMax), @Html.Raw(FanPowerRelMaxColor),
         @Html.Raw(FanPowerRelAverage), @Html.Raw(FanPowerRelAverageColor),
         @Html.Raw(FanPowerRelMin), @Html.Raw(FanPowerRelMinColor));
 
-    drawChart("VaporizerHeatQuantityHeatingDay",
+    drawStartEndChart("VaporizerHeatQuantityHeatingDay",
         "VD HEIZEN TAG KWh",
         @Html.Raw(XLabels),
         @Html.Raw(VaporizerHeatQuantityHeatingDayStart), @Html.Raw(VaporizerHeatQuantityHeatingDayStartColor),
         @Html.Raw(VaporizerHeatQuantityHeatingDayDelta), @Html.Raw(VaporizerHeatQuantityHeatingDayDeltaColor),
         @Html.Raw(VaporizerHeatQuantityHeatingDayEnd), @Html.Raw(VaporizerHeatQuantityHeatingDayEndColor));
 
-    drawChart("VaporizerHeatQuantityHeatingTotal",
+    drawStartEndChart("VaporizerHeatQuantityHeatingTotal",
         "VD HEIZEN SUMME MWh",
         @Html.Raw(XLabels),
         @Html.Raw(VaporizerHeatQuantityHeatingTotalStart), @Html.Raw(VaporizerHeatQuantityHeatingTotalStartColor),
         @Html.Raw(VaporizerHeatQuantityHeatingTotalDelta), @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaColor),
         @Html.Raw(VaporizerHeatQuantityHeatingTotalEnd), @Html.Raw(VaporizerHeatQuantityHeatingTotalEndColor));
 
-    drawChart("VaporizerHeatQuantityHotWaterDay",
+    drawStartEndChart("VaporizerHeatQuantityHotWaterDay",
         "VD WARMWASSER TAG KWh",
         @Html.Raw(XLabels),
         @Html.Raw(VaporizerHeatQuantityHotWaterDayStart), @Html.Raw(VaporizerHeatQuantityHotWaterDayStartColor),
         @Html.Raw(VaporizerHeatQuantityHotWaterDayDelta), @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaColor),
         @Html.Raw(VaporizerHeatQuantityHotWaterDayEnd), @Html.Raw(VaporizerHeatQuantityHotWaterDayEndColor));
 
-    drawChart("VaporizerHeatQuantityHotWaterTotal",
+    drawStartEndChart("VaporizerHeatQuantityHotWaterTotal",
         "VD WARMWASSER SUMME MWh",
         @Html.Raw(XLabels),
         @Html.Raw(VaporizerHeatQuantityHotWaterTotalStart), @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartColor),
         @Html.Raw(VaporizerHeatQuantityHotWaterTotalDelta), @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaColor),
         @Html.Raw(VaporizerHeatQuantityHotWaterTotalEnd), @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndColor));
 
-    drawChart("ReheatingStagesHeatQuantityHeatingSum",
+    drawStartEndChart("ReheatingStagesHeatQuantityHeatingSum",
         "NHZ HEIZEN SUMME  MWh",
         @Html.Raw(XLabels),
         @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStart), @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartColor),
         @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDelta), @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaColor),
         @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEnd), @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndColor));
 
-    drawChart("ReheatingStagesHeatQuantityHotWaterTotal",
+    drawStartEndChart("ReheatingStagesHeatQuantityHotWaterTotal",
         "NHZ WARMWASSER SUMME  MWh",
         @Html.Raw(XLabels),
         @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStart), @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartColor),
         @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDelta), @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaColor),
         @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEnd), @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndColor));
 
-    drawChart("PowerConsumptionHeatingDay",
+    drawStartEndChart("PowerConsumptionHeatingDay",
         "VD HEIZEN TAG  KWh",
         @Html.Raw(XLabels),
         @Html.Raw(PowerConsumptionHeatingDayStart), @Html.Raw(PowerConsumptionHeatingDayStartColor),
         @Html.Raw(PowerConsumptionHeatingDayDelta), @Html.Raw(PowerConsumptionHeatingDayDeltaColor),
         @Html.Raw(PowerConsumptionHeatingDayEnd), @Html.Raw(PowerConsumptionHeatingDayEndColor));
 
-    drawChart("PowerConsumptionHeatingSum",
+    drawStartEndChart("PowerConsumptionHeatingSum",
         "VD HEIZEN SUMME MWh",
         @Html.Raw(XLabels),
         @Html.Raw(PowerConsumptionHeatingSumStart), @Html.Raw(PowerConsumptionHeatingSumStartColor),
         @Html.Raw(PowerConsumptionHeatingSumDelta), @Html.Raw(PowerConsumptionHeatingSumDeltaColor),
         @Html.Raw(PowerConsumptionHeatingSumEnd), @Html.Raw(PowerConsumptionHeatingSumEndColor));
 
-    drawChart("PowerConsumptionHotWaterDay",
+    drawStartEndChart("PowerConsumptionHotWaterDay",
         "VD WARMWASSER TAG KWh",
         @Html.Raw(XLabels),
         @Html.Raw(PowerConsumptionHotWaterDayStart), @Html.Raw(PowerConsumptionHotWaterDayStartColor),
         @Html.Raw(PowerConsumptionHotWaterDayDelta), @Html.Raw(PowerConsumptionHotWaterDayDeltaColor),
         @Html.Raw(PowerConsumptionHotWaterDayEnd), @Html.Raw(PowerConsumptionHotWaterDayEndColor));
 
-    drawChart("PowerConsumptionHotWaterSum",
+    drawStartEndChart("PowerConsumptionHotWaterSum",
         "VD WARMWASSER SUMME MWh",
         @Html.Raw(XLabels),
         @Html.Raw(PowerConsumptionHotWaterSumStart), @Html.Raw(PowerConsumptionHotWaterSumStartColor),
         @Html.Raw(PowerConsumptionHotWaterSumDelta), @Html.Raw(PowerConsumptionHotWaterSumDeltaColor),
         @Html.Raw(PowerConsumptionHotWaterSumEnd), @Html.Raw(PowerConsumptionHotWaterSumEndColor));
 
-    drawChart("RuntimeVaporizerHeating",
+    drawStartEndChart("RuntimeVaporizerHeating",
         "VD HEIZEN",
         @Html.Raw(XLabels),
         @Html.Raw(RuntimeVaporizerHeatingStart), @Html.Raw(RuntimeVaporizerHeatingStartColor),
         @Html.Raw(RuntimeVaporizerHeatingDelta), @Html.Raw(RuntimeVaporizerHeatingDeltaColor),
         @Html.Raw(RuntimeVaporizerHeatingEnd), @Html.Raw(RuntimeVaporizerHeatingEndColor));
 
-    drawChart("RuntimeVaporizerHotWater",
+    drawStartEndChart("RuntimeVaporizerHotWater",
         "VD WARMWASSER",
         @Html.Raw(XLabels),
         @Html.Raw(RuntimeVaporizerHotWaterStart), @Html.Raw(RuntimeVaporizerHotWaterStartColor),
         @Html.Raw(RuntimeVaporizerHotWaterDelta), @Html.Raw(RuntimeVaporizerHotWaterDeltaColor),
         @Html.Raw(RuntimeVaporizerHotWaterEnd), @Html.Raw(RuntimeVaporizerHotWaterEndColor));
 
-    drawChart("RuntimeVaporizerDefrost",
+    drawStartEndChart("RuntimeVaporizerDefrost",
         "VD ABTAUEN",
         @Html.Raw(XLabels),
         @Html.Raw(RuntimeVaporizerDefrostStart), @Html.Raw(RuntimeVaporizerDefrostStartColor),
         @Html.Raw(RuntimeVaporizerDefrostDelta), @Html.Raw(RuntimeVaporizerDefrostDeltaColor),
         @Html.Raw(RuntimeVaporizerDefrostEnd), @Html.Raw(RuntimeVaporizerDefrostEndColor));
 
-    drawChart("ReheatingStages1",
+    drawStartEndChart("ReheatingStages1",
         "NHZ 1",
         @Html.Raw(XLabels),
         @Html.Raw(ReheatingStages1Start), @Html.Raw(ReheatingStages1StartColor),
         @Html.Raw(ReheatingStages1Delta), @Html.Raw(ReheatingStages1DeltaColor),
         @Html.Raw(ReheatingStages1End), @Html.Raw(ReheatingStages1EndColor));
 
-    drawChart("ReheatingStages2",
+    drawStartEndChart("ReheatingStages2",
         "NHZ 2",
         @Html.Raw(XLabels),
         @Html.Raw(ReheatingStages2Start), @Html.Raw(ReheatingStages2StartColor),
         @Html.Raw(ReheatingStages2Delta), @Html.Raw(ReheatingStages2DeltaColor),
         @Html.Raw(ReheatingStages2End), @Html.Raw(ReheatingStages2EndColor));
 
-    drawChart("DefrostTime",
+    drawStartEndChart("DefrostTime",
         "ZEIT ABTAUEN",
         @Html.Raw(XLabels),
         @Html.Raw(DefrostTimeStart), @Html.Raw(DefrostTimeStartColor),
         @Html.Raw(DefrostTimeDelta), @Html.Raw(DefrostTimeDeltaColor),
         @Html.Raw(DefrostTimeEnd), @Html.Raw(DefrostTimeEndColor));
 
-    drawChart("DefrostStarts",
+    drawStartEndChart("DefrostStarts",
         "STARTS ABTAUEN",
         @Html.Raw(XLabels),
         @Html.Raw(DefrostStartsStart), @Html.Raw(DefrostStartsStartColor),

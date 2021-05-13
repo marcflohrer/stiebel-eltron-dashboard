@@ -44,3 +44,15 @@ textarea {
 .nav-header {
     background-color: #8CAE5A;
 }
+
+.chart-style{
+    width: 451px; 
+    float:left; 
+    height:300px; 
+    margin:10px
+}
+
+.canvas-style{
+    width: 100%; 
+    height: 290px;
+}
