@@ -80,7 +80,7 @@ namespace StiebelEltronApiServer.Services
                 latestMonthlyStatistic = monthlyStatisticCreationDates.Max();
                 Console.WriteLine($"<-- latestMonthlyStatistic {latestMonthlyStatistic}");
             }
-            var lastMonth = heatPumpData.Where(hpd => hpd.DateCreated >= latestMonthlyStatistic).ToList();
+            var lastMonth = heatPumpData.Where(hpd => hpd.DateCreated >= latestMonthlyStatistic.Subtract(TimeSpan.FromDays(32))).ToList();
             if(lastMonth.Any()){
                 var oldestRecordInRecentMonth = lastMonth.Select(hpd => hpd.DateCreated).Min();
                 var monthlyStatisticsContainer = GetEmptyMonthlyStatisticsContainer(heatPumpData, oldestRecordInRecentMonth, now);
@@ -154,7 +154,7 @@ namespace StiebelEltronApiServer.Services
             var periodStatistics = new List<PeriodStatistics>();
             var startOfPeriod = oldestRecord;
             while(startOfPeriod.DayOfWeek != DayOfWeek.Monday && startOfPeriod < now){
-                startOfPeriod = startOfPeriod.AddDays(1);
+                startOfPeriod = startOfPeriod.Subtract(TimeSpan.FromDays(1));
             }
             while(startOfPeriod < now){
                 var endOfPeriod = startOfPeriod.AddDays(7);
@@ -179,7 +179,7 @@ namespace StiebelEltronApiServer.Services
             var startOfPeriod = oldestRecord;
             // Find start of month
             while(startOfPeriod.Day != 1 && startOfPeriod < now){
-                startOfPeriod = startOfPeriod.AddDays(1);
+                startOfPeriod = startOfPeriod.Subtract(TimeSpan.FromDays(1));
             }
             while(startOfPeriod < now){
                 var endOfPeriod = startOfPeriod.AddMonths(1);
@@ -187,11 +187,13 @@ namespace StiebelEltronApiServer.Services
                 if(dataSetsInPeriod.Any()){
                     periodStatistics.Add(new PeriodStatistics(
                         startOfPeriod.Year, 
-                        startOfPeriod.Day, 
+                        startOfPeriod.Month, 
                         PeriodKind.Month,
                         startOfPeriod.Date, 
                         startOfPeriod.AddMonths(1), 
                         null));
+                }else{
+                    Console.WriteLine($"GetEmptyMonthlyStatisticsContainer --> no data records in range <{startOfPeriod.ToLongDateString()}> - <{endOfPeriod.ToLongDateString()}>");
                 }
                 startOfPeriod = endOfPeriod;
             }
@@ -203,7 +205,7 @@ namespace StiebelEltronApiServer.Services
                 var periodStatistics = new List<PeriodStatistics>();
             var startOfPeriod = oldestRecord;
             while(startOfPeriod.Day != 1 && startOfPeriod.Month != 1 && startOfPeriod < now){
-                startOfPeriod = startOfPeriod.AddDays(1);
+                startOfPeriod = startOfPeriod.Subtract(TimeSpan.FromDays(1));
             }
             while(startOfPeriod < now){
                 var endOfPeriod = startOfPeriod.AddYears(1);

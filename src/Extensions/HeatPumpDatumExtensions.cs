@@ -85,7 +85,6 @@ namespace StiebelEltronApiServer.Extensions {
             var start = GetStartForMetric (heatPumpData, selector);
             var end = GetEndForMetric (heatPumpData, selector);
             var result = end - start;
-            Console.WriteLine($"result = end - start: {result}={end}-{start}");
             return result;
         }
 

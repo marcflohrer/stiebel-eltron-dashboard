@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StiebelEltronApiServer.Repositories;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -27,7 +28,6 @@ namespace StiebelEltronApiServer.Controllers
             var recentSevenDays = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentSevenDays(DateTime.Now).AsEnumerable();
             if(!recentSevenDays.Any()){
                 Console.WriteLine($"Index: Recent 7 Days. No results. {recentSevenDays.Count()}");
-                return View();
             }else{
                 Console.WriteLine($"Index: Recent 7 Days. Results: {recentSevenDays.Count()}");
                 foreach(var rsd in recentSevenDays)
@@ -38,25 +38,57 @@ namespace StiebelEltronApiServer.Controllers
                     Console.WriteLine("------------------------------");
                 }
             }
-            return View(recentSevenDays);
+            var result = recentSevenDays.ToList();
+
+            var recent12Weeks = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentTwelveWeeks(DateTime.Now, new CultureInfo("de-DE")).AsEnumerable();
+            if(!recent12Weeks.Any()){
+                Console.WriteLine($"Index: Recent 12 Weeks. No results. {recentSevenDays.Count()}");
+
+            }else{
+                Console.WriteLine($"Index: Recent 12 Weeks. Results: {recentSevenDays.Count()}");
+                foreach(var rsd in recentSevenDays)
+                {
+                    Console.WriteLine($"Index: Recent 12 Weeks. Results: (max) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} {rsd.PeriodKind}");
+                    Console.WriteLine($"Index: Recent 12 Weeks. Results: (min) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMin} ");
+                    Console.WriteLine($"Index: Recent 12 Weeks. Results: (avg) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureAverage} ");
+                    Console.WriteLine("------------------------------");
+                }
+            }
+            result.AddRange(recent12Weeks);
+
+            var recent12Months = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentTwelveMonths(DateTime.Now).AsEnumerable();
+            if(!recent12Months.Any()){
+                Console.WriteLine($"Index: Recent 12 Months. No results. {recentSevenDays.Count()}");
+
+            }else{
+                Console.WriteLine($"Index: Recent 12 Months. Results: {recentSevenDays.Count()}");
+                foreach(var rsd in recentSevenDays)
+                {
+                    Console.WriteLine($"Index: Recent 12 Months. Results: (max) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} {rsd.PeriodKind}");
+                    Console.WriteLine($"Index: Recent 12 Months. Results: (min) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMin} ");
+                    Console.WriteLine($"Index: Recent 12 Months. Results: (avg) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureAverage} ");
+                    Console.WriteLine("------------------------------");
+                }
+            }
+            result.AddRange(recent12Months);
+
+            var recentYears = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetYearlyRecords(DateTime.Now).AsEnumerable();
+            if(!recentYears.Any()){
+                Console.WriteLine($"Index: Recent Years. No results. {recentSevenDays.Count()}");
+
+            }else{
+                Console.WriteLine($"Index: Recent Years. Results: {recentSevenDays.Count()}");
+                foreach(var rsd in recentSevenDays)
+                {
+                    Console.WriteLine($"Index: Recent Years. Results: (max) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} {rsd.PeriodKind}");
+                    Console.WriteLine($"Index: Recent Years. Results: (min) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMin} ");
+                    Console.WriteLine($"Index: Recent Years. Results: (avg) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureAverage} ");
+                    Console.WriteLine("------------------------------");
+                }
+            }
+            result.AddRange(recentYears);
+
+            return View(result);
         }
     }
-
-    [DataContract]
-	public class DataPoint
-	{
-		public DataPoint(double x, double y)
-		{
-			this.X = x;
-			this.Y = y;
-		}
- 
-		//Explicitly setting the name to be used while serializing to JSON.
-		[DataMember(Name = "x")]
-		public Nullable<double> X = null;
- 
-		//Explicitly setting the name to be used while serializing to JSON.
-		[DataMember(Name = "y")]
-		public Nullable<double> Y = null;
-	}
 }
