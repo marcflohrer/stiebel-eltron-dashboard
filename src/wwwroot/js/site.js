@@ -15,14 +15,14 @@
             data: minYs,
             fill: false,
             borderColor: 'rgba(140, 173, 88, 1)',
-            backgroundColor: minYsColor,
+            backgroundColor: averageYsColor,
         }, {
             label: "Min",
             borderWidth: 5,
             data: averageYs,
             fill: false,
             borderColor: 'rgba(132, 133, 135, 1)',
-            backgroundColor: averageYsColor,
+            backgroundColor: minYsColor,
         }]
     };
 

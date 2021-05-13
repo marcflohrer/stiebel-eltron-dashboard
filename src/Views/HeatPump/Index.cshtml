@@ -4,38 +4,239 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 
     var maxColor = "rgba(233, 241, 221, 1)";
-    var avgColor = "rgba(140, 173, 88, 1)";
+    var averageColor = "rgba(140, 173, 88, 1)";
     var minColor = "rgba(132, 133, 135, 1)";
+    var startColor = "rgba(233, 241, 221, 1)";
+    var deltaColor = "rgba(140, 173, 88, 1)";
+    var endColor = "rgba(132, 133, 135, 1)";
+
     var XLabels = "{}";
-    var MaxOutDoorTemp = "{}";
-    var MaxOutDoorTempColor = "{}";
-
-    var AverageOutDoorTemp = "{}";
-    var AverageOutDoorTempColor = "{}";
-    
-    var MinOutDoorTemp = "{}";
-    var MinOutDoorTempColor = "{}";
-
     var PerformanceFactor = "{}";
     var PerformanceFactorColor = "{}";
 
-    var MaxExhaustAirTemperature = "{}";
-    var MaxExhaustAirTemperatureColor = "{}";
+    var ReturnTemperatureMin = "{}";
+    var ReturnTemperatureMax = "{}";
+    var ReturnTemperatureAverage = "{}";
+    var InletTemperatureMin = "{}";
+    var InletTemperatureMax = "{}";
+    var InletTemperatureAverage = "{}";
+    var AntiFreezeTemperatureMin = "{}";
+    var AntiFreezeTemperatureMax = "{}";
+    var AntiFreezeTemperatureAverage = "{}";
+    var OutdoorTemperatureMin = "{}";
+    var OutdoorTemperatureMax = "{}";
+    var OutdoorTemperatureAverage = "{}";
+    var ExhaustAirTemperatureMin = "{}";
+    var ExhaustAirTemperatureMax = "{}";
+    var ExhaustAirTemperatureAverage = "{}";
+    var EvaporatorTemperatureMin = "{}";
+    var EvaporatorTemperatureMax = "{}";
+    var EvaporatorTemperatureAverage = "{}";
+    var TotalPowerConsumptionStart = "{}";
+    var TotalPowerConsumptionEnd = "{}";
+    var TotalPowerConsumptionDelta = "{}";
+    var CompressorInletTemperatureMin = "{}";
+    var CompressorInletTemperatureMax = "{}";
+    var CompressorInletTemperatureAverage = "{}";
+    var IntermediateInjectionTemperatureMin = "{}";
+    var IntermediateInjectionTemperatureMax = "{}";
+    var IntermediateInjectionTemperatureAverage = "{}";
+    var HotGasTemperatureMin = "{}";
+    var HotGasTemperatureMax = "{}";
+    var HotGasTemperatureAverage = "{}";
+    var CondenserTemperatureMin = "{}";
+    var CondenserTemperatureMax = "{}";
+    var CondenserTemperatureAverage = "{}";
+    var OilSumpTemperatureMin = "{}";
+    var OilSumpTemperatureMax = "{}";
+    var OilSumpTemperatureAverage = "{}";
+    var LowPressureMin = "{}";
+    var LowPressureMax = "{}";
+    var LowPressureAverage = "{}";
+    var PressureMediumMin = "{}";
+    var PressureMediumMax = "{}";
+    var PressureMediumAverage = "{}";
+    var HighPressureMin = "{}";
+    var HighPressureMax = "{}";
+    var HighPressureAverage = "{}";
+    var WaterVolumeCurrentMin = "{}";
+    var WaterVolumeCurrentMax = "{}";
+    var WaterVolumeCurrentAverage = "{}";
+    var VoltageInverterMin = "{}";
+    var VoltageInverterMax = "{}";
+    var VoltageInverterAverage = "{}";
+    var ActualSpeedDensifierMin = "{}";
+    var ActualSpeedDensifierMax = "{}";
+    var ActualSpeedDensifierAverage = "{}";
+    var SettingSpeedCompressedMin = "{}";
+    var SettingSpeedCompressedMax = "{}";
+    var SettingSpeedCompressedAverage = "{}";
+    var FanPowerRelMin = "{}";
+    var FanPowerRelMax = "{}";
+    var FanPowerRelAverage = "{}";
+    var VaporizerHeatQuantityHeatingDayStart = "{}";
+    var VaporizerHeatQuantityHeatingDayEnd = "{}";
+    var VaporizerHeatQuantityHeatingDayDelta = "{}";
+    var VaporizerHeatQuantityHeatingTotalStart = "{}";
+    var VaporizerHeatQuantityHeatingTotalEnd = "{}";
+    var VaporizerHeatQuantityHeatingTotalDelta = "{}";
+    var VaporizerHeatQuantityHotWaterDayStart = "{}";
+    var VaporizerHeatQuantityHotWaterDayEnd = "{}";
+    var VaporizerHeatQuantityHotWaterDayDelta = "{}";
+    var VaporizerHeatQuantityHotWaterTotalStart = "{}";
+    var VaporizerHeatQuantityHotWaterTotalEnd = "{}";
+    var VaporizerHeatQuantityHotWaterTotalDelta = "{}";
+    var ReheatingStagesHeatQuantityHeatingSumStart = "{}";
+    var ReheatingStagesHeatQuantityHeatingSumEnd = "{}";
+    var ReheatingStagesHeatQuantityHeatingSumDelta = "{}";
+    var ReheatingStagesHeatQuantityHotWaterTotalStart = "{}";
+    var ReheatingStagesHeatQuantityHotWaterTotalEnd = "{}";
+    var ReheatingStagesHeatQuantityHotWaterTotalDelta = "{}";
+    var PowerConsumptionHeatingDayStart = "{}";
+    var PowerConsumptionHeatingDayEnd = "{}";
+    var PowerConsumptionHeatingDayDelta = "{}";
+    var PowerConsumptionHeatingSumStart = "{}";
+    var PowerConsumptionHeatingSumEnd = "{}";
+    var PowerConsumptionHeatingSumDelta = "{}";
+    var PowerConsumptionHotWaterDayStart = "{}";
+    var PowerConsumptionHotWaterDayEnd = "{}";
+    var PowerConsumptionHotWaterDayDelta = "{}";
+    var PowerConsumptionHotWaterSumStart = "{}";
+    var PowerConsumptionHotWaterSumEnd = "{}";
+    var PowerConsumptionHotWaterSumDelta = "{}";
+    var RuntimeVaporizerHeatingStart = "{}";
+    var RuntimeVaporizerHeatingEnd = "{}";
+    var RuntimeVaporizerHeatingDelta = "{}";
+    var RuntimeVaporizerHotWaterStart = "{}";
+    var RuntimeVaporizerHotWaterEnd = "{}";
+    var RuntimeVaporizerHotWaterDelta = "{}";
+    var RuntimeVaporizerDefrostStart = "{}";
+    var RuntimeVaporizerDefrostEnd = "{}";
+    var RuntimeVaporizerDefrostDelta = "{}";
+    var ReheatingStages1Start = "{}";
+    var ReheatingStages1End = "{}";
+    var ReheatingStages1Delta = "{}";
+    var ReheatingStages2Start = "{}";
+    var ReheatingStages2End = "{}";
+    var ReheatingStages2Delta = "{}";
+    var DefrostTimeStart = "{}";
+    var DefrostTimeEnd = "{}";
+    var DefrostTimeDelta = "{}";
+    var DefrostStartsStart = "{}";
+    var DefrostStartsEnd = "{}";
+    var DefrostStartsDelta = "{}";
 
-    var AverageExhaustAirTemperature = "{}";
-    var AverageExhaustAirTemperatureColor = "{}";
-
-    var MinExhaustAirTemperature = "{}";
-    var MinExhaustAirTemperatureColor = "{}";
-
-    var MaxInletTemperature = "{}";
-    var MaxInletTemperatureColor = "{}"; 
-
-    var AverageInletTemperature = "{}";
-    var AverageInletTemperatureColor = "{}"; 
-
-    var MinInletTemperature = "{}";
-    var MinInletTemperatureColor = "{}";
+    var ReturnTemperatureMinColor = "{}";
+    var ReturnTemperatureMaxColor = "{}";
+    var ReturnTemperatureAverageColor = "{}";
+    var InletTemperatureMinColor = "{}";
+    var InletTemperatureMaxColor = "{}";
+    var InletTemperatureAverageColor = "{}";
+    var AntiFreezeTemperatureMinColor = "{}";
+    var AntiFreezeTemperatureMaxColor = "{}";
+    var AntiFreezeTemperatureAverageColor = "{}";
+    var OutdoorTemperatureMinColor = "{}";
+    var OutdoorTemperatureMaxColor = "{}";
+    var OutdoorTemperatureAverageColor = "{}";
+    var ExhaustAirTemperatureMinColor = "{}";
+    var ExhaustAirTemperatureMaxColor = "{}";
+    var ExhaustAirTemperatureAverageColor = "{}";
+    var EvaporatorTemperatureMinColor = "{}";
+    var EvaporatorTemperatureMaxColor = "{}";
+    var EvaporatorTemperatureAverageColor = "{}";
+    var TotalPowerConsumptionStartColor = "{}";
+    var TotalPowerConsumptionEndColor = "{}";
+    var TotalPowerConsumptionDeltaColor = "{}";
+    var CompressorInletTemperatureMinColor = "{}";
+    var CompressorInletTemperatureMaxColor = "{}";
+    var CompressorInletTemperatureAverageColor = "{}";
+    var IntermediateInjectionTemperatureMinColor = "{}";
+    var IntermediateInjectionTemperatureMaxColor = "{}";
+    var IntermediateInjectionTemperatureAverageColor = "{}";
+    var HotGasTemperatureMinColor = "{}";
+    var HotGasTemperatureMaxColor = "{}";
+    var HotGasTemperatureAverageColor = "{}";
+    var CondenserTemperatureMinColor = "{}";
+    var CondenserTemperatureMaxColor = "{}";
+    var CondenserTemperatureAverageColor = "{}";
+    var OilSumpTemperatureMinColor = "{}";
+    var OilSumpTemperatureMaxColor = "{}";
+    var OilSumpTemperatureAverageColor = "{}";
+    var LowPressureMinColor = "{}";
+    var LowPressureMaxColor = "{}";
+    var LowPressureAverageColor = "{}";
+    var PressureMediumMinColor = "{}";
+    var PressureMediumMaxColor = "{}";
+    var PressureMediumAverageColor = "{}";
+    var HighPressureMinColor = "{}";
+    var HighPressureMaxColor = "{}";
+    var HighPressureAverageColor = "{}";
+    var WaterVolumeCurrentMinColor = "{}";
+    var WaterVolumeCurrentMaxColor = "{}";
+    var WaterVolumeCurrentAverageColor = "{}";
+    var VoltageInverterMinColor = "{}";
+    var VoltageInverterMaxColor = "{}";
+    var VoltageInverterAverageColor = "{}";
+    var ActualSpeedDensifierMinColor = "{}";
+    var ActualSpeedDensifierMaxColor = "{}";
+    var ActualSpeedDensifierAverageColor = "{}";
+    var SettingSpeedCompressedMinColor = "{}";
+    var SettingSpeedCompressedMaxColor = "{}";
+    var SettingSpeedCompressedAverageColor = "{}";
+    var FanPowerRelMinColor = "{}";
+    var FanPowerRelMaxColor = "{}";
+    var FanPowerRelAverageColor = "{}";
+    var VaporizerHeatQuantityHeatingDayStartColor = "{}";
+    var VaporizerHeatQuantityHeatingDayEndColor = "{}";
+    var VaporizerHeatQuantityHeatingDayDeltaColor = "{}";
+    var VaporizerHeatQuantityHeatingTotalStartColor = "{}";
+    var VaporizerHeatQuantityHeatingTotalEndColor = "{}";
+    var VaporizerHeatQuantityHeatingTotalDeltaColor = "{}";
+    var VaporizerHeatQuantityHotWaterDayStartColor = "{}";
+    var VaporizerHeatQuantityHotWaterDayEndColor = "{}";
+    var VaporizerHeatQuantityHotWaterDayDeltaColor = "{}";
+    var VaporizerHeatQuantityHotWaterTotalStartColor = "{}";
+    var VaporizerHeatQuantityHotWaterTotalEndColor = "{}";
+    var VaporizerHeatQuantityHotWaterTotalDeltaColor = "{}";
+    var ReheatingStagesHeatQuantityHeatingSumStartColor = "{}";
+    var ReheatingStagesHeatQuantityHeatingSumEndColor = "{}";
+    var ReheatingStagesHeatQuantityHeatingSumDeltaColor = "{}";
+    var ReheatingStagesHeatQuantityHotWaterTotalStartColor = "{}";
+    var ReheatingStagesHeatQuantityHotWaterTotalEndColor = "{}";
+    var ReheatingStagesHeatQuantityHotWaterTotalDeltaColor = "{}";
+    var PowerConsumptionHeatingDayStartColor = "{}";
+    var PowerConsumptionHeatingDayEndColor = "{}";
+    var PowerConsumptionHeatingDayDeltaColor = "{}";
+    var PowerConsumptionHeatingSumStartColor = "{}";
+    var PowerConsumptionHeatingSumEndColor = "{}";
+    var PowerConsumptionHeatingSumDeltaColor = "{}";
+    var PowerConsumptionHotWaterDayStartColor = "{}";
+    var PowerConsumptionHotWaterDayEndColor = "{}";
+    var PowerConsumptionHotWaterDayDeltaColor = "{}";
+    var PowerConsumptionHotWaterSumStartColor = "{}";
+    var PowerConsumptionHotWaterSumEndColor = "{}";
+    var PowerConsumptionHotWaterSumDeltaColor = "{}";
+    var RuntimeVaporizerHeatingStartColor = "{}";
+    var RuntimeVaporizerHeatingEndColor = "{}";
+    var RuntimeVaporizerHeatingDeltaColor = "{}";
+    var RuntimeVaporizerHotWaterStartColor = "{}";
+    var RuntimeVaporizerHotWaterEndColor = "{}";
+    var RuntimeVaporizerHotWaterDeltaColor = "{}";
+    var RuntimeVaporizerDefrostStartColor = "{}";
+    var RuntimeVaporizerDefrostEndColor = "{}";
+    var RuntimeVaporizerDefrostDeltaColor = "{}";
+    var ReheatingStages1StartColor = "{}";
+    var ReheatingStages1EndColor = "{}";
+    var ReheatingStages1DeltaColor = "{}";
+    var ReheatingStages2StartColor = "{}";
+    var ReheatingStages2EndColor = "{}";
+    var ReheatingStages2DeltaColor = "{}";
+    var DefrostTimeStartColor = "{}";
+    var DefrostTimeEndColor = "{}";
+    var DefrostTimeDeltaColor = "{}";
+    var DefrostStartsStartColor = "{}";
+    var DefrostStartsEndColor = "{}";
+    var DefrostStartsDeltaColor = "{}";
 
     if (Model == null)
     {
@@ -45,104 +246,1080 @@
     {
         XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => new DateTime((int)x.Year, 1,
         1).Add(TimeSpan.FromDays(x.PeriodNumber))).ToList());
-        MaxOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMax).ToList());
-        MaxOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.OutdoorTemperatureMax).Select(c => maxColor).ToList());
-
-        AverageOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.OutdoorTemperatureAverage).ToList());
-        AverageOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x
-        => x.OutdoorTemperatureAverage).Select(c => avgColor).ToList());
-
-        MinOutDoorTemp = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.OutdoorTemperatureMin).ToList());
-        MinOutDoorTempColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.OutdoorTemperatureMin).Select(c => minColor).ToList());
 
         PerformanceFactor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
         (x.VaporizerHeatQuantityHeatingDayDelta + x.VaporizerHeatQuantityHotWaterDayDelta) / (x.PowerConsumptionHeatingDayDelta
         + x.PowerConsumptionHotWaterDayDelta)).ToList());
-        PerformanceFactorColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.OutdoorTemperatureMax).Select(c => avgColor).ToList());
+        PerformanceFactorColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x
+        => x.VaporizerHeatQuantityHeatingDayDelta).Select(c => averageColor).ToList());
 
-        MaxExhaustAirTemperature = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.ExhaustAirTemperatureMax).ToList());
-        MaxExhaustAirTemperatureColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.ExhaustAirTemperatureMax).Select(c => maxColor).ToList());
+        ReturnTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.ReturnTemperatureMin).ToList());
+        ReturnTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReturnTemperatureMin).Select(c => minColor).ToList());
 
-        AverageExhaustAirTemperature = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.ExhaustAirTemperatureAverage).ToList());
-        AverageExhaustAirTemperatureColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.ExhaustAirTemperatureAverage).Select(c => avgColor).ToList());
+        ReturnTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.ReturnTemperatureMax).ToList());
+        ReturnTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReturnTemperatureMax).Select(c => maxColor).ToList());
 
-        MinExhaustAirTemperature = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        ReturnTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReturnTemperatureAverage).ToList());
+        ReturnTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReturnTemperatureAverage).Select(c => averageColor).ToList());
+
+        InletTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.InletTemperatureMin).ToList());
+        InletTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.InletTemperatureMin).Select(c
+        => minColor).ToList());
+
+        InletTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.InletTemperatureMax).ToList());
+        InletTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.InletTemperatureMax).Select(c
+        => maxColor).ToList());
+
+        InletTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.InletTemperatureAverage).ToList());
+        InletTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.InletTemperatureAverage).Select(c => averageColor).ToList());
+
+        AntiFreezeTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.AntiFreezeTemperatureMin).ToList());
+        AntiFreezeTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.AntiFreezeTemperatureMin).Select(c => minColor).ToList());
+
+        AntiFreezeTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.AntiFreezeTemperatureMax).ToList());
+        AntiFreezeTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.AntiFreezeTemperatureMax).Select(c => maxColor).ToList());
+
+        AntiFreezeTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.AntiFreezeTemperatureAverage).ToList());
+        AntiFreezeTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.AntiFreezeTemperatureAverage).Select(c => averageColor).ToList());
+
+        OutdoorTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OutdoorTemperatureMin).ToList());
+        OutdoorTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OutdoorTemperatureMin).Select(c => minColor).ToList());
+
+        OutdoorTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OutdoorTemperatureMax).ToList());
+        OutdoorTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OutdoorTemperatureMax).Select(c => maxColor).ToList());
+
+        OutdoorTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OutdoorTemperatureAverage).ToList());
+        OutdoorTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OutdoorTemperatureAverage).Select(c => averageColor).ToList());
+
+        ExhaustAirTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
         x.ExhaustAirTemperatureMin).ToList());
-        MinExhaustAirTemperatureColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        ExhaustAirTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
         x.ExhaustAirTemperatureMin).Select(c => minColor).ToList());
 
-        MaxInletTemperature = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.InletTemperatureMax).ToList());
-        MaxInletTemperatureColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.InletTemperatureMax).Select(c => maxColor).ToList());
+        ExhaustAirTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ExhaustAirTemperatureMax).ToList());
+        ExhaustAirTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ExhaustAirTemperatureMax).Select(c => maxColor).ToList());
 
-        AverageInletTemperature = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.InletTemperatureAverage).ToList());
-        AverageInletTemperatureColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.InletTemperatureAverage).Select(c => minColor).ToList());
+        ExhaustAirTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ExhaustAirTemperatureAverage).ToList());
+        ExhaustAirTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ExhaustAirTemperatureAverage).Select(c => averageColor).ToList());
 
-        MinInletTemperature = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.InletTemperatureMin).ToList());
-        MinInletTemperatureColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
-        x.InletTemperatureMin).Select(c => minColor).ToList());
+        EvaporatorTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.EvaporatorTemperatureMin).ToList());
+        EvaporatorTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.EvaporatorTemperatureMin).Select(c => minColor).ToList());
+
+        EvaporatorTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.EvaporatorTemperatureMax).ToList());
+        EvaporatorTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.EvaporatorTemperatureMax).Select(c => maxColor).ToList());
+
+        EvaporatorTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.EvaporatorTemperatureAverage).ToList());
+        EvaporatorTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.EvaporatorTemperatureAverage).Select(c => averageColor).ToList());
+
+        TotalPowerConsumptionStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.TotalPowerConsumptionStart).ToList());
+        TotalPowerConsumptionStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.TotalPowerConsumptionStart).Select(c => startColor).ToList());
+
+        TotalPowerConsumptionEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.TotalPowerConsumptionEnd).ToList());
+        TotalPowerConsumptionEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.TotalPowerConsumptionEnd).Select(c => endColor).ToList());
+
+        TotalPowerConsumptionDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.TotalPowerConsumptionDelta).ToList());
+        TotalPowerConsumptionDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.TotalPowerConsumptionDelta).Select(c => deltaColor).ToList());
+
+        CompressorInletTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CompressorInletTemperatureMin).ToList());
+        CompressorInletTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CompressorInletTemperatureMin).Select(c => minColor).ToList());
+
+        CompressorInletTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CompressorInletTemperatureMax).ToList());
+        CompressorInletTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CompressorInletTemperatureMax).Select(c => maxColor).ToList());
+
+        CompressorInletTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CompressorInletTemperatureAverage).ToList());
+        CompressorInletTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CompressorInletTemperatureAverage).Select(c => averageColor).ToList());
+
+        IntermediateInjectionTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.IntermediateInjectionTemperatureMin).ToList());
+        IntermediateInjectionTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.IntermediateInjectionTemperatureMin).Select(c => minColor).ToList());
+
+        IntermediateInjectionTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.IntermediateInjectionTemperatureMax).ToList());
+        IntermediateInjectionTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.IntermediateInjectionTemperatureMax).Select(c => maxColor).ToList());
+
+        IntermediateInjectionTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.IntermediateInjectionTemperatureAverage).ToList());
+        IntermediateInjectionTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.IntermediateInjectionTemperatureAverage).Select(c => averageColor).ToList());
+
+        HotGasTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.HotGasTemperatureMin).ToList());
+        HotGasTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.HotGasTemperatureMin).Select(c => minColor).ToList());
+
+        HotGasTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.HotGasTemperatureMax).ToList());
+        HotGasTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.HotGasTemperatureMax).Select(c => maxColor).ToList());
+
+        HotGasTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.HotGasTemperatureAverage).ToList());
+        HotGasTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.HotGasTemperatureAverage).Select(c => averageColor).ToList());
+
+        CondenserTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CondenserTemperatureMin).ToList());
+        CondenserTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CondenserTemperatureMin).Select(c => minColor).ToList());
+
+        CondenserTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CondenserTemperatureMax).ToList());
+        CondenserTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CondenserTemperatureMax).Select(c => maxColor).ToList());
+
+        CondenserTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CondenserTemperatureAverage).ToList());
+        CondenserTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.CondenserTemperatureAverage).Select(c => averageColor).ToList());
+
+        OilSumpTemperatureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OilSumpTemperatureMin).ToList());
+        OilSumpTemperatureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OilSumpTemperatureMin).Select(c => minColor).ToList());
+
+        OilSumpTemperatureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OilSumpTemperatureMax).ToList());
+        OilSumpTemperatureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OilSumpTemperatureMax).Select(c => maxColor).ToList());
+
+        OilSumpTemperatureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OilSumpTemperatureAverage).ToList());
+        OilSumpTemperatureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.OilSumpTemperatureAverage).Select(c => averageColor).ToList());
+
+        LowPressureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.LowPressureMin).ToList());
+        LowPressureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.LowPressureMin).Select(c =>
+        minColor).ToList());
+
+        LowPressureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.LowPressureMax).ToList());
+        LowPressureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.LowPressureMax).Select(c =>
+        maxColor).ToList());
+
+        LowPressureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.LowPressureAverage).ToList());
+        LowPressureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.LowPressureAverage).Select(c
+        => averageColor).ToList());
+
+        PressureMediumMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.PressureMediumMin).ToList());
+        PressureMediumMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.PressureMediumMin).Select(c =>
+        minColor).ToList());
+
+        PressureMediumMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.PressureMediumMax).ToList());
+        PressureMediumMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.PressureMediumMax).Select(c =>
+        maxColor).ToList());
+
+        PressureMediumAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PressureMediumAverage).ToList());
+        PressureMediumAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PressureMediumAverage).Select(c => averageColor).ToList());
+
+        HighPressureMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.HighPressureMin).ToList());
+        HighPressureMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.HighPressureMin).Select(c =>
+        minColor).ToList());
+
+        HighPressureMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.HighPressureMax).ToList());
+        HighPressureMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.HighPressureMax).Select(c =>
+        maxColor).ToList());
+
+        HighPressureAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.HighPressureAverage).ToList());
+        HighPressureAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.HighPressureAverage).Select(c
+        => averageColor).ToList());
+
+        WaterVolumeCurrentMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.WaterVolumeCurrentMin).ToList());
+        WaterVolumeCurrentMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.WaterVolumeCurrentMin).Select(c => minColor).ToList());
+
+        WaterVolumeCurrentMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.WaterVolumeCurrentMax).ToList());
+        WaterVolumeCurrentMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.WaterVolumeCurrentMax).Select(c => maxColor).ToList());
+
+        WaterVolumeCurrentAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.WaterVolumeCurrentAverage).ToList());
+        WaterVolumeCurrentAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.WaterVolumeCurrentAverage).Select(c => averageColor).ToList());
+
+        VoltageInverterMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.VoltageInverterMin).ToList());
+        VoltageInverterMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.VoltageInverterMin).Select(c
+        => minColor).ToList());
+
+        VoltageInverterMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.VoltageInverterMax).ToList());
+        VoltageInverterMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.VoltageInverterMax).Select(c
+        => maxColor).ToList());
+        VoltageInverterAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VoltageInverterAverage).ToList());
+        VoltageInverterAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VoltageInverterAverage).Select(c => averageColor).ToList());
+
+        ActualSpeedDensifierMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ActualSpeedDensifierMin).ToList());
+        ActualSpeedDensifierMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ActualSpeedDensifierMin).Select(c => minColor).ToList());
+
+        ActualSpeedDensifierMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ActualSpeedDensifierMax).ToList());
+        ActualSpeedDensifierMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ActualSpeedDensifierMax).Select(c => maxColor).ToList());
+
+        ActualSpeedDensifierAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ActualSpeedDensifierAverage).ToList());
+        ActualSpeedDensifierAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ActualSpeedDensifierAverage).Select(c => averageColor).ToList());
+
+        SettingSpeedCompressedMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.SettingSpeedCompressedMin).ToList());
+        SettingSpeedCompressedMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.SettingSpeedCompressedMin).Select(c => minColor).ToList());
+
+        SettingSpeedCompressedMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.SettingSpeedCompressedMax).ToList());
+        SettingSpeedCompressedMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.SettingSpeedCompressedMax).Select(c => maxColor).ToList());
+
+        SettingSpeedCompressedAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.SettingSpeedCompressedAverage).ToList());
+        SettingSpeedCompressedAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.SettingSpeedCompressedAverage).Select(c => averageColor).ToList());
+
+        FanPowerRelMin = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.FanPowerRelMin).ToList());
+        FanPowerRelMinColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.FanPowerRelMin).Select(c =>
+        minColor).ToList());
+
+        FanPowerRelMax = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.FanPowerRelMax).ToList());
+        FanPowerRelMaxColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.FanPowerRelMax).Select(c =>
+        maxColor).ToList());
+
+        FanPowerRelAverage = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.FanPowerRelAverage).ToList());
+        FanPowerRelAverageColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.FanPowerRelAverage).Select(c
+        => averageColor).ToList());
+
+        VaporizerHeatQuantityHeatingDayStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingDayStart).ToList());
+        VaporizerHeatQuantityHeatingDayStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingDayStart).Select(c => startColor).ToList());
+
+        VaporizerHeatQuantityHeatingDayEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingDayEnd).ToList());
+        VaporizerHeatQuantityHeatingDayEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingDayEnd).Select(c => endColor).ToList());
+
+        VaporizerHeatQuantityHeatingDayDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingDayDelta).ToList());
+        VaporizerHeatQuantityHeatingDayDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingDayDelta).Select(c => deltaColor).ToList());
+
+        VaporizerHeatQuantityHeatingTotalStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingTotalStart).ToList());
+        VaporizerHeatQuantityHeatingTotalStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingTotalStart).Select(c => startColor).ToList());
+
+        VaporizerHeatQuantityHeatingTotalEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingTotalEnd).ToList());
+        VaporizerHeatQuantityHeatingTotalEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingTotalEnd).Select(c => endColor).ToList());
+
+        VaporizerHeatQuantityHeatingTotalDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingTotalDelta).ToList());
+        VaporizerHeatQuantityHeatingTotalDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHeatingTotalDelta).Select(c => deltaColor).ToList());
+
+        VaporizerHeatQuantityHotWaterDayStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterDayStart).ToList());
+        VaporizerHeatQuantityHotWaterDayStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterDayStart).Select(c => startColor).ToList());
+
+        VaporizerHeatQuantityHotWaterDayEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterDayEnd).ToList());
+        VaporizerHeatQuantityHotWaterDayEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterDayEnd).Select(c => endColor).ToList());
+
+        VaporizerHeatQuantityHotWaterDayDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterDayDelta).ToList());
+        VaporizerHeatQuantityHotWaterDayDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterDayDelta).Select(c => deltaColor).ToList());
+
+        VaporizerHeatQuantityHotWaterTotalStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterTotalStart).ToList());
+        VaporizerHeatQuantityHotWaterTotalStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterTotalStart).Select(c => startColor).ToList());
+
+        VaporizerHeatQuantityHotWaterTotalEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterTotalEnd).ToList());
+        VaporizerHeatQuantityHotWaterTotalEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterTotalEnd).Select(c => endColor).ToList());
+
+        VaporizerHeatQuantityHotWaterTotalDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterTotalDelta).ToList());
+        VaporizerHeatQuantityHotWaterTotalDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.VaporizerHeatQuantityHotWaterTotalDelta).Select(c => deltaColor).ToList());
+
+        ReheatingStagesHeatQuantityHeatingSumStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHeatingSumStart).ToList());
+        ReheatingStagesHeatQuantityHeatingSumStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHeatingSumStart).Select(c => startColor).ToList());
+
+        ReheatingStagesHeatQuantityHeatingSumEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHeatingSumEnd).ToList());
+        ReheatingStagesHeatQuantityHeatingSumEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHeatingSumEnd).Select(c => endColor).ToList());
+
+        ReheatingStagesHeatQuantityHeatingSumDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHeatingSumDelta).ToList());
+        ReheatingStagesHeatQuantityHeatingSumDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHeatingSumDelta).Select(c => deltaColor).ToList());
+
+        ReheatingStagesHeatQuantityHotWaterTotalStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHotWaterTotalStart).ToList());
+        ReheatingStagesHeatQuantityHotWaterTotalStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHotWaterTotalStart).Select(c => startColor).ToList());
+
+        ReheatingStagesHeatQuantityHotWaterTotalEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHotWaterTotalEnd).ToList());
+        ReheatingStagesHeatQuantityHotWaterTotalEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHotWaterTotalEnd).Select(c => endColor).ToList());
+
+        ReheatingStagesHeatQuantityHotWaterTotalDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHotWaterTotalDelta).ToList());
+        ReheatingStagesHeatQuantityHotWaterTotalDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStagesHeatQuantityHotWaterTotalDelta).Select(c => deltaColor).ToList());
+
+        PowerConsumptionHeatingDayStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingDayStart).ToList());
+        PowerConsumptionHeatingDayStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingDayStart).Select(c => startColor).ToList());
+
+        PowerConsumptionHeatingDayEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingDayEnd).ToList());
+        PowerConsumptionHeatingDayEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingDayEnd).Select(c => endColor).ToList());
+
+        PowerConsumptionHeatingDayDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingDayDelta).ToList());
+        PowerConsumptionHeatingDayDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingDayDelta).Select(c => deltaColor).ToList());
+
+        PowerConsumptionHeatingSumStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingSumStart).ToList());
+        PowerConsumptionHeatingSumStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingSumStart).Select(c => startColor).ToList());
+
+        PowerConsumptionHeatingSumEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingSumEnd).ToList());
+        PowerConsumptionHeatingSumEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingSumEnd).Select(c => endColor).ToList());
+
+        PowerConsumptionHeatingSumDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingSumDelta).ToList());
+        PowerConsumptionHeatingSumDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHeatingSumDelta).Select(c => deltaColor).ToList());
+
+        PowerConsumptionHotWaterDayStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterDayStart).ToList());
+        PowerConsumptionHotWaterDayStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterDayStart).Select(c => startColor).ToList());
+
+        PowerConsumptionHotWaterDayEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterDayEnd).ToList());
+        PowerConsumptionHotWaterDayEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterDayEnd).Select(c => endColor).ToList());
+
+        PowerConsumptionHotWaterDayDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterDayDelta).ToList());
+        PowerConsumptionHotWaterDayDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterDayDelta).Select(c => deltaColor).ToList());
+
+        PowerConsumptionHotWaterSumStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterSumStart).ToList());
+        PowerConsumptionHotWaterSumStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterSumStart).Select(c => startColor).ToList());
+
+        PowerConsumptionHotWaterSumEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterSumEnd).ToList());
+        PowerConsumptionHotWaterSumEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterSumEnd).Select(c => endColor).ToList());
+
+        PowerConsumptionHotWaterSumDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterSumDelta).ToList());
+        PowerConsumptionHotWaterSumDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.PowerConsumptionHotWaterSumDelta).Select(c => deltaColor).ToList());
+
+        RuntimeVaporizerHeatingStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHeatingStart).ToList());
+        RuntimeVaporizerHeatingStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHeatingStart).Select(c => startColor).ToList());
+
+        RuntimeVaporizerHeatingEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHeatingEnd).ToList());
+        RuntimeVaporizerHeatingEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHeatingEnd).Select(c => endColor).ToList());
+
+        RuntimeVaporizerHeatingDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHeatingDelta).ToList());
+        RuntimeVaporizerHeatingDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHeatingDelta).Select(c => deltaColor).ToList());
+
+        RuntimeVaporizerHotWaterStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHotWaterStart).ToList());
+        RuntimeVaporizerHotWaterStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHotWaterStart).Select(c => startColor).ToList());
+
+        RuntimeVaporizerHotWaterEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHotWaterEnd).ToList());
+        RuntimeVaporizerHotWaterEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHotWaterEnd).Select(c => endColor).ToList());
+
+        RuntimeVaporizerHotWaterDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHotWaterDelta).ToList());
+        RuntimeVaporizerHotWaterDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerHotWaterDelta).Select(c => deltaColor).ToList());
+
+        RuntimeVaporizerDefrostStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerDefrostStart).ToList());
+        RuntimeVaporizerDefrostStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerDefrostStart).Select(c => startColor).ToList());
+
+        RuntimeVaporizerDefrostEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerDefrostEnd).ToList());
+        RuntimeVaporizerDefrostEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerDefrostEnd).Select(c => endColor).ToList());
+
+        RuntimeVaporizerDefrostDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerDefrostDelta).ToList());
+        RuntimeVaporizerDefrostDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.RuntimeVaporizerDefrostDelta).Select(c => deltaColor).ToList());
+
+        ReheatingStages1Start = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStages1Start).ToList());
+        ReheatingStages1StartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStages1Start).Select(c => startColor).ToList());
+
+        ReheatingStages1End = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.ReheatingStages1End).ToList());
+        ReheatingStages1EndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.ReheatingStages1End).Select(c
+        => endColor).ToList());
+
+        ReheatingStages1Delta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStages1Delta).ToList());
+        ReheatingStages1DeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStages1Delta).Select(c => deltaColor).ToList());
+
+        ReheatingStages2Start = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStages2Start).ToList());
+        ReheatingStages2StartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStages2Start).Select(c => startColor).ToList());
+
+        ReheatingStages2End = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.ReheatingStages2End).ToList());
+        ReheatingStages2EndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.ReheatingStages2End).Select(c
+        => endColor).ToList());
+
+        ReheatingStages2Delta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStages2Delta).ToList());
+        ReheatingStages2DeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x =>
+        x.ReheatingStages2Delta).Select(c => deltaColor).ToList());
+
+        DefrostTimeStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostTimeStart).ToList());
+        DefrostTimeStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostTimeStart).Select(c =>
+        startColor).ToList());
+
+        DefrostTimeEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostTimeEnd).ToList());
+        DefrostTimeEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostTimeEnd).Select(c =>
+        endColor).ToList());
+
+        DefrostTimeDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostTimeDelta).ToList());
+        DefrostTimeDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostTimeDelta).Select(c =>
+        deltaColor).ToList());
+
+        DefrostStartsStart = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostStartsStart).ToList());
+        DefrostStartsStartColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostStartsStart).Select(c
+        => startColor).ToList());
+
+        DefrostStartsEnd = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostStartsEnd).ToList());
+        DefrostStartsEndColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostStartsEnd).Select(c =>
+        endColor).ToList());
+
+        DefrostStartsDelta = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostStartsDelta).ToList());
+        DefrostStartsDeltaColor = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DefrostStartsDelta).Select(c
+        => deltaColor).ToList());
+
     }
 }
+<!--Arbeitszahl-->
+<div style="width: 48%; float:left; height:300px; margin:10px">
+    <div class="chart-container">
+        <canvas id="PerformanceFactor" style="width: 48%; height:250px"></canvas>
+    </div>
+</div>
+
+<!--RÜCKLAUFTEMPERATUR °C-->
+<div style="width: 48%; float:left; height:300px; margin:10px">
+    <div class="chart-container">
+        <canvas id="ReturnTemperature" style="width: 48%; height: 250px;"></canvas>
+    </div>
+</div>
+
+<!--VORLAUFTEMPERATUR-->
+<div style="width: 48%; float:left; height:300px; margin:10px">
+    <div class="chart-container">
+        <canvas id="InletTemperature" style="width: 48%; height: 250px;"></canvas>
+    </div>
+</div>
+
+<div style="width: 48%; float:left; height:300px; margin:10px">
+    <div class="chart-container">
+        <canvas id="AntiFreezeTemperature" style="width: 48%; height: 250px;"></canvas>
+    </div>
+</div>
+
+<!--AUSSENTEMPERATUR -->
+<div style="width: 48%; float:left; height:300px; margin:10px">
+    <div class="chart-container">
+        <canvas id="OutdoorTemperature" style="width: 48%; height: 250px;"></canvas>
+    </div>
+</div>
+
+<!--FORTLUFTTEMPERATUR °C -->
+<div style="width: 48%; float:left; height:300px; margin:10px">
+    <div class="chart-container">
+        <canvas id="ExhaustAirTemperature" style="width: 48%; height: 250px;"></canvas>
+    </div>
+</div>
+
+<!--VERDAMPFERTEMPERATUR °C-->
+<div style="width: 48%; float:left; height:300px; margin:10px">
+    <div class="chart-container">
+        <canvas id="EvaporatorTemperature" style="width: 48%; height: 250px;"></canvas>
+    </div>
+</div>
+
+<!--Gesamtverbrauch-->
 <div class="box-body">
     <div style="width: 48%; float:left; height:300px; margin:10px">
         <div class="chart-container">
-            <canvas id="outdoorTemperatureChart" style="width: 48%; height: 250px;"></canvas>
+            <canvas id="TotalPowerConsumption" style="width: 48%; height: 250px;"></canvas>
         </div>
     </div>
+
+    <!--VERDICHTEREINTRITTSTEMPERATUR °C-->
     <div style="width: 48%; float:left; height:300px; margin:10px">
         <div class="chart-container">
-            <canvas id="performanceFactorChart" style="width: 48%; height:250px"></canvas>
+            <canvas id="CompressorInletTemperature" style="width: 48%; height: 250px;"></canvas>
         </div>
     </div>
+
+    <!--ZWISCHENEINSPRITZUNGSTEMP °C-->
     <div style="width: 48%; float:left; height:300px; margin:10px">
         <div class="chart-container">
-            <canvas id="exhaustTemperatureChart" style="width: 48%; height:250px"></canvas>
-        </div>
-    </div>    
-    <div style="width: 48%; float:left; height:300px; margin:10px">
-        <div class="chart-container">
-            <canvas id="inletTemperatureChart" style="width: 48%; height:250px"></canvas>
+            <canvas id="IntermediateInjectionTemperature" style="width: 48%; height: 250px;"></canvas>
         </div>
     </div>
+
+    <!--HEISSGASTEMPERATUR °C-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="HotGasTemperature" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VERFLÜSSIGERTEMPERATUR °C-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="CondenserTemperature" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--ÖLSUMPFTEMPERATUR °C-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="OilSumpTemperature" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--DRUCK NIEDERDRUCK bar-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="LowPressure" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--DRUCK MITTELDRUCK bar -->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="PressureMedium" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--DRUCK HOCHDRUCK bar -->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="HighPressure" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--WP WASSERVOLUMENSTROM l/min-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="WaterVolumeCurrent" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--SPANNUNG INVERTER V-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="VoltageInverter" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--ISTDREHZAHL VERDICHTER Hz-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="ActualSpeedDensifier" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--SOLLDREHZAHL VERDICHTER Hz-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="SettingSpeedCompressed" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--LÜFTERLEISTUNG REL % -->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="FanPowerRel" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD HEIZEN TAG KWh -->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="VaporizerHeatQuantityHeatingDay" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD HEIZEN SUMME MWh -->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="VaporizerHeatQuantityHeatingTotal" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD WARMWASSER TAG KWh -->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="VaporizerHeatQuantityHotWaterDay" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD WARMWASSER SUMME MWh  -->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="VaporizerHeatQuantityHotWaterTotal" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--NHZ HEIZEN SUMME  MWh  -->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="ReheatingStagesHeatQuantityHeatingSum" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--NHZ WARMWASSER SUMME  MWh-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="ReheatingStagesHeatQuantityHotWaterTotal" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD HEIZEN TAG  KWh -->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="PowerConsumptionHeatingDay" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD HEIZEN SUMME MWh-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="PowerConsumptionHeatingSum" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD WARMWASSER TAG KWh -->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="PowerConsumptionHotWaterDay" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD WARMWASSER SUMME MWh-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="PowerConsumptionHotWaterSum" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD WARMWASSER SUMME MWh-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="RuntimeVaporizerHeating" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD WARMWASSER-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="RuntimeVaporizerHotWater" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--VD ABTAUEN-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="RuntimeVaporizerDefrost" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--NHZ 1-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="ReheatingStages1" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--NHZ 2-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="ReheatingStages2" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--ZEIT ABTAUEN-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="DefrostTime" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
+    <!--STARTS ABTAUEN-->
+    <div style="width: 48%; float:left; height:300px; margin:10px">
+        <div class="chart-container">
+            <canvas id="DefrostStarts" style="width: 48%; height: 250px;"></canvas>
+        </div>
+    </div>
+
 </div>
 <script src="//ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+    crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 <script src="js/site.js" asp-append-version="true"></script>
 <script type="text/javascript">
-    drawChart("outdoorTemperatureChart", 
-        "Außentemperatur °C",
-        @Html.Raw(XLabels),
-        @Html.Raw(MaxOutDoorTemp), @Html.Raw(MaxOutDoorTempColor),
-        @Html.Raw(AverageOutDoorTemp), @Html.Raw(AverageOutDoorTempColor),
-        @Html.Raw(MinOutDoorTempColor), @Html.Raw(MinOutDoorTempColor));
-    drawBarChart("performanceFactorChart", 
+    drawBarChart("PerformanceFactor",
         "Arbeitszahl (Tag)",
         @Html.Raw(XLabels),
         @Html.Raw(PerformanceFactor), @Html.Raw(PerformanceFactorColor)
     )
-    drawChart("exhaustTemperatureChart",
-        "Rücklauftemperatur °C",
+
+    drawChart("TotalPowerConsumption",
+        "VD HEIZEN SUMME MWh   ",
         @Html.Raw(XLabels),
-        @Html.Raw(MaxExhaustAirTemperature), @Html.Raw(MaxExhaustAirTemperatureColor),
-        @Html.Raw(AverageExhaustAirTemperature), @Html.Raw(AverageExhaustAirTemperatureColor),
-        @Html.Raw(MinExhaustAirTemperature), @Html.Raw(MinExhaustAirTemperatureColor));
-    drawChart("inletTemperatureChart",
-        "Vorlauftemperatur °C",
+        @Html.Raw(TotalPowerConsumptionStart), @Html.Raw(TotalPowerConsumptionStartColor),
+        @Html.Raw(TotalPowerConsumptionDelta), @Html.Raw(TotalPowerConsumptionDeltaColor),
+        @Html.Raw(TotalPowerConsumptionEnd), @Html.Raw(TotalPowerConsumptionEndColor));
+
+    drawChart("ReturnTemperature",
+        "RÜCKLAUFTEMPERATUR °C",
         @Html.Raw(XLabels),
-        @Html.Raw(MaxInletTemperature), @Html.Raw(MaxInletTemperatureColor),
-        @Html.Raw(AverageInletTemperature), @Html.Raw(AverageInletTemperatureColor),
-        @Html.Raw(MinInletTemperature), @Html.Raw(MinInletTemperatureColor));
+        @Html.Raw(ReturnTemperatureMax), @Html.Raw(ReturnTemperatureMaxColor),
+        @Html.Raw(ReturnTemperatureAverage), @Html.Raw(ReturnTemperatureAverageColor),
+        @Html.Raw(ReturnTemperatureMin), @Html.Raw(ReturnTemperatureMinColor));
+
+    drawChart("InletTemperature",
+        "VORLAUFTEMPERATUR °C",
+        @Html.Raw(XLabels),
+        @Html.Raw(InletTemperatureMax), @Html.Raw(InletTemperatureMaxColor),
+        @Html.Raw(InletTemperatureAverage), @Html.Raw(InletTemperatureAverageColor),
+        @Html.Raw(InletTemperatureMin), @Html.Raw(InletTemperatureMinColor));
+
+    drawChart("AntiFreezeTemperature",
+        "FROSTSCHUTZTEMPERATUR °C",
+        @Html.Raw(XLabels),
+        @Html.Raw(AntiFreezeTemperatureMax), @Html.Raw(AntiFreezeTemperatureMaxColor),
+        @Html.Raw(AntiFreezeTemperatureAverage), @Html.Raw(AntiFreezeTemperatureAverageColor),
+        @Html.Raw(AntiFreezeTemperatureMin), @Html.Raw(AntiFreezeTemperatureMinColor));
+
+    drawChart("OutdoorTemperature",
+        "AUSSENTEMPERATUR °C",
+        @Html.Raw(XLabels),
+        @Html.Raw(OutdoorTemperatureMax), @Html.Raw(OutdoorTemperatureMaxColor),
+        @Html.Raw(OutdoorTemperatureAverage), @Html.Raw(OutdoorTemperatureAverageColor),
+        @Html.Raw(OutdoorTemperatureMin), @Html.Raw(OutdoorTemperatureMinColor));
+
+
+    drawChart("ExhaustAirTemperature",
+        "FORTLUFTTEMPERATUR °C",
+        @Html.Raw(XLabels),
+        @Html.Raw(ExhaustAirTemperatureMax), @Html.Raw(ExhaustAirTemperatureMaxColor),
+        @Html.Raw(ExhaustAirTemperatureAverage), @Html.Raw(ExhaustAirTemperatureAverageColor),
+        @Html.Raw(ExhaustAirTemperatureMin), @Html.Raw(ExhaustAirTemperatureMinColor));
+
+    drawChart("EvaporatorTemperature",
+        "VERDAMPFERTEMPERATUR °C",
+        @Html.Raw(XLabels),
+        @Html.Raw(EvaporatorTemperatureMax), @Html.Raw(EvaporatorTemperatureMaxColor),
+        @Html.Raw(EvaporatorTemperatureAverage), @Html.Raw(EvaporatorTemperatureAverageColor),
+        @Html.Raw(EvaporatorTemperatureMin), @Html.Raw(EvaporatorTemperatureMinColor));
+
+    drawChart("CompressorInletTemperature",
+        "VERDICHTEREINTRITTSTEMPERATUR °C",
+        @Html.Raw(XLabels),
+        @Html.Raw(CompressorInletTemperatureMax), @Html.Raw(CompressorInletTemperatureMaxColor),
+        @Html.Raw(CompressorInletTemperatureAverage), @Html.Raw(CompressorInletTemperatureAverageColor),
+        @Html.Raw(CompressorInletTemperatureMin), @Html.Raw(CompressorInletTemperatureMinColor));
+
+    drawChart("IntermediateInjectionTemperature",
+        "ZWISCHENEINSPRITZUNGSTEMP °C",
+        @Html.Raw(XLabels),
+        @Html.Raw(IntermediateInjectionTemperatureMax), @Html.Raw(IntermediateInjectionTemperatureMaxColor),
+        @Html.Raw(IntermediateInjectionTemperatureAverage), @Html.Raw(IntermediateInjectionTemperatureAverageColor),
+        @Html.Raw(IntermediateInjectionTemperatureMin), @Html.Raw(IntermediateInjectionTemperatureMinColor));
+
+    drawChart("HotGasTemperature",
+        "HEISSGASTEMPERATUR °C",
+        @Html.Raw(XLabels),
+        @Html.Raw(HotGasTemperatureMax), @Html.Raw(HotGasTemperatureMaxColor),
+        @Html.Raw(HotGasTemperatureAverage), @Html.Raw(HotGasTemperatureAverageColor),
+        @Html.Raw(HotGasTemperatureMin), @Html.Raw(HotGasTemperatureMinColor));
+
+    drawChart("CondenserTemperature",
+        "VERFLÜSSIGERTEMPERATUR °C",
+        @Html.Raw(XLabels),
+        @Html.Raw(CondenserTemperatureMax), @Html.Raw(CondenserTemperatureMaxColor),
+        @Html.Raw(CondenserTemperatureAverage), @Html.Raw(CondenserTemperatureAverageColor),
+        @Html.Raw(CondenserTemperatureMin), @Html.Raw(CondenserTemperatureMinColor));
+
+    drawChart("OilSumpTemperature",
+        "ÖLSUMPFTEMPERATUR °C",
+        @Html.Raw(XLabels),
+        @Html.Raw(OilSumpTemperatureMax), @Html.Raw(OilSumpTemperatureMaxColor),
+        @Html.Raw(OilSumpTemperatureAverage), @Html.Raw(OilSumpTemperatureAverageColor),
+        @Html.Raw(OilSumpTemperatureMin), @Html.Raw(OilSumpTemperatureMinColor));
+
+    drawChart("LowPressure",
+        "DRUCK NIEDERDRUCK bar",
+        @Html.Raw(XLabels),
+        @Html.Raw(LowPressureMax), @Html.Raw(LowPressureMaxColor),
+        @Html.Raw(LowPressureAverage), @Html.Raw(LowPressureAverageColor),
+        @Html.Raw(LowPressureMin), @Html.Raw(LowPressureMinColor));
+
+    drawChart("PressureMedium",
+        "DRUCK MITTELDRUCK bar",
+        @Html.Raw(XLabels),
+        @Html.Raw(PressureMediumMax), @Html.Raw(PressureMediumMaxColor),
+        @Html.Raw(PressureMediumAverage), @Html.Raw(PressureMediumAverageColor),
+        @Html.Raw(PressureMediumMin), @Html.Raw(PressureMediumMinColor));
+
+    drawChart("HighPressure",
+        "DRUCK HOCHDRUCK bar",
+        @Html.Raw(XLabels),
+        @Html.Raw(HighPressureMax), @Html.Raw(HighPressureMaxColor),
+        @Html.Raw(HighPressureAverage), @Html.Raw(HighPressureAverageColor),
+        @Html.Raw(HighPressureMin), @Html.Raw(HighPressureMinColor));
+
+    drawChart("WaterVolumeCurrent",
+        "WP WASSERVOLUMENSTROM l/min",
+        @Html.Raw(XLabels),
+        @Html.Raw(WaterVolumeCurrentMax), @Html.Raw(WaterVolumeCurrentMaxColor),
+        @Html.Raw(WaterVolumeCurrentAverage), @Html.Raw(WaterVolumeCurrentAverageColor),
+        @Html.Raw(WaterVolumeCurrentMin), @Html.Raw(WaterVolumeCurrentMinColor));
+
+    drawChart("VoltageInverter",
+        "SPANNUNG INVERTER V",
+        @Html.Raw(XLabels),
+        @Html.Raw(VoltageInverterMax), @Html.Raw(VoltageInverterMaxColor),
+        @Html.Raw(VoltageInverterAverage), @Html.Raw(VoltageInverterAverageColor),
+        @Html.Raw(VoltageInverterMin), @Html.Raw(VoltageInverterMinColor));
+
+    drawChart("ActualSpeedDensifier",
+        "ISTDREHZAHL VERDICHTER Hz",
+        @Html.Raw(XLabels),
+        @Html.Raw(ActualSpeedDensifierMax), @Html.Raw(ActualSpeedDensifierMaxColor),
+        @Html.Raw(ActualSpeedDensifierAverage), @Html.Raw(ActualSpeedDensifierAverageColor),
+        @Html.Raw(ActualSpeedDensifierMin), @Html.Raw(ActualSpeedDensifierMinColor));
+
+    drawChart("SettingSpeedCompressed",
+        "SOLLDREHZAHL VERDICHTER Hz",
+        @Html.Raw(XLabels),
+        @Html.Raw(SettingSpeedCompressedMax), @Html.Raw(SettingSpeedCompressedMaxColor),
+        @Html.Raw(SettingSpeedCompressedAverage), @Html.Raw(SettingSpeedCompressedAverageColor),
+        @Html.Raw(SettingSpeedCompressedMin), @Html.Raw(SettingSpeedCompressedMinColor));
+
+    drawChart("FanPowerRel",
+        "LÜFTERLEISTUNG REL %",
+        @Html.Raw(XLabels),
+        @Html.Raw(FanPowerRelMax), @Html.Raw(FanPowerRelMaxColor),
+        @Html.Raw(FanPowerRelAverage), @Html.Raw(FanPowerRelAverageColor),
+        @Html.Raw(FanPowerRelMin), @Html.Raw(FanPowerRelMinColor));
+
+    drawChart("VaporizerHeatQuantityHeatingDay",
+        "VD HEIZEN TAG KWh",
+        @Html.Raw(XLabels),
+        @Html.Raw(VaporizerHeatQuantityHeatingDayStart), @Html.Raw(VaporizerHeatQuantityHeatingDayStartColor),
+        @Html.Raw(VaporizerHeatQuantityHeatingDayDelta), @Html.Raw(VaporizerHeatQuantityHeatingDayDeltaColor),
+        @Html.Raw(VaporizerHeatQuantityHeatingDayEnd), @Html.Raw(VaporizerHeatQuantityHeatingDayEndColor));
+
+    drawChart("VaporizerHeatQuantityHeatingTotal",
+        "VD HEIZEN SUMME MWh",
+        @Html.Raw(XLabels),
+        @Html.Raw(VaporizerHeatQuantityHeatingTotalStart), @Html.Raw(VaporizerHeatQuantityHeatingTotalStartColor),
+        @Html.Raw(VaporizerHeatQuantityHeatingTotalDelta), @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaColor),
+        @Html.Raw(VaporizerHeatQuantityHeatingTotalEnd), @Html.Raw(VaporizerHeatQuantityHeatingTotalEndColor));
+
+    drawChart("VaporizerHeatQuantityHotWaterDay",
+        "VD WARMWASSER TAG KWh",
+        @Html.Raw(XLabels),
+        @Html.Raw(VaporizerHeatQuantityHotWaterDayStart), @Html.Raw(VaporizerHeatQuantityHotWaterDayStartColor),
+        @Html.Raw(VaporizerHeatQuantityHotWaterDayDelta), @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaColor),
+        @Html.Raw(VaporizerHeatQuantityHotWaterDayEnd), @Html.Raw(VaporizerHeatQuantityHotWaterDayEndColor));
+
+    drawChart("VaporizerHeatQuantityHotWaterTotal",
+        "VD WARMWASSER SUMME MWh",
+        @Html.Raw(XLabels),
+        @Html.Raw(VaporizerHeatQuantityHotWaterTotalStart), @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartColor),
+        @Html.Raw(VaporizerHeatQuantityHotWaterTotalDelta), @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaColor),
+        @Html.Raw(VaporizerHeatQuantityHotWaterTotalEnd), @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndColor));
+
+    drawChart("ReheatingStagesHeatQuantityHeatingSum",
+        "NHZ HEIZEN SUMME  MWh",
+        @Html.Raw(XLabels),
+        @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStart), @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartColor),
+        @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDelta), @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaColor),
+        @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEnd), @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndColor));
+
+    drawChart("ReheatingStagesHeatQuantityHotWaterTotal",
+        "NHZ WARMWASSER SUMME  MWh",
+        @Html.Raw(XLabels),
+        @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStart), @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartColor),
+        @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDelta), @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaColor),
+        @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEnd), @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndColor));
+
+    drawChart("PowerConsumptionHeatingDay",
+        "VD HEIZEN TAG  KWh",
+        @Html.Raw(XLabels),
+        @Html.Raw(PowerConsumptionHeatingDayStart), @Html.Raw(PowerConsumptionHeatingDayStartColor),
+        @Html.Raw(PowerConsumptionHeatingDayDelta), @Html.Raw(PowerConsumptionHeatingDayDeltaColor),
+        @Html.Raw(PowerConsumptionHeatingDayEnd), @Html.Raw(PowerConsumptionHeatingDayEndColor));
+
+    drawChart("PowerConsumptionHeatingSum",
+        "VD HEIZEN SUMME MWh",
+        @Html.Raw(XLabels),
+        @Html.Raw(PowerConsumptionHeatingSumStart), @Html.Raw(PowerConsumptionHeatingSumStartColor),
+        @Html.Raw(PowerConsumptionHeatingSumDelta), @Html.Raw(PowerConsumptionHeatingSumDeltaColor),
+        @Html.Raw(PowerConsumptionHeatingSumEnd), @Html.Raw(PowerConsumptionHeatingSumEndColor));
+
+    drawChart("PowerConsumptionHotWaterDay",
+        "VD WARMWASSER TAG KWh",
+        @Html.Raw(XLabels),
+        @Html.Raw(PowerConsumptionHotWaterDayStart), @Html.Raw(PowerConsumptionHotWaterDayStartColor),
+        @Html.Raw(PowerConsumptionHotWaterDayDelta), @Html.Raw(PowerConsumptionHotWaterDayDeltaColor),
+        @Html.Raw(PowerConsumptionHotWaterDayEnd), @Html.Raw(PowerConsumptionHotWaterDayEndColor));
+
+    drawChart("PowerConsumptionHotWaterSum",
+        "VD WARMWASSER SUMME MWh",
+        @Html.Raw(XLabels),
+        @Html.Raw(PowerConsumptionHotWaterSumStart), @Html.Raw(PowerConsumptionHotWaterSumStartColor),
+        @Html.Raw(PowerConsumptionHotWaterSumDelta), @Html.Raw(PowerConsumptionHotWaterSumDeltaColor),
+        @Html.Raw(PowerConsumptionHotWaterSumEnd), @Html.Raw(PowerConsumptionHotWaterSumEndColor));
+
+    drawChart("RuntimeVaporizerHeating",
+        "VD HEIZEN",
+        @Html.Raw(XLabels),
+        @Html.Raw(RuntimeVaporizerHeatingStart), @Html.Raw(RuntimeVaporizerHeatingStartColor),
+        @Html.Raw(RuntimeVaporizerHeatingDelta), @Html.Raw(RuntimeVaporizerHeatingDeltaColor),
+        @Html.Raw(RuntimeVaporizerHeatingEnd), @Html.Raw(RuntimeVaporizerHeatingEndColor));
+
+    drawChart("RuntimeVaporizerHotWater",
+        "VD WARMWASSER",
+        @Html.Raw(XLabels),
+        @Html.Raw(RuntimeVaporizerHotWaterStart), @Html.Raw(RuntimeVaporizerHotWaterStartColor),
+        @Html.Raw(RuntimeVaporizerHotWaterDelta), @Html.Raw(RuntimeVaporizerHotWaterDeltaColor),
+        @Html.Raw(RuntimeVaporizerHotWaterEnd), @Html.Raw(RuntimeVaporizerHotWaterEndColor));
+
+    drawChart("RuntimeVaporizerDefrost",
+        "VD ABTAUEN",
+        @Html.Raw(XLabels),
+        @Html.Raw(RuntimeVaporizerDefrostStart), @Html.Raw(RuntimeVaporizerDefrostStartColor),
+        @Html.Raw(RuntimeVaporizerDefrostDelta), @Html.Raw(RuntimeVaporizerDefrostDeltaColor),
+        @Html.Raw(RuntimeVaporizerDefrostEnd), @Html.Raw(RuntimeVaporizerDefrostEndColor));
+
+    drawChart("ReheatingStages1",
+        "NHZ 1",
+        @Html.Raw(XLabels),
+        @Html.Raw(ReheatingStages1Start), @Html.Raw(ReheatingStages1StartColor),
+        @Html.Raw(ReheatingStages1Delta), @Html.Raw(ReheatingStages1DeltaColor),
+        @Html.Raw(ReheatingStages1End), @Html.Raw(ReheatingStages1EndColor));
+
+    drawChart("ReheatingStages2",
+        "NHZ 2",
+        @Html.Raw(XLabels),
+        @Html.Raw(ReheatingStages2Start), @Html.Raw(ReheatingStages2StartColor),
+        @Html.Raw(ReheatingStages2Delta), @Html.Raw(ReheatingStages2DeltaColor),
+        @Html.Raw(ReheatingStages2End), @Html.Raw(ReheatingStages2EndColor));
+
+    drawChart("DefrostTime",
+        "ZEIT ABTAUEN",
+        @Html.Raw(XLabels),
+        @Html.Raw(DefrostTimeStart), @Html.Raw(DefrostTimeStartColor),
+        @Html.Raw(DefrostTimeDelta), @Html.Raw(DefrostTimeDeltaColor),
+        @Html.Raw(DefrostTimeEnd), @Html.Raw(DefrostTimeEndColor));
+
+    drawChart("DefrostStarts",
+        "STARTS ABTAUEN",
+        @Html.Raw(XLabels),
+        @Html.Raw(DefrostStartsStart), @Html.Raw(DefrostStartsStartColor),
+        @Html.Raw(DefrostStartsDelta), @Html.Raw(DefrostStartsDeltaColor),
+        @Html.Raw(DefrostStartsEnd), @Html.Raw(DefrostStartsEndColor));
+
 </script>
