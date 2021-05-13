@@ -37,7 +37,7 @@ namespace StiebelEltronApiServer.Repositories
             //var result = new List<HeatPumpDataPerPeriod>();
             //HeatPumpDataPerPeriod previous = null;
             //result = GetDistinctPeriodNumber(list, result, previous);
-            return list.Take(7).ToList();
+            return list.OrderBy(x => x.First).Take(7).ToList();
         }
 
         private static List<HeatPumpDataPerPeriod> GetDistinctPeriodNumber(IQueryable<HeatPumpDataPerPeriod> list, List<HeatPumpDataPerPeriod> result, HeatPumpDataPerPeriod previous)
