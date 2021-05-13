@@ -14,9 +14,10 @@ namespace StiebelEltronApiServer.Repositories
             _applicationDbContext = applicationDbContext;
         }
 
-        public HeatPumpDataPerPeriod FindByYearAndPeriodNumber(int year, int periodNumber) 
+        public List<HeatPumpDataPerPeriod> FindByYearPeriodKindAndPeriodNumber(int year, string periodKind, int periodNumber) 
             => _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp => hpdpp.Year == year 
-                && hpdpp.PeriodNumber == periodNumber).FirstOrDefault();
+                && hpdpp.PeriodKind == periodKind
+                && hpdpp.PeriodNumber == periodNumber).ToList();
 
         public void Add(HeatPumpDataPerPeriod heatPumpDataPerPeriod) 
             => _applicationDbContext.HeatPumpDataPerPeriods.Add(heatPumpDataPerPeriod);
@@ -110,6 +111,11 @@ namespace StiebelEltronApiServer.Repositories
             var firstMonthOfRequestedPeriod = startOfRequestedPeriod.Month;
             return _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp 
                 => hpdpp.DateCreated >= startOfRequestedPeriod).ToList();
+        }
+
+        public void Remove(HeatPumpDataPerPeriod heatPumpDataPerPeriod)
+        {
+            _applicationDbContext.HeatPumpDataPerPeriods.Remove(heatPumpDataPerPeriod);
         }
     }
 }

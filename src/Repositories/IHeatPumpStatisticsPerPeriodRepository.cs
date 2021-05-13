@@ -7,7 +7,7 @@ namespace StiebelEltronApiServer.Repositories
 {
     public interface IHeatPumpStatisticsPerPeriodRepository
     {
-        HeatPumpDataPerPeriod FindByYearAndPeriodNumber(int year, int periodNumber);
+        List<HeatPumpDataPerPeriod> FindByYearPeriodKindAndPeriodNumber(int year, string periodKind, int periodNumber);
         List<HeatPumpDataPerPeriod> GetRecentSevenDays(DateTime now);
         List<HeatPumpDataPerPeriod> GetRecentTwelveWeeks(DateTime now, CultureInfo cultureInfo);
         List<HeatPumpDataPerPeriod> GetRecentTwelveMonths(DateTime now);
@@ -15,5 +15,6 @@ namespace StiebelEltronApiServer.Repositories
         List<HeatPumpDataPerPeriod> GetYearlyRecords(DateTime now);
         void Add(HeatPumpDataPerPeriod heatPumpDataPerPeriod);
         void Update(HeatPumpDataPerPeriod heatPumpDataPerPeriod);
+        void Remove(HeatPumpDataPerPeriod heatPumpDataPerPeriod);
     }
 }

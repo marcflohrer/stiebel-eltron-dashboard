@@ -38,13 +38,26 @@ namespace StiebelEltronApiServer.Services {
                 if (statisticsResult.DataSetsToRemove.Any ()) {
                     unitOfWork.HeatPumpDataRepository.RemoveRange (statisticsResult.DataSetsToRemove);
                 }
-                foreach (var stats in statisticsResult.Statistics) {
-                    _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob add {stats.First}-{stats.Last}.");
-                    var statsInDb = unitOfWork.HeatPumpStatisticsPerPeriodRepository.FindByYearAndPeriodNumber ((int) stats.Year, stats.PeriodNumber);
-                    if (statsInDb != null) {
-                        unitOfWork.HeatPumpStatisticsPerPeriodRepository.Update (statsInDb.UpdateWith (stats));
+                foreach (var newStatisticsResult in statisticsResult.Statistics) {
+                    _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob add/update {newStatisticsResult.First}-{newStatisticsResult.Last}.");
+                    var existingStatisticsResults = unitOfWork.HeatPumpStatisticsPerPeriodRepository.FindByYearPeriodKindAndPeriodNumber ((int) newStatisticsResult.Year, newStatisticsResult.PeriodKind, newStatisticsResult.PeriodNumber);
+                    _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob existingStatisticsResults {existingStatisticsResults.Count()}.");
+                    if(existingStatisticsResults.Any() && existingStatisticsResults.Count() > 1){
+                        var latestMatchInExistingStatistics = existingStatisticsResults.Where(y => y.DateUpdated.CompareTo(existingStatisticsResults.Max(s => s.DateUpdated)) == 0).FirstOrDefault();
+                        _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob latest {latestMatchInExistingStatistics?.DateUpdated}.");
+                        foreach(var statisticInDatabase in existingStatisticsResults){
+                            if(statisticInDatabase.DateUpdated.CompareTo(latestMatchInExistingStatistics.DateUpdated) != 0){
+                                _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob remove {statisticInDatabase.First}-{statisticInDatabase.Last}.");
+                                unitOfWork.HeatPumpStatisticsPerPeriodRepository.Remove (statisticInDatabase);
+                            }
+                        }
+                        if (existingStatisticsResults != null) {
+                            _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob update {newStatisticsResult.First}-{newStatisticsResult.Last}.");
+                            unitOfWork.HeatPumpStatisticsPerPeriodRepository.Update (latestMatchInExistingStatistics.UpdateWith (newStatisticsResult));
+                        }
                     }
-                    unitOfWork.HeatPumpStatisticsPerPeriodRepository.Add (stats);
+                    _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob add {newStatisticsResult.First}-{newStatisticsResult.Last}.");
+                    unitOfWork.HeatPumpStatisticsPerPeriodRepository.Add (newStatisticsResult);
                 }
                 _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob saving changes.");
                 var changes = await unitOfWork.SaveChanges ();
