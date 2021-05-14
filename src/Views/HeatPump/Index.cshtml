@@ -2380,13 +2380,6 @@
             @Html.Raw(DefrostStartsStartDay), @Html.Raw(StartColorDay),
             @Html.Raw(DefrostStartsDeltaDay), @Html.Raw(DeltaColorDay),
             @Html.Raw(DefrostStartsEndDay), @Html.Raw(EndColorDay));
-
-        drawMinMaxChart("ReturnTemperatureWeek",
-            "RÜCKLAUFTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(ReturnTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(ReturnTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(ReturnTemperatureMinWeek), @Html.Raw(MinColorWeek));
     }
 
     if(tabName === "Weeks"){
@@ -2396,6 +2389,13 @@
             @Html.Raw(PerformanceFactorStartWeek), @Html.Raw(StartColorWeek),
             @Html.Raw(PerformanceFactorDeltaWeek), @Html.Raw(DeltaColorWeek),
             @Html.Raw(PerformanceFactorEndWeek), @Html.Raw(EndColorWeek));
+
+        drawMinMaxChart("ReturnTemperatureWeek",
+            "RÜCKLAUFTEMPERATUR °C",
+            @Html.Raw(XLabelsWeek),
+            @Html.Raw(ReturnTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+            @Html.Raw(ReturnTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+            @Html.Raw(ReturnTemperatureMinWeek), @Html.Raw(MinColorWeek));            
 
         drawMinMaxChart("InletTemperatureWeek",
             "VORLAUFTEMPERATUR °C",
