@@ -1,8 +1,16 @@
 using StiebelEltronApiServer.Models;
 
-namespace StiebelEltronApiServer.Extensions
-{
+namespace StiebelEltronApiServer.Extensions {
     public static class HeatPumpDataPerPeriodExtensions {
+        public static double? PerformanceFactorStart (this HeatPumpDataPerPeriod heatPumpDataPerPeriod) => (heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayStart + heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayStart) /
+            (heatPumpDataPerPeriod.PowerConsumptionHeatingDayStart + heatPumpDataPerPeriod.PowerConsumptionHotWaterDayStart);
+
+        public static double? PerformanceFactorDelta (this HeatPumpDataPerPeriod x) => (x.VaporizerHeatQuantityHeatingDayDelta + x.VaporizerHeatQuantityHotWaterDayDelta) /
+            (x.PowerConsumptionHeatingDayDelta + x.PowerConsumptionHotWaterDayDelta);
+        public static double? PerformanceFactorEnd (this HeatPumpDataPerPeriod x) => (x.VaporizerHeatQuantityHeatingDayEnd + x.VaporizerHeatQuantityHotWaterDayEnd) /
+            (x.PowerConsumptionHeatingDayEnd + x.PowerConsumptionHotWaterDayEnd);
+
+
         public static HeatPumpDataPerPeriod UpdateWith (this HeatPumpDataPerPeriod heatPumpDataPerPeriod, HeatPumpDataPerPeriod update) {
             heatPumpDataPerPeriod.ReturnTemperatureMin = update.ReturnTemperatureMin;
             heatPumpDataPerPeriod.ReturnTemperatureMax = update.ReturnTemperatureMax;
