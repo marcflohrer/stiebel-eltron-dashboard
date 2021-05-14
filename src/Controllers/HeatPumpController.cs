@@ -4,7 +4,6 @@ using StiebelEltronApiServer.Repositories;
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.Serialization;
 
 namespace StiebelEltronApiServer.Controllers
 {
