@@ -1,9 +1,9 @@
 ﻿using System;
-using StiebelEltronApiServer.Models.Shared;
+using StiebelEltronDashboard.Models.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 #nullable disable
 
-namespace StiebelEltronApiServer.Models
+namespace StiebelEltronDashboard.Models
 {
     public partial class HeatPumpDataPerPeriod : ValueObject
     {

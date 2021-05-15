@@ -1,6 +1,6 @@
 using HtmlAgilityPack;
 
-namespace StiebelEltronApiServer.Services.HtmlServices
+namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public interface IXpathService
     {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace StiebelEltronApiServer.Models
+namespace StiebelEltronDashboard.Models
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

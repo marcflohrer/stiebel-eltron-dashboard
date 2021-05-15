@@ -24,13 +24,13 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
  "
 */
 using System;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace StiebelEltronApiServer.Data.Migrations
+namespace StiebelEltronDashboard.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]

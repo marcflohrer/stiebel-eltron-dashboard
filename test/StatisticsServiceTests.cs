@@ -2,14 +2,14 @@ using AutoFixture;
 using AutoMoqCore;
 using Moq;
 using Newtonsoft.Json;
-using StiebelEltronApiServer.Models;
-using StiebelEltronApiServer.Services;
+using StiebelEltronDashboard.Models;
+using StiebelEltronDashboard.Services;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace StiebelEltronApiServerTests
+namespace StiebelEltronDashboardTests
 {
     public class StatisticsServiceTests
     {

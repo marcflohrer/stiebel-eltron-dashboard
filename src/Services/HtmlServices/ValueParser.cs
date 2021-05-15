@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace StiebelEltronApiServer.Services.HtmlServices
+namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public class ValueParser : IValueParser
     {

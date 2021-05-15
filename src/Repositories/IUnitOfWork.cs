@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace StiebelEltronApiServer.Repositories
+namespace StiebelEltronDashboard.Repositories
 {
     public interface IUnitOfWork
     {

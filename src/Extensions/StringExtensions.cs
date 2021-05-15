@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace StiebelEltronApiServer.Extensions
+namespace StiebelEltronDashboard.Extensions
 {
     public static class StringExtensions
     {

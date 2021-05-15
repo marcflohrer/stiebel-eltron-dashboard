@@ -28,7 +28,7 @@ using System;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace StiebelEltronApiServer.Data.Migrations
+namespace StiebelEltronDashboard.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

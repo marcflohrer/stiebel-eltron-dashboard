@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace StiebelEltronApiServerTests
+namespace StiebelEltronDashboardTests
 {
     public static class ServiceWeltMockData
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace StiebelEltronApiServer.Models.ManageViewModels
+namespace StiebelEltronDashboard.Models.ManageViewModels
 {
     public class ManageLoginsViewModel
     {

@@ -1,7 +1,7 @@
-﻿using StiebelEltronApiServer.Models;
+﻿using StiebelEltronDashboard.Models;
 using System.Threading.Tasks;
 
-namespace StiebelEltronApiServer.Services.HtmlServices
+namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public interface IServiceWeltFacade
     {

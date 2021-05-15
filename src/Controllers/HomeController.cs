@@ -26,7 +26,7 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
 
 using Microsoft.AspNetCore.Mvc;
 
-namespace StiebelEltronApiServer.Controllers
+namespace StiebelEltronDashboard.Controllers
 {
     public class HomeController : Controller
     {

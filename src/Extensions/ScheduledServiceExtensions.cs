@@ -1,8 +1,8 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
-using StiebelEltronApiServer.Services;
+using StiebelEltronDashboard.Services;
 
-namespace StiebelEltronApiServer.Extensions {
+namespace StiebelEltronDashboard.Extensions {
     public static class ScheduledServiceExtensions {
         public static IServiceCollection AddCronJob<T> (this IServiceCollection services, Action<IScheduleConfig<T>> options) where T : CronJobService {
             if (options == null) {

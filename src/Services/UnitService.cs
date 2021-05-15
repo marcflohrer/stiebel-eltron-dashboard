@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StiebelEltronApiServer.Services {
+namespace StiebelEltronDashboard.Services {
     public class UnitService : IUnitService {
         public IList<UnitInformation> ConversionTable = new List<UnitInformation> () {
             new UnitInformation ("Wh", new Dictionary<string, double> () { { "GWh", Math.Pow (10, 9) } }),

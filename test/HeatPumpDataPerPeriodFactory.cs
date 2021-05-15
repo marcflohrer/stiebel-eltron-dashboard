@@ -1,10 +1,10 @@
-using StiebelEltronApiServer.Extensions;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Extensions;
+using StiebelEltronDashboard.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace StiebelEltronApiServerTests
+namespace StiebelEltronDashboardTests
 {
     public class HeatPumpDataPerPeriodFactory
     {

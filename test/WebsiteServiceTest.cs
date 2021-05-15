@@ -1,12 +1,12 @@
 using AutoFixture;
 using AutoMoqCore;
 using HtmlAgilityPack;
-using StiebelEltronApiServer.Services;
-using StiebelEltronApiServer.Services.HtmlServices;
+using StiebelEltronDashboard.Services;
+using StiebelEltronDashboard.Services.HtmlServices;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace StiebelEltronApiServerTests {
+namespace StiebelEltronDashboardTests {
     public class WebsiteServiceTest {
         private readonly ITestOutputHelper testOutputHelper;
         public WebsiteServiceTest (ITestOutputHelper testOutputHelper) {

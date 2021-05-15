@@ -25,7 +25,7 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
 */
 using Microsoft.AspNetCore.Identity;
 
-namespace StiebelEltronApiServer.Models
+namespace StiebelEltronDashboard.Models
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser

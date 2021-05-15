@@ -1,7 +1,7 @@
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 using System;
 
-namespace StiebelEltronApiServer.Extensions {
+namespace StiebelEltronDashboard.Extensions {
     public static class HeatPumpDataPerPeriodExtensions {
         public static double? PerformanceFactorPeriod (this HeatPumpDataPerPeriod heatPumpDataPerPeriod) 
         {

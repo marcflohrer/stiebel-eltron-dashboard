@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 
-namespace StiebelEltronApiServerTests {
+namespace StiebelEltronDashboardTests {
     public class HeatPumpStatisticsCalculatorTestDataGenerator {
         public static IEnumerable<object[]> GetHeatPumpTestData () {
             return new List<object[]> {

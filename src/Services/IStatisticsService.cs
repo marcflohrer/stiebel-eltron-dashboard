@@ -1,8 +1,8 @@
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 using System;
 using System.Collections.Generic;
 
-namespace StiebelEltronApiServer.Services
+namespace StiebelEltronDashboard.Services
 {
     public interface IStatisticsService
     {

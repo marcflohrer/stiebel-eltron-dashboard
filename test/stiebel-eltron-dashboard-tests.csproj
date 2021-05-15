@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>stiebel_eltron_apiserver_tests</RootNamespace>
+    <RootNamespace>stiebel_eltron_dashboard_tests</RootNamespace>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\stiebel-eltron-apiserver.csproj" />
+    <ProjectReference Include="..\src\stiebel-eltron-dashboard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="html\HeatPumpWebsite.html">

@@ -1,11 +1,11 @@
-using StiebelEltronApiServer.Extensions;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Extensions;
+using StiebelEltronDashboard.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace StiebelEltronApiServer.Services
+namespace StiebelEltronDashboard.Services
 {
     public class HeatPumpStatisticsCalculator : IHeatPumpStatisticsCalculator
     {

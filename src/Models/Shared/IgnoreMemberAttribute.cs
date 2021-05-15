@@ -1,5 +1,5 @@
 using System;
-namespace StiebelEltronApiServer.Models.Shared
+namespace StiebelEltronDashboard.Models.Shared
 {
     // source: https://github.com/jhewlett/ValueObject
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]

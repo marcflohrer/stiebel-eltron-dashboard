@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace StiebelEltronApiServer.Extensions
+namespace StiebelEltronDashboard.Extensions
 {
     public static class DateTimeExtensions
     {

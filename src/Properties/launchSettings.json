@@ -4,7 +4,7 @@
     "anonymousAuthentication": true
   },
   "profiles": {
-    "stiebel-eltron-apiserver": {
+    "stiebel-eltron-dashboard": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:6003",

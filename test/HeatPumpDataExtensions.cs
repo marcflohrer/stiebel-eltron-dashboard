@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 
-namespace StiebelEltronApiServerTests {
+namespace StiebelEltronDashboardTests {
     public static class HeatPumpDataExtensions {
 
         public static T SetMinDoubles<T> (this T heatPumpDataPerPeriod, double value) where T : new () => heatPumpDataPerPeriod.SetDoublesPerSuffix ("Min", value);

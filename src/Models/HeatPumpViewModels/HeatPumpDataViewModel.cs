@@ -1,4 +1,4 @@
-namespace StiebelEltronApiServer.Models.HeatPumpViewModels
+namespace StiebelEltronDashboard.Models.HeatPumpViewModels
 {
     public class HeatPumpDataViewModel
     {

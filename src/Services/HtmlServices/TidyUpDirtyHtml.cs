@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using static StiebelEltronApiServer.Services.HtmlServices.Tags;
+using static StiebelEltronDashboard.Services.HtmlServices.Tags;
 
-namespace StiebelEltronApiServer.Services.HtmlServices
+namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public class TidyUpDirtyHtml : ITidyUpDirtyHtml
     {

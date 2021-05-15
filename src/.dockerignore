@@ -8,5 +8,5 @@
 Dockerfile*
 *.md
 **/*.md
-stiebel-eltron-apiserver.db
+stiebel-eltron-dashboard.db
 .env

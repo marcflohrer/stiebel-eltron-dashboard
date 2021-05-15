@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
-using StiebelEltronApiServer.Extensions;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Extensions;
+using StiebelEltronDashboard.Models;
 
-namespace StiebelEltronApiServer.Services.HtmlServices
+namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public class ScrapingService : IScrapingService
     {

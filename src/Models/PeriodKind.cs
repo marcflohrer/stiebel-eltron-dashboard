@@ -1,4 +1,4 @@
-namespace StiebelEltronApiServer.Models
+namespace StiebelEltronDashboard.Models
 {
     public enum PeriodKind
     {

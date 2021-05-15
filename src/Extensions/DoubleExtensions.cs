@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace StiebelEltronApiServer.Extensions
+namespace StiebelEltronDashboard.Extensions
 {
     public static class DoubleExtensions
     {

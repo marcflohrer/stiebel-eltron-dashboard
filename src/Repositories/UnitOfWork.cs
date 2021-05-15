@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 
-namespace StiebelEltronApiServer.Repositories {
+namespace StiebelEltronDashboard.Repositories {
     public class UnitOfWork : IUnitOfWork {
         private readonly ApplicationDbContext _applicationDbContext;
         public IHeatPumpDataRepository HeatPumpDataRepository { get; set; }

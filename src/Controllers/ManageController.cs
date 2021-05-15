@@ -26,9 +26,9 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
 
 using System.Linq;
 using System.Threading.Tasks;
-using StiebelEltronApiServer.Models;
-using StiebelEltronApiServer.Models.ManageViewModels;
-using StiebelEltronApiServer.Services;
+using StiebelEltronDashboard.Models;
+using StiebelEltronDashboard.Models.ManageViewModels;
+using StiebelEltronDashboard.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

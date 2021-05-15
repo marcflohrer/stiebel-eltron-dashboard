@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 
-namespace StiebelEltronApiServer.Repositories
+namespace StiebelEltronDashboard.Repositories
 {
     public class HeatPumpDataRepository : IHeatPumpDataRepository {
         private readonly ApplicationDbContext _applicationDbContext;

@@ -1,7 +1,7 @@
 using HtmlAgilityPack;
-using StiebelEltronApiServer.Services.HtmlServices;
+using StiebelEltronDashboard.Services.HtmlServices;
 
-namespace StiebelEltronApiServer.Extensions
+namespace StiebelEltronDashboard.Extensions
 {
     public static class HtmlDocumentExtensions
     {

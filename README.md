@@ -18,7 +18,7 @@
 
 <br />
 
-  <h3 align="center">SQL Server on Linux + ASP.NET 5.0 stiebel-eltron-apiserver demo</h3>
+  <h3 align="center">SQL Server on Linux + ASP.NET 5.0 stiebel-eltron-dashboard demo</h3>
 
   <p align="center">
     <br />
@@ -70,14 +70,20 @@ This section lists major frameworks and projects that were used:
 * [Asp.net](https://dotnet.microsoft.com/apps/aspnet)
 * [SQL Server on Linux](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-overview?view=sql-server-ver15)
 * [aspnetcore/src/Identity/samples/IdentitySample.Mvc/](https://github.com/dotnet/aspnetcore/tree/main/src/Identity/samples/IdentitySample.Mvc) that is [licensed under Apache 2.0](legal/aspnetcore/LICENSE) (Notice: Some files are changed.)
+* [marcflohrer/AspNetOnSqlServer](https://github.com/marcflohrer/AspNetOnSqlServer)
 * [EntityFramework Core](https://docs.microsoft.com/en-us/ef/core/)
 * [HTML Agility Pack](https://github.com/zzzprojects/html-agility-pack)
-* [Xunit](https://xunit.net/)
-* [Cronos](https://github.com/HangfireIO/Cronos)
-* [Chart.Js](https://github.com/chartjs)
-* [JQuery](https://github.com/jquery/jquery)
-* [Bootstrap](https://github.com/twbs/bootstrap)
-* [BootstapCDN](https://github.com/jsdelivr/bootstrapcdn)
+* [xunit/xunit](https://github.com/xunit/xunit)
+* [HangfireIO/Cronos](https://github.com/HangfireIO/Cronos)
+* [aspnet/Identity](https://github.com/aspnet/Identity)
+* [dotnet/efcore](https://github.com/dotnet/efcore)
+* [AutoFixture/AutoFixture](https://github.com/AutoFixture/AutoFixture)
+* [microsoft/vstest](https://github.com/microsoft/vstest)
+* [xunit/visualstudio.xunit](https://github.com/xunit/visualstudio.xunit)
+* [chartjs](https://github.com/chartjs)
+* [jquery/jquery](https://github.com/jquery/jquery)
+* [twbs/bootstrap](https://github.com/twbs/bootstrap)
+* [jsdelivr/bootstrapcdn](https://github.com/jsdelivr/bootstrapcdn)
 
 ## What is it
 
@@ -93,7 +99,7 @@ Here is a screen shot of the dashboard:
 ## Known limitations
 
 * This project has only been tested with the heat pump version WPL 20 A.
-* The dashboard labels are German and there is no option to change lanuages.
+* The dashboard labels are German and there is no option to change languages.
 
 <!-- GETTING STARTED -->
 ## Getting Started

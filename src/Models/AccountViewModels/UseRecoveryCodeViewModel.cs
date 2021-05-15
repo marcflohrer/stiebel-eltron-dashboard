@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StiebelEltronApiServer.Models.AccountViewModels
+namespace StiebelEltronDashboard.Models.AccountViewModels
 {
     public class UseRecoveryCodeViewModel
     {

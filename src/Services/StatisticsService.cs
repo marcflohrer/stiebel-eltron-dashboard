@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using StiebelEltronApiServer.Extensions;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Extensions;
+using StiebelEltronDashboard.Models;
 
-namespace StiebelEltronApiServer.Services {
+namespace StiebelEltronDashboard.Services {
     public class StatisticsService : IStatisticsService {
         public HeatPumpDataPerPeriod GetHeatPumpDataPerPeriod (IEnumerable<HeatPumpDatum> heatPumpData, int year, string periodKind, int periodNumber, DateTime now) {
             Console.WriteLine($"--> GetHeatPumpDataPerPeriod: heatPumpData.Count = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");

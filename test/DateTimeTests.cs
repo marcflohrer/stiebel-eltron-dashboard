@@ -1,8 +1,8 @@
-using StiebelEltronApiServer.Extensions;
+using StiebelEltronDashboard.Extensions;
 using System;
 using Xunit;
 
-namespace StiebelEltronApiServerTests
+namespace StiebelEltronDashboardTests
 {
     public class DateTimeTests
     {

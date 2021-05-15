@@ -1,8 +1,8 @@
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 using System;
 using System.Collections.Generic;
 
-namespace StiebelEltronApiServerTests
+namespace StiebelEltronDashboardTests
 {
     public class HeatPumpDatumFactory
     {

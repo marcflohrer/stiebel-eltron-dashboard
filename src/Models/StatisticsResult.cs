@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace StiebelEltronApiServer.Models
+namespace StiebelEltronDashboard.Models
 {
     public record StatisticsResult(IList<HeatPumpDatum> DataSetsToRemove, IList<HeatPumpDataPerPeriod> Statistics);
 }

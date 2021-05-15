@@ -1,9 +1,9 @@
 ﻿using AutoMoqCore;
-using StiebelEltronApiServer.Services.HtmlServices;
+using StiebelEltronDashboard.Services.HtmlServices;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace StiebelEltronApiServerTests
+namespace StiebelEltronDashboardTests
 {
     public class TidyUpDirtyHtmlTests
     {

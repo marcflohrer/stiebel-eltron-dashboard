@@ -1,9 +1,9 @@
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
 
-namespace StiebelEltronApiServer.Extensions {
+namespace StiebelEltronDashboard.Extensions {
     public static class HeatPumpDataPerPeriodListExtensions {
         public static string ToJson (this IEnumerable<HeatPumpDataPerPeriod> heatPumpDataPerPeriod) 
             => JsonConvert.SerializeObject(heatPumpDataPerPeriod);

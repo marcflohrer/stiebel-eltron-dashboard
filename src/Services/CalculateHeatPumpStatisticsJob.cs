@@ -4,10 +4,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using StiebelEltronApiServer.Extensions;
-using StiebelEltronApiServer.Repositories;
+using StiebelEltronDashboard.Extensions;
+using StiebelEltronDashboard.Repositories;
 
-namespace StiebelEltronApiServer.Services {
+namespace StiebelEltronDashboard.Services {
     public class HeatPumpStatisticsCalculatorJob : CronJobService {
         private readonly IHeatPumpStatisticsCalculator _heatPumpStatisticsCalculator;
         private readonly ILogger<HeatPumpStatisticsCalculatorJob> _logger;

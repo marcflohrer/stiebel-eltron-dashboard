@@ -23,9 +23,9 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
  b. You must cause any modified files to carry prominent notices stating that You changed the files; and
  "
 */
-using StiebelEltronApiServer.Models;
-using StiebelEltronApiServer.Repositories;
-using StiebelEltronApiServer.Services;
+using StiebelEltronDashboard.Models;
+using StiebelEltronDashboard.Repositories;
+using StiebelEltronDashboard.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -35,10 +35,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using StiebelEltronApiServer.Extensions;
-using StiebelEltronApiServer.Services.HtmlServices;
+using StiebelEltronDashboard.Extensions;
+using StiebelEltronDashboard.Services.HtmlServices;
 
-namespace StiebelEltronApiServer
+namespace StiebelEltronDashboard
 {
     public class Startup
     {

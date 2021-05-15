@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace StiebelEltronApiServer.Services {
+namespace StiebelEltronDashboard.Services {
     public class ApplicationLifetimeService : IHostedService {
         private readonly ILogger _logger;
         private readonly IHostApplicationLifetime _applicationLifetime;

@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>d1e11783-8483-409b-956e-0f20d5dff1b4</UserSecretsId>
-    <RootNamespace>StiebelEltronApiServer</RootNamespace>
+    <RootNamespace>StiebelEltronDashboard</RootNamespace>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'stiebel-eltron-apiserver' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'stiebel-eltron-dashboard' " />
   <ItemGroup>
     <None Remove="mssql\.DS_Store" />
     <None Remove="mssql\logs\log_3.trc" />
@@ -45,12 +45,12 @@
     <None Remove="mssql\data\.model_replicatedmaster.mdf.icloud" />
     <None Remove="mssql\data\msdblog.ldf" />
     <None Remove="etc\ssl\openssl.cnf" />
-    <None Remove="stiebel-eltron-apiserver.db" />
-    <None Remove="stiebel-eltron-apiserver-tests\obj\Debug\net5.0\stiebel-eltron-apiserver-tests.csprojAssemblyReference.cache" />
-    <None Remove="stiebel-eltron-apiserver-tests\obj\stiebel-eltron-apiserver-tests.csproj.nuget.g.props" />
-    <None Remove="stiebel-eltron-apiserver-tests\obj\stiebel-eltron-apiserver-tests.csproj.nuget.g.targets" />
-    <None Remove="stiebel-eltron-apiserver-tests\obj\project.nuget.cache" />
-    <None Remove="stiebel-eltron-apiserver-tests\obj\Debug\net5.0\stiebel-eltron-apiserver-tests.assets.cache" />
+    <None Remove="stiebel-eltron-dashboard.db" />
+    <None Remove="stiebel-eltron-dashboard-tests\obj\Debug\net5.0\stiebel-eltron-dashboard-tests.csprojAssemblyReference.cache" />
+    <None Remove="stiebel-eltron-dashboard-tests\obj\stiebel-eltron-dashboard-tests.csproj.nuget.g.props" />
+    <None Remove="stiebel-eltron-dashboard-tests\obj\stiebel-eltron-dashboard-tests.csproj.nuget.g.targets" />
+    <None Remove="stiebel-eltron-dashboard-tests\obj\project.nuget.cache" />
+    <None Remove="stiebel-eltron-dashboard-tests\obj\Debug\net5.0\stiebel-eltron-dashboard-tests.assets.cache" />
   </ItemGroup>
   <ItemGroup>    
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
@@ -67,10 +67,10 @@
     <PackageReference Include="Cronos" Version="0.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="stiebel-eltron-apiserver-tests\UnitTest1.cs" />
+    <Compile Remove="stiebel-eltron-dashboard-tests\UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="stiebel-eltron-apiserver-tests\obj\project.assets.json" />
-    <Content Remove="stiebel-eltron-apiserver-tests\obj\stiebel-eltron-apiserver-tests.csproj.nuget.dgspec.json" />
+    <Content Remove="stiebel-eltron-dashboard-tests\obj\project.assets.json" />
+    <Content Remove="stiebel-eltron-dashboard-tests\obj\stiebel-eltron-dashboard-tests.csproj.nuget.dgspec.json" />
   </ItemGroup>
 </Project>

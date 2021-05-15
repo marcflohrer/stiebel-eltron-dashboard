@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 using System;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StiebelEltronApiServer.Services.HtmlServices
+namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public class ServiceWeltFacade : IServiceWeltFacade
     {

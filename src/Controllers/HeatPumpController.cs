@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StiebelEltronApiServer.Repositories;
+using StiebelEltronDashboard.Repositories;
 using System;
 using System.Globalization;
 using System.Linq;
 
-namespace StiebelEltronApiServer.Controllers
+namespace StiebelEltronDashboard.Controllers
 {
     [Authorize]
     public class HeatPumpController : Controller

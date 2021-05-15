@@ -27,16 +27,16 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using StiebelEltronApiServer.Models.AccountViewModels;
-using StiebelEltronApiServer.Models;
-using StiebelEltronApiServer.Services;
+using StiebelEltronDashboard.Models.AccountViewModels;
+using StiebelEltronDashboard.Models;
+using StiebelEltronDashboard.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
-namespace StiebelEltronApiServer.Controllers
+namespace StiebelEltronDashboard.Controllers
 {
     [Authorize]
     public class AccountController : Controller

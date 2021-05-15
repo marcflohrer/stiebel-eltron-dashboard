@@ -28,7 +28,7 @@ until dotnet user-secrets init && dotnet user-secrets set ServiceWeltPassword "$
 sleep 1
 done
 
-./stiebel-eltron-apiserver
+./stiebel-eltron-dashboard
 
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!1!!!!!!11!!!!!"
 >&2 echo "Running entrypoint.sh :: APP RUNNING !!!!!!!!!!11!!!!!"

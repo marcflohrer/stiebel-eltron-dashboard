@@ -3,11 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using StiebelEltronApiServer.Extensions;
-using StiebelEltronApiServer.Repositories;
-using StiebelEltronApiServer.Services.HtmlServices;
+using StiebelEltronDashboard.Extensions;
+using StiebelEltronDashboard.Repositories;
+using StiebelEltronDashboard.Services.HtmlServices;
 
-namespace StiebelEltronApiServer.Services
+namespace StiebelEltronDashboard.Services
 {
     public class CollectHeatPumpDataJob : CronJobService
     {

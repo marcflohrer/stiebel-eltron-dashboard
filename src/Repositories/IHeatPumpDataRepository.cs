@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 
-namespace StiebelEltronApiServer.Repositories
+namespace StiebelEltronDashboard.Repositories
 {
     public interface IHeatPumpDataRepository {
         public void InsertHeatPumpData (HeatPumpDatum heatPumpDatum);

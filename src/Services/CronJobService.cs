@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Cronos;
 using Microsoft.Extensions.Hosting;
 
-namespace StiebelEltronApiServer.Services {
+namespace StiebelEltronDashboard.Services {
     public abstract class CronJobService : IHostedService, IDisposable {
         private System.Timers.Timer _timer;
         private readonly CronExpression _expression;

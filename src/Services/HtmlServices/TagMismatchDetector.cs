@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using static StiebelEltronApiServer.Services.HtmlServices.Tags;
+using static StiebelEltronDashboard.Services.HtmlServices.Tags;
 using Microsoft.Extensions.Logging;
 
-namespace StiebelEltronApiServer.Services.HtmlServices
+namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public static class TagMismatchDetector
     {

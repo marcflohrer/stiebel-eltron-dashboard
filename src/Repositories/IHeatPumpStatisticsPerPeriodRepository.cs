@@ -1,9 +1,9 @@
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace StiebelEltronApiServer.Repositories
+namespace StiebelEltronDashboard.Repositories
 {
     public interface IHeatPumpStatisticsPerPeriodRepository
     {

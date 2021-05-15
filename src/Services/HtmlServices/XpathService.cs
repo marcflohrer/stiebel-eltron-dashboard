@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using HtmlAgilityPack;
 
-namespace StiebelEltronApiServer.Services.HtmlServices
+namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public class XpathService : IXpathService
     {

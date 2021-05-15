@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 
-namespace StiebelEltronApiServerTests {
+namespace StiebelEltronDashboardTests {
     public class StatisticsServiceTestDailyPeriodDataGenerator : IEnumerable<object[]> {
 
         public static IEnumerable<object[]> GetHeatPumpTestData()

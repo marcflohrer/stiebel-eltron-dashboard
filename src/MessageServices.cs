@@ -26,7 +26,7 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
 
 using System.Threading.Tasks;
 
-namespace StiebelEltronApiServer
+namespace StiebelEltronDashboard
 {
     public static class MessageServices
     {

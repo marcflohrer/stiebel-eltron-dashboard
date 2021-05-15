@@ -1,4 +1,4 @@
-namespace StiebelEltronApiServer.Services
+namespace StiebelEltronDashboard.Services
 {
     public interface IUnitService
     {

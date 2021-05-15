@@ -1,13 +1,13 @@
 using AutoFixture;
 using AutoMoqCore;
 using Moq;
-using StiebelEltronApiServer.Models;
-using StiebelEltronApiServer.Services;
-using StiebelEltronApiServer.Services.HtmlServices;
+using StiebelEltronDashboard.Models;
+using StiebelEltronDashboard.Services;
+using StiebelEltronDashboard.Services.HtmlServices;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace StiebelEltronApiServerTests
+namespace StiebelEltronDashboardTests
 {
     public class ScrapingServiceTests
     {

@@ -3,7 +3,7 @@
 
 set -e
 
-run_cmd="dotnet stiebel-eltron-apiserver.dll"
+run_cmd="dotnet stiebel-eltron-dashboard.dll"
 
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!"
 >&2 echo "Running entrypoint.sh !!!11!!!!!!11!!!!!"
@@ -36,7 +36,7 @@ dotnet build
 
 now_hourly=$(date +%Y-%d-%b-%H_%M) 
 >&2 echo "dotnet ef migrations add" $now_hourly"ChangeDatabase"
-dotnet ef migrations add $now_hourly"ChangeDb" --context StiebelEltronApiServer.Models.ApplicationDbContext --output-dir Data/Migrations;
+dotnet ef migrations add $now_hourly"ChangeDb" --context StiebelEltronDashboard.Models.ApplicationDbContext --output-dir Data/Migrations;
 
 >&2 echo "dotnet ef database update"
 until dotnet ef database update; do

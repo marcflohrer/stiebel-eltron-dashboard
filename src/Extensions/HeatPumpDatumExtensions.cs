@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using StiebelEltronApiServer.Models;
+using StiebelEltronDashboard.Models;
 
-namespace StiebelEltronApiServer.Extensions {
+namespace StiebelEltronDashboard.Extensions {
     public static class HeatPumpDatumExtensions {
         public static double? GetMinForMetric (this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector) {
             if (!heatPumpData.Any ()) {
