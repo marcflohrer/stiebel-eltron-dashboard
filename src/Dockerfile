@@ -18,7 +18,7 @@ FROM build AS publish
 RUN dotnet publish -c Release -o /app --runtime linux-musl-x64 stiebel-eltron-apiserver.csproj
 RUN chmod +x ./stiebel-eltron-apiserver
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine@sha256:fa8865d13e913e1487a5b430f5617d7df1bd7a30b48bc8bd7d05827124d1bd92 AS final
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine@sha256:ddc8c4f8321cde2268e70d2aeeb4549745a15a15fb0d8ab90c19bcb6b6844acb AS final
 ARG ConnectionString=default_connection_string
 ENV ConnectionString=$ConnectionString
 ARG ServiceWeltUrl=http://servicewelturl.local
