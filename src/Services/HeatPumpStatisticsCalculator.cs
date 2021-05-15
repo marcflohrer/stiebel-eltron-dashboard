@@ -77,10 +77,10 @@ namespace StiebelEltronApiServer.Services
             var latestMonthlyStatistic = DateTime.MinValue;
             var monthlyStatisticCreationDates = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Month").Select(h => h.DateCreated);
             if(monthlyStatisticCreationDates.Any()){
-                latestMonthlyStatistic = monthlyStatisticCreationDates.Max();
+                latestMonthlyStatistic = monthlyStatisticCreationDates.Max().Subtract(TimeSpan.FromDays(32));
                 Console.WriteLine($"<-- latestMonthlyStatistic {latestMonthlyStatistic}");
             }
-            var lastMonth = heatPumpData.Where(hpd => hpd.DateCreated >= latestMonthlyStatistic.Subtract(TimeSpan.FromDays(32))).ToList();
+            var lastMonth = heatPumpData.Where(hpd => hpd.DateCreated >= latestMonthlyStatistic).ToList();
             if(lastMonth.Any()){
                 var oldestRecordInRecentMonth = lastMonth.Select(hpd => hpd.DateCreated).Min();
                 var monthlyStatisticsContainer = GetEmptyMonthlyStatisticsContainer(heatPumpData, oldestRecordInRecentMonth, now);

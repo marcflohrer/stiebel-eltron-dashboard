@@ -14,7 +14,6 @@ namespace test
 {
     public class HeatPumpStatisticsCalculatorTests
     {
-
         private ITestOutputHelper _testOutputHelper;
         public HeatPumpStatisticsCalculatorTests(ITestOutputHelper testOutputHelper)
         {
