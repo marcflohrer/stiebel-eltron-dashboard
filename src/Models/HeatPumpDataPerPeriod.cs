@@ -1,5 +1,6 @@
 ﻿using System;
 using StiebelEltronApiServer.Models.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 #nullable disable
 
 namespace StiebelEltronApiServer.Models
@@ -68,15 +69,22 @@ namespace StiebelEltronApiServer.Models
         public double FanPowerRelMin { get; set; }
         public double FanPowerRelMax { get; set; }
         public double FanPowerRelAverage { get; set; }
-        public double VaporizerHeatQuantityHeatingDayStart { get; set; }
-        public double VaporizerHeatQuantityHeatingDayEnd { get; set; }
-        public double VaporizerHeatQuantityHeatingDayDelta { get; set; }
+        
+        [Column("VaporizerHeatQuantityHeatingDayMin")]
+        public double VaporizerHeatQuantityHeatingDayMin { get; set; }
+        [Column("VaporizerHeatQuantityHeatingDayMax")]
+        public double VaporizerHeatQuantityHeatingDayMax { get; set; }
+        [Column("VaporizerHeatQuantityHeatingDayAverage")]
+        public double VaporizerHeatQuantityHeatingDayAverage { get; set; }
         public double VaporizerHeatQuantityHeatingTotalStart { get; set; }
         public double VaporizerHeatQuantityHeatingTotalEnd { get; set; }
         public double VaporizerHeatQuantityHeatingTotalDelta { get; set; }
-        public double VaporizerHeatQuantityHotWaterDayStart { get; set; }
-        public double VaporizerHeatQuantityHotWaterDayEnd { get; set; }
-        public double VaporizerHeatQuantityHotWaterDayDelta { get; set; }
+        [Column("VaporizerHeatQuantityHotWaterDayMin")]
+        public double VaporizerHeatQuantityHotWaterDayMin { get; set; }
+        [Column("VaporizerHeatQuantityHotWaterDayMax")]
+        public double VaporizerHeatQuantityHotWaterDayMax { get; set; }
+        [Column("VaporizerHeatQuantityHotWaterDayAverage")]
+        public double VaporizerHeatQuantityHotWaterDayAverage { get; set; }
         public double VaporizerHeatQuantityHotWaterTotalStart { get; set; }
         public double VaporizerHeatQuantityHotWaterTotalEnd { get; set; }
         public double VaporizerHeatQuantityHotWaterTotalDelta { get; set; }
@@ -86,15 +94,21 @@ namespace StiebelEltronApiServer.Models
         public double ReheatingStagesHeatQuantityHotWaterTotalStart { get; set; }
         public double ReheatingStagesHeatQuantityHotWaterTotalEnd { get; set; }
         public double ReheatingStagesHeatQuantityHotWaterTotalDelta { get; set; }
-        public double PowerConsumptionHeatingDayStart { get; set; }
-        public double PowerConsumptionHeatingDayEnd { get; set; }
-        public double PowerConsumptionHeatingDayDelta { get; set; }
+        [Column("PowerConsumptionHeatingDayMin")]
+        public double PowerConsumptionHeatingDayMin { get; set; }
+        [Column("PowerConsumptionHeatingDayMax")]
+        public double PowerConsumptionHeatingDayMax { get; set; }
+         [Column("PowerConsumptionHeatingDayAverage")]
+        public double PowerConsumptionHeatingDayAverage { get; set; }
         public double PowerConsumptionHeatingSumStart { get; set; }
         public double PowerConsumptionHeatingSumEnd { get; set; }
         public double PowerConsumptionHeatingSumDelta { get; set; }
-        public double PowerConsumptionHotWaterDayStart { get; set; }
-        public double PowerConsumptionHotWaterDayEnd { get; set; }
-        public double PowerConsumptionHotWaterDayDelta { get; set; }
+        [Column("PowerConsumptionHotWaterDayMin")]
+        public double PowerConsumptionHotWaterDayMin { get; set; }
+        [Column("PowerConsumptionHotWaterDayMax")]
+        public double PowerConsumptionHotWaterDayMax { get; set; }
+        [Column("PowerConsumptionHotWaterDayAverage")]
+        public double PowerConsumptionHotWaterDayAverage { get; set; }
         public double PowerConsumptionHotWaterSumStart { get; set; }
         public double PowerConsumptionHotWaterSumEnd { get; set; }
         public double PowerConsumptionHotWaterSumDelta { get; set; }

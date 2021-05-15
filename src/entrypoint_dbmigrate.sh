@@ -34,11 +34,9 @@ dotnet user-secrets init && dotnet user-secrets set "$ConnectionStringName" "$1"
 
 dotnet build
 
->&2 echo "dotnet ef migrations add ChangeDatabase"
-until dotnet ef migrations add ChangeDatabase --context StiebelEltronApiServer.Models.ApplicationDbContext -o Migrations;  do
->&2 echo "Creating migration scripts..."
-sleep 1
-done
+now_hourly=$(date +%Y-%d-%b-%H_%M) 
+>&2 echo "dotnet ef migrations add" $now_hourly"ChangeDatabase"
+dotnet ef migrations add $now_hourly"ChangeDb" --context StiebelEltronApiServer.Models.ApplicationDbContext --output-dir Data/Migrations;
 
 >&2 echo "dotnet ef database update"
 until dotnet ef database update; do

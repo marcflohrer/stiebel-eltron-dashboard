@@ -185,47 +185,55 @@
     drawStartEndChartInternal('year', chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
 }
 
-function drawBarChart(chartName, xAxisLabel, labels, Ys, YsColors) {
+function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsColors) {
     var ctx = document.getElementById(chartName).getContext('2d');
-    var data = {
-        labels: labels,
+    var data = 
+    {
+        labels: xAxisLabel,
         datasets: [{
-            label: xAxisLabel,
-            borderWidth: 5,
-            data: Ys,
-            fill: false,
-            borderColor: 'rgba(140, 173, 88, 1)',
             backgroundColor: YsColors,
+            data: Ys
         }]
     };
 
+    var xAxes = [{
+        type: 'time',
+        time: {
+            parser: 'YYYY-MM-DD HH:mm:ss',
+            unit: period
+        },
+        ticks: {
+            min: 0,
+            beginAtZero: false
+        },
+        gridLines: {
+            display: false
+        }
+    }];
+    if(period === 'week'){
+        xAxes = [{
+            gridLines: {
+              display: false
+            }
+        }];
+    }
     var options = {
+        title: {
+            display: true,
+            text: chartTitle
+        },
         maintainAspectRatio: false,
         scales: {
             yAxes: [{
                 ticks: {
-                    min: 0,
                     beginAtZero: false
                 },
                 gridLines: {
                     display: true,
-                    color: "rgba(rgba(171, 177, 177, 1))"
+                    color: "rgba(176, 177, 177, 1)"
                 }
             }],
-            xAxes: [{
-                type: 'time',
-                time: {
-                    parser: 'YYYY-MM-DD HH:mm:ss',
-                    unit: 'day'
-                },
-                ticks: {
-                    min: 0,
-                    beginAtZero: false
-                },
-                gridLines: {
-                    display: false
-                }
-            }]
+            xAxes: xAxes
         }
     };
 
@@ -235,3 +243,15 @@ function drawBarChart(chartName, xAxisLabel, labels, Ys, YsColors) {
         type: 'bar'
     });
 };
+function drawBarChartDay(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
+    drawBarChartInternal('day',chartName, chartTitle, xAxisLabel, Ys, YsColors);
+}
+function drawBarChartWeek(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
+    drawBarChartInternal('week', chartName, chartTitle, xAxisLabel, Ys, YsColors);
+}
+function drawBarChartMonth(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
+    drawBarChartInternal('month', chartName, chartTitle, xAxisLabel, Ys, YsColors);
+}
+function drawBarChartYear(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
+    drawBarChartInternal('year', chartName, chartTitle, xAxisLabel, Ys, YsColors);
+}
