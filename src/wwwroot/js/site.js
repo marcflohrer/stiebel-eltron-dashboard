@@ -62,7 +62,7 @@
                 },
                 gridLines: {
                     display: true,
-                    color: "rgba(rgba(176, 177, 177, 1))"
+                    color: "rgba(176, 177, 177, 0.5)"
                 }
             }],
             xAxes: xAxes
@@ -101,7 +101,7 @@
             data: startYs,
             fill: false,
             tension: 0,
-            borderColor: startYsColors[0],
+            borderColor: 'rgba(233, 241, 221, 1)',
             backgroundColor: startYsColors,
         }, {
             label: "Delta",
@@ -155,7 +155,7 @@
                 },
                 gridLines: {
                     display: true,
-                    color: "rgba(176, 177, 177, 1)"
+                    color: "rgba(176, 177, 177, 0.5)"
                 }
             }],
             xAxes: xAxes
@@ -191,6 +191,7 @@ function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsC
     {
         labels: xAxisLabel,
         datasets: [{
+            label: "Mittel",
             backgroundColor: YsColors,
             data: Ys
         }]
@@ -230,7 +231,7 @@ function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsC
                 },
                 gridLines: {
                     display: true,
-                    color: "rgba(176, 177, 177, 1)"
+                    color: "rgba(176, 177, 177, 0.5)"                    
                 }
             }],
             xAxes: xAxes
@@ -244,7 +245,7 @@ function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsC
     });
 };
 function drawBarChartDay(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
-    drawBarChartInternal('day',chartName, chartTitle, xAxisLabel, Ys, YsColors);
+    drawBarChartInternal('day', chartName, chartTitle, xAxisLabel, Ys, YsColors);
 }
 function drawBarChartWeek(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
     drawBarChartInternal('week', chartName, chartTitle, xAxisLabel, Ys, YsColors);
