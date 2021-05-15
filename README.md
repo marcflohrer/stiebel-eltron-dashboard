@@ -58,10 +58,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project is intended to be the starting point when implementing a demo ASP.NET application with a local database on a mac.
-I am not sure if it all works on different operating systems as I did not test it.
-
-When starting a new side project this boiler plate code takes unnecessarily a lot of time. Not any more with this template project.
+This project is intended to provide a more insightful presentation of the data provided by the original Stiebel Eltron dashboard.
+On top it adds the missing performance factor chart (Arbeitszahl).
 
 ### Built With
 
@@ -77,6 +75,25 @@ This section lists major frameworks and projects that were used:
 * [Xunit](https://xunit.net/)
 * [Cronos](https://github.com/HangfireIO/Cronos)
 * [Chart.Js](https://github.com/chartjs)
+* [JQuery](https://github.com/jquery/jquery)
+* [Bootstrap](https://github.com/twbs/bootstrap)
+* [BootstapCDN](https://github.com/jsdelivr/bootstrapcdn)
+
+## What is it
+
+This project prvides a dashboard for the things that are missing in the dashboard provided with a Stiebel Eltron(R) heat pump:
+
+* charts showing the performance factor evolving over time plus the performance factor for the whole operating time of the heat pump.
+* charts showing all the metrics in a chart that puts them in a historic context: recent days, recent weeks, months and years.
+
+Here is a screen shot of the dashboard:
+
+<img src="src/stiebel-eltron-dashboard.png" alt="Screenshot of the dashboard" style="width:800px;"/>
+
+## Known limitations
+
+* This project has only been tested with the heat pump version WPL 20 A.
+* The dashboard labels are German and there is no option to change lanuages.
 
 <!-- GETTING STARTED -->
 ## Getting Started
