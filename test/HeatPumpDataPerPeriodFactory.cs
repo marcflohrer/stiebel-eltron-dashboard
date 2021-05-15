@@ -12,6 +12,7 @@ namespace StiebelEltronApiServerTests
         {
             var heatPumpDataPerPeriod = new HeatPumpDataPerPeriod ();
             heatPumpDataPerPeriod.Year = start.Year;
+            var now = new DateTime(2021, 5, 1);     
             var result = new List<HeatPumpDataPerPeriod>();
             var index = 0;
             for(var i = 0; i < numberOfDataSets; ++i){
@@ -30,10 +31,29 @@ namespace StiebelEltronApiServerTests
                         .SetPeriodNumber(date.DayOfYear)
                         .SetFirst(date)
                         .SetLast(date)
-                        .SetDateTimes<HeatPumpDataPerPeriod>(date));
+                        .SetDateTimes<HeatPumpDataPerPeriod>(date)
+                        .SetDateCreated(now)
+                        .SetDateUpdated(now));
                         index++;
                 }                   
             }
+            result.Add(new HeatPumpDataPerPeriod ()
+                        .SetMinDoubles (0)
+                        .SetMaxDoubles<HeatPumpDataPerPeriod>(0)
+                        .SetAverageDoubles<HeatPumpDataPerPeriod>(0)
+                        .SetStartDoubles<HeatPumpDataPerPeriod>(0)
+                        .SetEndDoubles<HeatPumpDataPerPeriod>(0)
+                        .SetDeltaDoubles<HeatPumpDataPerPeriod>(0)
+                        .SetYear(start.Year)
+                        .SetPeriodKind(PeriodKind.Week.ToString())
+                        .SetPeriodNumber(start.WeekOfYear(new CultureInfo("de-DE")))
+                        .SetDateTimes<HeatPumpDataPerPeriod>(incrementTime(++numberOfDataSets, start))
+                        .SetFirst(start)
+                        .SetLast(start)
+                        .SetDateCreated(now)
+                        .SetDateUpdated(now)
+                        );
+
             var firstRecord = start.AddDays(4);
             result.Add(new HeatPumpDataPerPeriod ()
                         .SetMinDoubles (1)
@@ -47,7 +67,9 @@ namespace StiebelEltronApiServerTests
                         .SetPeriodNumber(firstRecord.WeekOfYear(new CultureInfo("de-DE")))
                         .SetDateTimes<HeatPumpDataPerPeriod>(incrementTime(++numberOfDataSets, start))
                         .SetFirst(firstRecord)
-                        .SetLast(start.AddDays(8)));
+                        .SetLast(start.AddDays(8))
+                        .SetDateCreated(now)
+                        .SetDateUpdated(now));
             firstRecord = start.AddDays(12); 
             result.Add(new HeatPumpDataPerPeriod ()
                         .SetMinDoubles (3)
@@ -61,7 +83,43 @@ namespace StiebelEltronApiServerTests
                         .SetPeriodNumber(firstRecord.WeekOfYear(new CultureInfo("de-DE")))
                         .SetDateTimes<HeatPumpDataPerPeriod>(firstRecord)
                         .SetFirst(firstRecord)
-                        .SetLast(start.AddDays(16)));
+                        .SetLast(start.AddDays(16))
+                        .SetDateCreated(now)
+                        .SetDateUpdated(now)
+                        ); 
+            result.Add(new HeatPumpDataPerPeriod ()
+                        .SetMinDoubles (0)
+                        .SetMaxDoubles<HeatPumpDataPerPeriod>(3)
+                        .SetAverageDoubles<HeatPumpDataPerPeriod>(1.5)
+                        .SetStartDoubles<HeatPumpDataPerPeriod>(0)
+                        .SetEndDoubles<HeatPumpDataPerPeriod>(3)
+                        .SetDeltaDoubles<HeatPumpDataPerPeriod>(3)
+                        .SetYear(start.Year)
+                        .SetPeriodKind(PeriodKind.Month.ToString())
+                        .SetPeriodNumber(start.Month)
+                        .SetDateTimes<HeatPumpDataPerPeriod>(firstRecord)
+                        .SetFirst(firstRecord.Subtract(TimeSpan.FromDays(12)))
+                        .SetLast(start.AddDays(12))
+                        .SetDateCreated(now)
+                        .SetDateUpdated(now)
+                        );             
+            result.Add(new HeatPumpDataPerPeriod ()
+                        .SetMinDoubles (0)
+                        .SetMaxDoubles<HeatPumpDataPerPeriod>(15)
+                        .SetAverageDoubles<HeatPumpDataPerPeriod>(7.5)
+                        .SetStartDoubles<HeatPumpDataPerPeriod>(0)
+                        .SetEndDoubles<HeatPumpDataPerPeriod>(15)
+                        .SetDeltaDoubles<HeatPumpDataPerPeriod>(15)
+                        .SetYear(start.Year)
+                        .SetPeriodKind(PeriodKind.Year.ToString())
+                        .SetPeriodNumber(start.Year)
+                        .SetDateTimes<HeatPumpDataPerPeriod>(firstRecord)
+                        .SetFirst(firstRecord.Subtract(TimeSpan.FromDays(12)))
+                        .SetLast(start.AddDays(60))
+                        .SetDateCreated(now)
+                        .SetDateUpdated(now)
+                       );
+                       
             return result;                           
         }
     }

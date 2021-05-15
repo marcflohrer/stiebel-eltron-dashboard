@@ -127,14 +127,48 @@ namespace StiebelEltronApiServerTests {
         }
 
         public static T SetDateTimes <T>(this T heatPumpDatum, DateTime value) where T: new() {
-            foreach (var dateTimeProperty in ((Func<IEnumerable<PropertyInfo>>) (() =>
-                    (from propertyInfo in typeof (T).GetProperties (BindingFlags.Instance | BindingFlags.Public) 
-                    where propertyInfo.GetValue (new T (), null)?.GetType ()?.FullName == typeof (System.DateTime).FullName 
-                    select propertyInfo).ToList ())) ()) {
+            IEnumerable<PropertyInfo> enumerable()
+            {
+                foreach (var propertyInfo in typeof (T).GetProperties (BindingFlags.Instance | BindingFlags.Public))
+                {
+                    if (propertyInfo.GetValue (new T (), null)?.GetType ()?.FullName == typeof (System.DateTime).FullName)
+                    {
+                        yield return propertyInfo;
+                    }
+                }
+            }
+
+            foreach (var dateTimeProperty in ((Func<IEnumerable<PropertyInfo>>) (() => enumerable().ToList ())) ()) {
                 ((Action<T, PropertyInfo, DateTime>) ((heatPumpDatum, propertyInfo, value) =>
                     propertyInfo.SetValue (heatPumpDatum, value, null))) (heatPumpDatum, dateTimeProperty, value);
             }
             return heatPumpDatum;
         }
+
+        public static T SetDateTimePerName <T>(this T heatPumpDatum, DateTime value, string PropertyName) where T: new() {
+            IEnumerable<PropertyInfo> enumerable()
+            {
+                foreach (var propertyInfo in typeof (T).GetProperties (BindingFlags.Instance | BindingFlags.Public))
+                {
+                    if (propertyInfo.GetValue (new T (), null)?.GetType ()?.FullName == typeof (System.DateTime).FullName)
+                    {
+                        if (propertyInfo?.Name == (PropertyName)){
+                            yield return propertyInfo;    
+                        }
+                    }
+                }
+            }
+
+            foreach (var dateTimeProperty in ((Func<IEnumerable<PropertyInfo>>) (() => enumerable().ToList ())) ()) {
+                ((Action<T, PropertyInfo, DateTime>) ((heatPumpDatum, propertyInfo, value) =>
+                    propertyInfo.SetValue (heatPumpDatum, value, null))) (heatPumpDatum, dateTimeProperty, value);
+            }
+            return heatPumpDatum;
+        }
+
+        public static T SetDateUpdated<T>(this T heatPumpDatum, DateTime value) where T : new() 
+            => heatPumpDatum.SetDateTimePerName(value, "DateUpdated");
+        public static T SetDateCreated<T>(this T heatPumpDatum, DateTime value) where T : new() 
+            => heatPumpDatum.SetDateTimePerName(value, "DateCreated");    
     }
 }
