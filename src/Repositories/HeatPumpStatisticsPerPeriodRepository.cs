@@ -35,10 +35,9 @@ namespace StiebelEltronApiServer.Repositories
                     && hpdpp.PeriodKind == "Day"
                     && hpdpp.PeriodNumber >= firstDay
                     && hpdpp.First != DateTime.MaxValue);
-            //var result = new List<HeatPumpDataPerPeriod>();
-            //HeatPumpDataPerPeriod previous = null;
-            //result = GetDistinctPeriodNumber(list, result, previous);
-            return list.OrderBy(x => x.First).Take(7).ToList();
+            return list.OrderBy(x => x.Last)
+                       .DistinctBy(x => x.PeriodNumber)
+                       .Take(7).ToList();
         }
 
         private static List<HeatPumpDataPerPeriod> GetDistinctPeriodNumber(IQueryable<HeatPumpDataPerPeriod> list, List<HeatPumpDataPerPeriod> result, HeatPumpDataPerPeriod previous)
@@ -75,7 +74,9 @@ namespace StiebelEltronApiServer.Repositories
             var result = new List<HeatPumpDataPerPeriod>();
             HeatPumpDataPerPeriod previous = null;
             result = GetDistinctPeriodNumber(list, result, previous);   
-            return result.Take(12).ToList();                    
+            return result.OrderBy(x => x.Last)
+                         .DistinctBy(x => x.PeriodKind)
+                         .Take(12).ToList();                    
         }
 
         public List<HeatPumpDataPerPeriod> GetRecentTwelveMonths(DateTime now)
@@ -88,7 +89,10 @@ namespace StiebelEltronApiServer.Repositories
             var result = new List<HeatPumpDataPerPeriod>();
             HeatPumpDataPerPeriod previous = null;
             result = GetDistinctPeriodNumber(list, result, previous);
-            return result.OrderBy(x => x.First).Take(12).ToList();
+            return result.OrderBy(x => x.Last)
+                         .DistinctBy(x => x.PeriodNumber)
+                         .Take(12)
+                         .ToList();
         }
 
         public List<HeatPumpDataPerPeriod> GetYearlyRecords(DateTime now)
@@ -98,7 +102,9 @@ namespace StiebelEltronApiServer.Repositories
             var result = new List<HeatPumpDataPerPeriod>();
             HeatPumpDataPerPeriod previous = null;
             result = GetDistinctPeriodNumber(list, result, previous); 
-            return result.ToList();                    
+            return result.OrderBy(x => x.Last)
+                         .DistinctBy(x => x.PeriodNumber)
+                         .Take(12).ToList();
         }
 
         public List<HeatPumpDataPerPeriod> GetAllRecordsFromRecent366Days(DateTime now)
