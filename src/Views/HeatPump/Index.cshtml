@@ -15,6 +15,7 @@
     var XLabelsWeek = "{}";
     var XLabelsMonth = "{}";
     var XLabelsYear = "{}";
+    var XLabelsTotal = "{}";
 
     var StartColorDay = "{}";    
     var EndColorDay = "{}";    
@@ -45,6 +46,7 @@
     var MaxColorYear = "{}";
     var AverageColorYear = "{}"; 
 
+    var ColorTotal = "{}"; 
 
     var PerformanceFactorDay = "{}";
     var ReturnTemperatureMinDay = "{}";
@@ -498,6 +500,9 @@
     var DefrostStartsEndYear = "{}";
     var DefrostStartsDeltaYear = "{}";
     
+    var PerformanceFactorTotal = "{}";
+    var newestRecord = DateTime.MinValue;
+
     if (Model == null)
     {
         Console.WriteLine("No data showed up in HeatPump/index.cshtml!");
@@ -509,7 +514,8 @@
         XLabelsMonth = Model.GetMonths().Select(x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1)).ToList().ToJson();
         XLabelsYear = Model.GetYears().Select(x => new DateTime((int)x.Year, 1,1)).ToList().ToJson();
         newestRecord = Model.Select(m => m.DateUpdated).Max();
-        XLabelsTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).ToList().ToJson();        
+
+        XLabelsTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(h => "Total").Take(1).ToList().ToJson();        
 
         StartColorDay = Model.GetDays().Select(x => x.VaporizerHeatQuantityHeatingDayMin).Select(c => startColor).ToList().ToJson();
         DeltaColorDay = Model.GetDays().Select(x => x.VaporizerHeatQuantityHeatingDayAverage).Select(c => deltaColor).ToList().ToJson();
@@ -539,7 +545,7 @@
         MaxColorYear = Model.GetYears().Select(x => x.ReturnTemperatureMax).Select(c => maxColor).ToList().ToJson();
         AverageColorYear = Model.GetYears().Select(x => x.ReturnTemperatureAverage).Select(c => averageColor).ToList().ToJson();        
 
-        ColorTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => x.PerformanceFactorPeriod()).Select(x => averageColor).ToList().ToJson();
+        ColorTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => x.PerformanceFactorPeriod()).Select(x => averageColor).Take(1).ToList().ToJson();
 
         PerformanceFactorDay = Model.GetDays().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
         
@@ -996,6 +1002,8 @@
         DefrostStartsStartYear = Model.GetYears().Select(x => x.DefrostStartsStart).ToList().ToJson(); 
         DefrostStartsEndYear = Model.GetYears().Select(x => x.DefrostStartsEnd).ToList().ToJson(); 
         DefrostStartsDeltaYear = Model.GetYears().Select(x => x.DefrostStartsDelta).ToList().ToJson();
+
+        PerformanceFactorTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => x.PerformanceFactorTotal()).Take(1).ToList().ToJson();
     }
 }
 
@@ -1005,6 +1013,7 @@
   <button class="tablinks" onclick="openTab(event, 'Weeks')">Letzte Wochen</button>
   <button class="tablinks" onclick="openTab(event, 'Months')">Letzte Monate</button>
   <button class="tablinks" onclick="openTab(event, 'Years')">Letzte Jahre</button>
+  <button class="tablinks" onclick="openTab(event, 'Total')">Gesamt</button>
 </div>
 
 <!-- Tab content -->
@@ -2080,6 +2089,15 @@
     </div>
 </div>
 
+<div id="Total" class="tabcontent">
+    <h3>Gesamt</h3>
+    <!--Arbeitszahl-->
+    <div class="chart-style">
+        <div class="chart-container">
+            <canvas id="PerformanceFactorTotal" class="canvas-style"></canvas>
+        </div>
+    </div>
+</div>
 <script>
   function openTabOnLoad(ctx, tabName) {
       // Declare all variables
@@ -3165,6 +3183,12 @@
             @Html.Raw(DefrostStartsStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(DefrostStartsDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(DefrostStartsEndYear), @Html.Raw(EndColorYear)); 
+    }
+    if(tabName === "Total"){
+       drawBarChartTotal("PerformanceFactorTotal",
+            "Arbeitszahl",
+            @Html.Raw(XLabelsTotal),
+            @Html.Raw(PerformanceFactorTotal), @Html.Raw(ColorTotal));
     }
   }  
   function openTab(evt, tabName) {

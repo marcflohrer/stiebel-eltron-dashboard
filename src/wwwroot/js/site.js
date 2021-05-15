@@ -168,7 +168,6 @@
         type: 'line'
     });
 };
-
 ;function drawStartEndChart (chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
     drawStartEndChartInternal('day', chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
 }
@@ -211,7 +210,7 @@ function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsC
             display: false
         }
     }];
-    if(period === 'week'){
+    if(period === 'week' || period === 'total'){
         xAxes = [{
             gridLines: {
               display: false
@@ -255,4 +254,7 @@ function drawBarChartMonth(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
 }
 function drawBarChartYear(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
     drawBarChartInternal('year', chartName, chartTitle, xAxisLabel, Ys, YsColors);
+}
+function drawBarChartTotal(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
+    drawBarChartInternal('total', chartName, chartTitle, xAxisLabel, Ys, YsColors);
 }
