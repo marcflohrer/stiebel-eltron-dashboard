@@ -1,4 +1,5 @@
 using StiebelEltronApiServer.Models;
+using System;
 
 namespace StiebelEltronApiServer.Extensions {
     public static class HeatPumpDataPerPeriodExtensions {
@@ -13,11 +14,8 @@ namespace StiebelEltronApiServer.Extensions {
 
         public static double? PerformanceFactorTotal (this HeatPumpDataPerPeriod heatPumpDataPerPeriod) 
         {
-            var heatQuantityProducedInTotal = heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalEnd;
-            var hotWaterProducedInTotal = heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalEnd;
-            var powerConsumedForHeat = heatPumpDataPerPeriod.PowerConsumptionHeatingSumEnd - heatPumpDataPerPeriod.PowerConsumptionHotWaterSumEnd;
-            var powerConsumedForHotWater = heatPumpDataPerPeriod.PowerConsumptionHotWaterDayMax - heatPumpDataPerPeriod.PowerConsumptionHotWaterDayMin;
-            return (heatQuantityProducedInTotal + hotWaterProducedInTotal) / (powerConsumedForHeat + powerConsumedForHotWater);
+            return (heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalEnd + heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalEnd) 
+                    / (heatPumpDataPerPeriod.PowerConsumptionHeatingSumEnd + heatPumpDataPerPeriod.PowerConsumptionHotWaterSumEnd);
          } 
 
         public static HeatPumpDataPerPeriod UpdateWith (this HeatPumpDataPerPeriod heatPumpDataPerPeriod, HeatPumpDataPerPeriod update) {
