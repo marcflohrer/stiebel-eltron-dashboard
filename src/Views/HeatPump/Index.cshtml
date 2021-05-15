@@ -514,7 +514,7 @@
     else
     {
         XLabelsDay = Model.GetDays().Select(x => new DateTime((int)x.Year, 1,1).Add(TimeSpan.FromDays(x.PeriodNumber))).ToList().ToJson();
-        XLabelsWeek = Model.GetWeeks().Select(x => new DateTime((int)x.Year, 1,1).GetMondayOfWeek((int)x.Year, x.PeriodNumber, new CultureInfo("de-DE"))).ToList().ToJson();
+        XLabelsWeek = Model.GetWeeks().Select(x => $"KW {x.PeriodNumber}").ToList().ToJson();
         XLabelsMonth = Model.GetMonths().Select(x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1)).ToList().ToJson();
         XLabelsYear = Model.GetYears().Select(x => new DateTime((int)x.Year, 1,1)).ToList().ToJson();
 
@@ -546,9 +546,9 @@
         MaxColorYear = Model.GetYears().Select(x => x.ReturnTemperatureMax).Select(c => maxColor).ToList().ToJson();
         AverageColorYear = Model.GetYears().Select(x => x.ReturnTemperatureAverage).Select(c => averageColor).ToList().ToJson();        
 
-        PerformanceFactorStartDay = Model.GetDays().Select(x => x.PerformanceFactorStart()).ToList().ToJson();
-        PerformanceFactorDeltaDay = Model.GetDays().Select(x => x.PerformanceFactorDelta()).ToList().ToJson();
-        PerformanceFactorEndDay = Model.GetDays().Select(x => x.PerformanceFactorEnd()).ToList().ToJson();
+        PerformanceFactorStartDay = Model.GetDays().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
+        PerformanceFactorDeltaDay = Model.GetDays().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
+        PerformanceFactorEndDay = Model.GetDays().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
         
         ReturnTemperatureMinDay = Model.GetDays().Select(x => x.ReturnTemperatureMin).ToList().ToJson(); 
         ReturnTemperatureMaxDay = Model.GetDays().Select(x => x.ReturnTemperatureMax).ToList().ToJson();
@@ -662,9 +662,9 @@
         DefrostStartsEndDay = Model.GetDays().Select(x => x.DefrostStartsEnd).ToList().ToJson(); 
         DefrostStartsDeltaDay = Model.GetDays().Select(x => x.DefrostStartsDelta).ToList().ToJson();
         
-        PerformanceFactorStartWeek = Model.GetWeeks().Select(x => x.PerformanceFactorStart()).ToList().ToJson();
-        PerformanceFactorDeltaWeek = Model.GetWeeks().Select(x => x.PerformanceFactorDelta()).ToList().ToJson();
-        PerformanceFactorEndWeek =   Model.GetWeeks().Select(x => x.PerformanceFactorEnd()).ToList().ToJson();
+        PerformanceFactorStartWeek = Model.GetWeeks().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
+        PerformanceFactorDeltaWeek = Model.GetWeeks().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
+        PerformanceFactorEndWeek =   Model.GetWeeks().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
 
         ReturnTemperatureMinWeek = Model.GetWeeks().Select(x => x.ReturnTemperatureMin).ToList().ToJson(); 
         ReturnTemperatureMaxWeek = Model.GetWeeks().Select(x => x.ReturnTemperatureMax).ToList().ToJson();
@@ -778,9 +778,9 @@
         DefrostStartsEndWeek = Model.GetWeeks().Select(x => x.DefrostStartsEnd).ToList().ToJson(); 
         DefrostStartsDeltaWeek = Model.GetWeeks().Select(x => x.DefrostStartsDelta).ToList().ToJson();
         
-        PerformanceFactorStartMonth = Model.GetMonths().Select(x => x.PerformanceFactorStart()).ToList().ToJson();
-        PerformanceFactorDeltaMonth = Model.GetMonths().Select(x => x.PerformanceFactorDelta()).ToList().ToJson();
-        PerformanceFactorEndMonth = Model.GetMonths().Select(x => x.PerformanceFactorEnd()).ToList().ToJson();
+        PerformanceFactorStartMonth = Model.GetMonths().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
+        PerformanceFactorDeltaMonth = Model.GetMonths().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
+        PerformanceFactorEndMonth = Model.GetMonths().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
         
         ReturnTemperatureMinMonth = Model.GetMonths().Select(x => x.ReturnTemperatureMin).ToList().ToJson(); 
         ReturnTemperatureMaxMonth = Model.GetMonths().Select(x => x.ReturnTemperatureMax).ToList().ToJson();
@@ -894,9 +894,9 @@
         DefrostStartsEndMonth = Model.GetMonths().Select(x => x.DefrostStartsEnd).ToList().ToJson(); 
         DefrostStartsDeltaMonth = Model.GetMonths().Select(x => x.DefrostStartsDelta).ToList().ToJson();
         
-        PerformanceFactorStartYear = Model.GetYears().Select(x => x.PerformanceFactorStart()).ToList().ToJson();
-        PerformanceFactorDeltaYear = Model.GetYears().Select(x => x.PerformanceFactorDelta()).ToList().ToJson();
-        PerformanceFactorEndDay = Model.GetYears().Select(x => x.PerformanceFactorEnd()).ToList().ToJson();
+        PerformanceFactorStartYear = Model.GetYears().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
+        PerformanceFactorDeltaYear = Model.GetYears().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
+        PerformanceFactorEndYear = Model.GetYears().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
 
         ReturnTemperatureMinYear = Model.GetYears().Select(x => x.ReturnTemperatureMin).ToList().ToJson(); 
         ReturnTemperatureMaxYear = Model.GetYears().Select(x => x.ReturnTemperatureMax).ToList().ToJson();
