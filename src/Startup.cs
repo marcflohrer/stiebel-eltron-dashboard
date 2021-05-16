@@ -85,15 +85,23 @@ namespace StiebelEltronDashboard
                 .AddTransient<IHeatPumpStatisticsCalculator, HeatPumpStatisticsCalculator>()
                 .AddHostedService<ApplicationLifetimeService>()
                 .Configure<HostOptions>(opts => opts.ShutdownTimeout = TimeSpan.FromSeconds(45))
+                // Executes at every 30th minute.
                 .AddCronJob<CollectHeatPumpDataJob>(c =>
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
                     c.CronExpression = @"*/30 * * * *";
                 })
+                // Executes every day at 00:00
                 .AddCronJob<HeatPumpStatisticsCalculatorJob>(c =>
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
                     c.CronExpression = @"0 0 * * *";
+                })
+                // Executes every day at 13:00
+                .AddCronJob<DeleteOldHeatPumpStatisticsJob>(c =>
+                {
+                    c.TimeZoneInfo = TimeZoneInfo.Local;
+                    c.CronExpression = @"0 13 * * *";
                 });
 
             services.AddIdentityCore<ApplicationUser>()
