@@ -104,7 +104,10 @@ Here is a screen shot of the dashboard:
 
 You need docker and docker-compose on the machine where you want to run the application:
 
+* git
 * docker
+* docker-compose
+* dotnet
 
 ### Start the app
 
@@ -151,21 +154,23 @@ You need docker and docker-compose on the machine where you want to run the appl
 
    For detailled instructions on how to install docker-compose an a raspberry pi see [here (English)](https://devdojo.com/bobbyiliev/how-to-install-docker-and-docker-compose-on-raspberry-pi).
 
-4. Before starting the app for the first time on a specific machine go to the **src** folder and run:
+4. To install dotnet run read the [official documentation](https://docs.microsoft.com/de-de/dotnet/core/install/linux-debian)
+
+5. Before starting the app for the first time on a specific machine go to the **src** folder and run:
 
    ```sh
    ./start-dbmigrating.sh
    ```
 
-5. Start the app:
+6. Start the app:
 
    ```sh
    ./startup-app.sh
    ```
   
-6. Open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
+7. Open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
 
-7. If you want to contribute to the project and you need to change the database structure you can use the following script to check if your database changes were successful:
+8. If you want to contribute to the project and you need to change the database structure you can use the following script to check if your database changes were successful:
 
    ```sh
    ./start-dbscaffolding.sh
