@@ -98,38 +98,7 @@ Here is a screen shot of the dashboard:
 ## Known limitations
 
 * This project has only been tested with the heat pump version WPL 20 A.
-* The dashboard labels are German and there is no option to change languages.
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-First thing should be to change the default database password in the .env file:
-
-  ```.env
-  DatabasePassword="YourStr0ngP@ssword!"
-  DatabaseConnectionString="Server=db;Database=master;User=sa;Password=YourStr0ngP@ssword!;"
-  ServiceWeltUser="<My-ServiceWelt-User-Name-Goes-here>"
-  ServiceWeltPassword="<Y0urStr0ng$ἔrvicἔWἔltP@sswØrd>"
-  ServiceWeltUrl="http://192.XXX.XXX"
-  ```
-
-To start up the app run
-
-  ```sh
-  startup-app.sh
-  ```
-
-To adjust the database structure to the database description in the project:
-
-  ```sh
-  start-dbmigrating.sh
-  ```
-
-To reverse engineer the database structure run
-
-  ```sh
-  start-dbscaffolding.sh
-  ```
+* The dashboard labels are partly in German and there is no option to change the language.
 
 ### Prerequisites
 
@@ -137,24 +106,67 @@ You need docker and docker-compose on the machine where you want to run the appl
 
 * docker
 
-### Installation
+### Start the app
 
-1. Clone the repo:
+1. Clone the repo on a raspberry pi for example:
 
    ```sh
    git clone https://github.com/your_username_/Project-Name.git
    ```
 
-2. Install docker:
+2. Put a .env file in the **src** folder with the data that match your environment:
 
-   ```sh
-   brew install docker docker-compose docker-machine xhyve docker-machine-driver-xhyve
+   ```.env
+   DatabasePassword="YourStr0ngP@ssword!"
+   DatabaseConnectionString="Server=db;Database=master;User=sa;Password=YourStr0ngP@ssword!;"
+   ServiceWeltUser="<My-ServiceWelt-User-Name-Goes-here>"
+   ServiceWeltPassword="<Y0urStr0ng$ἔrvicἔWἔltP@sswØrd>"
+   ServiceWeltUrl="http://192.XXX.XXX"
    ```
 
-3. Start the app:
+3. Install docker & docker-compose:
 
    ```sh
-   startup-app.sh
+   curl -fsSL https://get.docker.com -o get-docker.sh
+   sh get-docker.sh
+   sudo usermod -aG docker $USER
+   ```
+
+   Restart the pi and check if it was successful:
+
+   ```sh
+   docker container run hello-world
+   ```
+
+   For detailled instructions on how to install docker an a raspberry pi see [here (German)](https://www.randombrick.de/raspberry-pi-docker-installieren-und-nutzen/).
+
+   Then install docker-compose:
+
+   ```sh
+   sudo apt-get install libffi-dev libssl-dev
+   sudo apt install python3-dev
+   sudo apt-get install -y python3 python3-pip
+   sudo pip3 install docker-compose
+   ```
+
+   For detailled instructions on how to install docker-compose an a raspberry pi see [here (English)](https://devdojo.com/bobbyiliev/how-to-install-docker-and-docker-compose-on-raspberry-pi).
+
+4. Before starting the app for the first time on a specific machine go to the **src** folder and run:
+
+   ```sh
+   ./start-dbmigrating.sh
+   ```
+
+5. Start the app:
+
+   ```sh
+   ./startup-app.sh
    ```
   
-4. Open [http://localhost](http://localhost) in any browser.
+6. Open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
+
+7. If you want to contribute to the project and you need to change the database structure you can use the following script to check if your database changes were successful:
+
+   ```sh
+   ./start-dbscaffolding.sh
+   ```
