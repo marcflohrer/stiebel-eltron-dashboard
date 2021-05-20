@@ -114,7 +114,7 @@ You need docker and docker-compose on the machine where you want to run the appl
 1. Clone the repo on a raspberry pi for example:
 
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/marcflohrer/stiebel-eltron-dashboard
    ```
 
 2. Put a .env file in the **src** folder with the data that match your environment:
