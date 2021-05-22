@@ -110,7 +110,7 @@ You need docker and docker-compose on the machine where you want to run the appl
 2. Clone the repo:
 
    ```sh
-   git clone https://github.com/marcflohrer/stiebel-eltron-dashboard   
+   git clone https://github.com/marcflohrer/stiebel-eltron-dashboard
    ```
 
 3. Put a .env file in the **src** folder with the data that match your environment:
