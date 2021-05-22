@@ -19,4 +19,4 @@ COPY --from=publish /app/entrypoint_dbmigrate.sh .
 COPY --from=publish /app .
 COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
 
-ENTRYPOINT ./entrypoint_dbmigrate.sh ${ConnectionString}
+ENTRYPOINT bash ./entrypoint_dbmigrate.sh ${ConnectionString}
