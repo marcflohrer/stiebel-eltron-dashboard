@@ -37,9 +37,8 @@ COPY --from=publish /app/entrypoint.sh .
 COPY --from=publish /app .
 COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
 
-RUN apk update && \
-    apk upgrade --no-cache --available && \
-    apk add icu-libs
+RUN apt-get update && \
+    apt-get upgrade -y
 
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false    
 
