@@ -36,9 +36,6 @@ COPY --from=publish /app/entrypoint.sh .
 COPY --from=publish /app .
 COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
 
-RUN apt-get update && \
-    apt-get upgrade -y
-
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false    
 
 ENTRYPOINT ./entrypoint.sh $ConnectionString $ServiceWeltUrl $ServiceWeltUser $ServiceWeltPassword
