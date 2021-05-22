@@ -15,6 +15,7 @@ services:
             - db             
     db:
         image: "mcr.microsoft.com/azure-sql-edge:latest"
+        user: root        
         container_name: "mssql"
         restart: always        
         ports:
