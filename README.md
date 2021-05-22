@@ -88,6 +88,10 @@ Here is a screen shot of the dashboard:
 
 <img src="src/stiebel-eltron-dashboard.png" alt="Screenshot of the dashboard" style="width:800px;"/>
 
+## Work in progress
+
+Support for arm architecture is currently work in progress.
+
 ## Known limitations
 
 * This project has only been tested with the heat pump version WPL 20 A.
