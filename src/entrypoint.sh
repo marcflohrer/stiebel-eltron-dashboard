@@ -3,11 +3,8 @@
 set -ex
 
 mkdir -p mssql/data
-chown 10001 mssql/data
 mkdir -p mssql/log
-chown 10001 mssql/log
 mkdir -p mssql/secrets
-chown 10001 mssql/secrets
 
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!"
 >&2 echo "Running entrypoint.sh !!!11!!!!!!11!!!!!"

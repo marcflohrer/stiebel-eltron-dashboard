@@ -174,7 +174,7 @@ You need docker and docker-compose on the machine where you want to run the appl
    dotnet --info
    ```  
 
-   ,where ```user``` is the login user of your ubuntu system and  ```191.XXX.XXX``` is the IP address of your raspberry pi in your local network.
+   , where ```user``` is the login user of your ubuntu system and  ```191.XXX.XXX``` is the IP address of your raspberry pi in your local network.
    If everything was successful the output of the command ```dotnet --info``` looks something like this:
 
    ```sh
@@ -213,7 +213,7 @@ You need docker and docker-compose on the machine where you want to run the appl
   
 8. Open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
 
-9.  If you want to contribute to the project and you need to change the database structure you can use the following script to check if your database changes were successful:
+9. If you want to contribute to the project and you need to change the database structure you can use the following script to check if your database changes were successful:
 
    ```sh
    ./start-dbscaffolding.sh
