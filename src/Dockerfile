@@ -16,7 +16,6 @@ RUN chmod +x ./entrypoint.sh
 
 FROM build AS publish
 RUN dotnet publish -c Release -o /app stiebel-eltron-dashboard.csproj
-RUN chmod +x ./stiebel-eltron-dashboard
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS final
 ARG ConnectionString=default_connection_string

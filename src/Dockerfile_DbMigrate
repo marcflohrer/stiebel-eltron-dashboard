@@ -6,7 +6,6 @@ COPY stiebel-eltron-dashboard.csproj .
 RUN dotnet restore
 COPY . .
 RUN dotnet build stiebel-eltron-dashboard.csproj -c Release -o /app/build
-RUN chmod +x ./entrypoint_dbmigrate.sh
 
 FROM build AS publish
 RUN dotnet publish stiebel-eltron-dashboard.csproj -c Release -o /app
