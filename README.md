@@ -88,10 +88,6 @@ Here is a screen shot of the dashboard:
 
 <img src="src/stiebel-eltron-dashboard.png" alt="Screenshot of the dashboard" style="width:800px;"/>
 
-## Work in progress
-
-Support for arm architecture is currently work in progress.
-
 ## Known limitations
 
 * This project has only been tested with the heat pump version WPL 20 A.
@@ -105,7 +101,9 @@ You need docker and docker-compose on the machine where you want to run the appl
 * git
 * docker
 * docker-compose
-* dotnet
+* [dotnet 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
+* [armv7](https://en.wikipedia.org/wiki/ARM_architecture)+ && [ubuntu 20.04](https://ubuntu.com/download/desktop?version=20.04&architecture=amd64)
+* x64 && (mac || linux)
 
 ### Start the app
 
