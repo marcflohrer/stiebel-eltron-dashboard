@@ -9,13 +9,13 @@ ARG ServiceWeltPassword=service_welt_password
 ENV ServiceWeltPassword=$ServiceWeltPassword
 WORKDIR /app
 COPY stiebel-eltron-dashboard.csproj .
-RUN dotnet restore --runtime linux-musl-x64 stiebel-eltron-dashboard.csproj
+RUN dotnet restore stiebel-eltron-dashboard.csproj
 COPY . .
-RUN dotnet build --runtime linux-musl-x64 stiebel-eltron-dashboard.csproj
+RUN dotnet build stiebel-eltron-dashboard.csproj
 RUN chmod +x ./entrypoint.sh
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app --runtime linux-musl-x64 stiebel-eltron-dashboard.csproj
+RUN dotnet publish -c Release -o /app stiebel-eltron-dashboard.csproj
 RUN chmod +x ./stiebel-eltron-dashboard
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine@sha256:ddc8c4f8321cde2268e70d2aeeb4549745a15a15fb0d8ab90c19bcb6b6844acb AS final

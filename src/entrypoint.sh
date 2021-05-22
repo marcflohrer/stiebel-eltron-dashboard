@@ -2,6 +2,13 @@
 #!/bin/bash
 set -ex
 
+mkdir -p mssql/data
+chown 10001 mssql/data
+mkdir -p mssql/log
+chown 10001 mssql/log
+mkdir -p mssql/secrets
+chown 10001 mssql/secrets
+
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!"
 >&2 echo "Running entrypoint.sh !!!11!!!!!!11!!!!!"
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!"
@@ -28,7 +35,7 @@ until dotnet user-secrets init && dotnet user-secrets set ServiceWeltPassword "$
 sleep 1
 done
 
-./stiebel-eltron-dashboard
+dotnet stiebel-eltron-dashboard.dll
 
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!1!!!!!!11!!!!!"
 >&2 echo "Running entrypoint.sh :: APP RUNNING !!!!!!!!!!11!!!!!"

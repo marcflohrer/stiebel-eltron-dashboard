@@ -4,9 +4,6 @@
 *** or simply open an issue with the tag "enhancement".
 *** Thanks again! Now go create something AMAZING! :D
 -->
-
-
-
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -31,8 +28,6 @@
   </p>
 </p>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
@@ -52,8 +47,6 @@
     </li>
   </ol>
 </details>
-
-
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -99,6 +92,7 @@ Here is a screen shot of the dashboard:
 
 * This project has only been tested with the heat pump version WPL 20 A.
 * The dashboard labels are partly in German and there is no option to change the language.
+* The first day after starting the application no information are available in the database and the site will show an error "Sequence contains no elements".
 
 ### Prerequisites
 
@@ -111,28 +105,35 @@ You need docker and docker-compose on the machine where you want to run the appl
 
 ### Start the app
 
-1. Clone the repo on a raspberry pi for example:
+1. Install ubuntu on a raspberry pi and [enable ssh](https://linuxhint.com/install_ubuntu_ssh_headless_raspberry_pi_4/).
+
+2. Clone the repo:
 
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/marcflohrer/stiebel-eltron-dashboard   
    ```
 
-2. Put a .env file in the **src** folder with the data that match your environment:
+3. Put a .env file in the **src** folder with the data that match your environment:
 
-   ```.env
-   DatabasePassword="YourStr0ngP@ssword!"
-   DatabaseConnectionString="Server=db;Database=master;User=sa;Password=YourStr0ngP@ssword!;"
-   ServiceWeltUser="<My-ServiceWelt-User-Name-Goes-here>"
-   ServiceWeltPassword="<Y0urStr0ng$ἔrvicἔWἔltP@sswØrd>"
-   ServiceWeltUrl="http://192.XXX.XXX"
+   ```sh
+   cd /stiebel-eltron-dashboard/src
+   touch .env
+   echo 'DatabasePassword="YourStr0ngP@ssword!"' >> .env
+   echo 'DatabaseConnectionString="Server=db;Database=master;User=sa;Password=YourStr0ngP@ssword!;"' 
+   echo 'ServiceWeltUser="<My-ServiceWelt-User-Name-Goes-here>"' >> .env
+   echo 'ServiceWeltPassword="<Y0urStr0ng$ἔrvicἔWἔltP@sswØrd>"' >> .env
+   echo 'ServiceWeltUrl="http://192.XXX.XXX.XX"' >> .env
    ```
 
-3. Install docker & docker-compose:
+4. Install docker & docker-compose:
 
    ```sh
    curl -fsSL https://get.docker.com -o get-docker.sh
    sh get-docker.sh
    sudo usermod -aG docker $USER
+   sudo reboot
+   ssh user@191.XXX.XXX.YY
+   sudo chown root:docker /var/run/docker.sock
    ```
 
    Restart the pi and check if it was successful:
@@ -154,23 +155,61 @@ You need docker and docker-compose on the machine where you want to run the appl
 
    For detailled instructions on how to install docker-compose an a raspberry pi see [here (English)](https://devdojo.com/bobbyiliev/how-to-install-docker-and-docker-compose-on-raspberry-pi).
 
-4. To install dotnet run read the [official documentation](https://docs.microsoft.com/de-de/dotnet/core/install/linux-debian)
+5. To install dotnet run I installed ubuntu 20.10 on my raspberry pi 4 then I executed these commands on the terminal via ssh from the $HOME directory. Check [https://dotnet.microsoft.com/download/dotnet/5.0](https://dotnet.microsoft.com/download/dotnet/5.0) for more recent versions of the dotnet sdk for the arm64 architecture.
 
-5. Before starting the app for the first time on a specific machine go to the **src** folder and run:
+   ```sh
+   wget https://download.visualstudio.microsoft.com/download/pr/af5f1e5b-d544-47af-b730-038e4258641b/bccb3982f5690134ab66748a5afc36c7/dotnet-sdk-5.0.203-linux-arm64.tar.gz
+   mkdir dotnet-64
+   tar zxf dotnet-sdk-5.0.203-linux-arm64.tar.gz -C $HOME/dotnet-64
+   export DOTNET_ROOT=$HOME/dotnet-64
+   export PATH=$HOME/dotnet-64:$PATH
+   echo  'export DOTNET_ROOT=$HOME/dotnet-64' >> ~/.bashrc 
+   echo  'export PATH=$HOME/dotnet-64:$PATH' >> ~/.bashrc 
+   sudo reboot
+   ssh user@191.XXX.XXX
+   dotnet --info
+   ```  
+
+   ,where ```user``` is the login user of your ubuntu system and  ```191.XXX.XXX``` is the IP address of your raspberry pi in your local network.
+   If everything was successful the output of the command ```dotnet --info``` looks something like this:
+
+   ```sh
+   .NET SDK (reflecting any global.json):
+    Version:   5.X.XXX
+    Commit:    383637d63f
+    Runtime Environment:
+    OS Name:     ubuntu
+    OS Version:  2X.XX
+    OS Platform: Linux
+    RID:         ubuntu.2X.XX-arm64
+    Base Path:   /home/ubuntu/dotnet-64/sdk/5.0.XXX/
+   Host (useful for support):
+   Version: 5.X.X
+   Commit:  XXXX
+   .NET SDKs installed:
+   5.0.XXX [/home/ubuntu/dotnet-64/sdk]
+   .NET runtimes installed:
+   Microsoft.AspNetCore.App 5.X.X [/home/user/dotnet-64/shared/Microsoft.AspNetCore.App]
+   Microsoft.NETCore.App 5.0.6 [/home/user/dotnet-64/shared/Microsoft.NETCore.App]
+   To install additional .NET runtimes or SDKs:
+   https://aka.ms/dotnet-download
+   ```
+
+6. Before starting the app for the first time on a specific machine go to the **src** folder and run:
 
    ```sh
    ./start-dbmigrating.sh
    ```
 
-6. Start the app:
+7. Start the app:
 
    ```sh
    ./startup-app.sh
    ```
   
-7. Open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
+8. Open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
 
-8. If you want to contribute to the project and you need to change the database structure you can use the following script to check if your database changes were successful:
+9.  If you want to contribute to the project and you need to change the database structure you can use the following script to check if your database changes were successful:
 
    ```sh
    ./start-dbscaffolding.sh

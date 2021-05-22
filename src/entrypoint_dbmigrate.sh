@@ -3,6 +3,13 @@
 
 set -e
 
+mkdir -p mssql/data
+chown 10001 mssql/data
+mkdir -p mssql/log
+chown 10001 mssql/log
+mkdir -p mssql/secrets
+chown 10001 mssql/secrets
+
 run_cmd="dotnet stiebel-eltron-dashboard.dll"
 
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!"
@@ -47,4 +54,3 @@ done
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!1!"
 >&2 echo "Migration done !!!!!!!11!!!!!"
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11"
-

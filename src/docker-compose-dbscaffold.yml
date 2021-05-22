@@ -14,14 +14,15 @@ services:
         depends_on:
             - db             
     db:
-        image: "mcr.microsoft.com/mssql/server:2019-latest"
+        image: "mcr.microsoft.com/azure-sql-edge:latest"
+        container_name: "mssql"
+        restart: always        
         ports:
-            - "1433:1433" 
-            - "1434:1434" 
-            - "1431:1431"
+            - 1433:1433        
         volumes:
-            - ./mssql/data:/var/opt/mssql/data:rw
-            - ./mssql/logs:/var/opt/mssql/log:rw
+            - ./data/mssql/data/:/var/opt/mssql/data
+            - ./data/mssql/log/:/var/opt/mssql/log
+            - ./data/mssql/secrets/:/var/opt/mssql/secrets
         environment:
-            SA_PASSWORD: ${DatabasePassword}
-            ACCEPT_EULA: "Y"
+            MSSQL_SA_PASSWORD: ${DatabasePassword}
+            ACCEPT_EULA: Y
