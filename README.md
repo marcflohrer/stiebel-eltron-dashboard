@@ -157,7 +157,7 @@ You need docker and docker-compose on the machine where you want to run the appl
 
    For detailled instructions on how to install docker-compose an a raspberry pi see [here (English)](https://devdojo.com/bobbyiliev/how-to-install-docker-and-docker-compose-on-raspberry-pi).
 
-5. To install dotnet run I installed ubuntu 20.10 on my raspberry pi 4 then I executed these commands on the terminal via ssh from the $HOME directory. Check [https://dotnet.microsoft.com/download/dotnet/5.0](https://dotnet.microsoft.com/download/dotnet/5.0) for more recent versions of the dotnet sdk for the arm64 architecture.
+5. To install dotnet run execute the following commands from the $HOME directory of the user you are logged in with. Check [https://dotnet.microsoft.com/download/dotnet/5.0](https://dotnet.microsoft.com/download/dotnet/5.0) for more recent versions of the dotnet sdk for the arm64 architecture.
 
    ```sh
    wget https://download.visualstudio.microsoft.com/download/pr/af5f1e5b-d544-47af-b730-038e4258641b/bccb3982f5690134ab66748a5afc36c7/dotnet-sdk-5.0.203-linux-arm64.tar.gz
@@ -192,7 +192,7 @@ You need docker and docker-compose on the machine where you want to run the appl
    5.0.XXX [/home/ubuntu/dotnet-64/sdk]
    .NET runtimes installed:
    Microsoft.AspNetCore.App 5.X.X [/home/user/dotnet-64/shared/Microsoft.AspNetCore.App]
-   Microsoft.NETCore.App 5.0.6 [/home/user/dotnet-64/shared/Microsoft.NETCore.App]
+   Microsoft.NETCore.App 5.X.X [/home/user/dotnet-64/shared/Microsoft.NETCore.App]
    To install additional .NET runtimes or SDKs:
    https://aka.ms/dotnet-download
    ```
@@ -206,7 +206,7 @@ You need docker and docker-compose on the machine where you want to run the appl
 7. Start the app:
 
    ```sh
-   ./startup-app.sh
+   ./startup-app.sh &
    ```
   
 8. Open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
