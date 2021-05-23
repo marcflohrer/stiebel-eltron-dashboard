@@ -89,13 +89,13 @@ namespace StiebelEltronDashboard
                 .AddCronJob<CollectHeatPumpDataJob>(c =>
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
-                    c.CronExpression = @"* * * * *";
+                    c.CronExpression = @"*/30 * * * *";
                 })
-                // Executes every day at 00:00
+                // Executes every day at 00:00 local time
                 .AddCronJob<HeatPumpStatisticsCalculatorJob>(c =>
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
-                    c.CronExpression = @"*/2 * * * *";
+                    c.CronExpression = @"0 0 * * *";
                 })
                 // Executes every day at 13:00
                 .AddCronJob<DeleteOldHeatPumpStatisticsJob>(c =>
