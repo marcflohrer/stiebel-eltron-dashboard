@@ -61,7 +61,7 @@ namespace StiebelEltronDashboard
             var connection = Configuration.GetConnectionString("DefaultConnection") ?? Configuration["DefaultConnection"];
             if (string.IsNullOrWhiteSpace(connection))
             {
-                throw new Exception("Database connetion is not set.");
+                throw new Exception("Database connection is not set.");
             }
 
             // DbContext pooling: AddDbContextPool enables pooling of DbContext instances. 
@@ -89,13 +89,13 @@ namespace StiebelEltronDashboard
                 .AddCronJob<CollectHeatPumpDataJob>(c =>
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
-                    c.CronExpression = @"*/30 * * * *";
+                    c.CronExpression = @"* * * * *";
                 })
                 // Executes every day at 00:00
                 .AddCronJob<HeatPumpStatisticsCalculatorJob>(c =>
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
-                    c.CronExpression = @"0 0 * * *";
+                    c.CronExpression = @"*/2 * * * *";
                 })
                 // Executes every day at 13:00
                 .AddCronJob<DeleteOldHeatPumpStatisticsJob>(c =>
