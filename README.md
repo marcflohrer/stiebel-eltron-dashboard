@@ -209,7 +209,7 @@ You need docker and docker-compose on the machine where you want to run the appl
    ./startup-app.sh &
    ```
   
-8. Open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
+8. Wait a minute then open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
 
 9. If you want to contribute to the project and you need to change the database structure you can use the following script to check if your database changes were successful:
 
