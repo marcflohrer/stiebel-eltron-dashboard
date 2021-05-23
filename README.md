@@ -15,7 +15,7 @@
 
 <br />
 
-  <h3 align="center">SQL Server on Linux + ASP.NET 5.0 stiebel-eltron-dashboard demo</h3>
+  <h3 align="center">stiebel-eltron-dashboard demo</h3>
 
   <p align="center">
     <br />
