@@ -16,7 +16,18 @@ namespace StiebelEltronDashboard.Extensions
             TimeSpan t = dateTime - unixReferenceDate;
             Console.WriteLine($"ToEpoch: {dateTime.ToShortDateString()} - {unixReferenceDate.ToShortDateString()} = {t.TotalDays} d = {(double)t.TotalMilliseconds}ms");
             return (double)t.TotalMilliseconds;            
-        }                
+        }
+        public static DateTime FirstDateOfWeek(this DateTime jan1, int weekOfYear, CultureInfo cultureInfo)
+        {
+            int daysOffset = (int)cultureInfo.DateTimeFormat.FirstDayOfWeek - (int)jan1.DayOfWeek;
+            DateTime firstWeekDay = jan1.AddDays(daysOffset);
+            int firstWeek = cultureInfo.Calendar.GetWeekOfYear(jan1, cultureInfo.DateTimeFormat.CalendarWeekRule, cultureInfo.DateTimeFormat.FirstDayOfWeek);
+            if ((firstWeek <= 1 || firstWeek >= 52) && daysOffset >= -3)
+            {
+                weekOfYear -= 1;
+            }
+            return firstWeekDay.AddDays(weekOfYear * 7);
+        }
         public static DateTime GetMondayOfWeek (this DateTime dateTime, int year, int weekOfYear, CultureInfo cultureInfo) 
         {
             if(weekOfYear > 53){

@@ -502,7 +502,7 @@
     
     var PerformanceFactorTotal = "{}";
     var newestRecord = DateTime.MinValue;
-
+    
     if (Model == null)
     {
         Console.WriteLine("No data showed up in HeatPump/index.cshtml!");
@@ -510,7 +510,7 @@
     else
     {
         XLabelsDay = Model.GetDays().Select(x => new DateTime((int)x.Year, 1, 1).Add(TimeSpan.FromDays(x.PeriodNumber))).ToList().ToJson();
-        XLabelsWeek = Model.GetWeeks().Select(x => $"KW {x.PeriodNumber}").ToList().ToJson();
+        XLabelsWeek = Model.GetWeeks().Select(x => new DateTime((int)x.Year, 1, 1).FirstDateOfWeek((int)x.PeriodNumber, new System.Globalization.CultureInfo("de-DE"))).ToList().ToJson();
         XLabelsMonth = Model.GetMonths().Select(x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1)).ToList().ToJson();
         XLabelsYear = Model.GetYears().Select(x => new DateTime((int)x.Year, 1,1)).ToList().ToJson();
         newestRecord = Model.Select(m => m.DateUpdated).Max();
@@ -1021,265 +1021,265 @@
   <h3>Tagesübersicht</h3>
     <!--Arbeitszahl-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PerformanceFactorDayChart">
             <canvas id="PerformanceFactorDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--RÜCKLAUFTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReturnTemperatureDayChart">
             <canvas id="ReturnTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VORLAUFTEMPERATUR-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="InletTemperatureDayChart">
             <canvas id="InletTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="AntiFreezeTemperatureDayChart">
             <canvas id="AntiFreezeTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--AUSSENTEMPERATUR -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="OutdoorTemperatureDayChart">
             <canvas id="OutdoorTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--FORTLUFTTEMPERATUR °C -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ExhaustAirTemperatureDayChart">
             <canvas id="ExhaustAirTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERDAMPFERTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="EvaporatorTemperatureDayChart">
             <canvas id="EvaporatorTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--Gesamtverbrauch-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="TotalPowerConsumptionDayChart">
             <canvas id="TotalPowerConsumptionDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERDICHTEREINTRITTSTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="CompressorInletTemperatureDayChart">
             <canvas id="CompressorInletTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ZWISCHENEINSPRITZUNGSTEMP °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="IntermediateInjectionTemperatureDayChart">
             <canvas id="IntermediateInjectionTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--HEISSGASTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="HotGasTemperatureDayChart">
             <canvas id="HotGasTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERFLÜSSIGERTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="CondenserTemperatureDayChart">
             <canvas id="CondenserTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ÖLSUMPFTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="OilSumpTemperatureDayChart">
             <canvas id="OilSumpTemperatureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK NIEDERDRUCK bar-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="LowPressureDayChart">
             <canvas id="LowPressureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK MITTELDRUCK bar -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PressureMediumDayChart">
             <canvas id="PressureMediumDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK HOCHDRUCK bar -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="HighPressureDayChart">
             <canvas id="HighPressureDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--WP WASSERVOLUMENSTROM l/min-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="WaterVolumeCurrentDayChart">
             <canvas id="WaterVolumeCurrentDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--SPANNUNG INVERTER V-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VoltageInverterDayChart">
             <canvas id="VoltageInverterDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ISTDREHZAHL VERDICHTER Hz-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ActualSpeedDensifierDayChart">
             <canvas id="ActualSpeedDensifierDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--SOLLDREHZAHL VERDICHTER Hz-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="SettingSpeedCompressedDayChart">
             <canvas id="SettingSpeedCompressedDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--LÜFTERLEISTUNG REL % -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="FanPowerRelDayChart">
             <canvas id="FanPowerRelDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHeatingDayChart">
             <canvas id="VaporizerHeatQuantityHeatingDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN SUMME  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHeatingTotalDayChart">
             <canvas id="VaporizerHeatQuantityHeatingTotalDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHotWaterDayChart">
             <canvas id="VaporizerHeatQuantityHotWaterDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh  -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHotWaterTotalDayChart">
             <canvas id="VaporizerHeatQuantityHotWaterTotalDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ HEIZEN SUMME   Wh  -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStagesHeatQuantityHeatingSumDayChart">
             <canvas id="ReheatingStagesHeatQuantityHeatingSumDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ WARMWASSER SUMME   Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStagesHeatQuantityHotWaterTotalDayChart">
             <canvas id="ReheatingStagesHeatQuantityHotWaterTotalDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN TAG   Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHeatingDayChart">
             <canvas id="PowerConsumptionHeatingDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHeatingSumDayChart">
             <canvas id="PowerConsumptionHeatingSumDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHotWaterDayChart">
             <canvas id="PowerConsumptionHotWaterDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHotWaterSumDayChart">
             <canvas id="PowerConsumptionHotWaterSumDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerHeatingDayChart">
             <canvas id="RuntimeVaporizerHeatingDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerHotWaterDayChart">
             <canvas id="RuntimeVaporizerHotWaterDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerDefrostDayChart">
             <canvas id="RuntimeVaporizerDefrostDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ 1-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStages1DayChart">
             <canvas id="ReheatingStages1Day" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ 2-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStages2DayChart">
             <canvas id="ReheatingStages2Day" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ZEIT ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="DefrostTimeDayChart">
             <canvas id="DefrostTimeDay" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--STARTS ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="DefrostStartsDayChart">
             <canvas id="DefrostStartsDay" class="canvas-style"></canvas>
         </div>
     </div>
@@ -1289,265 +1289,265 @@
   <h3>Wochenübersicht</h3>
       <!--Arbeitszahl-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PerformanceFactorWeekChart">
             <canvas id="PerformanceFactorWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--RÜCKLAUFTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReturnTemperatureWeekChart">
             <canvas id="ReturnTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VORLAUFTEMPERATUR-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="InletTemperatureWeekChart">
             <canvas id="InletTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="AntiFreezeTemperatureWeekChart">
             <canvas id="AntiFreezeTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--AUSSENTEMPERATUR -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="OutdoorTemperatureWeekChart">
             <canvas id="OutdoorTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--FORTLUFTTEMPERATUR °C -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ExhaustAirTemperatureWeekChart">
             <canvas id="ExhaustAirTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERDAMPFERTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="EvaporatorTemperatureWeekChart">
             <canvas id="EvaporatorTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--Gesamtverbrauch-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="TotalPowerConsumptionWeekChart">
             <canvas id="TotalPowerConsumptionWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERDICHTEREINTRITTSTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="CompressorInletTemperatureWeekChart">
             <canvas id="CompressorInletTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ZWISCHENEINSPRITZUNGSTEMP °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="IntermediateInjectionTemperatureWeekChart">
             <canvas id="IntermediateInjectionTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--HEISSGASTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="HotGasTemperatureWeekChart">
             <canvas id="HotGasTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERFLÜSSIGERTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="CondenserTemperatureWeekChart">
             <canvas id="CondenserTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ÖLSUMPFTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="OilSumpTemperatureWeekChart">
             <canvas id="OilSumpTemperatureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK NIEDERDRUCK bar-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="LowPressureWeekChart">
             <canvas id="LowPressureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK MITTELDRUCK bar -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PressureMediumWeekChart">
             <canvas id="PressureMediumWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK HOCHDRUCK bar -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="HighPressureWeekChart">
             <canvas id="HighPressureWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--WP WASSERVOLUMENSTROM l/min-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="WaterVolumeCurrentWeekChart">
             <canvas id="WaterVolumeCurrentWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--SPANNUNG INVERTER V-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VoltageInverterWeekChart">
             <canvas id="VoltageInverterWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ISTDREHZAHL VERDICHTER Hz-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ActualSpeedDensifierWeekChart">
             <canvas id="ActualSpeedDensifierWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--SOLLDREHZAHL VERDICHTER Hz-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="SettingSpeedCompressedWeekChart">
             <canvas id="SettingSpeedCompressedWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--LÜFTERLEISTUNG REL % -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="FanPowerRelWeekChart">
             <canvas id="FanPowerRelWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHeatingWeekChart">
             <canvas id="VaporizerHeatQuantityHeatingWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN SUMME  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHeatingTotalWeekChart">
             <canvas id="VaporizerHeatQuantityHeatingTotalWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHotWaterWeekChart">
             <canvas id="VaporizerHeatQuantityHotWaterWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh  -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHotWaterTotalWeekChart">
             <canvas id="VaporizerHeatQuantityHotWaterTotalWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ HEIZEN SUMME   Wh  -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStagesHeatQuantityHeatingSumWeekChart">
             <canvas id="ReheatingStagesHeatQuantityHeatingSumWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ WARMWASSER SUMME   Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStagesHeatQuantityHotWaterTotalWeekChart">
             <canvas id="ReheatingStagesHeatQuantityHotWaterTotalWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN TAG   Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHeatingWeekChart">
             <canvas id="PowerConsumptionHeatingWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHeatingSumWeekChart">
             <canvas id="PowerConsumptionHeatingSumWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHotWaterWeekChart">
             <canvas id="PowerConsumptionHotWaterWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHotWaterSumWeekChart">
             <canvas id="PowerConsumptionHotWaterSumWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerHeatingWeekChart">
             <canvas id="RuntimeVaporizerHeatingWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerHotWaterWeekChart">
             <canvas id="RuntimeVaporizerHotWaterWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerDefrostWeekChart">
             <canvas id="RuntimeVaporizerDefrostWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ 1-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStages1WeekChart">
             <canvas id="ReheatingStages1Week" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ 2-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStages2WeekChart">
             <canvas id="ReheatingStages2Week" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ZEIT ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="DefrostTimeWeekChart">
             <canvas id="DefrostTimeWeek" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--STARTS ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="DefrostStartsWeekChart">
             <canvas id="DefrostStartsWeek" class="canvas-style"></canvas>
         </div>
     </div>
@@ -1557,265 +1557,265 @@
   <h3>Monatsübersicht</h3>
     <!--Arbeitszahl-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PerformanceFactorMonthChart">
             <canvas id="PerformanceFactorMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--RÜCKLAUFTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReturnTemperatureMonthChart">
             <canvas id="ReturnTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VORLAUFTEMPERATUR-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="InletTemperatureMonthChart">
             <canvas id="InletTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="AntiFreezeTemperatureMonthChart">
             <canvas id="AntiFreezeTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--AUSSENTEMPERATUR -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="OutdoorTemperatureMonthChart">
             <canvas id="OutdoorTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--FORTLUFTTEMPERATUR °C -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ExhaustAirTemperatureMonthChart">
             <canvas id="ExhaustAirTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERDAMPFERTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="EvaporatorTemperatureMonthChart">
             <canvas id="EvaporatorTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--Gesamtverbrauch-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="TotalPowerConsumptionMonthChart">
             <canvas id="TotalPowerConsumptionMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERDICHTEREINTRITTSTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="CompressorInletTemperatureMonthChart">
             <canvas id="CompressorInletTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ZWISCHENEINSPRITZUNGSTEMP °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="IntermediateInjectionTemperatureMonthChart">
             <canvas id="IntermediateInjectionTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--HEISSGASTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="HotGasTemperatureMonthChart">
             <canvas id="HotGasTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERFLÜSSIGERTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="CondenserTemperatureMonthChart">
             <canvas id="CondenserTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ÖLSUMPFTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="OilSumpTemperatureMonthChart">
             <canvas id="OilSumpTemperatureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK NIEDERDRUCK bar-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="LowPressureMonthChart">
             <canvas id="LowPressureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK MITTELDRUCK bar -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PressureMediumMonthChart">
             <canvas id="PressureMediumMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK HOCHDRUCK bar -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="HighPressureMonthChart">
             <canvas id="HighPressureMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--WP WASSERVOLUMENSTROM l/min-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="WaterVolumeCurrentMonthChart">
             <canvas id="WaterVolumeCurrentMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--SPANNUNG INVERTER V-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VoltageInverterMonthChart">
             <canvas id="VoltageInverterMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ISTDREHZAHL VERDICHTER Hz-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ActualSpeedDensifierMonthChart">
             <canvas id="ActualSpeedDensifierMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--SOLLDREHZAHL VERDICHTER Hz-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="SettingSpeedCompressedMonthChart">
             <canvas id="SettingSpeedCompressedMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--LÜFTERLEISTUNG REL % -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="FanPowerRelMonthChart">
             <canvas id="FanPowerRelMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHeatingMonthChart">
             <canvas id="VaporizerHeatQuantityHeatingMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN SUMME  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHeatingTotalMonthChart">
             <canvas id="VaporizerHeatQuantityHeatingTotalMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHotWaterMonthChart">
             <canvas id="VaporizerHeatQuantityHotWaterMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh  -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHotWaterTotalMonthChart">
             <canvas id="VaporizerHeatQuantityHotWaterTotalMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ HEIZEN SUMME   Wh  -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStagesHeatQuantityHeatingSumMonthChart">
             <canvas id="ReheatingStagesHeatQuantityHeatingSumMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ WARMWASSER SUMME   Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStagesHeatQuantityHotWaterTotalMonthChart">
             <canvas id="ReheatingStagesHeatQuantityHotWaterTotalMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN TAG   Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHeatingMonthChart">
             <canvas id="PowerConsumptionHeatingMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHeatingSumMonthChart">
             <canvas id="PowerConsumptionHeatingSumMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHotWaterMonthChart">
             <canvas id="PowerConsumptionHotWaterMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHotWaterSumMonthChart">
             <canvas id="PowerConsumptionHotWaterSumMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerHeatingMonthChart">
             <canvas id="RuntimeVaporizerHeatingMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerHotWaterMonthChart">
             <canvas id="RuntimeVaporizerHotWaterMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerDefrostMonthChart">
             <canvas id="RuntimeVaporizerDefrostMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ 1-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStages1MonthChart">
             <canvas id="ReheatingStages1Month" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ 2-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStages2MonthChart">
             <canvas id="ReheatingStages2Month" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ZEIT ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="DefrostTimeMonthChart">
             <canvas id="DefrostTimeMonth" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--STARTS ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="DefrostStartsMonthChart">
             <canvas id="DefrostStartsMonth" class="canvas-style"></canvas>
         </div>
     </div>
@@ -1825,265 +1825,265 @@
   <h3>Jahresübersicht</h3>
     <!--Arbeitszahl-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PerformanceFactorYearChart">
             <canvas id="PerformanceFactorYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--RÜCKLAUFTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReturnTemperatureYearChart">
             <canvas id="ReturnTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VORLAUFTEMPERATUR-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="InletTemperatureYearChart">
             <canvas id="InletTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="AntiFreezeTemperatureYearChart">
             <canvas id="AntiFreezeTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--AUSSENTEMPERATUR -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="OutdoorTemperatureYearChart">
             <canvas id="OutdoorTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--FORTLUFTTEMPERATUR °C -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ExhaustAirTemperatureYearChart">
             <canvas id="ExhaustAirTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERDAMPFERTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="EvaporatorTemperatureYearChart">
             <canvas id="EvaporatorTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--Gesamtverbrauch-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="TotalPowerConsumptionYearChart">
             <canvas id="TotalPowerConsumptionYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERDICHTEREINTRITTSTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="CompressorInletTemperatureYearChart">
             <canvas id="CompressorInletTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ZWISCHENEINSPRITZUNGSTEMP °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="IntermediateInjectionTemperatureYearChart">
             <canvas id="IntermediateInjectionTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--HEISSGASTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="HotGasTemperatureYearChart">
             <canvas id="HotGasTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VERFLÜSSIGERTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="CondenserTemperatureYearChart">
             <canvas id="CondenserTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ÖLSUMPFTEMPERATUR °C-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="OilSumpTemperatureYearChart">
             <canvas id="OilSumpTemperatureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK NIEDERDRUCK bar-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="LowPressureYearChart">
             <canvas id="LowPressureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK MITTELDRUCK bar -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PressureMediumYearChart">
             <canvas id="PressureMediumYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--DRUCK HOCHDRUCK bar -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="HighPressureYearChart">
             <canvas id="HighPressureYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--WP WASSERVOLUMENSTROM l/min-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="WaterVolumeCurrentYearChart">
             <canvas id="WaterVolumeCurrentYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--SPANNUNG INVERTER V-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VoltageInverterYearChart">
             <canvas id="VoltageInverterYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ISTDREHZAHL VERDICHTER Hz-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ActualSpeedDensifierYearChart">
             <canvas id="ActualSpeedDensifierYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--SOLLDREHZAHL VERDICHTER Hz-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="SettingSpeedCompressedYearChart">
             <canvas id="SettingSpeedCompressedYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--LÜFTERLEISTUNG REL % -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="FanPowerRelYearChart">
             <canvas id="FanPowerRelYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHeatingYearChart">
             <canvas id="VaporizerHeatQuantityHeatingYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN SUMME  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHeatingTotalYearChart">
             <canvas id="VaporizerHeatQuantityHeatingTotalYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHotWaterYearChart">
             <canvas id="VaporizerHeatQuantityHotWaterYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh  -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="VaporizerHeatQuantityHotWaterTotalYearChart">
             <canvas id="VaporizerHeatQuantityHotWaterTotalYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ HEIZEN SUMME   Wh  -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStagesHeatQuantityHeatingSumYearChart">
             <canvas id="ReheatingStagesHeatQuantityHeatingSumYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ WARMWASSER SUMME   Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStagesHeatQuantityHotWaterTotalYearChart">
             <canvas id="ReheatingStagesHeatQuantityHotWaterTotalYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN TAG   Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHeatingYearChart">
             <canvas id="PowerConsumptionHeatingYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD HEIZEN SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHeatingSumYearChart">
             <canvas id="PowerConsumptionHeatingSumYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER TAG  Wh -->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHotWaterYearChart">
             <canvas id="PowerConsumptionHotWaterYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="PowerConsumptionHotWaterSumYearChart">
             <canvas id="PowerConsumptionHotWaterSumYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER SUMME  Wh-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerHeatingYearChart">
             <canvas id="RuntimeVaporizerHeatingYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD WARMWASSER-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerHotWaterYearChart">
             <canvas id="RuntimeVaporizerHotWaterYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--VD ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="RuntimeVaporizerDefrostYearChart">
             <canvas id="RuntimeVaporizerDefrostYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ 1-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStages1YearChart">
             <canvas id="ReheatingStages1Year" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--NHZ 2-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="ReheatingStages2YearChart">
             <canvas id="ReheatingStages2Year" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--ZEIT ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="DefrostTimeYearChart">
             <canvas id="DefrostTimeYear" class="canvas-style"></canvas>
         </div>
     </div>
 
     <!--STARTS ABTAUEN-->
     <div class="chart-style">
-        <div class="chart-container">
+        <div class="chart-container" id="DefrostStartsYearChart">
             <canvas id="DefrostStartsYear" class="canvas-style"></canvas>
         </div>
     </div>
@@ -2093,11 +2093,14 @@
     <h3>Gesamt</h3>
     <!--Arbeitszahl-->
     <div class="chart-style-center">
-        <div class="chart-container">
+        <div class="chart-container" id="PerformanceFactorTotalChart">
             <canvas id="PerformanceFactorTotal" class="canvas-style"></canvas>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
 <script>
   function openTabOnLoad(ctx, tabName) {
       // Declare all variables
@@ -2118,7 +2121,7 @@
   // Show the current tab, and add an "active" class to the button that opened the tab
   document.getElementById(tabName).style.display = "block";
   ctx.className += " active";
-    if(tabName === "Days"){
+    if(tabName === "Days"){        
         ;drawBarChartDay("PerformanceFactorDay",
             "Arbeitszahl",
             @Html.Raw(XLabelsDay),
@@ -3198,9 +3201,4 @@ window.addEventListener("load", function(){
     openTabOnLoad(document.getElementById('Days'), 'Days');
 });
 </script>
-<script src="//ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 <script src="js/site.js" asp-append-version="true"></script>
