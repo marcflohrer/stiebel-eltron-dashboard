@@ -3,8 +3,6 @@
 set -ex
 
 mkdir -p mssql/data
-mkdir -p mssql/log
-mkdir -p mssql/secrets
 
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!"
 >&2 echo "Running entrypoint.sh !!!11!!!!!!11!!!!!"

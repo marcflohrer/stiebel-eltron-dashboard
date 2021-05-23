@@ -23,13 +23,10 @@ services:
         container_name: "mssql"
         restart: always        
         ports:
-            - "1433:1433" 
-            - "1434:1434" 
-            - "1431:1431"                 
+            - "1433:1433"               
         volumes:
             - ./data/mssql/data/:/var/opt/mssql/data
-            - ./data/mssql/log/:/var/opt/mssql/log
-            - ./data/mssql/secrets/:/var/opt/mssql/secrets
         environment:
             MSSQL_SA_PASSWORD: ${DatabasePassword}
-            ACCEPT_EULA: Y
+            ACCEPT_EULA: 1
+            MSSQL_PID: Developer

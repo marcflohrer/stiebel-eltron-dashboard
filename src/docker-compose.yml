@@ -19,8 +19,9 @@ services:
             - db            
     db:
         image: "mcr.microsoft.com/azure-sql-edge:latest"
-        user: root
+        user: root        
         container_name: "mssql"
+        restart: always 
         cap_add:
             - SYS_PTRACE    
         ports:

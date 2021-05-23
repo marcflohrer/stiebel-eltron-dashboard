@@ -4,8 +4,6 @@
 set -e
 
 mkdir -p mssql/data
-mkdir -p mssql/log
-mkdir -p mssql/secrets
 
 run_cmd="dotnet stiebel-eltron-dashboard.dll"
 
