@@ -3,12 +3,16 @@
     return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
   }
 
-; function drawMinMaxChartInternal(period, chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
+function recreateCanvas(chartName) {
     document.getElementById( chartName ).remove();     
     let canvas = document.createElement('canvas');     
     canvas.setAttribute('id',chartName);     
     canvas.setAttribute('class','canvas-style');
-    document.getElementById(chartName + "Chart").appendChild(canvas);    
+    document.getElementById(chartName + "Chart").appendChild(canvas);  
+}
+
+; function drawMinMaxChartInternal(period, chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
+    recreateCanvas(chartName)
     
     var ctx = document.getElementById(chartName).getContext('2d');
     var data = {
@@ -128,11 +132,7 @@
 }
 
 ; function drawStartEndChartInternal(period, chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
-    document.getElementById( chartName ).remove();     
-    let canvas = document.createElement('canvas');     
-    canvas.setAttribute('id',chartName);     
-    canvas.setAttribute('class','canvas-style');
-    document.getElementById(chartName + "Chart").appendChild(canvas);
+    recreateCanvas(chartName)
 
     var ctx = document.getElementById(chartName).getContext('2d');
     var data = {
@@ -252,11 +252,7 @@
 }
 
 function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsColors) {
-    document.getElementById( chartName ).remove();     
-    let canvas = document.createElement('canvas');     
-    canvas.setAttribute('id',chartName);     
-    canvas.setAttribute('class','canvas-style');
-    document.getElementById(chartName + "Chart").appendChild(canvas);
+    recreateCanvas(chartName)
         
     var ctx = document.getElementById(chartName).getContext('2d');
     var data = {
