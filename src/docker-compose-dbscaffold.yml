@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-    gen:
+    web:
         build:
             args:
                 ConnectionString: "${DatabaseConnectionString};"
@@ -9,6 +9,7 @@ services:
                 ServiceWeltUrl: "${ServiceWeltUrl}"
             context: .
             dockerfile: Dockerfile_DbScaffold
+        container_name: "dashboard"             
         volumes:
             - ./Data/Generated:/app/DbModels:rw       
         depends_on:

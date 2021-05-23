@@ -7,7 +7,8 @@ services:
                 ServiceWeltUser: "${ServiceWeltUser}"
                 ServiceWeltPassword: "${ServiceWeltPassword}"
                 ServiceWeltUrl: "${ServiceWeltUrl}"       
-            context: .      
+            context: .
+        container_name: "dashboard"       
         ports:
             - "80:6003"
             - "443:6004"
