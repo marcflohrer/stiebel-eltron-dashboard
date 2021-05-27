@@ -64,7 +64,7 @@
 <PrivateAssets>all</PrivateAssets>
 </PackageReference>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.33" />
-    <PackageReference Include="Cronos" Version="0.7.0" />
+    <PackageReference Include="Cronos" Version="0.7.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="stiebel-eltron-dashboard-tests\UnitTest1.cs" />
