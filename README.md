@@ -104,7 +104,7 @@ You need docker and docker-compose on the machine where you want to run the appl
 * docker
 * docker-compose
 * [dotnet 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
-* either [armv7](https://en.wikipedia.org/wiki/ARM_architecture)+ && [ubuntu 20.04](https://ubuntu.com/download/desktop?version=20.04&architecture=amd64)
+* either [armv7](https://en.wikipedia.org/wiki/ARM_architecture)+ && [ubuntu 21.04](https://ubuntu.com/download/desktop?version=21.04&architecture=amd64)
 * or x64 && (mac || linux)
 
 ## Installation
