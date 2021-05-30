@@ -112,7 +112,7 @@ You need docker and docker-compose on the machine where you want to run the appl
 2. Go to the home directory and call the setup script with your passwords, usernames and your url:
 
    ```sh
-   sudo chmod +x ubuntu-arm64-setup.sh && ./ubuntu-arm64-setup.sh
+   sudo chmod +x ubuntu-arm64-setup.sh && ./ubuntu-arm64-setup.sh <databasepassword> <serviceweltusername> <serviceweltpassword> <servicewelturl>
    ```
 
 3. When you see 'Migration finished' stop and remove the migration container:
