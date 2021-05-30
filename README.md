@@ -105,114 +105,56 @@ You need docker and docker-compose on the machine where you want to run the appl
 * either [armv7](https://en.wikipedia.org/wiki/ARM_architecture)+ && [ubuntu 20.04](https://ubuntu.com/download/desktop?version=20.04&architecture=amd64)
 * or x64 && (mac || linux)
 
-### Start the app
+### Install the app on ubuntu 21.04
 
-1. Install ubuntu on a raspberry pi and [enable ssh](https://linuxhint.com/install_ubuntu_ssh_headless_raspberry_pi_4/).
+1. Install [ubuntu 21.04](https://ubuntu.com/download/desktop?version=20.04&architecture=amd64) on a [raspberry pi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/) and [enable ssh](https://linuxhint.com/install_ubuntu_ssh_headless_raspberry_pi_4/).
 
-2. Clone the repo:
+2. Go to the home directory and call the setup script with your passwords, usernames and your url:
 
    ```sh
-   git clone https://github.com/marcflohrer/stiebel-eltron-dashboard
+   sudo chmod +x ubuntu-arm64-setup.sh && ./ubuntu-arm64-setup.sh
    ```
 
-3. Put a .env file in the **src** folder with the data that match your environment:
+3. When you see 'Migration finished' stop and remove the migration container:
 
    ```sh
-   cd /stiebel-eltron-dashboard/src
-   touch .env
-   echo 'DatabasePassword="YourStr0ngP@ssword!"' >> .env
-   echo 'DatabaseConnectionString="Server=db;Database=master;User=sa;Password=YourStr0ngP@ssword!;"' 
-   echo 'ServiceWeltUser="<My-ServiceWelt-User-Name-Goes-here>"' >> .env
-   echo 'ServiceWeltPassword="<Y0urStr0ng$ἔrvicἔWἔltP@sswØrd>"' >> .env
-   echo 'ServiceWeltUrl="http://192.XXX.XXX.XX"' >> .env
+   docker stop migration && docker rm migration
    ```
 
-4. Install docker & docker-compose:
+4. Start the app:
 
    ```sh
-   curl -fsSL https://get.docker.com -o get-docker.sh
-   sh get-docker.sh
-   sudo usermod -aG docker $USER
-   sudo reboot
-   ssh user@191.XXX.XXX.YY
-   sudo chown root:docker /var/run/docker.sock
+   chmod +x startup-app.sh && ./startup-app.sh &
    ```
 
-   Restart the pi and check if it was successful:
+5. Wait a minute then open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
+
+6. If you want to contribute to the project and you need to change the database structure you can use the following script to check if your database changes were successful:
 
    ```sh
-   docker container run hello-world
+   ./start-dbscaffolding.sh
    ```
 
-   For detailled instructions on how to install docker an a raspberry pi see [here (German)](https://www.randombrick.de/raspberry-pi-docker-installieren-und-nutzen/).
+### Install the app somewhere else
 
-   Then install docker-compose:
-
-   ```sh
-   sudo apt-get install libffi-dev libssl-dev
-   sudo apt install python3-dev
-   sudo apt-get install -y python3 python3-pip
-   sudo pip3 install docker-compose
-   ```
-
-   For detailled instructions on how to install docker-compose an a raspberry pi see [here (English)](https://devdojo.com/bobbyiliev/how-to-install-docker-and-docker-compose-on-raspberry-pi).
-
-5. To install dotnet run execute the following commands from the $HOME directory of the user you are logged in with. Check [https://dotnet.microsoft.com/download/dotnet/5.0](https://dotnet.microsoft.com/download/dotnet/5.0) for more recent versions of the dotnet sdk for the arm64 architecture.
-
-   ```sh
-   wget https://download.visualstudio.microsoft.com/download/pr/af5f1e5b-d544-47af-b730-038e4258641b/bccb3982f5690134ab66748a5afc36c7/dotnet-sdk-5.0.203-linux-arm64.tar.gz
-   mkdir dotnet-64
-   tar zxf dotnet-sdk-5.0.203-linux-arm64.tar.gz -C $HOME/dotnet-64
-   export DOTNET_ROOT=$HOME/dotnet-64
-   export PATH=$HOME/dotnet-64:$PATH
-   echo  'export DOTNET_ROOT=$HOME/dotnet-64' >> ~/.bashrc 
-   echo  'export PATH=$HOME/dotnet-64:$PATH' >> ~/.bashrc 
-   sudo reboot
-   ssh user@191.XXX.XXX
-   dotnet --info
-   ```  
-
-   , where ```user``` is the login user of your ubuntu system and  ```191.XXX.XXX``` is the IP address of your raspberry pi in your local network.
-   If everything was successful the output of the command ```dotnet --info``` looks something like this:
-
-   ```sh
-   .NET SDK (reflecting any global.json):
-    Version:   5.X.XXX
-    Commit:    383637d63f
-    Runtime Environment:
-    OS Name:     ubuntu
-    OS Version:  2X.XX
-    OS Platform: Linux
-    RID:         ubuntu.2X.XX-arm64
-    Base Path:   /home/ubuntu/dotnet-64/sdk/5.0.XXX/
-   Host (useful for support):
-   Version: 5.X.X
-   Commit:  XXXX
-   .NET SDKs installed:
-   5.0.XXX [/home/ubuntu/dotnet-64/sdk]
-   .NET runtimes installed:
-   Microsoft.AspNetCore.App 5.X.X [/home/user/dotnet-64/shared/Microsoft.AspNetCore.App]
-   Microsoft.NETCore.App 5.X.X [/home/user/dotnet-64/shared/Microsoft.NETCore.App]
-   To install additional .NET runtimes or SDKs:
-   https://aka.ms/dotnet-download
-   ```
-
-6. Before starting the app for the first time on a specific machine go to the **src** folder and run:
+1. Install the dependencies listed under **Prerequisites** and then run in the **src** folder of the repository:
 
    ```sh
    ./start-dbmigrating.sh
    ```
 
-7. Start the app:
+2. When you see 'Migration finished' stop and remove the migration container:
 
    ```sh
-   ./startup-app.sh &
+   docker stop migration && docker rm migration
    ```
-  
-8. Wait a minute then open [http://localhost](http://localhost) in any browser. If your raspberry pi is reachable in your local network you can replace localhost with the respective IP address.
 
-9. If you want to contribute to the project and you need to change the database structure you can use the following script to check if your database changes were successful:
+3. Start the app:
 
    ```sh
-   ./start-dbscaffolding.sh
+   chmod +x startup-app.sh && ./startup-app.sh &
    ```
+
+## License
+
+This project is licensed under the Reciprocal Public License 1.5 (RPL1.5). This is a GPL-style license with very detailed liability protection and numerous requirements, created to close a perceived loophole in the GPL which let users sell modified software without 'fairly' distributing it. Disputes over this license must be settled through an American arbitration process.
