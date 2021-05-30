@@ -38,13 +38,15 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
+    <li><a href="#what-is-it-about">What is it about?</a></li>
+    <li><a href="#known-limitations">Known limitations</a></li>
+    <li><a href="#installation">Installation</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#prerequisites">Installation on ubuntu 21.04</a></li>
+        <li><a href="#installation">Installation somewhere else</a></li>
       </ul>
     </li>
+    <li><a href="#license">License</a></li>
   </ol>
 </details>
 
@@ -77,7 +79,7 @@ This section lists major frameworks and projects that were used:
 * [twbs/bootstrap](https://github.com/twbs/bootstrap)
 * [jsdelivr/bootstrapcdn](https://github.com/jsdelivr/bootstrapcdn)
 
-## What is it
+## What is it about
 
 This project prvides a dashboard for the things that are missing in the dashboard provided with a Stiebel Eltron(R) heat pump:
 
@@ -105,7 +107,11 @@ You need docker and docker-compose on the machine where you want to run the appl
 * either [armv7](https://en.wikipedia.org/wiki/ARM_architecture)+ && [ubuntu 20.04](https://ubuntu.com/download/desktop?version=20.04&architecture=amd64)
 * or x64 && (mac || linux)
 
-### Install the app on ubuntu 21.04
+## Installation
+
+The installation I tested is the combination ubuntu 21.04 on raspberry pi 4 but generally it should work similarly with different operating systems and chipset architecture combinations.
+
+### Installation on ubuntu 21.04
 
 1. Install [ubuntu 21.04](https://ubuntu.com/download/desktop?version=20.04&architecture=amd64) on a [raspberry pi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/) and [enable ssh](https://linuxhint.com/install_ubuntu_ssh_headless_raspberry_pi_4/).
 
@@ -135,7 +141,7 @@ You need docker and docker-compose on the machine where you want to run the appl
    ./start-dbscaffolding.sh
    ```
 
-### Install the app somewhere else
+### Installation somewhere else
 
 1. Install the dependencies listed under **Prerequisites** and then run in the **src** folder of the repository:
 
