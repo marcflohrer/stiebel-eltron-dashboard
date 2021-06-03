@@ -15,5 +15,15 @@ namespace StiebelEltronDashboardTests
             // Assert
             Assert.Equal(1580515200000, result);
         }
+
+        [Fact]
+        public void WhenDateIsEnteredCalendarWeekIsReturned()
+        {
+            var year = 2021;
+            var periodNumber = 22;
+            var result = new DateTime(year, 1, 1).FirstDateOfWeek(periodNumber, new System.Globalization.CultureInfo("de-DE"));
+
+            Assert.Equal(new DateTime(2021,05,31).CompareTo(result), 0);
+        }
     }
 }
