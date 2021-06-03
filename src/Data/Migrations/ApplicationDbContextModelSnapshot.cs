@@ -419,17 +419,17 @@ namespace StiebelEltronDashboard.Data.Migrations
                     b.Property<int>("PeriodNumber")
                         .HasColumnType("int");
 
-                    b.Property<double>("PowerConsumptionHeatingDayAverage")
+                    b.Property<double>("PowerConsumptionHeatingDayDelta")
                         .HasColumnType("float")
-                        .HasColumnName("PowerConsumptionHeatingDayAverage");
+                        .HasColumnName("PowerConsumptionHeatingDayDelta");
 
-                    b.Property<double>("PowerConsumptionHeatingDayMax")
+                    b.Property<double>("PowerConsumptionHeatingDayEnd")
                         .HasColumnType("float")
-                        .HasColumnName("PowerConsumptionHeatingDayMax");
+                        .HasColumnName("PowerConsumptionHeatingDayEnd");
 
-                    b.Property<double>("PowerConsumptionHeatingDayMin")
+                    b.Property<double>("PowerConsumptionHeatingDayStart")
                         .HasColumnType("float")
-                        .HasColumnName("PowerConsumptionHeatingDayMin");
+                        .HasColumnName("PowerConsumptionHeatingDayStart");
 
                     b.Property<double>("PowerConsumptionHeatingSumDelta")
                         .HasColumnType("float");
@@ -440,17 +440,17 @@ namespace StiebelEltronDashboard.Data.Migrations
                     b.Property<double>("PowerConsumptionHeatingSumStart")
                         .HasColumnType("float");
 
-                    b.Property<double>("PowerConsumptionHotWaterDayAverage")
+                    b.Property<double>("PowerConsumptionHotWaterDayDelta")
                         .HasColumnType("float")
-                        .HasColumnName("PowerConsumptionHotWaterDayAverage");
+                        .HasColumnName("PowerConsumptionHotWaterDayDelta");
 
-                    b.Property<double>("PowerConsumptionHotWaterDayMax")
+                    b.Property<double>("PowerConsumptionHotWaterDayEnd")
                         .HasColumnType("float")
-                        .HasColumnName("PowerConsumptionHotWaterDayMax");
+                        .HasColumnName("PowerConsumptionHotWaterDayEnd");
 
-                    b.Property<double>("PowerConsumptionHotWaterDayMin")
+                    b.Property<double>("PowerConsumptionHotWaterDayStart")
                         .HasColumnType("float")
-                        .HasColumnName("PowerConsumptionHotWaterDayMin");
+                        .HasColumnName("PowerConsumptionHotWaterDayStart");
 
                     b.Property<double>("PowerConsumptionHotWaterSumDelta")
                         .HasColumnType("float");
@@ -560,17 +560,17 @@ namespace StiebelEltronDashboard.Data.Migrations
                     b.Property<double>("TotalPowerConsumptionStart")
                         .HasColumnType("float");
 
-                    b.Property<double>("VaporizerHeatQuantityHeatingDayAverage")
+                    b.Property<double>("VaporizerHeatQuantityHeatingDayDelta")
                         .HasColumnType("float")
-                        .HasColumnName("VaporizerHeatQuantityHeatingDayAverage");
+                        .HasColumnName("VaporizerHeatQuantityHeatingDayDelta");
 
-                    b.Property<double>("VaporizerHeatQuantityHeatingDayMax")
+                    b.Property<double>("VaporizerHeatQuantityHeatingDayEnd")
                         .HasColumnType("float")
-                        .HasColumnName("VaporizerHeatQuantityHeatingDayMax");
+                        .HasColumnName("VaporizerHeatQuantityHeatingDayEnd");
 
-                    b.Property<double>("VaporizerHeatQuantityHeatingDayMin")
+                    b.Property<double>("VaporizerHeatQuantityHeatingDayStart")
                         .HasColumnType("float")
-                        .HasColumnName("VaporizerHeatQuantityHeatingDayMin");
+                        .HasColumnName("VaporizerHeatQuantityHeatingDayStart");
 
                     b.Property<double>("VaporizerHeatQuantityHeatingTotalDelta")
                         .HasColumnType("float");
@@ -581,17 +581,17 @@ namespace StiebelEltronDashboard.Data.Migrations
                     b.Property<double>("VaporizerHeatQuantityHeatingTotalStart")
                         .HasColumnType("float");
 
-                    b.Property<double>("VaporizerHeatQuantityHotWaterDayAverage")
+                    b.Property<double>("VaporizerHeatQuantityHotWaterDayDelta")
                         .HasColumnType("float")
-                        .HasColumnName("VaporizerHeatQuantityHotWaterDayAverage");
+                        .HasColumnName("VaporizerHeatQuantityHotWaterDayDelta");
 
-                    b.Property<double>("VaporizerHeatQuantityHotWaterDayMax")
+                    b.Property<double>("VaporizerHeatQuantityHotWaterDayEnd")
                         .HasColumnType("float")
-                        .HasColumnName("VaporizerHeatQuantityHotWaterDayMax");
+                        .HasColumnName("VaporizerHeatQuantityHotWaterDayEnd");
 
-                    b.Property<double>("VaporizerHeatQuantityHotWaterDayMin")
+                    b.Property<double>("VaporizerHeatQuantityHotWaterDayStart")
                         .HasColumnType("float")
-                        .HasColumnName("VaporizerHeatQuantityHotWaterDayMin");
+                        .HasColumnName("VaporizerHeatQuantityHotWaterDayStart");
 
                     b.Property<double>("VaporizerHeatQuantityHotWaterTotalDelta")
                         .HasColumnType("float");

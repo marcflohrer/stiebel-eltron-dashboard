@@ -23,7 +23,7 @@ namespace StiebelEltronDashboardTests
             var periodNumber = 22;
             var result = new DateTime(year, 1, 1).FirstDateOfWeek(periodNumber, new System.Globalization.CultureInfo("de-DE"));
 
-            Assert.Equal(new DateTime(2021,05,31).CompareTo(result), 0);
+            Assert.Equal(0, new DateTime(2021,05,31).CompareTo(result));
         }
     }
 }

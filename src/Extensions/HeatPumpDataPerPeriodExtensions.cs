@@ -5,10 +5,10 @@ namespace StiebelEltronDashboard.Extensions {
     public static class HeatPumpDataPerPeriodExtensions {
         public static double? PerformanceFactorPeriod (this HeatPumpDataPerPeriod heatPumpDataPerPeriod) 
         {
-            var heatQuantityProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayMax - heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayMin;
-            var hotWaterProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayMax - heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayMin;
-            var powerConsumedForHeat = heatPumpDataPerPeriod.PowerConsumptionHeatingDayMax - heatPumpDataPerPeriod.PowerConsumptionHeatingDayMin;
-            var powerConsumedForHotWater = heatPumpDataPerPeriod.PowerConsumptionHotWaterDayMax - heatPumpDataPerPeriod.PowerConsumptionHotWaterDayMin;
+            var heatQuantityProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayStart;
+            var hotWaterProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayStart;
+            var powerConsumedForHeat = heatPumpDataPerPeriod.PowerConsumptionHeatingDayEnd - heatPumpDataPerPeriod.PowerConsumptionHeatingDayStart;
+            var powerConsumedForHotWater = heatPumpDataPerPeriod.PowerConsumptionHotWaterDayEnd - heatPumpDataPerPeriod.PowerConsumptionHotWaterDayStart;
             return (heatQuantityProducedInPeriod + hotWaterProducedInPeriod) / (powerConsumedForHeat + powerConsumedForHotWater);
          }
 
@@ -79,15 +79,15 @@ namespace StiebelEltronDashboard.Extensions {
             heatPumpDataPerPeriod.FanPowerRelMin = update.FanPowerRelMin;
             heatPumpDataPerPeriod.FanPowerRelMax = update.FanPowerRelMax;
             heatPumpDataPerPeriod.FanPowerRelAverage = update.FanPowerRelAverage;
-            heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayMin = update.VaporizerHeatQuantityHeatingDayMin;
-            heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayMax = update.VaporizerHeatQuantityHeatingDayMax;
-            heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayAverage = update.VaporizerHeatQuantityHeatingDayAverage;
+            heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayStart = update.VaporizerHeatQuantityHeatingDayStart;
+            heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayEnd = update.VaporizerHeatQuantityHeatingDayEnd;
+            heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayDelta = update.VaporizerHeatQuantityHeatingDayDelta;
             heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalStart = update.VaporizerHeatQuantityHeatingTotalStart;
             heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalEnd = update.VaporizerHeatQuantityHeatingTotalEnd;
             heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalDelta = update.VaporizerHeatQuantityHeatingTotalDelta;
-            heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayMin = update.VaporizerHeatQuantityHotWaterDayMin;
-            heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayMax = update.VaporizerHeatQuantityHotWaterDayMax;
-            heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayAverage = update.VaporizerHeatQuantityHotWaterDayAverage;
+            heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayStart = update.VaporizerHeatQuantityHotWaterDayStart;
+            heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayEnd = update.VaporizerHeatQuantityHotWaterDayEnd;
+            heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayDelta = update.VaporizerHeatQuantityHotWaterDayDelta;
             heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalStart = update.VaporizerHeatQuantityHotWaterTotalStart;
             heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalEnd = update.VaporizerHeatQuantityHotWaterTotalEnd;
             heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalDelta = update.VaporizerHeatQuantityHotWaterTotalDelta;
@@ -97,15 +97,15 @@ namespace StiebelEltronDashboard.Extensions {
             heatPumpDataPerPeriod.ReheatingStagesHeatQuantityHotWaterTotalStart = update.ReheatingStagesHeatQuantityHotWaterTotalStart;
             heatPumpDataPerPeriod.ReheatingStagesHeatQuantityHotWaterTotalEnd = update.ReheatingStagesHeatQuantityHotWaterTotalEnd;
             heatPumpDataPerPeriod.ReheatingStagesHeatQuantityHotWaterTotalDelta = update.ReheatingStagesHeatQuantityHotWaterTotalDelta;
-            heatPumpDataPerPeriod.PowerConsumptionHeatingDayMin = update.PowerConsumptionHeatingDayMin;
-            heatPumpDataPerPeriod.PowerConsumptionHeatingDayMax = update.PowerConsumptionHeatingDayMax;
-            heatPumpDataPerPeriod.PowerConsumptionHeatingDayAverage = update.PowerConsumptionHeatingDayAverage;
+            heatPumpDataPerPeriod.PowerConsumptionHeatingDayStart = update.PowerConsumptionHeatingDayStart;
+            heatPumpDataPerPeriod.PowerConsumptionHeatingDayEnd = update.PowerConsumptionHeatingDayEnd;
+            heatPumpDataPerPeriod.PowerConsumptionHeatingDayDelta = update.PowerConsumptionHeatingDayDelta;
             heatPumpDataPerPeriod.PowerConsumptionHeatingSumStart = update.PowerConsumptionHeatingSumStart;
             heatPumpDataPerPeriod.PowerConsumptionHeatingSumEnd = update.PowerConsumptionHeatingSumEnd;
             heatPumpDataPerPeriod.PowerConsumptionHeatingSumDelta = update.PowerConsumptionHeatingSumDelta;
-            heatPumpDataPerPeriod.PowerConsumptionHotWaterDayMin = update.PowerConsumptionHotWaterDayMin;
-            heatPumpDataPerPeriod.PowerConsumptionHotWaterDayMax = update.PowerConsumptionHotWaterDayMax;
-            heatPumpDataPerPeriod.PowerConsumptionHotWaterDayAverage = update.PowerConsumptionHotWaterDayAverage;
+            heatPumpDataPerPeriod.PowerConsumptionHotWaterDayStart = update.PowerConsumptionHotWaterDayStart;
+            heatPumpDataPerPeriod.PowerConsumptionHotWaterDayEnd = update.PowerConsumptionHotWaterDayEnd;
+            heatPumpDataPerPeriod.PowerConsumptionHotWaterDayDelta = update.PowerConsumptionHotWaterDayDelta;
             heatPumpDataPerPeriod.PowerConsumptionHotWaterSumStart = update.PowerConsumptionHotWaterSumStart;
             heatPumpDataPerPeriod.PowerConsumptionHotWaterSumEnd = update.PowerConsumptionHotWaterSumEnd;
             heatPumpDataPerPeriod.PowerConsumptionHotWaterSumDelta = update.PowerConsumptionHotWaterSumDelta;

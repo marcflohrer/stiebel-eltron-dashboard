@@ -70,21 +70,21 @@ namespace StiebelEltronDashboard.Models
         public double FanPowerRelMax { get; set; }
         public double FanPowerRelAverage { get; set; }
         
-        [Column("VaporizerHeatQuantityHeatingDayMin")]
-        public double VaporizerHeatQuantityHeatingDayMin { get; set; }
-        [Column("VaporizerHeatQuantityHeatingDayMax")]
-        public double VaporizerHeatQuantityHeatingDayMax { get; set; }
-        [Column("VaporizerHeatQuantityHeatingDayAverage")]
-        public double VaporizerHeatQuantityHeatingDayAverage { get; set; }
+        [Column("VaporizerHeatQuantityHeatingDayStart")]
+        public double VaporizerHeatQuantityHeatingDayStart { get; set; }
+        [Column("VaporizerHeatQuantityHeatingDayEnd")]
+        public double VaporizerHeatQuantityHeatingDayEnd { get; set; }
+        [Column("VaporizerHeatQuantityHeatingDayDelta")]
+        public double VaporizerHeatQuantityHeatingDayDelta { get; set; }
         public double VaporizerHeatQuantityHeatingTotalStart { get; set; }
         public double VaporizerHeatQuantityHeatingTotalEnd { get; set; }
         public double VaporizerHeatQuantityHeatingTotalDelta { get; set; }
-        [Column("VaporizerHeatQuantityHotWaterDayMin")]
-        public double VaporizerHeatQuantityHotWaterDayMin { get; set; }
-        [Column("VaporizerHeatQuantityHotWaterDayMax")]
-        public double VaporizerHeatQuantityHotWaterDayMax { get; set; }
-        [Column("VaporizerHeatQuantityHotWaterDayAverage")]
-        public double VaporizerHeatQuantityHotWaterDayAverage { get; set; }
+        [Column("VaporizerHeatQuantityHotWaterDayStart")]
+        public double VaporizerHeatQuantityHotWaterDayStart { get; set; }
+        [Column("VaporizerHeatQuantityHotWaterDayEnd")]
+        public double VaporizerHeatQuantityHotWaterDayEnd { get; set; }
+        [Column("VaporizerHeatQuantityHotWaterDayDelta")]
+        public double VaporizerHeatQuantityHotWaterDayDelta { get; set; }
         public double VaporizerHeatQuantityHotWaterTotalStart { get; set; }
         public double VaporizerHeatQuantityHotWaterTotalEnd { get; set; }
         public double VaporizerHeatQuantityHotWaterTotalDelta { get; set; }
@@ -94,21 +94,21 @@ namespace StiebelEltronDashboard.Models
         public double ReheatingStagesHeatQuantityHotWaterTotalStart { get; set; }
         public double ReheatingStagesHeatQuantityHotWaterTotalEnd { get; set; }
         public double ReheatingStagesHeatQuantityHotWaterTotalDelta { get; set; }
-        [Column("PowerConsumptionHeatingDayMin")]
-        public double PowerConsumptionHeatingDayMin { get; set; }
-        [Column("PowerConsumptionHeatingDayMax")]
-        public double PowerConsumptionHeatingDayMax { get; set; }
-         [Column("PowerConsumptionHeatingDayAverage")]
-        public double PowerConsumptionHeatingDayAverage { get; set; }
+        [Column("PowerConsumptionHeatingDayStart")]
+        public double PowerConsumptionHeatingDayStart { get; set; }
+        [Column("PowerConsumptionHeatingDayEnd")]
+        public double PowerConsumptionHeatingDayEnd { get; set; }
+         [Column("PowerConsumptionHeatingDayDelta")]
+        public double PowerConsumptionHeatingDayDelta { get; set; }
         public double PowerConsumptionHeatingSumStart { get; set; }
         public double PowerConsumptionHeatingSumEnd { get; set; }
         public double PowerConsumptionHeatingSumDelta { get; set; }
-        [Column("PowerConsumptionHotWaterDayMin")]
-        public double PowerConsumptionHotWaterDayMin { get; set; }
-        [Column("PowerConsumptionHotWaterDayMax")]
-        public double PowerConsumptionHotWaterDayMax { get; set; }
-        [Column("PowerConsumptionHotWaterDayAverage")]
-        public double PowerConsumptionHotWaterDayAverage { get; set; }
+        [Column("PowerConsumptionHotWaterDayStart")]
+        public double PowerConsumptionHotWaterDayStart { get; set; }
+        [Column("PowerConsumptionHotWaterDayEnd")]
+        public double PowerConsumptionHotWaterDayEnd { get; set; }
+        [Column("PowerConsumptionHotWaterDayDelta")]
+        public double PowerConsumptionHotWaterDayDelta { get; set; }
         public double PowerConsumptionHotWaterSumStart { get; set; }
         public double PowerConsumptionHotWaterSumEnd { get; set; }
         public double PowerConsumptionHotWaterSumDelta { get; set; }
