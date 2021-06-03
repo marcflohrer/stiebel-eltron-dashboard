@@ -509,7 +509,7 @@
     }
     else
     {
-        XLabelsDay = Model.GetDays().Select(x => new DateTime((int)x.Year, 1, 1).Add(TimeSpan.FromDays(x.PeriodNumber))).ToList().ToJson();
+        XLabelsDay = Model.GetDays().Select(x => new DateTime((int)x.Year, 1, 1).Add(TimeSpan.FromDays(x.PeriodNumber - 1))).ToList().ToJson();
         XLabelsWeek = Model.GetWeeks().Select(x => new DateTime((int)x.Year, 1, 1).FirstDateOfWeek((int)x.PeriodNumber, new System.Globalization.CultureInfo("de-DE"))).ToList().ToJson();
         XLabelsMonth = Model.GetMonths().Select(x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1)).ToList().ToJson();
         XLabelsYear = Model.GetYears().Select(x => new DateTime((int)x.Year, 1,1)).ToList().ToJson();
