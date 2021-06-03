@@ -45,7 +45,7 @@ namespace StiebelEltronDashboard.Controllers
 
             }else{
                 Console.WriteLine($"Index: Recent 12 Weeks. Results: {recentSevenDays.Count()}");
-                foreach(var rsd in recentSevenDays)
+                foreach(var rsd in recent12Weeks)
                 {
                     Console.WriteLine($"Index: Recent 12 Weeks. Results: (max) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} {rsd.PeriodKind}");
                     Console.WriteLine($"Index: Recent 12 Weeks. Results: (min) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMin} ");
@@ -61,7 +61,7 @@ namespace StiebelEltronDashboard.Controllers
 
             }else{
                 Console.WriteLine($"Index: Recent 12 Months. Results: {recentSevenDays.Count()}");
-                foreach(var rsd in recentSevenDays)
+                foreach(var rsd in recent12Months)
                 {
                     Console.WriteLine($"Index: Recent 12 Months. Results: (max) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} {rsd.PeriodKind}");
                     Console.WriteLine($"Index: Recent 12 Months. Results: (min) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMin} ");
@@ -77,7 +77,7 @@ namespace StiebelEltronDashboard.Controllers
 
             }else{
                 Console.WriteLine($"Index: Recent Years. Results: {recentSevenDays.Count()}");
-                foreach(var rsd in recentSevenDays)
+                foreach(var rsd in recentYears)
                 {
                     Console.WriteLine($"Index: Recent Years. Results: (max) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} {rsd.PeriodKind}");
                     Console.WriteLine($"Index: Recent Years. Results: (min) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMin} ");
