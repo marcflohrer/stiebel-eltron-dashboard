@@ -1,13 +1,13 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-    echo "Missing Database password \n Expected usage: \n Expected usage: ubuntu21-arm64-setup.sh databasepassword serviceweltusername serviceweltpassword servicewelturl databasepassword serviceweltusername serviceweltpassword servicewelturl"
+    echo "Missing Database password \n Expected usage: \n Expected usage: ubuntu21-arm64-setup.sh databasepassword serviceweltusername serviceweltpassword servicewelturl"
     exit 1;
 fi
 
 
 if [ -z "$2" ]; then
-    echo "Missing ServiceWelt Username. \n Expected usage: \n Expected usage: ubuntu21-arm64-setup.sh databasepassword serviceweltusername serviceweltpassword servicewelturl databasepassword serviceweltusername serviceweltpassword servicewelturl"
+    echo "Missing ServiceWelt Username. \n Expected usage: \n Expected usage: ubuntu21-arm64-setup.sh databasepassword serviceweltusername serviceweltpassword servicewelturl"
     exit 1;
 fi
 
