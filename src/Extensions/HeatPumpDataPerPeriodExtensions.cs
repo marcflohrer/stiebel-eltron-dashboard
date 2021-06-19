@@ -1,5 +1,5 @@
 using StiebelEltronDashboard.Models;
-using System;
+using Serilog;
 
 namespace StiebelEltronDashboard.Extensions {
     public static class HeatPumpDataPerPeriodExtensions {
@@ -9,14 +9,14 @@ namespace StiebelEltronDashboard.Extensions {
             var hotWaterProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayStart;
             var powerConsumedForHeat = heatPumpDataPerPeriod.PowerConsumptionHeatingDayEnd - heatPumpDataPerPeriod.PowerConsumptionHeatingDayStart;
             var powerConsumedForHotWater = heatPumpDataPerPeriod.PowerConsumptionHotWaterDayEnd - heatPumpDataPerPeriod.PowerConsumptionHotWaterDayStart;
-            return (heatQuantityProducedInPeriod + hotWaterProducedInPeriod) / (powerConsumedForHeat + powerConsumedForHotWater);
+            var result = (heatQuantityProducedInPeriod + hotWaterProducedInPeriod) / (powerConsumedForHeat + powerConsumedForHotWater);
+            Log.Information($"Performance Factor Period: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
+            return result;
          }
 
-        public static double? PerformanceFactorTotal (this HeatPumpDataPerPeriod heatPumpDataPerPeriod) 
-        {
-            return (heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalEnd + heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalEnd) 
+        public static double? PerformanceFactorTotal(this HeatPumpDataPerPeriod heatPumpDataPerPeriod) 
+            => (heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalEnd + heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalEnd)
                     / (heatPumpDataPerPeriod.PowerConsumptionHeatingSumEnd + heatPumpDataPerPeriod.PowerConsumptionHotWaterSumEnd);
-         } 
 
         public static HeatPumpDataPerPeriod UpdateWith (this HeatPumpDataPerPeriod heatPumpDataPerPeriod, HeatPumpDataPerPeriod update) {
             heatPumpDataPerPeriod.ReturnTemperatureMin = update.ReturnTemperatureMin;
