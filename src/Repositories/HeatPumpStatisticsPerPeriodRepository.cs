@@ -75,7 +75,7 @@ namespace StiebelEltronDashboard.Repositories
             HeatPumpDataPerPeriod previous = null;
             result = GetDistinctPeriodNumber(list, result, previous);   
             return result.OrderBy(x => x.Last)
-                         .DistinctBy(x => x.PeriodKind)
+                         .DistinctBy(x => x.PeriodNumber)
                          .Take(12).ToList();                    
         }
 
