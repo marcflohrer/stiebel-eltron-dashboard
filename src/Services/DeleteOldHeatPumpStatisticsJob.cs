@@ -2,38 +2,38 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using StiebelEltronDashboard.Extensions;
 using StiebelEltronDashboard.Repositories;
 
 namespace StiebelEltronDashboard.Services
 {
     public class DeleteOldHeatPumpStatisticsJob : CronJobService {
-        private readonly ILogger<HeatPumpStatisticsCalculatorJob> _logger;
+        private readonly ILogger _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public DeleteOldHeatPumpStatisticsJob (IScheduleConfig<HeatPumpStatisticsCalculatorJob> config,
             IServiceScopeFactory serviceScopeFactory,
-            ILogger<HeatPumpStatisticsCalculatorJob> logger) : base (config.CronExpression, config.TimeZoneInfo) {
+            ILogger logger) : base (config.CronExpression, config.TimeZoneInfo) {
             _serviceScopeFactory = serviceScopeFactory;
             _logger = logger;
         }
 
         public override Task StartAsync (CancellationToken cancellationToken) {
-            _logger.LogInformation ("DeleteOldHeatPumpStatisticsJob starts.");
+            _logger.Information ("DeleteOldHeatPumpStatisticsJob starts.");
             return base.StartAsync (cancellationToken);
         }
 
         public override async Task DoWork (CancellationToken cancellationToken) {
             try {
-                _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} DeleteOldHeatPumpStatisticsJob is working.");
+                _logger.Information ($"{DateTime.Now:hh:mm:ss} DeleteOldHeatPumpStatisticsJob is working.");
                 using var scope = _serviceScopeFactory.CreateScope ();
                 var unitOfWork = scope.ServiceProvider.GetService<IUnitOfWork> ();
                 var recordsOfRecentYear = unitOfWork.HeatPumpDataRepository.GetLastYear ();
                 var allRecordsOlderThan1Year = unitOfWork.HeatPumpDataRepository.GetAllRecordsOlderThan366Days (DateTime.Now); 
                 unitOfWork.HeatPumpDataRepository.RemoveRange (allRecordsOlderThan1Year);
                 var changes = await unitOfWork.SaveChanges ();
-                _logger.LogInformation ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob saved {changes} changed database rows.");
+                _logger.Information ($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob saved {changes} changed database rows.");
 
             } catch (Exception ex) {
                 Console.WriteLine (ex.Message);
@@ -41,7 +41,7 @@ namespace StiebelEltronDashboard.Services
         }
 
         public override Task StopAsync (CancellationToken cancellationToken) {
-            _logger.LogInformation ("DeleteOldHeatPumpStatisticsJob is stopping.");
+            _logger.Information ("DeleteOldHeatPumpStatisticsJob is stopping.");
             return base.StopAsync (cancellationToken);
         }
     }

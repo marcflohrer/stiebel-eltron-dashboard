@@ -34,7 +34,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace StiebelEltronDashboard.Controllers
 {
@@ -52,13 +52,13 @@ namespace StiebelEltronDashboard.Controllers
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILogger logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
-            _logger = loggerFactory.CreateLogger<AccountController>();
+            _logger = logger;
         }
 
         //
@@ -86,7 +86,7 @@ namespace StiebelEltronDashboard.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation(1, "User logged in.");
+                    _logger.Information("User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -95,7 +95,7 @@ namespace StiebelEltronDashboard.Controllers
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning(2, "User account locked out.");
+                    _logger.Warning("User account locked out.");
                     return View("Lockout");
                 }
                 else
@@ -140,7 +140,7 @@ namespace StiebelEltronDashboard.Controllers
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User created a new account with password.");
+                    _logger.Information("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
@@ -157,7 +157,7 @@ namespace StiebelEltronDashboard.Controllers
         public async Task<IActionResult> LogOff()
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation(4, "User logged out.");
+            _logger.Information("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
@@ -198,7 +198,7 @@ namespace StiebelEltronDashboard.Controllers
                 // Update any authentication tokens if login succeeded
                 await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
 
-                _logger.LogInformation(5, "User logged in with {Name} provider.", info.LoginProvider);
+                _logger.Information("User logged in with {Name} provider.", info.LoginProvider);
                 return RedirectToLocal(returnUrl);
             }
             if (result.RequiresTwoFactor)
@@ -242,7 +242,7 @@ namespace StiebelEltronDashboard.Controllers
                     if (result.Succeeded)
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        _logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
+                        _logger.Information("User created an account using {Name} provider.", info.LoginProvider);
 
                         // Update any authentication tokens as well
                         await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
@@ -462,7 +462,7 @@ namespace StiebelEltronDashboard.Controllers
             }
             if (result.IsLockedOut)
             {
-                _logger.LogWarning(7, "User account locked out.");
+                _logger.Warning("User account locked out.");
                 return View("Lockout");
             }
             else
@@ -509,7 +509,7 @@ namespace StiebelEltronDashboard.Controllers
             }
             if (result.IsLockedOut)
             {
-                _logger.LogWarning(7, "User account locked out.");
+                _logger.Warning("User account locked out.");
                 return View("Lockout");
             }
             else

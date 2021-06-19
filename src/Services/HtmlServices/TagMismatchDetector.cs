@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using static StiebelEltronDashboard.Services.HtmlServices.Tags;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace StiebelEltronDashboard.Services.HtmlServices
 {

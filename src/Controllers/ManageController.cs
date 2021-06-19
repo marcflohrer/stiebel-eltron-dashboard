@@ -32,7 +32,7 @@ using StiebelEltronDashboard.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace apps.Controllers
 {
@@ -51,13 +51,13 @@ namespace apps.Controllers
         SignInManager<ApplicationUser> signInManager,
         IEmailSender emailSender,
         ISmsSender smsSender,
-        ILoggerFactory loggerFactory)
+        ILogger logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
-            _logger = loggerFactory.CreateLogger<ManageController>();
+            _logger = logger;
         }
 
         //
@@ -141,7 +141,7 @@ namespace apps.Controllers
             if (user != null)
             {
                 await _userManager.ResetAuthenticatorKeyAsync(user);
-                _logger.LogInformation(1, "User reset authenticator key.");
+                _logger.Information("User reset authenticator key.");
             }
             return RedirectToAction(nameof(Index), "Manage");
         }
@@ -156,7 +156,7 @@ namespace apps.Controllers
             if (user != null)
             {
                 var codes = await _userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, 5);
-                _logger.LogInformation(1, "User generated new recovery code.");
+                _logger.Information("User generated new recovery code.");
                 return View("DisplayRecoveryCodes", new DisplayRecoveryCodesViewModel { Codes = codes });
             }
             return View("Error");
@@ -173,7 +173,7 @@ namespace apps.Controllers
             {
                 await _userManager.SetTwoFactorEnabledAsync(user, true);
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                _logger.LogInformation(1, "User enabled two-factor authentication.");
+                _logger.Information("User enabled two-factor authentication.");
             }
             return RedirectToAction(nameof(Index), "Manage");
         }
@@ -189,7 +189,7 @@ namespace apps.Controllers
             {
                 await _userManager.SetTwoFactorEnabledAsync(user, false);
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                _logger.LogInformation(2, "User disabled two-factor authentication.");
+                _logger.Information("User disabled two-factor authentication.");
             }
             return RedirectToAction(nameof(Index), "Manage");
         }
@@ -273,7 +273,7 @@ namespace apps.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User changed their password successfully.");
+                    _logger.Information("User changed their password successfully.");
                     return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
                 }
                 AddErrors(result);

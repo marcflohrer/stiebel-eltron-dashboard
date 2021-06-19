@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using StiebelEltronDashboard.Extensions;
 using StiebelEltronDashboard.Repositories;
 using StiebelEltronDashboard.Services.HtmlServices;
@@ -12,13 +12,13 @@ namespace StiebelEltronDashboard.Services
     public class CollectHeatPumpDataJob : CronJobService
     {
         private readonly IScrapingService _scrapingService;
-        private readonly ILogger<CollectHeatPumpDataJob> _logger;
+        private readonly ILogger _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public CollectHeatPumpDataJob(IScheduleConfig<CollectHeatPumpDataJob> config,
             IScrapingService scrapingService,
             IServiceScopeFactory serviceScopeFactory,
-            ILogger<CollectHeatPumpDataJob> logger) : base(config.CronExpression, config.TimeZoneInfo)
+            ILogger logger) : base(config.CronExpression, config.TimeZoneInfo)
         {
             _serviceScopeFactory = serviceScopeFactory;
             _scrapingService = scrapingService;
@@ -27,7 +27,7 @@ namespace StiebelEltronDashboard.Services
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("CollectHeatPumpDataJob starts.");
+            _logger.Information("CollectHeatPumpDataJob starts.");
             return base.StartAsync(cancellationToken);
         }
 
@@ -35,14 +35,14 @@ namespace StiebelEltronDashboard.Services
         {
             try
             {
-                _logger.LogInformation($"{DateTime.Now:hh:mm:ss} CollectHeatPumpDataJob is working.");
+                _logger.Information($"{DateTime.Now:hh:mm:ss} CollectHeatPumpDataJob is working.");
                 var heatPumpData = await _scrapingService.GetHeatPumpInformationAsync();
                 using var scope = _serviceScopeFactory.CreateScope();
                 var unitOfWork = scope.ServiceProvider.GetService<IUnitOfWork>();
                 unitOfWork.HeatPumpDataRepository.InsertHeatPumpData(heatPumpData);
-                _logger.LogInformation($"{DateTime.Now:hh:mm:ss} CollectHeatPumpDataJob saving changes.");
+                _logger.Information($"{DateTime.Now:hh:mm:ss} CollectHeatPumpDataJob saving changes.");
                 var changes = await unitOfWork.SaveChanges();
-                _logger.LogInformation($"{DateTime.Now:hh:mm:ss} CollectHeatPumpDataJob saved {changes} changed database rows.");
+                _logger.Information($"{DateTime.Now:hh:mm:ss} CollectHeatPumpDataJob saved {changes} changed database rows.");
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace StiebelEltronDashboard.Services
 
         public override Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("CollectHeatPumpDataJob is stopping.");
+            _logger.Information("CollectHeatPumpDataJob is stopping.");
             return base.StopAsync(cancellationToken);
         }
     }

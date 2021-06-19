@@ -32,6 +32,8 @@ ENV ASPNETCORE_URLS=http://+:6003;https://+:6004
 EXPOSE 6003 6004
 WORKDIR /app
 
+RUN mkdir logs && touch /app/logs/dashboard.log
+
 COPY --from=publish /app/entrypoint.sh .
 COPY --from=publish /app .
 COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf

@@ -33,7 +33,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using StiebelEltronDashboard.Extensions;
 using StiebelEltronDashboard.Services.HtmlServices;
@@ -64,6 +64,11 @@ namespace StiebelEltronDashboard
                 throw new Exception("Database connection is not set.");
             }
 
+            var logger = new LoggerConfiguration()
+                        .WriteTo.File("logs/dashboard.log", fileSizeLimitBytes: 1048576000, rollOnFileSizeLimit: true, rollingInterval: RollingInterval.Day)
+                        .WriteTo.Console()
+                        .CreateLogger();
+
             // DbContext pooling: AddDbContextPool enables pooling of DbContext instances. 
             // Context pooling can increase throughput in high-scale scenarios such as web servers by reusing context instances, 
             // rather than creating new instances for each request.
@@ -72,6 +77,7 @@ namespace StiebelEltronDashboard
 
             services.AddMvc();
             services.AddTransient<IXpathService, XpathService>()
+                .AddSingleton<ILogger>(logger)
                 .AddTransient<IHtmlScanner, HtmlScanner>()
                 .AddTransient<ITidyUpDirtyHtml, TidyUpDirtyHtml>()
                 .AddTransient<IScrapingService, ScrapingService>()
@@ -123,7 +129,7 @@ namespace StiebelEltronDashboard
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
