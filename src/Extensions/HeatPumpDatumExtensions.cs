@@ -91,10 +91,10 @@ namespace StiebelEltronDashboard.Extensions {
                 Log.Error("null <-- GetDeltaForMetric!");
                 return null;
             }
-            var start = GetStartForMetric (heatPumpData, selector);
-            var end = GetEndForMetric (heatPumpData, selector);
-            var result = end - start;
-            return result;
+            var min = GetMinForMetric (heatPumpData, selector);
+            var max = GetMaxForMetric (heatPumpData, selector);
+            var delta = max - min;
+            return delta;
         }
 
         public static DateTime GetFirst (this IEnumerable<HeatPumpDatum> heatPumpData) {
