@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,7 +15,7 @@ namespace StiebelEltronDashboard.Extensions
         public static double ToEpoch(this DateTime dateTime){
             var unixReferenceDate = new DateTime(1970, 1, 1);
             TimeSpan t = dateTime - unixReferenceDate;
-            Console.WriteLine($"ToEpoch: {dateTime.ToShortDateString()} - {unixReferenceDate.ToShortDateString()} = {t.TotalDays} d = {(double)t.TotalMilliseconds}ms");
+            Log.Debug($"ToEpoch: {dateTime.ToShortDateString()} - {unixReferenceDate.ToShortDateString()} = {t.TotalDays} d = {(double)t.TotalMilliseconds}ms");
             return (double)t.TotalMilliseconds;            
         }
         public static DateTime FirstDateOfWeek(this DateTime jan1, int weekOfYear, CultureInfo cultureInfo)

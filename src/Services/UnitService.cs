@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Serilog;
 
 namespace StiebelEltronDashboard.Services {
     public class UnitService : IUnitService {
@@ -37,7 +38,7 @@ namespace StiebelEltronDashboard.Services {
                 return value;
             }
             if(!ConversionTable.Select(l => l.conversionTable).Where(l => l.Keys.Where(key => (key.ToLower() == unit.ToLower())).Any()).Any()){
-                Console.WriteLine($"Error: unknown unit {unit}. Cannot convert this unit to its base unit.");
+                Log.Information($"Error: unknown unit {unit}. Cannot convert this unit to its base unit.");
             }
             var conversionRate = ConversionTable
                                     .Select(l => l.conversionTable)

@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Serilog;
 using StiebelEltronDashboard.Extensions;
 using StiebelEltronDashboard.Models;
 
 namespace StiebelEltronDashboard.Services {
     public class StatisticsService : IStatisticsService {
         public HeatPumpDataPerPeriod GetHeatPumpDataPerPeriod (IEnumerable<HeatPumpDatum> heatPumpData, int year, string periodKind, int periodNumber, DateTime now) {
-            Console.WriteLine($"--> GetHeatPumpDataPerPeriod: heatPumpData.Count = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
+            Log.Information($"--> GetHeatPumpDataPerPeriod: heatPumpData.Count = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
+            Log.Information($"--> GetHeatPumpDataPerPeriod: PowerConsumptionHotWaterDayEnd = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
             var result = new HeatPumpDataPerPeriod () {
                 ReturnTemperatureMin = heatPumpData.GetMinForMetric (h => h.ReturnTemperature) ?? Double.MinValue,
                     ReturnTemperatureMax = heatPumpData.GetMaxForMetric (h => h.ReturnTemperature) ?? Double.MinValue,
@@ -128,7 +130,7 @@ namespace StiebelEltronDashboard.Services {
                     DateUpdated = now,
                     DateCreated = now
             };
-            Console.WriteLine($"<-- GetHeatPumpDataPerPeriod: heatPumpData.Count = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
+            Log.Information($"<-- GetHeatPumpDataPerPeriod: heatPumpData.Count = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
             return result;
         }
     }

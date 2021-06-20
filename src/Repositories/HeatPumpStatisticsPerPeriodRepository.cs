@@ -1,3 +1,4 @@
+using Serilog;
 using StiebelEltronDashboard.Extensions;
 using StiebelEltronDashboard.Models;
 using System;
@@ -49,13 +50,13 @@ namespace StiebelEltronDashboard.Repositories
                 {
                     result.Add(elem);
                     previous = elem;
-                    Console.WriteLine($"Previous: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
+                    Log.Information($"Previous: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
                 }
                 else if (previous.PeriodNumber < elem.PeriodNumber)
                 {
                     result.Add(elem);
                     previous = elem;
-                    Console.WriteLine($" Add: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
+                    Log.Information($" Add: {elem.PeriodKind}: {elem.PeriodNumber} {elem.First} {elem.Year}");
                 }
             }
 

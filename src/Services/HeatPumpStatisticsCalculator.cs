@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Serilog;
 
 namespace StiebelEltronDashboard.Services
 {
@@ -20,7 +21,7 @@ namespace StiebelEltronDashboard.Services
             var result = new StatisticsResult(null,null);
             var statistics = new List<HeatPumpDataPerPeriod>();
 
-            Console.WriteLine("Calculate statistics!");
+            Log.Information("Calculate statistics!");
             
             var latestDailyStatistic = DateTime.MinValue;
             if(heatPumpDataPerPeriods.Any()){
@@ -32,92 +33,92 @@ namespace StiebelEltronDashboard.Services
                 var mostRecentRecordInRecent1Day = lastDay.Select(hpd => hpd.DateCreated).Max();
                 var dailyStatisticsContainer = GetEmptyDailyStatisticsContainer(heatPumpData, oldestRecordInRecent1Day, now); 
                 if(dailyStatisticsContainer.Any()){
-                    Console.WriteLine($"--> Calculate daily statistics: latest stats: {latestDailyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecent1Day} most recent: {mostRecentRecordInRecent1Day}");
+                    Log.Information($"--> Calculate daily statistics: latest stats: {latestDailyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecent1Day} most recent: {mostRecentRecordInRecent1Day}");
                     var dailyStatistics = GetDailyStatistics(heatPumpData, dailyStatisticsContainer, now);
                     if(dailyStatistics.Any()){
-                        Console.WriteLine($"{dailyStatistics.Count()} <-- Calculate daily statistics: {dailyStatistics.First().DateUpdated}");
+                        Log.Information($"{dailyStatistics.Count()} <-- Calculate daily statistics: {dailyStatistics.First().DateUpdated}");
                         statistics.AddRange(dailyStatistics);    
-                        Console.WriteLine($"<-- AddRange daily statistics: {dailyStatistics.First().DateUpdated}");
+                        Log.Information($"<-- AddRange daily statistics: {dailyStatistics.First().DateUpdated}");
                     }else{
-                        Console.WriteLine($"!Any() <-- GetDailyStatistics(heatPumpData, dailyStatisticsContainer, now)");
+                        Log.Information($"!Any() <-- GetDailyStatistics(heatPumpData, dailyStatisticsContainer, now)");
                     }
                 }
             }else{
-                Console.WriteLine($"Not enough data for daily stats. Latest heat pump {heatPumpData.Select(hpd => hpd.DateUpdated).Max()} latest statistic: {latestDailyStatistic}");
+                Log.Information($"Not enough data for daily stats. Latest heat pump {heatPumpData.Select(hpd => hpd.DateUpdated).Max()} latest statistic: {latestDailyStatistic}");
             }      
-            Console.WriteLine($"--> latestWeeklyStatistic");
+            Log.Information($"--> latestWeeklyStatistic");
             var latestWeeklyStatistic = DateTime.MinValue;
             var weeklyStatisticCreationDates = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Week").Select(h => h.DateCreated);
             if(weeklyStatisticCreationDates.Any()){
                 latestWeeklyStatistic = weeklyStatisticCreationDates.Max();
-                Console.WriteLine($"<-- latestWeeklyStatistic {latestWeeklyStatistic}");
+                Log.Information($"<-- latestWeeklyStatistic {latestWeeklyStatistic}");
             }else{
-                Console.WriteLine($"<-- latestWeeklyStatistic !Any()");
+                Log.Information($"<-- latestWeeklyStatistic !Any()");
             }
             var lastWeek = heatPumpData.Where(hpd => hpd.DateCreated >= latestWeeklyStatistic).ToList();
             if(lastWeek.Any()){
-                Console.WriteLine($"--> if(lastWeek.Any())");
+                Log.Information($"--> if(lastWeek.Any())");
                 var oldestRecordInRecentWeek = lastWeek.Select(hpd => hpd.DateCreated).Min();
                 var weeklyStatisticsContainer = GetEmptyWeeklyStatisticsContainer(heatPumpData, oldestRecordInRecentWeek, now);
                 if(weeklyStatisticsContainer.Any()){
-                    Console.WriteLine($"Calculate weekly statistics: latest stats: {latestWeeklyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecentWeek}");
+                    Log.Information($"Calculate weekly statistics: latest stats: {latestWeeklyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecentWeek}");
                     var weeklyStatistics = GetWeeklyStatistics(heatPumpData, weeklyStatisticsContainer, now);
                     if(weeklyStatisticsContainer.Any()){
                         statistics.AddRange(weeklyStatistics);    
                     }else{
-                        Console.WriteLine($"!Any() <-- GetWeeklyStatistics(heatPumpData, weeklyStatisticsContainer, now)");
+                        Log.Information($"!Any() <-- GetWeeklyStatistics(heatPumpData, weeklyStatisticsContainer, now)");
                     }
                 }else{
-                    Console.WriteLine($"<-- no weekly statistics container.");
+                    Log.Information($"<-- no weekly statistics container.");
                 }
             }else{
-                Console.WriteLine($"Not enough data for weekly stats. {weeklyStatisticCreationDates.Select(hpd => hpd).Max()} latest statistic: {latestWeeklyStatistic}");
+                Log.Information($"Not enough data for weekly stats. {weeklyStatisticCreationDates.Select(hpd => hpd).Max()} latest statistic: {latestWeeklyStatistic}");
             }
             
             var latestMonthlyStatistic = DateTime.MinValue;
             var monthlyStatisticCreationDates = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Month").Select(h => h.DateCreated);
             if(monthlyStatisticCreationDates.Any()){
                 latestMonthlyStatistic = monthlyStatisticCreationDates.Max().Subtract(TimeSpan.FromDays(32));
-                Console.WriteLine($"<-- latestMonthlyStatistic {latestMonthlyStatistic}");
+                Log.Information($"<-- latestMonthlyStatistic {latestMonthlyStatistic}");
             }
             var lastMonth = heatPumpData.Where(hpd => hpd.DateCreated >= latestMonthlyStatistic).ToList();
             if(lastMonth.Any()){
                 var oldestRecordInRecentMonth = lastMonth.Select(hpd => hpd.DateCreated).Min();
                 var monthlyStatisticsContainer = GetEmptyMonthlyStatisticsContainer(heatPumpData, oldestRecordInRecentMonth, now);
                 if(monthlyStatisticsContainer.Any()){
-                    Console.WriteLine($"Calculate monthly statistics: latest Stats: {latestMonthlyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecentMonth}");         
+                    Log.Information($"Calculate monthly statistics: latest Stats: {latestMonthlyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecentMonth}");         
                     var monthlyStatistics = GetMonthlyStatistics(heatPumpData, monthlyStatisticsContainer, now);
                     if(monthlyStatistics.Any()){
                         statistics.AddRange(monthlyStatistics);
                     }else{
-                        Console.WriteLine($"!Any() <-- GetMonthlyStatistics(heatPumpData, monthlyStatisticsContainer, now)");
+                        Log.Information($"!Any() <-- GetMonthlyStatistics(heatPumpData, monthlyStatisticsContainer, now)");
                     }
                 }else{
-                    Console.WriteLine($"<-- no monthly statistics container.");
+                    Log.Information($"<-- no monthly statistics container.");
                 }  
                 
             }else{
-                Console.WriteLine($"Not enough data for monthly stats. {monthlyStatisticCreationDates.Select(hpd => hpd).Max()} latest statistic: {latestMonthlyStatistic}");
+                Log.Information($"Not enough data for monthly stats. {monthlyStatisticCreationDates.Select(hpd => hpd).Max()} latest statistic: {latestMonthlyStatistic}");
             }
             
             var latestYearlyStatistic = DateTime.MinValue;
             var yearlyStatisticCreationDates = heatPumpDataPerPeriods.Where(h => h.PeriodKind == "Month").Select(h => h.DateCreated);
             if(yearlyStatisticCreationDates.Any()){
                 latestYearlyStatistic = yearlyStatisticCreationDates.Max();
-                Console.WriteLine($"<-- latestYearlyStatistic {latestYearlyStatistic}");
+                Log.Information($"<-- latestYearlyStatistic {latestYearlyStatistic}");
             }
             var lastYear = heatPumpData.Where(hpd => hpd.DateCreated >= latestYearlyStatistic).ToList();
             if(lastYear.Any()){
                 var oldestRecordInRecent366Days = lastYear.Select(hpd => hpd.DateCreated).Min();
                 var yearlyStatisticsContainer = GetEmptyYearlyStatisticsContainer(heatPumpData, oldestRecordInRecent366Days, now);
                 if(yearlyStatisticsContainer.Any()){
-                    Console.WriteLine($"Calculate yearly statistics: latest stats: {latestYearlyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecent366Days}");
+                    Log.Information($"Calculate yearly statistics: latest stats: {latestYearlyStatistic.ToShortDateString()}; oldest Measurement: {oldestRecordInRecent366Days}");
                     statistics.AddRange(GetYearlyStatistics(heatPumpData, yearlyStatisticsContainer, now));
                 }else{
-                    Console.WriteLine($"<-- no yearly statistics container.");
+                    Log.Information($"<-- no yearly statistics container.");
                 }
             }else{
-                Console.WriteLine($"Not enough data for yearly stats. {yearlyStatisticCreationDates.Select(hpd => hpd).Max()} latest statistic: {latestYearlyStatistic}");
+                Log.Information($"Not enough data for yearly stats. {yearlyStatisticCreationDates.Select(hpd => hpd).Max()} latest statistic: {latestYearlyStatistic}");
             }
             var dataSetsToRemove = heatPumpData.Where(hpd => hpd.DateCreated < now.Subtract(TimeSpan.FromDays(366))).ToList();
             return new StatisticsResult(dataSetsToRemove, statistics);
@@ -193,7 +194,7 @@ namespace StiebelEltronDashboard.Services
                         startOfPeriod.AddMonths(1), 
                         null));
                 }else{
-                    Console.WriteLine($"GetEmptyMonthlyStatisticsContainer --> no data records in range <{startOfPeriod.ToLongDateString()}> - <{endOfPeriod.ToLongDateString()}>");
+                    Log.Information($"GetEmptyMonthlyStatisticsContainer --> no data records in range <{startOfPeriod.ToLongDateString()}> - <{endOfPeriod.ToLongDateString()}>");
                 }
                 startOfPeriod = endOfPeriod;
             }

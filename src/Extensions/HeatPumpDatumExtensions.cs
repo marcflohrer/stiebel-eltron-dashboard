@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Serilog;
 using StiebelEltronDashboard.Models;
 
 namespace StiebelEltronDashboard.Extensions {
     public static class HeatPumpDatumExtensions {
         public static double? GetMinForMetric (this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector) {
             if (!heatPumpData.Any ()) {
-                Console.WriteLine("null <-- GetMinForMetric!");
+                Log.Information("null <-- GetMinForMetric!");
                 return null;
             }
             var min = Double.MaxValue;
@@ -23,7 +24,7 @@ namespace StiebelEltronDashboard.Extensions {
 
         public static double? GetMaxForMetric (this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector) {
             if (!heatPumpData.Any ()) {
-                Console.WriteLine("null <-- GetAverageForMetric!");
+                Log.Information("null <-- GetAverageForMetric!");
                 return null;
             }
             var max = Double.MinValue;
@@ -39,7 +40,7 @@ namespace StiebelEltronDashboard.Extensions {
 
         public static double? GetAverageForMetric (this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector) {
             if (!heatPumpData.Any ()) {
-                Console.WriteLine("<-- GetAverageForMetric!");
+                Log.Information("<-- GetAverageForMetric!");
                 return null;
             }
             var sum = 0.0;
@@ -48,38 +49,46 @@ namespace StiebelEltronDashboard.Extensions {
                 foreach (var metric in metrics) {
                     sum += metric;
                 }
-            }
+            }else{
+                Log.Error("null <-- !Any() <-- GetAverageForMetric!");
+            }             
             var result = sum / heatPumpData.Count ();
             return result;
         }
 
         public static double? GetStartForMetric (this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector) {            
             if (!heatPumpData.Any ()) {
-                Console.WriteLine("null <-- GetEndForMetric!");
+                Log.Error("null <-- GetStartForMetric!");
                 return null;
             }
             var startTime = heatPumpData.Select (h => h.DateCreated).Min ();
             var startHeatPumpData = heatPumpData.Where (h => h.DateCreated == startTime);
             var startMetric = startHeatPumpData.Select (selector);
+            if(startMetric == null){
+                Log.Error("null <-- startMetric <-- GetStartForMetric!");
+            }            
             var result = startMetric?.FirstOrDefault () ?? 0.0;
             return result;
         }
 
         public static double? GetEndForMetric (this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector) {
             if (!heatPumpData.Any ()) {
-                Console.WriteLine("null <-- GetEndForMetric!");
+                Log.Error("null <-- GetEndForMetric!");
                 return null;
             }
             var endTime = heatPumpData.Select (h => h.DateCreated).Max ();
             var endHeatPumpData = heatPumpData.Where (h => h.DateCreated == endTime);
             var endMetric = endHeatPumpData.Select (selector);
+            if(endMetric == null){
+                Log.Error("null <-- endMetric <-- GetEndForMetric!");
+            }
             var result = endMetric?.FirstOrDefault () ?? 0.0;
             return result;
         }
 
         public static double? GetDeltaForMetric (this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector) {
             if (!heatPumpData.Any ()) {
-                Console.WriteLine("null <-- GetDeltaForMetric!");
+                Log.Error("null <-- GetDeltaForMetric!");
                 return null;
             }
             var start = GetStartForMetric (heatPumpData, selector);
@@ -98,7 +107,7 @@ namespace StiebelEltronDashboard.Extensions {
                     }
                 }
             }else{
-                Console.WriteLine("!Any() <-- GetDeltaForMetric!");
+                Log.Information("!Any() <-- GetDeltaForMetric!");
             }
             return first;
         }
@@ -113,7 +122,7 @@ namespace StiebelEltronDashboard.Extensions {
                     }
                 }
             }else{
-                Console.WriteLine("!Any() <-- GetLast!");
+                Log.Information("!Any() <-- GetLast!");
             }
             return last;
         }

@@ -46,7 +46,7 @@ namespace StiebelEltronDashboard.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Information(ex.Message);
             }
 
         }

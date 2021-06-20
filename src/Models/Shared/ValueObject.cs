@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
+using Serilog;
 namespace StiebelEltronDashboard.Models.Shared
 {
     // source: https://github.com/jhewlett/ValueObject
@@ -50,7 +50,7 @@ namespace StiebelEltronDashboard.Models.Shared
                 isEqual = Math.Abs((double)p.GetValue(this, null) - (double)p.GetValue(obj, null)) <= Double.Epsilon;
             }
             if(!isEqual){
-                Console.WriteLine($"Not Equal: {p}");
+                Log.Debug($"Not Equal: {p}");
             }
             return isEqual;
         }
@@ -59,7 +59,7 @@ namespace StiebelEltronDashboard.Models.Shared
         {
             var isEqual = object.Equals(f.GetValue(this), f.GetValue(obj));
             if(!isEqual){
-                Console.WriteLine($"Not Equal: {f}");
+                Log.Debug($"Not Equal: {f}");
             }
             return isEqual;
         }

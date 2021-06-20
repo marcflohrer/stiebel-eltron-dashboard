@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using StiebelEltronDashboard.Repositories;
 using System;
 using System.Globalization;
@@ -23,66 +24,66 @@ namespace StiebelEltronDashboard.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            Console.WriteLine("Entering HeatPump/Index");
+            Log.Information("Entering HeatPump/Index");
             var recentSevenDays = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentSevenDays(DateTime.Now).AsEnumerable();
             if(!recentSevenDays.Any()){
-                Console.WriteLine($"Index: Recent 7 Days. No results. {recentSevenDays.Count()}");
+                Log.Information($"Index: Recent 7 Days. No results. {recentSevenDays.Count()}");
             }else{
-                Console.WriteLine($"Index: Recent 7 Days. Results: {recentSevenDays.Count()}");
+                Log.Information($"Index: Recent 7 Days. Results: {recentSevenDays.Count()}");
                 foreach(var rsd in recentSevenDays)
                 {
-                    Console.WriteLine($"Index: Recent 7 Days. Results: (max) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} {rsd.PeriodKind}");
-                    Console.WriteLine($"Index: Recent 7 Days. Results: (min) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMin} ");
-                    Console.WriteLine($"Index: Recent 7 Days. Results: (avg) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureAverage} ");
-                    Console.WriteLine("------------------------------");
+                    Log.Information($"Index: Recent {recentSevenDays.Count()}  {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} {rsd.PeriodKind}");
+                    Log.Information($"Index: Recent {recentSevenDays.Count()}  {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (start) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayStart} ");
+                    Log.Information($"Index: Recent {recentSevenDays.Count()}  {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (delta) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayDelta} ");
+                    Log.Information("------------------------------");
                 }
             }
             var result = recentSevenDays.ToList();
 
             var recent12Weeks = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentTwelveWeeks(DateTime.Now, new CultureInfo("de-DE")).AsEnumerable();
             if(!recent12Weeks.Any()){
-                Console.WriteLine($"Index: Recent 12 Weeks. No results. {recentSevenDays.Count()}");
+                Log.Information($"Index: Recent 12 Weeks. No results. {recentSevenDays.Count()}");
 
             }else{
-                Console.WriteLine($"Index: Recent 12 Weeks. Results: {recentSevenDays.Count()}");
+                Log.Information($"Index: Recent 12 Weeks. Results: {recentSevenDays.Count()}");
                 foreach(var rsd in recent12Weeks)
                 {
-                    Console.WriteLine($"Index: Recent 12 Weeks. Results: (max) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} {rsd.PeriodKind}");
-                    Console.WriteLine($"Index: Recent 12 Weeks. Results: (min) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMin} ");
-                    Console.WriteLine($"Index: Recent 12 Weeks. Results: (avg) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureAverage} ");
-                    Console.WriteLine("------------------------------");
+                    Log.Information($"Index: Recent {recent12Weeks.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} ");
+                    Log.Information($"Index: Recent {recent12Weeks.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (start) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayStart} ");
+                    Log.Information($"Index: Recent {recent12Weeks.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (delta) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayDelta} ");
+                    Log.Information("------------------------------");
                 }
             }
             result.AddRange(recent12Weeks);
 
             var recent12Months = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentTwelveMonths(DateTime.Now).AsEnumerable();
             if(!recent12Months.Any()){
-                Console.WriteLine($"Index: Recent 12 Months. No results. {recentSevenDays.Count()}");
+                Log.Information($"Index: Recent 12 Months. No results. {recentSevenDays.Count()}");
 
             }else{
-                Console.WriteLine($"Index: Recent 12 Months. Results: {recentSevenDays.Count()}");
+                Log.Information($"Index: Recent 12 Months. Results: {recentSevenDays.Count()}");
                 foreach(var rsd in recent12Months)
                 {
-                    Console.WriteLine($"Index: Recent 12 Months. Results: (max) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} {rsd.PeriodKind}");
-                    Console.WriteLine($"Index: Recent 12 Months. Results: (min) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMin} ");
-                    Console.WriteLine($"Index: Recent 12 Months. Results: (avg) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureAverage} ");
-                    Console.WriteLine("------------------------------");
+                    Log.Information($"Index: Recent {recent12Months.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} ");
+                    Log.Information($"Index: Recent {recent12Months.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (start) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayStart} ");
+                    Log.Information($"Index: Recent {recent12Months.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (delta) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayDelta} ");
+                    Log.Information("------------------------------");
                 }
             }
             result.AddRange(recent12Months);
 
             var recentYears = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetYearlyRecords(DateTime.Now).AsEnumerable();
             if(!recentYears.Any()){
-                Console.WriteLine($"Index: Recent Years. No results. {recentSevenDays.Count()}");
+                Log.Information($"Index: Recent Years. No results. {recentSevenDays.Count()}");
 
             }else{
-                Console.WriteLine($"Index: Recent Years. Results: {recentSevenDays.Count()}");
+                Log.Information($"Index: Recent Years. Results: {recentSevenDays.Count()}");
                 foreach(var rsd in recentYears)
                 {
-                    Console.WriteLine($"Index: Recent Years. Results: (max) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMax} {rsd.PeriodKind}");
-                    Console.WriteLine($"Index: Recent Years. Results: (min) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureMin} ");
-                    Console.WriteLine($"Index: Recent Years. Results: (avg) {rsd.DateCreated}; {rsd.First}; {rsd.OutdoorTemperatureAverage} ");
-                    Console.WriteLine("------------------------------");
+                    Log.Information($"Index: Recent {recentYears.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} ");
+                    Log.Information($"Index: Recent {recentYears.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (start) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayStart} ");
+                    Log.Information($"Index: Recent {recentYears.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (delta) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayDelta} ");
+                    Log.Information("------------------------------");
                 }
             }
             result.AddRange(recentYears);

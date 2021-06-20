@@ -64,8 +64,8 @@ namespace StiebelEltronDashboard
                 throw new Exception("Database connection is not set.");
             }
 
-            var logger = new LoggerConfiguration()
-                        .WriteTo.File("logs/dashboard.log", fileSizeLimitBytes: 1048576000, rollOnFileSizeLimit: true, rollingInterval: RollingInterval.Day)
+            var logger = Log.Logger = new LoggerConfiguration()
+                        .WriteTo.File("logs/dashboard.log", fileSizeLimitBytes: 1048576, rollOnFileSizeLimit: true, rollingInterval: RollingInterval.Day)
                         .WriteTo.Console()
                         .CreateLogger();
 
