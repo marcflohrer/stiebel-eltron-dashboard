@@ -5,10 +5,10 @@ namespace StiebelEltronDashboard.Extensions {
     public static class HeatPumpDataPerPeriodExtensions {
         public static double? PerformanceFactorPeriod (this HeatPumpDataPerPeriod heatPumpDataPerPeriod) 
         {
-            var heatQuantityProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingDayStart;
-            var hotWaterProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterDayStart;
-            var powerConsumedForHeat = heatPumpDataPerPeriod.PowerConsumptionHeatingDayEnd - heatPumpDataPerPeriod.PowerConsumptionHeatingDayStart;
-            var powerConsumedForHotWater = heatPumpDataPerPeriod.PowerConsumptionHotWaterDayEnd - heatPumpDataPerPeriod.PowerConsumptionHotWaterDayStart;
+            var heatQuantityProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalStart;
+            var hotWaterProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalStart;
+            var powerConsumedForHeat = heatPumpDataPerPeriod.PowerConsumptionHeatingSumEnd - heatPumpDataPerPeriod.PowerConsumptionHeatingSumStart;
+            var powerConsumedForHotWater = heatPumpDataPerPeriod.PowerConsumptionHotWaterSumEnd - heatPumpDataPerPeriod.PowerConsumptionHotWaterSumStart;
             var result = (heatQuantityProducedInPeriod + hotWaterProducedInPeriod) / (powerConsumedForHeat + powerConsumedForHotWater);
             Log.Information($"Performance Factor Period: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
             return result;
