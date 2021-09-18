@@ -77,7 +77,7 @@ namespace StiebelEltronDashboard
 
             services.AddMvc();
             services.AddTransient<IXpathService, XpathService>()
-                .AddSingleton<ILogger>(logger)
+                .AddSingleton(logger)
                 .AddTransient<IHtmlScanner, HtmlScanner>()
                 .AddTransient<ITidyUpDirtyHtml, TidyUpDirtyHtml>()
                 .AddTransient<IScrapingService, ScrapingService>()
