@@ -6,12 +6,12 @@ namespace StiebelEltronDashboard.Extensions
 {
     public static class DoubleExtensions
     {
-        public static string ToJson (this IEnumerable<double?> str) 
-            => JsonConvert.SerializeObject(str);       
-        public static string ToJson (this IEnumerable<double> str) 
-            => JsonConvert.SerializeObject(str);        
+        public static string ToJson(this IEnumerable<double?> str)
+            => JsonConvert.SerializeObject(str);
+        public static string ToJson(this IEnumerable<double> str)
+            => JsonConvert.SerializeObject(str);
 
-        public static IEnumerable<TSource> DistinctBy<TSource, TKey>
+        public static IEnumerable<TSource> MyDistinctBy<TSource, TKey>
             (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             HashSet<TKey> seenKeys = new HashSet<TKey>();
@@ -22,6 +22,6 @@ namespace StiebelEltronDashboard.Extensions
                     yield return element;
                 }
             }
-        }                            
+        }
     }
 }
