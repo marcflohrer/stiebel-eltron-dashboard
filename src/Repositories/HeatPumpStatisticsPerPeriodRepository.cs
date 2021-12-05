@@ -37,7 +37,7 @@ namespace StiebelEltronDashboard.Repositories
                     && hpdpp.PeriodNumber >= firstDay
                     && hpdpp.First != DateTime.MaxValue);
             return list.OrderBy(x => x.Last)
-                       .DistinctBy(x => x.PeriodNumber)
+                       .MyDistinctBy(x => x.PeriodNumber)
                        .Take(7).ToList();
         }
 
@@ -76,7 +76,7 @@ namespace StiebelEltronDashboard.Repositories
             HeatPumpDataPerPeriod previous = null;
             result = GetDistinctPeriodNumber(list, result, previous);   
             return result.OrderBy(x => x.Last)
-                         .DistinctBy(x => x.PeriodNumber)
+                         .MyDistinctBy(x => x.PeriodNumber)
                          .Take(12).ToList();                    
         }
 
@@ -91,7 +91,7 @@ namespace StiebelEltronDashboard.Repositories
             HeatPumpDataPerPeriod previous = null;
             result = GetDistinctPeriodNumber(list, result, previous);
             return result.OrderBy(x => x.Last)
-                         .DistinctBy(x => x.PeriodNumber)
+                         .MyDistinctBy(x => x.PeriodNumber)
                          .Take(12)
                          .ToList();
         }
@@ -104,7 +104,7 @@ namespace StiebelEltronDashboard.Repositories
             HeatPumpDataPerPeriod previous = null;
             result = GetDistinctPeriodNumber(list, result, previous); 
             return result.OrderBy(x => x.Last)
-                         .DistinctBy(x => x.PeriodNumber)
+                         .MyDistinctBy(x => x.PeriodNumber)
                          .Take(12).ToList();
         }
 
