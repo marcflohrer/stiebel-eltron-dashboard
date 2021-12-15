@@ -52,7 +52,7 @@
 		<None Remove="stiebel-eltron-dashboard-tests\obj\Debug\net5.0\stiebel-eltron-dashboard-tests.assets.cache" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.6">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
