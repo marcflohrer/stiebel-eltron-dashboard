@@ -141,7 +141,7 @@ namespace StiebelEltronDashboardTests {
                     DefrostStartsStart = 1,
                     DefrostStartsEnd = 14,
                     DefrostStartsDelta = 13,
-                    Year = DateTime.Now.Year,
+                    Year = 2021,
                     PeriodKind = "Day",
                     PeriodNumber = 13,
                     First = new DateTime(2021,5,1).Subtract (TimeSpan.FromHours (14)),

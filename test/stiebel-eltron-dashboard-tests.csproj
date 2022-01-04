@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -17,6 +17,9 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\src\stiebel-eltron-dashboard.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Extensions\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="html\HeatPumpWebsite.html">
@@ -76,5 +79,8 @@
 		<None Update="html\TestSnippet16.html">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Extensions\" />
 	</ItemGroup>
 </Project>
