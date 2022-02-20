@@ -50,24 +50,26 @@
 		<None Remove="stiebel-eltron-dashboard-tests\obj\stiebel-eltron-dashboard-tests.csproj.nuget.g.targets" />
 		<None Remove="stiebel-eltron-dashboard-tests\obj\project.nuget.cache" />
 		<None Remove="stiebel-eltron-dashboard-tests\obj\Debug\net5.0\stiebel-eltron-dashboard-tests.assets.cache" />
+		<None Remove="Newtonsoft.Json" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.39" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
 		<PackageReference Include="Cronos" Version="0.7.1" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-		<PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+		<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Remove="stiebel-eltron-dashboard-tests\UnitTest1.cs" />
