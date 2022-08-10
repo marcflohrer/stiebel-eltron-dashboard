@@ -19,7 +19,7 @@
 		<ProjectReference Include="..\src\stiebel-eltron-dashboard.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Extensions\" />
+		<None Remove="Extensions\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="html\HeatPumpWebsite.html">
@@ -81,6 +81,6 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Extensions\" />
+		<Folder Include="Extensions\" />
 	</ItemGroup>
 </Project>
