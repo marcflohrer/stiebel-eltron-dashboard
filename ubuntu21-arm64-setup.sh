@@ -57,9 +57,23 @@ sudo apt install python3-dev -y
 sudo apt-get install -y python3 python3-pip -y
 sudo pip3 install docker-compose
 
-wget https://download.visualstudio.microsoft.com/download/pr/50c2990a-2b62-4a51-b3db-8dab334f81c9/e0edfb3905b31ab030a97fa64f48cc8e/dotnet-sdk-5.0.300-linux-arm64.tar.gz
+HASH=901f7928-5479-4d32-a9e5-ba66162ca0e4/d00b935ec4dc79a27f5bde00712ed3d7
+FILE=dotnet-sdk-6.0.400-linux-arm64.tar.gz
+if [ -f "$FILE" ]; then
+    echo "$FILE exists."
+else
+    wget https://download.visualstudio.microsoft.com/download/pr/$HASH/$FILE
+fi
+DIRECTORY=dotnet-64
+if [ -d "$DIRECTORY" ]; then
+   echo "deleting $DIRECTORY directory."
+   rm -r $DIRECTORY
+fi
 mkdir dotnet-64
-tar zxf dotnet-sdk-5.0.300-linux-arm64.tar.gz -C $HOME/dotnet-64
+echo "unpacking $FILE."
+tar zxf $FILE -C $DIRECTORY
+echo "$FILE unpacked."
+
 export DOTNET_ROOT=$HOME/dotnet-64
 export PATH=$HOME/dotnet-64:$PATH
 echo  'export DOTNET_ROOT=$HOME/dotnet-64' >> ~/.bashrc 
@@ -68,4 +82,3 @@ source ~/.bashrc
 dotnet --info
 
 cd stiebel-eltron-dashboard/src && chmod +x start-dbmigrating.sh && ./start-dbmigrating.sh &
-
