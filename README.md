@@ -95,6 +95,8 @@ Here is a screen shot of the dashboard:
 * This project has only been tested with the heat pump version WPL 20 A.
 * The dashboard labels are partly in German and there is no option to change the language.
 * The first day after starting the application no information are available in the database and the site will show an error "Sequence contains no elements".
+* Scraping the ISG portal ("ServiceWelt") only works when the language is set to German.
+* The website is not ready for mobile devices. It works at first glance but when switch between views the widgets disappear. This is probably duet to a memory limitation on mobile devices.
 
 ### Prerequisites
 
