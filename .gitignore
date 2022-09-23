@@ -1,3 +1,7 @@
 src/web/root/.aspnet/DataProtection-Keys
 ops/*
 src/data/logs
+
+**/.vs/**
+**/bin/**
+**/obj/**

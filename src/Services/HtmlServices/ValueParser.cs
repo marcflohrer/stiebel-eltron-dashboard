@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Threading;
 
 namespace StiebelEltronDashboard.Services.HtmlServices
 {
@@ -12,14 +13,17 @@ namespace StiebelEltronDashboard.Services.HtmlServices
             {
                 rawValue = rawValue.Substring(1,rawValue.Length-1);
             }
-            var decimalValue = rawValue.Trim().Replace(',', '.');
+
+            var sourceSeparator = ',';
+            var targetSeparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            var decimalValue = rawValue.Trim().Replace(sourceSeparator, targetSeparator);
             var number = new StringBuilder();
             var unit = new StringBuilder();
                       
             foreach (var d in decimalValue)
             {
                 var isNumeric = int.TryParse(d.ToString(), out _);
-                var isDot = d == '.';
+                var isDot = d == targetSeparator;
                 if (isNumeric || isDot)
                 {
                     number.Append(d);
