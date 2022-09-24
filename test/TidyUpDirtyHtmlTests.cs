@@ -7,11 +7,11 @@ namespace StiebelEltronDashboardTests
 {
     public class TidyUpDirtyHtmlTests
     {
-        private readonly ITestOutputHelper _output;
+        private readonly ITestOutputHelper output;
 
         public TidyUpDirtyHtmlTests(ITestOutputHelper output)
         {
-            _output = output;
+            this.output = output;
         }
 
         [Theory]
@@ -40,8 +40,8 @@ namespace StiebelEltronDashboardTests
             var inputHtml = ServiceWeltMockData.GetHtml(testDataIndex);
             var expectedHtml = inputHtml.Replace("&nbsp;", string.Empty);
             expectedHtml = expectedHtml.Replace("&copy;", string.Empty);
-            
-            _output.WriteLine("Testing TestSnippet" +testDataIndex +".html" );
+
+            output.WriteLine("Testing TestSnippet" + testDataIndex + ".html");
             var tidyHtml = tidyUpDirtyHtml.GetTidyHtml(inputHtml);
 
             Assert.Equal(expectedHtml, tidyHtml);
@@ -57,13 +57,13 @@ namespace StiebelEltronDashboardTests
             var htmlParser = autoMoqer.Create<HtmlScanner>();
             autoMoqer.SetInstance<IHtmlScanner>(htmlParser);
             var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
-            
-            _output.WriteLine($"Cleaning {dirtyHtml}" );
+
+            output.WriteLine($"Cleaning {dirtyHtml}");
             var actualTidyHtml = tidyUpDirtyHtml.GetTidyHtml(dirtyHtml);
-            _output.WriteLine($"Cleaned: {actualTidyHtml}" );
+            output.WriteLine($"Cleaned: {actualTidyHtml}");
 
             Assert.Equal(exptectedTidyHtml, actualTidyHtml);
-        }        
+        }
 
         [Fact]
         public void WhenTidyingUpDirtyHtmlTidyHtmlIsReturned()
@@ -74,7 +74,7 @@ namespace StiebelEltronDashboardTests
             var tidyUpDirtyHtml = autoMoqer.Create<TidyUpDirtyHtml>();
             var inputHtml = ServiceWeltMockData.HeatPumpWebsite;
             var outputHtml = ServiceWeltMockData.HeatPumpWebsiteTidiedUp;
-            
+
             var tidyHtml = tidyUpDirtyHtml.GetTidyHtml(inputHtml);
             Assert.Equal(outputHtml, tidyHtml);
         }

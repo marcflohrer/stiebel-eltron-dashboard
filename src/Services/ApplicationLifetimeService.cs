@@ -3,26 +3,37 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace StiebelEltronDashboard.Services {
-    public class ApplicationLifetimeService : IHostedService {
-        private readonly ILogger _logger;
-        private readonly IHostApplicationLifetime _applicationLifetime;
+namespace StiebelEltronDashboard.Services
+{
+    public class ApplicationLifetimeService : IHostedService
+    {
+        private readonly ILogger logger;
 
-        public ApplicationLifetimeService (IHostApplicationLifetime applicationLifetime, ILogger logger) {
-            _applicationLifetime = applicationLifetime;
-            _logger = logger;
+        public ApplicationLifetimeService(ILogger logger)
+        {
+            this.logger = logger;
         }
 
-        public Task StartAsync (CancellationToken cancellationToken) {
+        private readonly IHostApplicationLifetime applicationLifetime;
+
+        public ApplicationLifetimeService(IHostApplicationLifetime applicationLifetime, ILogger logger)
+        {
+            this.applicationLifetime = applicationLifetime;
+            this.logger = logger;
+        }
+
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
             // register a callback that sleeps for 30 seconds
-            _applicationLifetime.ApplicationStopping.Register (() => {
-                _logger.Information ("SIGTERM received, waiting for 30 seconds");
-                Thread.Sleep (30_000);
-                _logger.Information ("Termination delay complete, continuing stopping process");
+            _ = applicationLifetime.ApplicationStopping.Register(() =>
+            {
+                logger.Information("SIGTERM received, waiting for 30 seconds");
+                Thread.Sleep(30_000);
+                logger.Information("Termination delay complete, continuing stopping process");
             });
             return Task.CompletedTask;
         }
 
-        public Task StopAsync (CancellationToken cancellationToken) => Task.CompletedTask;
+        public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
     }
 }
