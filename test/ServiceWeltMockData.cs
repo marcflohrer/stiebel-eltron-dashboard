@@ -6,19 +6,20 @@ namespace StiebelEltronDashboardTests
     public static class ServiceWeltMockData
     {
         public static string HeatPumpWebsite => File.ReadAllText(@"html/HeatPumpWebsite.html");
+        public static string HeatPumpWebsiteDot => File.ReadAllText(@"html/HeatPumpWebsite-dot.html");
         public static string HeatPumpWebsiteTidiedUp => File.ReadAllText(@"html/HeatPumpWebsiteTidiedUp.html");
         public static string LoginWebSite => File.ReadAllText(@"html/LoginWebsite.html");
 
         public static string GetHtml(int testDataIndex)
         {
             int maxIndex = 16;
-            if(testDataIndex > 0 && testDataIndex <= maxIndex)
+            if (testDataIndex > 0 && testDataIndex <= maxIndex)
             {
                 return File.ReadAllText(@"html/TestSnippet" + testDataIndex + ".html");
             }
             else
             {
-                throw new IndexOutOfRangeException("Test Data Index must be in [1,"+maxIndex+"]. Index found: " + testDataIndex);
+                throw new IndexOutOfRangeException("Test Data Index must be in [1," + maxIndex + "]. Index found: " + testDataIndex);
             }
         }
     }
