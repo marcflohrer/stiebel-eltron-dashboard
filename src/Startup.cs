@@ -109,6 +109,7 @@ namespace StiebelEltronDashboard
                     c.TimeZoneInfo = TimeZoneInfo.Local;
                     c.CronExpression = @"0 13 * * *";
                 });
+            services.AddHttpClientForServiceWelt(new Uri(Configuration["ServiceWeltUrl"]));
 
             services.AddIdentityCore<ApplicationUser>()
                 .AddRoles<IdentityRole>()
