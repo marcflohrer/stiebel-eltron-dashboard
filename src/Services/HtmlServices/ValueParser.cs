@@ -13,8 +13,8 @@ namespace StiebelEltronDashboard.Services.HtmlServices
                 rawValue = rawValue.Substring(1, rawValue.Length - 1);
             }
 
-            var sourceSeparator = DetectSourceDecimalSeparator(rawValue);
-            var targetSeparator = DecimalSeparatorDot();
+            var sourceSeparator = SourceDecimalSeparator(rawValue);
+            var targetSeparator = TargetDecimalSeparator();
             var decimalValue = rawValue.Trim().Replace(sourceSeparator, targetSeparator);
             var number = new StringBuilder();
             var unit = new StringBuilder();
@@ -43,10 +43,10 @@ namespace StiebelEltronDashboard.Services.HtmlServices
         public static double ParseDouble(string value)
             => double.Parse(value, NumberStyles.AllowDecimalPoint, NumberFormatInfo.InvariantInfo);
 
-        private static char DetectSourceDecimalSeparator(string rawValue)
+        private static char SourceDecimalSeparator(string rawValue)
         {
             var comma = NumberDecimalSeparatorComma();
-            var dot = DecimalSeparatorDot();
+            var dot = TargetDecimalSeparator();
             var detectedDecimalSeparator = dot;
             if (rawValue.Contains(comma))
             {
@@ -56,7 +56,7 @@ namespace StiebelEltronDashboard.Services.HtmlServices
         }
 
         private static char NumberDecimalSeparatorComma() => ToChar(new CultureInfo("de-DE").NumberFormat.NumberDecimalSeparator);
-        private static char DecimalSeparatorDot() => ToChar(new CultureInfo("en-GB").NumberFormat.NumberDecimalSeparator);
+        private static char TargetDecimalSeparator() => ToChar(new CultureInfo("en-GB").NumberFormat.NumberDecimalSeparator);
 
         // Convert.ToChar would return a unicode char that is not needed here.
         private static char ToChar(string s) => s[0];
