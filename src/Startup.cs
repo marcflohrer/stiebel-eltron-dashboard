@@ -37,6 +37,7 @@ using Serilog;
 using System;
 using StiebelEltronDashboard.Extensions;
 using StiebelEltronDashboard.Services.HtmlServices;
+using Serilog.Events;
 
 namespace StiebelEltronDashboard
 {
@@ -65,7 +66,13 @@ namespace StiebelEltronDashboard
             }
 
             var logger = Log.Logger = new LoggerConfiguration()
-                        .WriteTo.File("logs/dashboard.log", fileSizeLimitBytes: 1048576, rollOnFileSizeLimit: true, rollingInterval: RollingInterval.Day)
+                        .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                        .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
+                        .MinimumLevel.Override("System", LogEventLevel.Warning)
+                        .Filter.With<LoggingFilter>()
+                        .Enrich.FromLogContext()
+                        .WriteTo.File("logs/dashboard.log", fileSizeLimitBytes: 1048576, rollOnFileSizeLimit: true,
+                        rollingInterval: RollingInterval.Day, retainedFileCountLimit: 10)
                         .WriteTo.Console()
                         .CreateLogger();
 
@@ -80,7 +87,7 @@ namespace StiebelEltronDashboard
                 .AddSingleton(logger)
                 .AddTransient<IHtmlScanner, HtmlScanner>()
                 .AddTransient<ITidyUpDirtyHtml, TidyUpDirtyHtml>()
-                .AddTransient<IScrapingService, ScrapingService>()
+                .AddTransient<IServiceWeltService, ServiceWeltService>()
                 .AddTransient<IServiceWeltFacade, ServiceWeltFacade>()
                 .AddTransient<IHeatPumpDataRepository, HeatPumpDataRepository>()
                 .AddTransient<IUnitService, UnitService>()

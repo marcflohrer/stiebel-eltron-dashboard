@@ -6,13 +6,13 @@ using StiebelEltronDashboard.Models;
 
 namespace StiebelEltronDashboard.Services.HtmlServices
 {
-    public class ScrapingService : IScrapingService
+    public class ServiceWeltService : IServiceWeltService
     {
         private readonly IServiceWeltFacade _serviceWeltFacade;
         private readonly ITidyUpDirtyHtml _tidyUpDirtyHtml;
         private string _sessionId = "1997d0dc84ee423f6b46fcd7ae1a3891";
 
-        public ScrapingService(IServiceWeltFacade serviceWeltFacade,
+        public ServiceWeltService(IServiceWeltFacade serviceWeltFacade,
             ITidyUpDirtyHtml tidyUpDirtyHtml,
             IWebsiteParser websiteParser)
         {
@@ -85,6 +85,46 @@ namespace StiebelEltronDashboard.Services.HtmlServices
                 DateCreated = utcNow,
                 DateUpdated = utcNow
             };
+        }
+
+        public record LanguageName(string Name, string sessionId);
+
+        public async Task<LanguageName> GetCurrentLanguageSettingAsync(string sessionId = "1997d0dc84ee423f6b46fcd7ae1a3891")
+        {
+            if (!string.IsNullOrEmpty(sessionId) && string.IsNullOrEmpty(_sessionId))
+            {
+                _sessionId = sessionId;
+            }
+            else if (!string.IsNullOrEmpty(_sessionId) && string.IsNullOrEmpty(sessionId))
+            {
+                sessionId = _sessionId;
+            }
+            var htmlDocument = new HtmlDocument();
+            var serviceWelt = await _serviceWeltFacade.ReadLanguageSettingAsync(sessionId);
+            var tidyHtml = _tidyUpDirtyHtml.GetTidyHtml(serviceWelt.HtmlDocument);
+            htmlDocument.LoadHtml(tidyHtml);
+
+            var documentNode = htmlDocument.DocumentNode;
+            var outerHtml = documentNode.OuterHtml;
+            htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(outerHtml);
+            var utcNow = DateTime.UtcNow;
+            return new LanguageName(htmlDocument.ParseForAttribute(Metric.LanguageSetting, "value"), sessionId);
+        }
+
+        public async Task<bool> SetLanguageAsync(string language, string sessionId = "1997d0dc84ee423f6b46fcd7ae1a3891")
+        {
+            if (!string.IsNullOrEmpty(sessionId) && string.IsNullOrEmpty(_sessionId))
+            {
+                _sessionId = sessionId;
+            }
+            else if (!string.IsNullOrEmpty(_sessionId) && string.IsNullOrEmpty(sessionId))
+            {
+                sessionId = _sessionId;
+            }
+            var htmlDocument = new HtmlDocument();
+            await _serviceWeltFacade.SetLanguageAsync(sessionId, language);
+            return true;
         }
     }
 }

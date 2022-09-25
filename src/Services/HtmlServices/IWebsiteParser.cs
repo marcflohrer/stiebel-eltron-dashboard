@@ -4,6 +4,7 @@ namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public interface IWebsiteParser
     {
-        public double GetValueFromSite(HtmlDocument htmlDocument, Metric scrapingValue);
+        public double GetValueFromWebsite(HtmlDocument htmlDocument, Metric scrapingValue);
+        public string GetAttributeFromNode(HtmlDocument htmlDocument, Metric scrapingValue, string attributeName);
     }
 }

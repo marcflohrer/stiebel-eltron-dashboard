@@ -13,7 +13,10 @@ namespace StiebelEltronDashboard.Services.HtmlServices
             _valueParser = valueParser;
             _unitService = unitService;
         }
-        public double GetValueFromSite(HtmlDocument htmlDocument, Metric scrapingValue) 
+        public double GetValueFromWebsite(HtmlDocument htmlDocument, Metric scrapingValue)
             => _unitService.GetBaseUnitValue(_valueParser.GetValueWithUnit(_xpathService.GetValueFor(htmlDocument, scrapingValue)));
+
+        public string GetAttributeFromNode(HtmlDocument htmlDocument, Metric scrapingValue, string attributeName)
+            => _xpathService.GetAttributeValue(htmlDocument, scrapingValue, attributeName);
     }
 }

@@ -12,6 +12,13 @@ namespace StiebelEltronDashboard.Services.HtmlServices
                 .InnerText;
         }
 
+        public string GetAttributeValue(HtmlDocument htmlDocument, Metric scrapingValue, string attributeName)
+        {
+            return htmlDocument.DocumentNode
+                .SelectSingleNode(xpathOfElement[scrapingValue])?
+                .GetAttributeValue(attributeName, null);
+        }
+
         private readonly IDictionary<Metric, string> xpathOfElement = new Dictionary<Metric, string>() {
             {
             // VD HEIZEN SUMME MWh   
@@ -191,6 +198,10 @@ namespace StiebelEltronDashboard.Services.HtmlServices
             //STARTS ABTAUEN
             Metric.DefrostStarts,
             "/html/body/div[2]/div/form/div/div[4]/table/tr[9]/td[2]"
+            }, {
+            //SPRACHE
+            Metric.LanguageSetting,
+            "/html/body/div[2]/div/form/div/div[1]/div[2]/div/input"
             }
         };
     }

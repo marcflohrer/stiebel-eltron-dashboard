@@ -5,6 +5,7 @@ namespace StiebelEltronDashboard.Services.HtmlServices
     public interface IXpathService
     {
         public string GetValueFor(HtmlDocument htmlDocument, Metric scrapingValue);
+        public string GetAttributeValue(HtmlDocument htmlDocument, Metric scrapingValue, string attributeName);
     }
 
     public enum Metric
@@ -48,6 +49,6 @@ namespace StiebelEltronDashboard.Services.HtmlServices
         VaporizerHeatQuantityHotWaterTotal,
         VoltageInverter,
         WaterVolumeCurrent,
-
+        LanguageSetting,
     }
 }

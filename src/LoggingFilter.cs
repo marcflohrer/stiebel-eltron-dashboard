@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) .NET Foundation and Contributors
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,32 +23,22 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
  b. You must cause any modified files to carry prominent notices stating that You changed the files; and
  "
 */
-
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Serilog;
-
 namespace StiebelEltronDashboard
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).UseSerilog().Build().Run();
-        }
+    using Serilog.Core;
+    using Serilog.Events;
+    using System;
+    using System.Collections.Generic;
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostContext, webBuilder) =>
-            {
-                webBuilder.AddUserSecrets<Program>();
-            })
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder
-                .SuppressStatusMessages(true)
-                .UseStartup<Startup>();
-            });
+    internal class LoggingFilter : ILogEventFilter
+    {
+        private static readonly HashSet<string> ignoredMessages = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "Start processing HTTP request {HttpMethod} {Uri}",
+            "End processing HTTP request after {ElapsedMilliseconds}ms - {StatusCode}"
+        };
+
+        // Allow the event to be logged if the message template isn't one we ignore
+        public bool IsEnabled(LogEvent logEvent) => !ignoredMessages.Contains(logEvent.MessageTemplate.Text);
     }
 }

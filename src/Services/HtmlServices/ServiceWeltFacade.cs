@@ -11,8 +11,8 @@ namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public class ServiceWeltFacade : IServiceWeltFacade
     {
-        private string _serviceWeltUser;
-        private string _serviceWeltPassword;
+        private readonly string _serviceWeltUser;
+        private readonly string _serviceWeltPassword;
         public static string ServiceWeltPostClientName => "ServiceWeltPostClient";
         public static string ServiceWeltGetClientName => "ServiceWeltGetClient";
 
@@ -25,11 +25,46 @@ namespace StiebelEltronDashboard.Services.HtmlServices
             HttpClientFactory = httpClientFactory;
         }
 
+        public async Task<ServiceWelt> ReadLanguageSettingAsync(string sessionId)
+        {
+            var httpContent = $"make=send&user={_serviceWeltUser}&pass={_serviceWeltPassword}";
+            Log.Debug($"ReadLanguageSettingAsync {httpContent}");
+
+            using var httpClient = CreatePostHttpClient(sessionId);
+            var fullUrl = BuildReadLanguageUrlWithParameters(httpClient?.BaseAddress?.ToString());
+
+            var httpResponseMessage = await PostUrl(httpClient, fullUrl, httpContent);
+            var content = await httpResponseMessage.Content.ReadAsStringAsync();
+            Log.Debug($"ReadLanguageSettingAsync content {content}");
+            return new ServiceWelt()
+            {
+                HtmlDocument = content
+            };
+        }
+
+        private static string BuildReadLanguageUrlWithParameters(string baseUrl)
+        {
+            Log.Debug($"-->BuildReadLanguageUrlWithParameters {baseUrl}");
+            var slash = string.Empty;
+            if (!baseUrl.EndsWith("/"))
+            {
+                slash = "/";
+            }
+            var result = baseUrl + slash;
+            result += "?s=5,3";
+            Log.Debug($"<--BuildReadLanguageUrlWithParameters {result}");
+            return result;
+        }
+
         public async Task<ServiceWelt> GetHeatPumpWebsiteAsync(string sessionId)
         {
             var httpContent = $"make=send&user={_serviceWeltUser}&pass={_serviceWeltPassword}";
             Log.Debug($"GetHeatPumpWebsiteAsync {httpContent}");
-            var httpResponseMessage = await PostUrl(httpContent, new Guid().ToString());
+
+            using var httpClient = CreatePostHttpClient(sessionId);
+            var fullUrl = BuildHeatPumpUrlWithParameters(httpClient?.BaseAddress?.ToString(), "?s=1,1");
+
+            var httpResponseMessage = await PostUrl(httpClient, fullUrl, httpContent);
             var content = await httpResponseMessage.Content.ReadAsStringAsync();
             Log.Debug($"GetHeatPumpWebsiteAsync content {content}");
             return new ServiceWelt()
@@ -59,10 +94,10 @@ namespace StiebelEltronDashboard.Services.HtmlServices
             return httpClient;
         }
 
-        private async Task<HttpResponseMessage> PostUrl(string httpContent, string sessionId)
+        private static async Task<HttpResponseMessage> PostUrl(HttpClient httpClient,
+            string fullUrl,
+            string httpContent)
         {
-            using var httpClient = CreatePostHttpClient(sessionId);
-            var fullUrl = BuildHeatPumpUrlWithParameters(httpClient?.BaseAddress?.ToString());
             var response = await httpClient.PostAsync(fullUrl, new StringContent(httpContent, Encoding.ASCII, "application/x-www-form-urlencoded"));
             Log.Debug($"PostUrl: ISG response status is {response.StatusCode}");
             response.EnsureSuccessStatusCode();
@@ -73,24 +108,35 @@ namespace StiebelEltronDashboard.Services.HtmlServices
         {
             using var httpClient = BuildGetHttpClient(sessionId);
             Log.Debug($"<--GetUrl base: {httpClient?.BaseAddress?.ToString()}");
-            var urlWithParameters = BuildHeatPumpUrlWithParameters(httpClient?.BaseAddress?.ToString());
+            var urlWithParameters = BuildHeatPumpUrlWithParameters(httpClient?.BaseAddress?.ToString(), "?s=1,1");
             Log.Debug($"<--GetUrl urlWithParameters {urlWithParameters}");
             var httpResponseMessage = httpClient.GetAsync(urlWithParameters);
             return await httpResponseMessage;
         }
 
-        private static string BuildHeatPumpUrlWithParameters(string baseUrl)
+        private static string BuildHeatPumpUrlWithParameters(string baseUrl, string pageAddress)
         {
-            Log.Debug($"-->BuildHeatPumpUrl {baseUrl}");
+            Log.Debug($"-->BuildHeatPumpUrlWithParameters {baseUrl}");
             var slash = string.Empty;
             if (!baseUrl.EndsWith("/"))
             {
                 slash = "/";
             }
             var heatPumpUrl = baseUrl + slash;
-            heatPumpUrl += "?s=1,1";
-            Log.Debug($"<--BuildHeatPumpUrl {heatPumpUrl}");
+            heatPumpUrl += $"{pageAddress}";
+            Log.Debug($"<--BuildHeatPumpUrlWithParameters {heatPumpUrl}");
             return heatPumpUrl;
+        }
+
+        public async Task SetLanguageAsync(string sessionId, string language)
+        {
+            var httpContent = $"make=send&user={_serviceWeltUser}&pass={_serviceWeltPassword}&data=[{{\"name\":\"valspracheeinstellung\",\"value\":\"{language}\"}}]";
+            Log.Debug($"SetLanguageAsync {httpContent}");
+
+            using var httpClient = CreatePostHttpClient(sessionId);
+            var fullUrl = BuildHeatPumpUrlWithParameters(httpClient?.BaseAddress?.ToString(), "save.php");
+            Log.Information($"SetLanguageAsync {fullUrl}, :: {httpContent}");
+            var httpResponseMessage = await PostUrl(httpClient, fullUrl, httpContent);
         }
     }
 }

@@ -13,10 +13,24 @@ namespace StiebelEltronDashboard.Extensions
             {
                 return _websiteParser;
             }
-            set{
+            set
+            {
                 _websiteParser = value;
             }
         }
-        public static double ParseFor(this HtmlDocument htmlDocument, Metric scrapingValue) => _websiteParser.GetValueFromSite(htmlDocument, scrapingValue);
+
+        public static double ParseFor(this HtmlDocument htmlDocument,
+            Metric scrapingValue) =>
+            _websiteParser.GetValueFromWebsite(
+                htmlDocument,
+                scrapingValue);
+
+        public static string ParseForAttribute(this HtmlDocument htmlDocument,
+            Metric scrapingValue,
+            string attributeName)
+            => _websiteParser.GetAttributeFromNode(
+                htmlDocument,
+                scrapingValue,
+                attributeName);
     }
 }

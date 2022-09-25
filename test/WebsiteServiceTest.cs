@@ -121,7 +121,7 @@ namespace StiebelEltronDashboardTests
             this.testOutputHelper.WriteLine($" >>> {metric} --> {expectedValue}");
 
             // Act
-            var actualValue = scrapingService.GetValueFromSite(htmlDocument, metric);
+            var actualValue = scrapingService.GetValueFromWebsite(htmlDocument, metric);
 
             // Assert
             Assert.Equal(expectedValue, actualValue, double.Epsilon);

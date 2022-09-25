@@ -30,7 +30,7 @@ public static class ServiceWeltHttpClientStartupExtensions
         {
             UseDefaultCredentials = true,
             AllowAutoRedirect = true,
-            UseCookies = true,
+            UseCookies = false,
             CookieContainer = new CookieContainer()
         })
         .AddRetryPolicy();
@@ -43,7 +43,7 @@ public static class ServiceWeltHttpClientStartupExtensions
             options.BaseAddress = serviceWeltBaseUrl;
         }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
         {
-            UseCookies = true
+            UseCookies = false
         })
         .AddRetryPolicy();
     }
