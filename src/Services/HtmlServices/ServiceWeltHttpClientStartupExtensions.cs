@@ -1,9 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
+using Polly.Contrib.WaitAndRetry;
 using Serilog;
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Xml.Linq;
 
 namespace StiebelEltronDashboard.Services.HtmlServices;
 
@@ -20,27 +23,29 @@ public static class ServiceWeltHttpClientStartupExtensions
 
     private static void ConfigurePostHttpClient(this IServiceCollection services, Uri serviceWeltBaseUrl)
     {
-        services.ConfigureServiceWeltHttpClientHandler(
-                    ServiceWeltFacade.ServiceWeltPostClientName,
-                    serviceWeltBaseUrl,
-                    new HttpClientHandler()
-                    {
-                        UseDefaultCredentials = true,
-                        AllowAutoRedirect = true,
-                        UseCookies = true,
-                        CookieContainer = new CookieContainer()
-                    }).ConfigureServiceWeltHttpClient(serviceWeltBaseUrl);
+        services.AddHttpClient(ServiceWeltFacade.ServiceWeltPostClientName, options =>
+        {
+            options.BaseAddress = serviceWeltBaseUrl;
+        }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+        {
+            UseDefaultCredentials = true,
+            AllowAutoRedirect = true,
+            UseCookies = true,
+            CookieContainer = new CookieContainer()
+        })
+        .AddRetryPolicy();
     }
 
     private static void ConfigureGetHttpClient(this IServiceCollection services, Uri serviceWeltBaseUrl)
     {
-        services.ConfigureServiceWeltHttpClientHandler(
-            ServiceWeltFacade.ServiceWeltGetClientName,
-            serviceWeltBaseUrl,
-            new HttpClientHandler()
-            {
-                UseCookies = true
-            }).ConfigureServiceWeltHttpClient(serviceWeltBaseUrl);
+        services.AddHttpClient(ServiceWeltFacade.ServiceWeltGetClientName, options =>
+        {
+            options.BaseAddress = serviceWeltBaseUrl;
+        }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+        {
+            UseCookies = true
+        })
+        .AddRetryPolicy();
     }
 
     private static void ConfigureServiceWeltHttpClient(
@@ -57,20 +62,9 @@ public static class ServiceWeltHttpClientStartupExtensions
         });
     }
 
-    private static IHttpClientBuilder ConfigureServiceWeltHttpClientHandler(
-        this IServiceCollection services,
-        string name,
-        Uri serviceWeltBaseUrl,
-        HttpClientHandler httpClienthandler)
-    {
-        Log.Debug($"Set base url to ${name} Client: ${serviceWeltBaseUrl.ToString()}");
-        return services.AddHttpClient(name, options =>
-        {
-            options.BaseAddress = serviceWeltBaseUrl;
-        }).ConfigureHttpMessageHandlerBuilder(builder =>
-        {
-            builder.PrimaryHandler = httpClienthandler;
-            builder.Build();
-        });
-    }
+    private static IHttpClientBuilder AddRetryPolicy(this IHttpClientBuilder httpClientBuilder)
+        => httpClientBuilder.AddTransientHttpErrorPolicy(
+        policyBuilder => policyBuilder
+            .WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(
+                TimeSpan.FromSeconds(1), 5)));
 }
