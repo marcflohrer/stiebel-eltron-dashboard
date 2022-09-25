@@ -10,7 +10,7 @@ namespace StiebelEltronDashboard.Extensions {
             var powerConsumedForHeat = heatPumpDataPerPeriod.PowerConsumptionHeatingSumEnd - heatPumpDataPerPeriod.PowerConsumptionHeatingSumStart;
             var powerConsumedForHotWater = heatPumpDataPerPeriod.PowerConsumptionHotWaterSumEnd - heatPumpDataPerPeriod.PowerConsumptionHotWaterSumStart;
             var result = (heatQuantityProducedInPeriod + hotWaterProducedInPeriod) / (powerConsumedForHeat + powerConsumedForHotWater);
-            Log.Information($"Performance Factor Period: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
+            Log.Debug($"Performance Factor Period: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
             return result;
          }
 

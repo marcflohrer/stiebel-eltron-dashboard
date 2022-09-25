@@ -95,7 +95,7 @@ namespace StiebelEltronDashboard.Controllers
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.Warning("User account locked out.");
+                    _logger.Information("User account locked out.");
                     return View("Lockout");
                 }
                 else
