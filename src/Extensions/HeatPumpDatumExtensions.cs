@@ -16,10 +16,13 @@ namespace StiebelEltronDashboard.Extensions
                 return null;
             }
             var min = Double.MaxValue;
-            var metrics = heatPumpData.Select (selector);
-            if (metrics.Any ()) {                
+            var metrics = heatPumpData.Select(selector);
+            if (metrics.Any())
+            {
                 foreach (var metric in from metric in metrics
-                    where metric < min select metric) {
+                                       where metric < min
+                                       select metric)
+                {
                     min = metric;
                 }
             }
@@ -34,10 +37,13 @@ namespace StiebelEltronDashboard.Extensions
                 return null;
             }
             var max = Double.MinValue;
-            var metrics = heatPumpData.Select (selector);
-            if (metrics.Any ()) {
+            var metrics = heatPumpData.Select(selector);
+            if (metrics.Any())
+            {
                 foreach (var metric in from metric in metrics
-                    where metric > max select metric) {
+                                       where metric > max
+                                       select metric)
+                {
                     max = metric;
                 }
             }
@@ -52,65 +58,81 @@ namespace StiebelEltronDashboard.Extensions
                 return null;
             }
             var sum = 0.0;
-            var metrics = heatPumpData.Select (selector);
-            if (metrics.Any ()) {
-                foreach (var metric in metrics) {
+            var metrics = heatPumpData.Select(selector);
+            if (metrics.Any())
+            {
+                foreach (var metric in metrics)
+                {
                     sum += metric;
                 }
-            }else{
+            }
+            else
+            {
                 Log.Error("null <-- !Any() <-- GetAverageForMetric!");
-            }             
-            var result = sum / heatPumpData.Count ();
+            }
+            var result = sum / heatPumpData.Count();
             return result;
         }
 
-        public static double? GetStartForMetric (this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector) {            
-            if (!heatPumpData.Any ()) {
+        public static double? GetStartForMetric(this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector)
+        {
+            if (!heatPumpData.Any())
+            {
                 Log.Error("null <-- GetStartForMetric!");
                 return null;
             }
-            var startTime = heatPumpData.Select (h => h.DateCreated).Min ();
-            var startHeatPumpData = heatPumpData.Where (h => h.DateCreated == startTime);
-            var startMetric = startHeatPumpData.Select (selector);
-            if(startMetric == null){
+            var startTime = heatPumpData.Select(h => h.DateCreated).Min();
+            var startHeatPumpData = heatPumpData.Where(h => h.DateCreated == startTime);
+            var startMetric = startHeatPumpData.Select(selector);
+            if (startMetric == null)
+            {
                 Log.Error("null <-- startMetric <-- GetStartForMetric!");
-            }            
-            var result = startMetric?.FirstOrDefault () ?? 0.0;
+            }
+            var result = startMetric?.FirstOrDefault() ?? 0.0;
             return result;
         }
 
-        public static double? GetEndForMetric (this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector) {
-            if (!heatPumpData.Any ()) {
+        public static double? GetEndForMetric(this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector)
+        {
+            if (!heatPumpData.Any())
+            {
                 Log.Error("null <-- GetEndForMetric!");
                 return null;
             }
-            var endTime = heatPumpData.Select (h => h.DateCreated).Max ();
-            var endHeatPumpData = heatPumpData.Where (h => h.DateCreated == endTime);
-            var endMetric = endHeatPumpData.Select (selector);
-            if(endMetric == null){
+            var endTime = heatPumpData.Select(h => h.DateCreated).Max();
+            var endHeatPumpData = heatPumpData.Where(h => h.DateCreated == endTime);
+            var endMetric = endHeatPumpData.Select(selector);
+            if (endMetric == null)
+            {
                 Log.Error("null <-- endMetric <-- GetEndForMetric!");
             }
-            var result = endMetric?.FirstOrDefault () ?? 0.0;
+            var result = endMetric?.FirstOrDefault() ?? 0.0;
             return result;
         }
 
-        public static double? GetDeltaForMetric (this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector) {
-            if (!heatPumpData.Any ()) {
+        public static double? GetDeltaForMetric(this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector)
+        {
+            if (!heatPumpData.Any())
+            {
                 Log.Error("null <-- GetDeltaForMetric!");
                 return null;
             }
-            var min = GetMinForMetric (heatPumpData, selector);
-            var max = GetMaxForMetric (heatPumpData, selector);
+            var min = GetMinForMetric(heatPumpData, selector);
+            var max = GetMaxForMetric(heatPumpData, selector);
             var delta = max - min;
             return delta;
         }
 
-        public static DateTime GetFirst (this IEnumerable<HeatPumpDatum> heatPumpData) {
+        public static DateTime GetFirst(this IEnumerable<HeatPumpDatum> heatPumpData)
+        {
             var first = DateTime.MaxValue;
-            var creationDates = heatPumpData.Select (hpd => hpd.DateCreated);
-            if(creationDates.Any()){
-                foreach (var creationDate in creationDates) {
-                    if (first > creationDate) {
+            var creationDates = heatPumpData.Select(hpd => hpd.DateCreated);
+            if (creationDates.Any())
+            {
+                foreach (var creationDate in creationDates)
+                {
+                    if (first > creationDate)
+                    {
                         first = creationDate;
                     }
                 }
@@ -122,17 +144,23 @@ namespace StiebelEltronDashboard.Extensions
             return first;
         }
 
-        public static DateTime GetLast (this IEnumerable<HeatPumpDatum> heatPumpData) {
+        public static DateTime GetLast(this IEnumerable<HeatPumpDatum> heatPumpData)
+        {
             var last = DateTime.MinValue;
-            if(heatPumpData.Any()){
-                var creationDates = heatPumpData.Select (hpd => hpd.DateCreated);
-                foreach (var creationDate in creationDates) {
-                    if (last < creationDate) {
+            if (heatPumpData.Any())
+            {
+                var creationDates = heatPumpData.Select(hpd => hpd.DateCreated);
+                foreach (var creationDate in creationDates)
+                {
+                    if (last < creationDate)
+                    {
                         last = creationDate;
                     }
                 }
-            }else{
-                Log.Information("!Any() <-- GetLast!");
+            }
+            else
+            {
+                Log.Debug("!Any() <-- GetLast!");
             }
             return last;
         }

@@ -1,9 +1,11 @@
 using StiebelEltronDashboard.Models;
 using Serilog;
 
-namespace StiebelEltronDashboard.Extensions {
-    public static class HeatPumpDataPerPeriodExtensions {
-        public static double? PerformanceFactorPeriod (this HeatPumpDataPerPeriod heatPumpDataPerPeriod) 
+namespace StiebelEltronDashboard.Extensions
+{
+    public static class HeatPumpDataPerPeriodExtensions
+    {
+        public static double? PerformanceFactorPeriod(this HeatPumpDataPerPeriod heatPumpDataPerPeriod)
         {
             var heatQuantityProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalStart;
             var hotWaterProducedInPeriod = heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalEnd - heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalStart;
@@ -12,13 +14,14 @@ namespace StiebelEltronDashboard.Extensions {
             var result = (heatQuantityProducedInPeriod + hotWaterProducedInPeriod) / (powerConsumedForHeat + powerConsumedForHotWater);
             Log.Debug($"Performance Factor Period: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
             return result;
-         }
+        }
 
-        public static double? PerformanceFactorTotal(this HeatPumpDataPerPeriod heatPumpDataPerPeriod) 
+        public static double? PerformanceFactorTotal(this HeatPumpDataPerPeriod heatPumpDataPerPeriod)
             => (heatPumpDataPerPeriod.VaporizerHeatQuantityHeatingTotalEnd + heatPumpDataPerPeriod.VaporizerHeatQuantityHotWaterTotalEnd)
                     / (heatPumpDataPerPeriod.PowerConsumptionHeatingSumEnd + heatPumpDataPerPeriod.PowerConsumptionHotWaterSumEnd);
 
-        public static HeatPumpDataPerPeriod UpdateWith (this HeatPumpDataPerPeriod heatPumpDataPerPeriod, HeatPumpDataPerPeriod update) {
+        public static HeatPumpDataPerPeriod UpdateWith(this HeatPumpDataPerPeriod heatPumpDataPerPeriod, HeatPumpDataPerPeriod update)
+        {
             heatPumpDataPerPeriod.ReturnTemperatureMin = update.ReturnTemperatureMin;
             heatPumpDataPerPeriod.ReturnTemperatureMax = update.ReturnTemperatureMax;
             heatPumpDataPerPeriod.ReturnTemperatureAverage = update.ReturnTemperatureAverage;
