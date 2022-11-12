@@ -57,8 +57,8 @@ sudo apt install python3-dev -y
 sudo apt-get install -y python3 python3-pip -y
 sudo pip3 install docker-compose
 
-HASH=901f7928-5479-4d32-a9e5-ba66162ca0e4/d00b935ec4dc79a27f5bde00712ed3d7
-FILE=dotnet-sdk-6.0.400-linux-arm64.tar.gz
+HASH=253e5af8-41aa-48c6-86f1-39a51b44afdc/5bb2cb9380c5b1a7f0153e0a2775727b
+FILE=dotnet-sdk-7.0.100-linux-x64.tar.gz
 if [ -f "$FILE" ]; then
     echo "$FILE exists."
 else
