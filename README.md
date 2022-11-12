@@ -165,3 +165,4 @@ The installation I tested is the combination ubuntu 21.04 on raspberry pi 4 but 
 ## License
 
 This project is licensed under the Reciprocal Public License 1.5 (RPL1.5). This is a GPL-style license with very detailed liability protection and numerous requirements, created to close a perceived loophole in the GPL which let users sell modified software without 'fairly' distributing it. Disputes over this license must be settled through an American arbitration process.
+
