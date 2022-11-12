@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG ConnectionString=default_connection_string
 ENV ConnectionString=$ConnectionString
 ARG ServiceWeltUrl=http://servicewelturl.local
@@ -17,7 +17,7 @@ RUN chmod +x ./entrypoint.sh
 FROM build AS publish
 RUN dotnet publish -c Release -o /app stiebel-eltron-dashboard.csproj
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS final
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS final
 ARG ConnectionString=default_connection_string
 ENV ConnectionString=$ConnectionString
 ARG ServiceWeltUrl=http://servicewelturl.local
