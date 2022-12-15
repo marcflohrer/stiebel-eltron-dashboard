@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.3"
 services:
     web:
         build:
@@ -6,9 +6,9 @@ services:
                 ConnectionString: "${DatabaseConnectionString};" 
                 ServiceWeltUser: "${ServiceWeltUser}"
                 ServiceWeltPassword: "${ServiceWeltPassword}"
-                ServiceWeltUrl: "${ServiceWeltUrl}"       
+                ServiceWeltUrl: "${ServiceWeltUrl}"
             context: .
-        container_name: "dashboard"       
+        container_name: "dashboard"
         ports:
             - "80:6003"
             - "443:6004"
@@ -18,19 +18,20 @@ services:
         environment:
             DOTNET_CLI_TELEMETRY_OPTOUT: 1
         depends_on:
-            - db            
+            - db
     db:
         image: "mcr.microsoft.com/azure-sql-edge:latest"
-        user: root        
+        user: root
         container_name: "mssql"
-        restart: always 
+        restart: always
         cap_add:
-            - SYS_PTRACE    
+            - SYS_PTRACE
         ports:
-            - "1433:1433"      
+            - "1433:1433"
         volumes:
             - ./data/mssql/data/:/var/opt/mssql/data
         environment:
             MSSQL_SA_PASSWORD: ${DatabasePassword}
             ACCEPT_EULA: 1
             MSSQL_PID: Developer
+            User: 0:0            
