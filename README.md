@@ -105,16 +105,16 @@ You need docker and docker-compose on the machine where you want to run the appl
 * docker
 * docker-compose
 * [dotnet 7.0](https://dotnet.microsoft.com/download/dotnet/7.0)
-* either [armv7](https://en.wikipedia.org/wiki/ARM_architecture)+ && [ubuntu 21.04](https://ubuntu.com/download/desktop?version=21.04&architecture=amd64)
-* or x64 && (mac || linux)
+* either [armv7](https://en.wikipedia.org/wiki/ARM_architecture)+ && [ubuntu 22.04](https://ubuntu.com/download/desktop?version=22.04&architecture=amd64)
+* or x64 && (linux) [-> on mac there is an issue](https://stackoverflow.com/questions/74798271/connecting-to-sql-edge-server-running-in-docker-from-net-core-6-0)
 
 ## Installation
 
-The installation I tested is the combination ubuntu 21.04 on raspberry pi 4 but generally it should work similarly with different operating systems and chipset architecture combinations.
+The installation I tested is the combination ubuntu 22.04 on raspberry pi 4 but generally it should work similarly with different operating systems and chipset architecture combinations.
 
-### Installation on ubuntu 21.04
+### Installation on ubuntu 22.04
 
-1. Install [ubuntu 21.04](https://ubuntu.com/download/desktop?version=20.04&architecture=amd64) on a [raspberry pi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/) and [enable ssh](https://linuxhint.com/install_ubuntu_ssh_headless_raspberry_pi_4/).
+1. Install [ubuntu 22.04](https://ubuntu.com/download/desktop?version=22.04&architecture=amd64) on a [raspberry pi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/) and [enable ssh](https://linuxhint.com/install_ubuntu_ssh_headless_raspberry_pi_4/).
 
 2. Go to the home directory and call the setup script with your passwords, usernames and your url:
 
