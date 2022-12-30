@@ -106,7 +106,7 @@ You need docker and docker-compose on the machine where you want to run the appl
 * docker-compose
 * [dotnet 7.0](https://dotnet.microsoft.com/download/dotnet/7.0)
 * either [armv7](https://en.wikipedia.org/wiki/ARM_architecture)+ && [ubuntu 22.04](https://ubuntu.com/download/desktop?version=22.04&architecture=amd64)
-* or x64 && (linux) [-> on mac there is an issue](https://stackoverflow.com/questions/74798271/connecting-to-sql-edge-server-running-in-docker-from-net-core-6-0)
+* or x64 && (linux, mac)
 
 ## Installation
 
