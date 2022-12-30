@@ -8,38 +8,39 @@ namespace StiebelEltronDashboard.Services.HtmlServices
 {
     public static class TagMismatchDetector
     {
-        public static ParseResult DetectUnmatchedTags(Stack<TagContext> tagStack, Match match, int currentPosition, in IList<SubStringIndices> unopenedTags, in IList<UnclosedTag> unclosedTags)
+        public static ParseResult DetectUnmatchedTags(Stack<TagContext> tagStack,
+            SubStringIndices tag,
+            int currentPosition,
+            IList<SubStringIndices> unopenedTags,
+            IList<UnclosedTag> unclosedTags)
         {
-            var tagName = HtmlScanner.ClosingTagNameRegex.Match(match.Value);
+            var tagName = HtmlScanner.ClosingTagNameRegex.Match(tag.tag);
 
-            var tag = tagName.Value;
             var recentOpenTag = tagStack.Peek();
-            if (tag == recentOpenTag.tag)
+            if (tagName.Value == recentOpenTag.tag)
             {
                 tagStack.Pop();
             }
-            else if (tag != recentOpenTag.tag)
+            else if (tagName.Value != recentOpenTag.tag)
             {
                 var tagList = tagStack.ToArray();
                 var tempTagStack = new Stack<TagContext>(tagList);
                 var foundOpeningTag = false;
-                var endPosition = 0;
                 TagContext top;
                 while (tempTagStack.Count > 0)
                 {
                     top = tempTagStack.Peek();
-                    if (tag == top.tag)
+                    if (tagName.Value == top.tag)
                     {
                         foundOpeningTag = true;
                         break;
                     }
                     tempTagStack.Pop();
                 }
-                endPosition = currentPosition + match.Value.Length - 1;
 
                 if (!foundOpeningTag)
                 {
-                    unopenedTags.Add(new SubStringIndices(currentPosition, endPosition));
+                    unopenedTags.Add(tag);
                 }
                 else
                 {

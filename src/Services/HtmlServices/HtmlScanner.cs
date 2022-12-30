@@ -10,54 +10,52 @@ namespace StiebelEltronDashboard.Services.HtmlServices
         public static readonly Regex ClosingTagNameRegex = new Regex("(?<=</)[A-z]+");
         private readonly Regex tagIdRegex = new Regex("(?<= [A-z]+=\")[A-z ]+(?=\")");
 
-        public ParseResult ParseTagTree(string dirtyHtml, MatchCollection tags)
+        public ParseResult ParseTagTree(string dirtyHtml, IList<SubStringIndices> tags)
         {
             var currentPosition = 0;
             var tagStack = new Stack<TagContext>();
             var unopenedTags = new List<SubStringIndices>() as IList<SubStringIndices>;
             var unclosedTags = new List<UnclosedTag>() as IList<UnclosedTag>;
 
-            foreach (Match match in tags)
+            foreach (var tag in tags)
             {
-                currentPosition = match.Index;
+                currentPosition = tag.start;
                 // skip self-closing tags
-                if (match.Value.EndsWith("/>"))
+                if (tag.tag.EndsWith("/>"))
                 {
                     continue;
                 }
                 // skip comments
-                if (match.Value.StartsWith("<!--"))
+                if (tag.tag.StartsWith("<!--"))
                 {
                     continue;
                 }
-                if (match.Value.StartsWith("</"))
+                if (tag.tag.StartsWith("</"))
                 {
-                    var tagName = ClosingTagNameRegex.Match(match.Value);
+                    var tagName = ClosingTagNameRegex.Match(tag.tag);
                     // skip <?xml tag
                     if (string.IsNullOrEmpty(tagName.Value))
                     {
                         continue;
                     }
-                    var tempParseResult = TagMismatchDetector.DetectUnmatchedTags(tagStack, match, currentPosition, unopenedTags, unclosedTags);
+                    var tempParseResult = TagMismatchDetector.DetectUnmatchedTags(tagStack, tag, currentPosition, unopenedTags, unclosedTags);
                     unopenedTags = tempParseResult.unopenedTags;
                     unclosedTags = tempParseResult.unclosedTags;
                 }
-                else if (match.Value.StartsWith("<"))
+                else if (tag.tag.StartsWith("<"))
                 {
-                    var tagName = openingTagNameRegex.Match(match.Value);
+                    var tagName = openingTagNameRegex.Match(tag.tag);
                     // skip <?xml tag
                     if (string.IsNullOrEmpty(tagName.Value))
                     {
                         continue;
                     }
-                    tagStack.Push(new TagContext(tagName.Value, tagIdRegex.Match(match.Value)));
+                    tagStack.Push(new TagContext(tagName.Value, tagIdRegex.Match(tag.tag)));
                 }
             }
 
             return new ParseResult(unclosedTags, unopenedTags);
         }
-
-
     }
     public record ParseResult(IList<UnclosedTag> unclosedTags, IList<SubStringIndices> unopenedTags);
 }

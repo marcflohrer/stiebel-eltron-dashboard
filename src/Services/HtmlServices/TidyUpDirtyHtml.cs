@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using static StiebelEltronDashboard.Services.HtmlServices.Tags;
@@ -13,44 +12,57 @@ namespace StiebelEltronDashboard.Services.HtmlServices
         {
             _htmlParser = htmlParser;
         }
-        private MatchCollection GetMatches(string input, string pattern)
+
+        private IList<SubStringIndices> GetMatches(string input, string pattern)
         {
-            var devTagRegex = new Regex(pattern);
-            return devTagRegex.Matches(input);
+            var tagRegex = new Regex(pattern);
+            var matches = tagRegex.Matches(input);
+            var tags = new List<SubStringIndices>();
+
+            foreach (Match match in matches)
+            {
+                var start = match.Index;
+                var end = start + match.Length - 1;
+                var tag = match.Value;
+                tags.Add(new SubStringIndices(start, end, tag));
+            }
+
+            return tags;
         }
 
         public string GetTidyHtml(string dirtyHtml)
         {
-            var tags = GetMatches(dirtyHtml, "<[A-z \"=\\/:.0-9%#!?;,)_(-]+[/]*>");
+            // Parse the input string for all HTML tags
+            var tags = ParseTags(dirtyHtml);
 
-            var scanResult = _htmlParser.ParseTagTree(dirtyHtml, tags);
-            var unclosedTags = scanResult.unclosedTags;
-            var unopenedTags = scanResult.unopenedTags;
+            // Parse the tag tree and get a list of unopened and unclosed tags
+            var parseResult = _htmlParser.ParseTagTree(dirtyHtml, tags);
+            var unopenedTags = parseResult.unopenedTags;
+            var unclosedTags = parseResult.unclosedTags;
 
-            var tidierHtml = dirtyHtml;
-            var fragments = new List<string>();
-            foreach (var unclosedTag in unclosedTags)
+            // Remove all unopened tags from the input string
+            dirtyHtml = RemoveUnopenedTags(dirtyHtml.ToCharArray(), unopenedTags);
+
+            // Close all unclosed tags in the input string
+            dirtyHtml = CloseUnclosedTags(dirtyHtml, unclosedTags);
+
+            // Replace &nbsp; and &copy; characters with empty strings
+            var tidyHtml = dirtyHtml.Replace("&nbsp;", string.Empty).Replace("&copy;", string.Empty);
+
+            return tidyHtml;
+        }
+
+        private IList<SubStringIndices> ParseTags(string input)
+        {
+            var tags = new List<SubStringIndices>();
+            var matches = Regex.Matches(input, "<[A-z \"=\\/:.0-9%#!?;,)_(-]+[/]*>");
+            foreach (Match match in matches)
             {
-                fragments.Add(tidierHtml.Substring(0, unclosedTag.index));
-                fragments.Add($"</{unclosedTag.tag}>");
-                fragments.Add(tidierHtml.Substring(unclosedTag.index, tidierHtml.Length - unclosedTag.index));
+                var tagStart = match.Index;
+                var tagEnd = tagStart + match.Length - 1;
+                tags.Add(new SubStringIndices(tagStart, tagEnd, match.Value));
             }
-            if (!fragments.Any())
-            {
-                fragments.Add(tidierHtml);
-            }
-            var fragmentsCombined = string.Empty;
-            foreach (string fragment in fragments)
-            {
-                fragmentsCombined += fragment;
-            }
-            tidierHtml = fragmentsCombined;
-
-            var tidierHtmlCharArray = tidierHtml.ToCharArray();
-            dirtyHtml = RemoveUnopenedTags(tidierHtmlCharArray, unopenedTags);
-
-            var tidyHtml = new string(tidierHtmlCharArray).Replace("&nbsp;", string.Empty);
-            return tidyHtml.Replace("&copy;", string.Empty);
+            return tags;
         }
 
         private static string RemoveUnopenedTags(char[] dirtyHtmlCharArray, IList<SubStringIndices> unopenedTags)
@@ -67,17 +79,16 @@ namespace StiebelEltronDashboard.Services.HtmlServices
             return new string(dirtyHtmlCharArray);
         }
 
-        private static string CloseUnclosedTags(string dirtyHtml, Stack<TagContext> tagStack)
+        public string CloseUnclosedTags(string dirtyHtml, IList<UnclosedTag> unclosedTags)
         {
-            while (tagStack.TryPop(out var unclosedTag))
+            foreach (var unclosedTag in unclosedTags)
             {
-                dirtyHtml += "</" + unclosedTag + ">";
+                dirtyHtml = dirtyHtml.Insert(unclosedTag.position, $"</{unclosedTag.tag}>");
             }
 
             return dirtyHtml;
         }
     }
 
-    public record SubStringIndices(int start, double end);
-
+    public record SubStringIndices(int start, int end, string tag);
 }
