@@ -1,26 +1,26 @@
-﻿Date.prototype.getWeek = function() {
+﻿Date.prototype.getWeek = function () {
     // Copy date so don't modify original
     var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
     // Set to nearest Thursday: current date + 4 - current day number
     // Make Sunday's day number 7
-    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
     // Get first day of year
-    var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
     // Calculate full weeks to nearest Thursday
-    return Math.ceil(( ( (d - yearStart) / 86400000) + 1) / 7);
+    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
 }
 
 function recreateCanvas(chartName) {
-    document.getElementById( chartName ).remove();     
-    let canvas = document.createElement('canvas');     
-    canvas.setAttribute('id',chartName);     
-    canvas.setAttribute('class','canvas-style');
-    document.getElementById(chartName + "Chart").appendChild(canvas);  
+    document.getElementById(chartName).remove();
+    let canvas = document.createElement('canvas');
+    canvas.setAttribute('id', chartName);
+    canvas.setAttribute('class', 'canvas-style');
+    document.getElementById(chartName + "Chart").appendChild(canvas);
 }
 
 ; function drawMinMaxChartInternal(period, chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
     recreateCanvas(chartName)
-    
+
     var ctx = document.getElementById(chartName).getContext('2d');
     var data = {
         labels: labels,
@@ -55,7 +55,11 @@ function recreateCanvas(chartName) {
         type: 'time',
         time: {
             parser: 'YYYY-MM-DD HH:mm:ss',
-            unit: period
+            unit: period,
+            isoWeekday: true,
+            displayFormats: {
+                month: 'YYYY-MM'
+            }
         },
         display: true,
         grid: {
@@ -67,7 +71,7 @@ function recreateCanvas(chartName) {
             }
         }
     };
-    if(period === 'week'){
+    if (period === 'week') {
         x = {
             grid: {
                 display: false
@@ -77,15 +81,18 @@ function recreateCanvas(chartName) {
             time: {
                 parser: 'YYYY-MM-DD HH:mm:ss',
                 unit: period,
-                isoWeekday: true
+                isoWeekday: true,
+                displayFormats: {
+                    month: 'YYYY-MM'
+                }
             },
             display: true,
             ticks: {
                 major: {
-                  enabled: false
+                    enabled: false
                 },
-                callback: function(value) {
-                  return "KW " + new Date(value).getWeek();
+                callback: function (value) {
+                    return "KW " + new Date(value).getWeek();
                 },
             }
         };
@@ -175,7 +182,11 @@ function recreateCanvas(chartName) {
         type: 'time',
         time: {
             parser: 'YYYY-MM-DD HH:mm:ss',
-            unit: period
+            unit: period,
+            isoWeekday: true,
+            displayFormats: {
+                month: 'YYYY-MM'
+            }
         },
         display: true,
         grid: {
@@ -187,7 +198,7 @@ function recreateCanvas(chartName) {
             }
         }
     };
-    if(period === 'week'){
+    if (period === 'week') {
         x = {
             grid: {
                 display: false
@@ -197,15 +208,18 @@ function recreateCanvas(chartName) {
             time: {
                 parser: 'YYYY-MM-DD HH:mm:ss',
                 unit: period,
-                isoWeekday: true
+                isoWeekday: true,
+                displayFormats: {
+                    month: 'YYYY-MM'
+                }
             },
             display: true,
             ticks: {
                 major: {
-                  enabled: false
+                    enabled: false
                 },
-                callback: function(value) {
-                  return "KW " + new Date(value).getWeek();
+                callback: function (value) {
+                    return "KW " + new Date(value).getWeek();
                 },
             }
         };
@@ -260,7 +274,7 @@ function recreateCanvas(chartName) {
 
 function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsColors) {
     recreateCanvas(chartName)
-        
+
     var ctx = document.getElementById(chartName).getContext('2d');
     var data = {
         labels: xAxisLabel,
@@ -275,7 +289,11 @@ function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsC
         type: 'time',
         time: {
             parser: 'YYYY-MM-DD HH:mm:ss',
-            unit: period
+            unit: period,
+            isoWeekday: true,
+            displayFormats: {
+                month: 'YYYY-MM'
+            }
         },
         display: true,
         grid: {
@@ -287,11 +305,11 @@ function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsC
             }
         }
     };
-    if(period === 'week'){
+    if (period === 'week') {
         x = {
             grid: {
                 display: false
-            },            
+            },
             offset: true,
             type: 'time',
             time: {
@@ -305,28 +323,28 @@ function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsC
             display: true,
             ticks: {
                 major: {
-                  enabled: false
+                    enabled: false
                 },
-                callback: function(value) {
-                  return "KW " + new Date(value).getWeek();
+                callback: function (value) {
+                    return "KW " + new Date(value).getWeek();
                 }
             }
         };
     }
-    if(period === 'total'){
+    if (period === 'total') {
         x = {
             grid: {
                 display: false
-            },            
+            },
             offset: true,
             display: true,
             ticks: {
                 major: {
-                  enabled: false
+                    enabled: false
                 }
             }
         };
-    }    
+    }
     var options = {
         maintainAspectRatio: false,
         plugins: {
