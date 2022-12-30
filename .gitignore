@@ -12,3 +12,4 @@ errorlog
 extlog
 machine-key
 src/web/root/.aspnet/DataProtection-Keys
+src/data/mssql
