@@ -18,112 +18,7 @@ function recreateCanvas(chartName) {
     document.getElementById(chartName + "Chart").appendChild(canvas);
 }
 
-function getXOptions(period) {
-    const commonOptions = {
-        offset: true,
-        type: 'time',
-        time: {
-            parser: 'YYYY-MM-DD HH:mm:ss',
-            unit: period,
-            isoWeekday: true,
-            displayFormats: {
-                month: 'YYYY-MM'
-            }
-        },
-        display: true,
-        grid: {
-            display: false
-        },
-        ticks: {
-            major: {
-                enabled: false
-            }
-        }
-    };
-    if (period === 'week') {
-        return {
-            ...commonOptions,
-            ticks: {
-                ...commonOptions.ticks,
-                callback: function (value) {
-                    return "KW " + new Date(value).getWeek();
-                }
-            }
-        };
-    }
-    if (period === 'total') {
-        return {
-            grid: {
-                display: false
-            },
-            offset: true,
-            display: true,
-            ticks: {
-                major: {
-                    enabled: false
-                }
-            }
-        };
-    }
-    return commonOptions;
-}
-
-function getYOptions(displayTitle) {
-
-    var y = {
-        display: true,
-        title: {
-            display: displayTitle
-        },
-        grid: {
-            display: true,
-            color: "rgba(176, 177, 177, 0.5)"
-        }
-    };
-    return y;
-};
-
-function getPluginsOptions(displayLegend, chartTitle) {
-
-    var plugins = {
-        title: {
-            display: true,
-            text: chartTitle
-        },
-        legend: {
-            display: displayLegend
-        }
-    };
-    return plugins;
-};
-
-function getOptions(displayLegend, period, displayTitle, displayLegend, chartTitle) {
-    var x = getXOptions(period, 'YYYY-MM');
-    var y = getYOptions(displayTitle);
-    var plugins = getPluginsOptions(displayLegend, chartTitle);
-    var options = {
-        maintainAspectRatio: false,
-        plugins: plugins,
-        scales: {
-            x: x,
-            y: y
-        },
-        legend: {
-            display: displayLegend
-        }
-    }
-    return options;
-};
-
-function getChart(ctx, displayLegend, period, displayTitle, displayLegend, chartTitle, data, chartType) {
-    return new Chart(ctx, {
-        options: getOptions(displayLegend, period, displayTitle, displayLegend, chartTitle),
-        data: data,
-        type: chartType
-    });
-};
-
-function drawMinMaxChartInternal(period, chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
+; function drawMinMaxChartInternal(period, chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
     recreateCanvas(chartName)
 
     var ctx = document.getElementById(chartName).getContext('2d');
@@ -155,9 +50,85 @@ function drawMinMaxChartInternal(period, chartName, chartTitle, labels, maxYs, m
             backgroundColor: minYsColor,
         }]
     };
-    return getChart(ctx, true, period, true, true, chartTitle, data, 'line');
-};
+    var x = {
+        offset: true,
+        type: 'time',
+        time: {
+            parser: 'YYYY-MM-DD HH:mm:ss',
+            unit: period,
+            isoWeekday: true,
+            displayFormats: {
+                month: 'YYYY-MM'
+            }
+        },
+        display: true,
+        grid: {
+            display: false
+        },
+        ticks: {
+            major: {
+                enabled: false
+            }
+        }
+    };
+    if (period === 'week') {
+        x = {
+            grid: {
+                display: false
+            },
+            offset: true,
+            type: 'time',
+            time: {
+                parser: 'YYYY-MM-DD HH:mm:ss',
+                unit: period,
+                isoWeekday: true,
+                displayFormats: {
+                    month: 'YYYY-MM'
+                }
+            },
+            display: true,
+            ticks: {
+                major: {
+                    enabled: false
+                },
+                callback: function (value) {
+                    return "KW " + new Date(value).getWeek();
+                },
+            }
+        };
+    }
+    var options = {
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: chartTitle
+            },
+            legend: {
+                display: true
+            }
+        },
+        scales: {
+            x: x,
+            y: {
+                display: true,
+                title: {
+                    display: true
+                },
+                grid: {
+                    display: true,
+                    color: "rgba(176, 177, 177, 0.5)"
+                }
+            }
+        }
+    };
 
+    return new Chart(ctx, {
+        options: options,
+        data: data,
+        type: 'line'
+    });
+};
 ; function drawMinMaxChart(chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
     return drawMinMaxChartInternal('day', chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor);
 };
@@ -206,26 +177,98 @@ function drawMinMaxChartInternal(period, chartName, chartTitle, labels, maxYs, m
             backgroundColor: endYsColor,
         }]
     };
-    return getChart(ctx, true, period, false, true, chartTitle, data, 'line');
-};
+    var x = {
+        offset: true,
+        type: 'time',
+        time: {
+            parser: 'YYYY-MM-DD HH:mm:ss',
+            unit: period,
+            isoWeekday: true,
+            displayFormats: {
+                month: 'YYYY-MM'
+            }
+        },
+        display: true,
+        grid: {
+            display: false
+        },
+        ticks: {
+            major: {
+                enabled: false
+            }
+        }
+    };
+    if (period === 'week') {
+        x = {
+            grid: {
+                display: false
+            },
+            offset: true,
+            type: 'time',
+            time: {
+                parser: 'YYYY-MM-DD HH:mm:ss',
+                unit: period,
+                isoWeekday: true,
+                displayFormats: {
+                    month: 'YYYY-MM'
+                }
+            },
+            display: true,
+            ticks: {
+                major: {
+                    enabled: false
+                },
+                callback: function (value) {
+                    return "KW " + new Date(value).getWeek();
+                },
+            }
+        };
+    }
+    var options = {
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: chartTitle
+            },
+            legend: {
+                display: true
+            }
+        },
+        scales: {
+            x: x,
+            y: {
+                display: true,
+                title: {
+                    display: false
+                },
+                grid: {
+                    display: true,
+                    color: "rgba(176, 177, 177, 0.5)"
+                }
+            }
+        }
+    };
 
-function drawStartEndChart(chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
+    return new Chart(ctx, {
+        options: options,
+        data: data,
+        type: 'line'
+    });
+};
+; function drawStartEndChart(chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
     return drawStartEndChartInternal('day', chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
-};
-
-function drawStartEndChartDay(chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
+}
+; function drawStartEndChartDay(chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
     return drawStartEndChartInternal('day', chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
-};
-
-function drawStartEndChartWeek(chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
+}
+; function drawStartEndChartWeek(chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
     return drawStartEndChartInternal('week', chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
-};
-
-function drawStartEndChartMonth(chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
+}
+; function drawStartEndChartMonth(chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
     return drawStartEndChartInternal('month', chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
 }
-
-function drawStartEndChartYear(chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
+; function drawStartEndChartYear(chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
     return drawStartEndChartInternal('year', chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
 }
 
@@ -241,25 +284,114 @@ function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsC
             data: Ys
         }]
     };
-    return getChart(ctx, false, period, true, false, chartTitle, data, 'bar');
-};
+    var x = {
+        offset: true,
+        type: 'time',
+        time: {
+            parser: 'YYYY-MM-DD HH:mm:ss',
+            unit: period,
+            isoWeekday: true,
+            displayFormats: {
+                month: 'YYYY-MM'
+            }
+        },
+        display: true,
+        grid: {
+            display: false
+        },
+        ticks: {
+            major: {
+                enabled: false
+            }
+        }
+    };
+    if (period === 'week') {
+        x = {
+            grid: {
+                display: false
+            },
+            offset: true,
+            type: 'time',
+            time: {
+                parser: 'YYYY-MM-DD HH:mm:ss',
+                unit: period,
+                isoWeekday: true,
+                displayFormats: {
+                    quarter: 'MMM YYYY'
+                }
+            },
+            display: true,
+            ticks: {
+                major: {
+                    enabled: false
+                },
+                callback: function (value) {
+                    return "KW " + new Date(value).getWeek();
+                }
+            }
+        };
+    }
+    if (period === 'total') {
+        x = {
+            grid: {
+                display: false
+            },
+            offset: true,
+            display: true,
+            ticks: {
+                major: {
+                    enabled: false
+                }
+            }
+        };
+    }
+    var options = {
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: chartTitle
+            },
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            x: x,
+            y: {
+                display: true,
+                title: {
+                    display: true
+                },
+                grid: {
+                    display: true,
+                    color: "rgba(176, 177, 177, 0.5)"
+                }
+            }
+        },
+        legend: {
+            display: false
+        }
+    };
 
+    return new Chart(ctx, {
+        options: options,
+        data: data,
+        type: 'bar'
+    });
+};
 function drawBarChartDay(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
     return drawBarChartInternal('day', chartName, chartTitle, xAxisLabel, Ys, YsColors);
-};
-
+}
 function drawBarChartWeek(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
     return drawBarChartInternal('week', chartName, chartTitle, xAxisLabel, Ys, YsColors);
-};
-
+}
 function drawBarChartMonth(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
     return drawBarChartInternal('month', chartName, chartTitle, xAxisLabel, Ys, YsColors);
-};
-
+}
 function drawBarChartYear(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
     return drawBarChartInternal('year', chartName, chartTitle, xAxisLabel, Ys, YsColors);
-};
-
+}
 function drawBarChartTotal(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
     return drawBarChartInternal('total', chartName, chartTitle, xAxisLabel, Ys, YsColors);
-};
+}
