@@ -2101,594 +2101,574 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
+<script src="js/site.js" asp-append-version="true"></script>
 <script>
-  function openTabOnLoad(ctx, tabName) {
-      // Declare all variables
-  var i, tabcontent, tablinks;
-
-  // Get all elements with class="tabcontent" and hide them
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-
-  // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-
-  // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(tabName).style.display = "block";
-  ctx.className += " active";
-    if(tabName === "Days"){        
-        ;drawBarChartDay("PerformanceFactorDay",
-            "Arbeitszahl",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(PerformanceFactorDay), @Html.Raw(AverageColorDay)
-        );
-
-        ;drawMinMaxChartDay("ReturnTemperatureDay",
-            "RÜCKLAUFTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(ReturnTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(ReturnTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(ReturnTemperatureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("InletTemperatureDay",
-            "VORLAUFTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(InletTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(InletTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(InletTemperatureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("AntiFreezeTemperatureDay",
-            "FROSTSCHUTZTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(AntiFreezeTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(AntiFreezeTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(AntiFreezeTemperatureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("OutdoorTemperatureDay",
-            "AUSSENTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(OutdoorTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(OutdoorTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(OutdoorTemperatureMinDay), @Html.Raw(MinColorDay));
-
-
-        drawMinMaxChartDay("ExhaustAirTemperatureDay",
-            "FORTLUFTTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(ExhaustAirTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(ExhaustAirTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(ExhaustAirTemperatureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("EvaporatorTemperatureDay",
-            "VERDAMPFERTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(EvaporatorTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(EvaporatorTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(EvaporatorTemperatureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("TotalPowerConsumptionDay",
-            "VD HEIZEN SUMME  Wh ",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(TotalPowerConsumptionStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(TotalPowerConsumptionDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(TotalPowerConsumptionEndDay), @Html.Raw(EndColorDay));        
-
-        drawMinMaxChartDay("CompressorInletTemperatureDay",
-            "VERDICHTEREINTRITTSTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(CompressorInletTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(CompressorInletTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(CompressorInletTemperatureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("IntermediateInjectionTemperatureDay",
-            "ZWISCHENEINSPRITZUNGSTEMP °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(IntermediateInjectionTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(IntermediateInjectionTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(IntermediateInjectionTemperatureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("HotGasTemperatureDay",
-            "HEISSGASTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(HotGasTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(HotGasTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(HotGasTemperatureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("CondenserTemperatureDay",
-            "VERFLÜSSIGERTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(CondenserTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(CondenserTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(CondenserTemperatureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("OilSumpTemperatureDay",
-            "ÖLSUMPFTEMPERATUR °C",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(OilSumpTemperatureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(OilSumpTemperatureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(OilSumpTemperatureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("LowPressureDay",
-            "DRUCK NIEDERDRUCK bar",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(LowPressureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(LowPressureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(LowPressureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("PressureMediumDay",
-            "DRUCK MITTELDRUCK bar",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(PressureMediumMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(PressureMediumAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(PressureMediumMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("HighPressureDay",
-            "DRUCK HOCHDRUCK bar",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(HighPressureMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(HighPressureAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(HighPressureMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("WaterVolumeCurrentDay",
-            "WP WASSERVOLUMENSTROM l/min",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(WaterVolumeCurrentMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(WaterVolumeCurrentAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(WaterVolumeCurrentMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("VoltageInverterDay",
-            "SPANNUNG INVERTER V",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(VoltageInverterMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(VoltageInverterAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(VoltageInverterMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("ActualSpeedDensifierDay",
-            "ISTDREHZAHL VERDICHTER Hz",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(ActualSpeedDensifierMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(ActualSpeedDensifierAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(ActualSpeedDensifierMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("SettingSpeedCompressedDay",
-            "SOLLDREHZAHL VERDICHTER Hz",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(SettingSpeedCompressedMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(SettingSpeedCompressedAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(SettingSpeedCompressedMinDay), @Html.Raw(MinColorDay));
-
-        drawMinMaxChartDay("FanPowerRelDay",
-            "LÜFTERLEISTUNG REL %",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(FanPowerRelMaxDay), @Html.Raw(MaxColorDay),
-            @Html.Raw(FanPowerRelAverageDay), @Html.Raw(AverageColorDay),
-            @Html.Raw(FanPowerRelMinDay), @Html.Raw(MinColorDay));
-
-        drawStartEndChartDay("VaporizerHeatQuantityHeatingDay",
-            "VD HEIZEN TAG Wh",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(VaporizerHeatQuantityHeatingDayStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(VaporizerHeatQuantityHeatingDayDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(VaporizerHeatQuantityHeatingDayEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("VaporizerHeatQuantityHeatingTotalDay",
-            "VD HEIZEN SUMME Wh",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(VaporizerHeatQuantityHeatingTotalStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(VaporizerHeatQuantityHeatingTotalEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("VaporizerHeatQuantityHotWaterDay",
-            "VD WARMWASSER TAG Wh",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(VaporizerHeatQuantityHotWaterDayStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(VaporizerHeatQuantityHotWaterDayEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("VaporizerHeatQuantityHotWaterTotalDay",
-            "VD WARMWASSER SUMME Wh",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("ReheatingStagesHeatQuantityHeatingSumDay",
-            "NHZ HEIZEN SUMME  Wh",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("ReheatingStagesHeatQuantityHotWaterTotalDay",
-            "NHZ WARMWASSER SUMME  Wh",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("PowerConsumptionHeatingDay",
-            "VD HEIZEN TAG  Wh",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(PowerConsumptionHeatingDayStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(PowerConsumptionHeatingDayDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(PowerConsumptionHeatingDayEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("PowerConsumptionHeatingSumDay",
-            "VD HEIZEN SUMME Wh",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(PowerConsumptionHeatingSumStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(PowerConsumptionHeatingSumDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(PowerConsumptionHeatingSumEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("PowerConsumptionHotWaterDay",
-            "VD WARMWASSER TAG Wh",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(PowerConsumptionHotWaterDayStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(PowerConsumptionHotWaterDayDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(PowerConsumptionHotWaterDayEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("PowerConsumptionHotWaterSumDay",
-            "VD WARMWASSER SUMME Wh",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(PowerConsumptionHotWaterSumStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(PowerConsumptionHotWaterSumDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(PowerConsumptionHotWaterSumEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("RuntimeVaporizerHeatingDay",
-            "VD HEIZEN",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(RuntimeVaporizerHeatingStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(RuntimeVaporizerHeatingDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(RuntimeVaporizerHeatingEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("RuntimeVaporizerHotWaterDay",
-            "VD WARMWASSER",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(RuntimeVaporizerHotWaterStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(RuntimeVaporizerHotWaterDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(RuntimeVaporizerHotWaterEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("RuntimeVaporizerDefrostDay",
-            "VD ABTAUEN",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(RuntimeVaporizerDefrostStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(RuntimeVaporizerDefrostDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(RuntimeVaporizerDefrostEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("ReheatingStages1Day",
-            "NHZ 1",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(ReheatingStages1StartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(ReheatingStages1DeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(ReheatingStages1EndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("ReheatingStages2Day",
-            "NHZ 2",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(ReheatingStages2StartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(ReheatingStages2DeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(ReheatingStages2EndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("DefrostTimeDay",
-            "ZEIT ABTAUEN",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(DefrostTimeStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(DefrostTimeDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(DefrostTimeEndDay), @Html.Raw(EndColorDay));
-
-        drawStartEndChartDay("DefrostStartsDay",
-            "STARTS ABTAUEN",
-            @Html.Raw(XLabelsDay),
-            @Html.Raw(DefrostStartsStartDay), @Html.Raw(StartColorDay),
-            @Html.Raw(DefrostStartsDeltaDay), @Html.Raw(DeltaColorDay),
-            @Html.Raw(DefrostStartsEndDay), @Html.Raw(EndColorDay));
-    }
-
-    if(tabName === "Weeks"){
-        drawBarChartWeek("PerformanceFactorWeek",
-            "Arbeitszahl",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(PerformanceFactorWeek), @Html.Raw(AverageColorDay));  
-
-        drawMinMaxChartWeek("ReturnTemperatureWeek",
-            "RÜCKLAUFTEMPERATUR °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(ReturnTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(ReturnTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(ReturnTemperatureMinWeek), @Html.Raw(MinColorWeek));            
-
-        drawMinMaxChartWeek("InletTemperatureWeek",
-            "VORLAUFTEMPERATUR °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(InletTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(InletTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(InletTemperatureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("AntiFreezeTemperatureWeek",
-            "FROSTSCHUTZTEMPERATUR °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(AntiFreezeTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(AntiFreezeTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(AntiFreezeTemperatureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("OutdoorTemperatureWeek",
-            "AUSSENTEMPERATUR °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(OutdoorTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(OutdoorTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(OutdoorTemperatureMinWeek), @Html.Raw(MinColorWeek));
-
-
-        drawMinMaxChartWeek("ExhaustAirTemperatureWeek",
-            "FORTLUFTTEMPERATUR °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(ExhaustAirTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(ExhaustAirTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(ExhaustAirTemperatureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("EvaporatorTemperatureWeek",
-            "VERDAMPFERTEMPERATUR °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(EvaporatorTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(EvaporatorTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(EvaporatorTemperatureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("TotalPowerConsumptionWeek",
-            "VD HEIZEN SUMME  Wh   ",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(TotalPowerConsumptionStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(TotalPowerConsumptionDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(TotalPowerConsumptionEndWeek), @Html.Raw(EndColorWeek));        
-
-        drawMinMaxChartWeek("CompressorInletTemperatureWeek",
-            "VERDICHTEREINTRITTSTEMPERATUR °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(CompressorInletTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(CompressorInletTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(CompressorInletTemperatureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("IntermediateInjectionTemperatureWeek",
-            "ZWISCHENEINSPRITZUNGSTEMP °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(IntermediateInjectionTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(IntermediateInjectionTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(IntermediateInjectionTemperatureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("HotGasTemperatureWeek",
-            "HEISSGASTEMPERATUR °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(HotGasTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(HotGasTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(HotGasTemperatureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("CondenserTemperatureWeek",
-            "VERFLÜSSIGERTEMPERATUR °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(CondenserTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(CondenserTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(CondenserTemperatureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("OilSumpTemperatureWeek",
-            "ÖLSUMPFTEMPERATUR °C",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(OilSumpTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(OilSumpTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(OilSumpTemperatureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("LowPressureWeek",
-            "DRUCK NIEDERDRUCK bar",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(LowPressureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(LowPressureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(LowPressureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("PressureMediumWeek",
-            "DRUCK MITTELDRUCK bar",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(PressureMediumMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(PressureMediumAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(PressureMediumMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("HighPressureWeek",
-            "DRUCK HOCHDRUCK bar",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(HighPressureMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(HighPressureAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(HighPressureMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("WaterVolumeCurrentWeek",
-            "WP WASSERVOLUMENSTROM l/min",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(WaterVolumeCurrentMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(WaterVolumeCurrentAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(WaterVolumeCurrentMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("VoltageInverterWeek",
-            "SPANNUNG INVERTER V",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(VoltageInverterMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(VoltageInverterAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(VoltageInverterMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("ActualSpeedDensifierWeek",
-            "ISTDREHZAHL VERDICHTER Hz",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(ActualSpeedDensifierMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(ActualSpeedDensifierAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(ActualSpeedDensifierMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("SettingSpeedCompressedWeek",
-            "SOLLDREHZAHL VERDICHTER Hz",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(SettingSpeedCompressedMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(SettingSpeedCompressedAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(SettingSpeedCompressedMinWeek), @Html.Raw(MinColorWeek));
-
-        drawMinMaxChartWeek("FanPowerRelWeek",
-            "LÜFTERLEISTUNG REL %",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(FanPowerRelMaxWeek), @Html.Raw(MaxColorWeek),
-            @Html.Raw(FanPowerRelAverageWeek), @Html.Raw(AverageColorWeek),
-            @Html.Raw(FanPowerRelMinWeek), @Html.Raw(MinColorWeek));
-
-        drawStartEndChartWeek("VaporizerHeatQuantityHeatingWeek",
-            "VD HEIZEN TAG Wh",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(VaporizerHeatQuantityHeatingDayMinWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(VaporizerHeatQuantityHeatingDayAverageWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(VaporizerHeatQuantityHeatingDayMaxWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("VaporizerHeatQuantityHeatingTotalWeek",
-            "VD HEIZEN SUMME Wh",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(VaporizerHeatQuantityHeatingTotalStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(VaporizerHeatQuantityHeatingTotalEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("VaporizerHeatQuantityHotWaterWeek",
-            "VD WARMWASSER TAG Wh",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(VaporizerHeatQuantityHotWaterDayStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(VaporizerHeatQuantityHotWaterDayEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("VaporizerHeatQuantityHotWaterTotalWeek",
-            "VD WARMWASSER SUMME Wh",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("ReheatingStagesHeatQuantityHeatingSumWeek",
-            "NHZ HEIZEN SUMME  Wh",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("ReheatingStagesHeatQuantityHotWaterTotalWeek",
-            "NHZ WARMWASSER SUMME  Wh",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("PowerConsumptionHeatingWeek",
-            "VD HEIZEN TAG  Wh",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(PowerConsumptionHeatingDayStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(PowerConsumptionHeatingDayDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(PowerConsumptionHeatingDayEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("PowerConsumptionHeatingSumWeek",
-            "VD HEIZEN SUMME Wh",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(PowerConsumptionHeatingSumStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(PowerConsumptionHeatingSumDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(PowerConsumptionHeatingSumEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("PowerConsumptionHotWaterWeek",
-            "VD WARMWASSER TAG Wh",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(PowerConsumptionHotWaterDayStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(PowerConsumptionHotWaterDayDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(PowerConsumptionHotWaterDayEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("PowerConsumptionHotWaterSumWeek",
-            "VD WARMWASSER SUMME Wh",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(PowerConsumptionHotWaterSumStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(PowerConsumptionHotWaterSumDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(PowerConsumptionHotWaterSumEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("RuntimeVaporizerHeatingWeek",
-            "VD HEIZEN",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(RuntimeVaporizerHeatingStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(RuntimeVaporizerHeatingDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(RuntimeVaporizerHeatingEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("RuntimeVaporizerHotWaterWeek",
-            "VD WARMWASSER",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(RuntimeVaporizerHotWaterStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(RuntimeVaporizerHotWaterDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(RuntimeVaporizerHotWaterEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("RuntimeVaporizerDefrostWeek",
-            "VD ABTAUEN",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(RuntimeVaporizerDefrostStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(RuntimeVaporizerDefrostDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(RuntimeVaporizerDefrostEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("ReheatingStages1Week",
-            "NHZ 1",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(ReheatingStages1StartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(ReheatingStages1DeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(ReheatingStages1EndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("ReheatingStages2Week",
-            "NHZ 2",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(ReheatingStages2StartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(ReheatingStages2DeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(ReheatingStages2EndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("DefrostTimeWeek",
-            "ZEIT ABTAUEN",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(DefrostTimeStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(DefrostTimeDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(DefrostTimeEndWeek), @Html.Raw(EndColorWeek));
-
-        drawStartEndChartWeek("DefrostStartsWeek",
-            "STARTS ABTAUEN",
-            @Html.Raw(XLabelsWeek),
-            @Html.Raw(DefrostStartsStartWeek), @Html.Raw(StartColorWeek),
-            @Html.Raw(DefrostStartsDeltaWeek), @Html.Raw(DeltaColorWeek),
-            @Html.Raw(DefrostStartsEndWeek), @Html.Raw(EndColorWeek));
-    }
-
-    if(tabName === "Months"){
-        drawBarChartMonth("PerformanceFactorMonth",
+var dayCharts =  [
+    drawBarChartDay("PerformanceFactorDay",
+    "Arbeitszahl",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(PerformanceFactorDay), @Html.Raw(AverageColorDay)
+), 
+drawMinMaxChartDay("ReturnTemperatureDay",
+    "RÜCKLAUFTEMPERATUR °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(ReturnTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(ReturnTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(ReturnTemperatureMinDay), @Html.Raw(MinColorDay)
+    ),drawMinMaxChartDay("InletTemperatureDay",
+    "VORLAUFTEMPERATUR °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(InletTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(InletTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(InletTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("AntiFreezeTemperatureDay",
+    "FROSTSCHUTZTEMPERATUR °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(AntiFreezeTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(AntiFreezeTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(AntiFreezeTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("OutdoorTemperatureDay",
+    "AUSSENTEMPERATUR °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(OutdoorTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(OutdoorTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(OutdoorTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+
+drawMinMaxChartDay("ExhaustAirTemperatureDay",
+    "FORTLUFTTEMPERATUR °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(ExhaustAirTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(ExhaustAirTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(ExhaustAirTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("EvaporatorTemperatureDay",
+    "VERDAMPFERTEMPERATUR °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(EvaporatorTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(EvaporatorTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(EvaporatorTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("TotalPowerConsumptionDay",
+    "VD HEIZEN SUMME  Wh ",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(TotalPowerConsumptionStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(TotalPowerConsumptionDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(TotalPowerConsumptionEndDay), @Html.Raw(EndColorDay)),        
+
+drawMinMaxChartDay("CompressorInletTemperatureDay",
+    "VERDICHTEREINTRITTSTEMPERATUR °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(CompressorInletTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(CompressorInletTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(CompressorInletTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("IntermediateInjectionTemperatureDay",
+    "ZWISCHENEINSPRITZUNGSTEMP °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(IntermediateInjectionTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(IntermediateInjectionTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(IntermediateInjectionTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("HotGasTemperatureDay",
+    "HEISSGASTEMPERATUR °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(HotGasTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(HotGasTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(HotGasTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("CondenserTemperatureDay",
+    "VERFLÜSSIGERTEMPERATUR °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(CondenserTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(CondenserTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(CondenserTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("OilSumpTemperatureDay",
+    "ÖLSUMPFTEMPERATUR °C",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(OilSumpTemperatureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(OilSumpTemperatureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(OilSumpTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("LowPressureDay",
+    "DRUCK NIEDERDRUCK bar",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(LowPressureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(LowPressureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(LowPressureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("PressureMediumDay",
+    "DRUCK MITTELDRUCK bar",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(PressureMediumMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(PressureMediumAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(PressureMediumMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("HighPressureDay",
+    "DRUCK HOCHDRUCK bar",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(HighPressureMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(HighPressureAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(HighPressureMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("WaterVolumeCurrentDay",
+    "WP WASSERVOLUMENSTROM l/min",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(WaterVolumeCurrentMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(WaterVolumeCurrentAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(WaterVolumeCurrentMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("VoltageInverterDay",
+    "SPANNUNG INVERTER V",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(VoltageInverterMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(VoltageInverterAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(VoltageInverterMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("ActualSpeedDensifierDay",
+    "ISTDREHZAHL VERDICHTER Hz",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(ActualSpeedDensifierMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(ActualSpeedDensifierAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(ActualSpeedDensifierMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("SettingSpeedCompressedDay",
+    "SOLLDREHZAHL VERDICHTER Hz",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(SettingSpeedCompressedMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(SettingSpeedCompressedAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(SettingSpeedCompressedMinDay), @Html.Raw(MinColorDay)),
+
+drawMinMaxChartDay("FanPowerRelDay",
+    "LÜFTERLEISTUNG REL %",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(FanPowerRelMaxDay), @Html.Raw(MaxColorDay),
+    @Html.Raw(FanPowerRelAverageDay), @Html.Raw(AverageColorDay),
+    @Html.Raw(FanPowerRelMinDay), @Html.Raw(MinColorDay)),
+
+drawStartEndChartDay("VaporizerHeatQuantityHeatingDay",
+    "VD HEIZEN TAG Wh",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(VaporizerHeatQuantityHeatingDayStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(VaporizerHeatQuantityHeatingDayDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(VaporizerHeatQuantityHeatingDayEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("VaporizerHeatQuantityHeatingTotalDay",
+    "VD HEIZEN SUMME Wh",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(VaporizerHeatQuantityHeatingTotalStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(VaporizerHeatQuantityHeatingTotalEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("VaporizerHeatQuantityHotWaterDay",
+    "VD WARMWASSER TAG Wh",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(VaporizerHeatQuantityHotWaterDayStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(VaporizerHeatQuantityHotWaterDayEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("VaporizerHeatQuantityHotWaterTotalDay",
+    "VD WARMWASSER SUMME Wh",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("ReheatingStagesHeatQuantityHeatingSumDay",
+    "NHZ HEIZEN SUMME  Wh",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("ReheatingStagesHeatQuantityHotWaterTotalDay",
+    "NHZ WARMWASSER SUMME  Wh",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("PowerConsumptionHeatingDay",
+    "VD HEIZEN TAG  Wh",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(PowerConsumptionHeatingDayStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(PowerConsumptionHeatingDayDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(PowerConsumptionHeatingDayEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("PowerConsumptionHeatingSumDay",
+    "VD HEIZEN SUMME Wh",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(PowerConsumptionHeatingSumStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(PowerConsumptionHeatingSumDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(PowerConsumptionHeatingSumEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("PowerConsumptionHotWaterDay",
+    "VD WARMWASSER TAG Wh",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(PowerConsumptionHotWaterDayStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(PowerConsumptionHotWaterDayDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(PowerConsumptionHotWaterDayEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("PowerConsumptionHotWaterSumDay",
+    "VD WARMWASSER SUMME Wh",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(PowerConsumptionHotWaterSumStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(PowerConsumptionHotWaterSumDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(PowerConsumptionHotWaterSumEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("RuntimeVaporizerHeatingDay",
+    "VD HEIZEN",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(RuntimeVaporizerHeatingStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(RuntimeVaporizerHeatingDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(RuntimeVaporizerHeatingEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("RuntimeVaporizerHotWaterDay",
+    "VD WARMWASSER",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(RuntimeVaporizerHotWaterStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(RuntimeVaporizerHotWaterDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(RuntimeVaporizerHotWaterEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("RuntimeVaporizerDefrostDay",
+    "VD ABTAUEN",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(RuntimeVaporizerDefrostStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(RuntimeVaporizerDefrostDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(RuntimeVaporizerDefrostEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("ReheatingStages1Day",
+    "NHZ 1",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(ReheatingStages1StartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(ReheatingStages1DeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(ReheatingStages1EndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("ReheatingStages2Day",
+    "NHZ 2",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(ReheatingStages2StartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(ReheatingStages2DeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(ReheatingStages2EndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("DefrostTimeDay",
+    "ZEIT ABTAUEN",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(DefrostTimeStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(DefrostTimeDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(DefrostTimeEndDay), @Html.Raw(EndColorDay)),
+
+drawStartEndChartDay("DefrostStartsDay",
+    "STARTS ABTAUEN",
+    @Html.Raw(XLabelsDay),
+    @Html.Raw(DefrostStartsStartDay), @Html.Raw(StartColorDay),
+    @Html.Raw(DefrostStartsDeltaDay), @Html.Raw(DeltaColorDay),
+    @Html.Raw(DefrostStartsEndDay), @Html.Raw(EndColorDay)),
+];
+
+var weekCharts =  [ 
+drawBarChartWeek("PerformanceFactorWeek",
+    "Arbeitszahl",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(PerformanceFactorWeek), @Html.Raw(AverageColorDay)),  
+
+drawMinMaxChartWeek("ReturnTemperatureWeek",
+    "RÜCKLAUFTEMPERATUR °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(ReturnTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(ReturnTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(ReturnTemperatureMinWeek), @Html.Raw(MinColorWeek)),            
+
+drawMinMaxChartWeek("InletTemperatureWeek",
+    "VORLAUFTEMPERATUR °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(InletTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(InletTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(InletTemperatureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("AntiFreezeTemperatureWeek",
+    "FROSTSCHUTZTEMPERATUR °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(AntiFreezeTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(AntiFreezeTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(AntiFreezeTemperatureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("OutdoorTemperatureWeek",
+    "AUSSENTEMPERATUR °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(OutdoorTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(OutdoorTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(OutdoorTemperatureMinWeek), @Html.Raw(MinColorWeek)),
+
+
+drawMinMaxChartWeek("ExhaustAirTemperatureWeek",
+    "FORTLUFTTEMPERATUR °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(ExhaustAirTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(ExhaustAirTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(ExhaustAirTemperatureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("EvaporatorTemperatureWeek",
+    "VERDAMPFERTEMPERATUR °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(EvaporatorTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(EvaporatorTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(EvaporatorTemperatureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("TotalPowerConsumptionWeek",
+    "VD HEIZEN SUMME  Wh   ",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(TotalPowerConsumptionStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(TotalPowerConsumptionDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(TotalPowerConsumptionEndWeek), @Html.Raw(EndColorWeek)),        
+
+drawMinMaxChartWeek("CompressorInletTemperatureWeek",
+    "VERDICHTEREINTRITTSTEMPERATUR °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(CompressorInletTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(CompressorInletTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(CompressorInletTemperatureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("IntermediateInjectionTemperatureWeek",
+    "ZWISCHENEINSPRITZUNGSTEMP °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(IntermediateInjectionTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(IntermediateInjectionTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(IntermediateInjectionTemperatureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("HotGasTemperatureWeek",
+    "HEISSGASTEMPERATUR °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(HotGasTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(HotGasTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(HotGasTemperatureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("CondenserTemperatureWeek",
+    "VERFLÜSSIGERTEMPERATUR °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(CondenserTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(CondenserTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(CondenserTemperatureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("OilSumpTemperatureWeek",
+    "ÖLSUMPFTEMPERATUR °C",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(OilSumpTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(OilSumpTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(OilSumpTemperatureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("LowPressureWeek",
+    "DRUCK NIEDERDRUCK bar",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(LowPressureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(LowPressureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(LowPressureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("PressureMediumWeek",
+    "DRUCK MITTELDRUCK bar",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(PressureMediumMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(PressureMediumAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(PressureMediumMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("HighPressureWeek",
+    "DRUCK HOCHDRUCK bar",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(HighPressureMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(HighPressureAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(HighPressureMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("WaterVolumeCurrentWeek",
+    "WP WASSERVOLUMENSTROM l/min",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(WaterVolumeCurrentMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(WaterVolumeCurrentAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(WaterVolumeCurrentMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("VoltageInverterWeek",
+    "SPANNUNG INVERTER V",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(VoltageInverterMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(VoltageInverterAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(VoltageInverterMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("ActualSpeedDensifierWeek",
+    "ISTDREHZAHL VERDICHTER Hz",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(ActualSpeedDensifierMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(ActualSpeedDensifierAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(ActualSpeedDensifierMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("SettingSpeedCompressedWeek",
+    "SOLLDREHZAHL VERDICHTER Hz",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(SettingSpeedCompressedMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(SettingSpeedCompressedAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(SettingSpeedCompressedMinWeek), @Html.Raw(MinColorWeek)),
+
+drawMinMaxChartWeek("FanPowerRelWeek",
+    "LÜFTERLEISTUNG REL %",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(FanPowerRelMaxWeek), @Html.Raw(MaxColorWeek),
+    @Html.Raw(FanPowerRelAverageWeek), @Html.Raw(AverageColorWeek),
+    @Html.Raw(FanPowerRelMinWeek), @Html.Raw(MinColorWeek)),
+
+drawStartEndChartWeek("VaporizerHeatQuantityHeatingWeek",
+    "VD HEIZEN TAG Wh",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(VaporizerHeatQuantityHeatingDayMinWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(VaporizerHeatQuantityHeatingDayAverageWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(VaporizerHeatQuantityHeatingDayMaxWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("VaporizerHeatQuantityHeatingTotalWeek",
+    "VD HEIZEN SUMME Wh",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(VaporizerHeatQuantityHeatingTotalStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(VaporizerHeatQuantityHeatingTotalEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("VaporizerHeatQuantityHotWaterWeek",
+    "VD WARMWASSER TAG Wh",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(VaporizerHeatQuantityHotWaterDayStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(VaporizerHeatQuantityHotWaterDayEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("VaporizerHeatQuantityHotWaterTotalWeek",
+    "VD WARMWASSER SUMME Wh",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("ReheatingStagesHeatQuantityHeatingSumWeek",
+    "NHZ HEIZEN SUMME  Wh",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("ReheatingStagesHeatQuantityHotWaterTotalWeek",
+    "NHZ WARMWASSER SUMME  Wh",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("PowerConsumptionHeatingWeek",
+    "VD HEIZEN TAG  Wh",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(PowerConsumptionHeatingDayStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(PowerConsumptionHeatingDayDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(PowerConsumptionHeatingDayEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("PowerConsumptionHeatingSumWeek",
+    "VD HEIZEN SUMME Wh",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(PowerConsumptionHeatingSumStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(PowerConsumptionHeatingSumDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(PowerConsumptionHeatingSumEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("PowerConsumptionHotWaterWeek",
+    "VD WARMWASSER TAG Wh",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(PowerConsumptionHotWaterDayStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(PowerConsumptionHotWaterDayDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(PowerConsumptionHotWaterDayEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("PowerConsumptionHotWaterSumWeek",
+    "VD WARMWASSER SUMME Wh",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(PowerConsumptionHotWaterSumStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(PowerConsumptionHotWaterSumDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(PowerConsumptionHotWaterSumEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("RuntimeVaporizerHeatingWeek",
+    "VD HEIZEN",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(RuntimeVaporizerHeatingStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(RuntimeVaporizerHeatingDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(RuntimeVaporizerHeatingEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("RuntimeVaporizerHotWaterWeek",
+    "VD WARMWASSER",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(RuntimeVaporizerHotWaterStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(RuntimeVaporizerHotWaterDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(RuntimeVaporizerHotWaterEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("RuntimeVaporizerDefrostWeek",
+    "VD ABTAUEN",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(RuntimeVaporizerDefrostStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(RuntimeVaporizerDefrostDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(RuntimeVaporizerDefrostEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("ReheatingStages1Week",
+    "NHZ 1",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(ReheatingStages1StartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(ReheatingStages1DeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(ReheatingStages1EndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("ReheatingStages2Week",
+    "NHZ 2",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(ReheatingStages2StartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(ReheatingStages2DeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(ReheatingStages2EndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("DefrostTimeWeek",
+    "ZEIT ABTAUEN",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(DefrostTimeStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(DefrostTimeDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(DefrostTimeEndWeek), @Html.Raw(EndColorWeek)),
+
+drawStartEndChartWeek("DefrostStartsWeek",
+    "STARTS ABTAUEN",
+    @Html.Raw(XLabelsWeek),
+    @Html.Raw(DefrostStartsStartWeek), @Html.Raw(StartColorWeek),
+    @Html.Raw(DefrostStartsDeltaWeek), @Html.Raw(DeltaColorWeek),
+    @Html.Raw(DefrostStartsEndWeek), @Html.Raw(EndColorWeek)),
+]
+
+var monthCharts = [
+drawBarChartMonth("PerformanceFactorMonth",
             "Arbeitszahl",
             @Html.Raw(XLabelsMonth),
-            @Html.Raw(PerformanceFactorMonth), @Html.Raw(AverageColorDay));          
+            @Html.Raw(PerformanceFactorMonth), @Html.Raw(AverageColorDay)),          
 
         drawMinMaxChartMonth("ReturnTemperatureMonth",
             "RÜCKLAUFTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ReturnTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(ReturnTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(ReturnTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(ReturnTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("InletTemperatureMonth",
             "VORLAUFTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(InletTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(InletTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(InletTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(InletTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("AntiFreezeTemperatureMonth",
             "FROSTSCHUTZTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(AntiFreezeTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(AntiFreezeTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(AntiFreezeTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(AntiFreezeTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("OutdoorTemperatureMonth",
             "AUSSENTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(OutdoorTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(OutdoorTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(OutdoorTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(OutdoorTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
 
         drawMinMaxChartMonth("ExhaustAirTemperatureMonth",
@@ -2696,502 +2676,585 @@
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ExhaustAirTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(ExhaustAirTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(ExhaustAirTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(ExhaustAirTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("EvaporatorTemperatureMonth",
             "VERDAMPFERTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(EvaporatorTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(EvaporatorTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(EvaporatorTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(EvaporatorTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("TotalPowerConsumptionMonth",
             "VD HEIZEN SUMME  Wh   ",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(TotalPowerConsumptionStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(TotalPowerConsumptionDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(TotalPowerConsumptionEndMonth), @Html.Raw(EndColorMonth));        
+            @Html.Raw(TotalPowerConsumptionEndMonth), @Html.Raw(EndColorMonth)),        
 
         drawMinMaxChartMonth("CompressorInletTemperatureMonth",
             "VERDICHTEREINTRITTSTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(CompressorInletTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(CompressorInletTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(CompressorInletTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(CompressorInletTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("IntermediateInjectionTemperatureMonth",
             "ZWISCHENEINSPRITZUNGSTEMP °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(IntermediateInjectionTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(IntermediateInjectionTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(IntermediateInjectionTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(IntermediateInjectionTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("HotGasTemperatureMonth",
             "HEISSGASTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(HotGasTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(HotGasTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(HotGasTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(HotGasTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("CondenserTemperatureMonth",
             "VERFLÜSSIGERTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(CondenserTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(CondenserTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(CondenserTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(CondenserTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("OilSumpTemperatureMonth",
             "ÖLSUMPFTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(OilSumpTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(OilSumpTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(OilSumpTemperatureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(OilSumpTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("LowPressureMonth",
             "DRUCK NIEDERDRUCK bar",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(LowPressureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(LowPressureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(LowPressureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(LowPressureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("PressureMediumMonth",
             "DRUCK MITTELDRUCK bar",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(PressureMediumMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(PressureMediumAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(PressureMediumMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(PressureMediumMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("HighPressureMonth",
             "DRUCK HOCHDRUCK bar",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(HighPressureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(HighPressureAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(HighPressureMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(HighPressureMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("WaterVolumeCurrentMonth",
             "WP WASSERVOLUMENSTROM l/min",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(WaterVolumeCurrentMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(WaterVolumeCurrentAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(WaterVolumeCurrentMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(WaterVolumeCurrentMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("VoltageInverterMonth",
             "SPANNUNG INVERTER V",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(VoltageInverterMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(VoltageInverterAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(VoltageInverterMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(VoltageInverterMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("ActualSpeedDensifierMonth",
             "ISTDREHZAHL VERDICHTER Hz",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ActualSpeedDensifierMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(ActualSpeedDensifierAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(ActualSpeedDensifierMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(ActualSpeedDensifierMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("SettingSpeedCompressedMonth",
             "SOLLDREHZAHL VERDICHTER Hz",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(SettingSpeedCompressedMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(SettingSpeedCompressedAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(SettingSpeedCompressedMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(SettingSpeedCompressedMinMonth), @Html.Raw(MinColorMonth)),
 
         drawMinMaxChartMonth("FanPowerRelMonth",
             "LÜFTERLEISTUNG REL %",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(FanPowerRelMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(FanPowerRelAverageMonth), @Html.Raw(AverageColorMonth),
-            @Html.Raw(FanPowerRelMinMonth), @Html.Raw(MinColorMonth));
+            @Html.Raw(FanPowerRelMinMonth), @Html.Raw(MinColorMonth)),
 
         drawStartEndChartMonth("VaporizerHeatQuantityHeatingMonth",
             "VD HEIZEN TAG Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(VaporizerHeatQuantityHeatingDayMinMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(VaporizerHeatQuantityHeatingDayAverageMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(VaporizerHeatQuantityHeatingDayMaxMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(VaporizerHeatQuantityHeatingDayMaxMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("VaporizerHeatQuantityHeatingTotalMonth",
             "VD HEIZEN SUMME Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(VaporizerHeatQuantityHeatingTotalStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(VaporizerHeatQuantityHeatingTotalEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(VaporizerHeatQuantityHeatingTotalEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("VaporizerHeatQuantityHotWaterMonth",
             "VD WARMWASSER TAG Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(VaporizerHeatQuantityHotWaterDayStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(VaporizerHeatQuantityHotWaterDayEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(VaporizerHeatQuantityHotWaterDayEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("VaporizerHeatQuantityHotWaterTotalMonth",
             "VD WARMWASSER SUMME Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("ReheatingStagesHeatQuantityHeatingSumMonth",
             "NHZ HEIZEN SUMME  Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("ReheatingStagesHeatQuantityHotWaterTotalMonth",
             "NHZ WARMWASSER SUMME  Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("PowerConsumptionHeatingMonth",
             "VD HEIZEN TAG  Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(PowerConsumptionHeatingDayStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(PowerConsumptionHeatingDayDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(PowerConsumptionHeatingDayEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(PowerConsumptionHeatingDayEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("PowerConsumptionHeatingSumMonth",
             "VD HEIZEN SUMME Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(PowerConsumptionHeatingSumStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(PowerConsumptionHeatingSumDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(PowerConsumptionHeatingSumEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(PowerConsumptionHeatingSumEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("PowerConsumptionHotWaterMonth",
             "VD WARMWASSER TAG Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(PowerConsumptionHotWaterDayStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(PowerConsumptionHotWaterDayDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(PowerConsumptionHotWaterDayEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(PowerConsumptionHotWaterDayEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("PowerConsumptionHotWaterSumMonth",
             "VD WARMWASSER SUMME Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(PowerConsumptionHotWaterSumStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(PowerConsumptionHotWaterSumDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(PowerConsumptionHotWaterSumEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(PowerConsumptionHotWaterSumEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("RuntimeVaporizerHeatingMonth",
             "VD HEIZEN",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(RuntimeVaporizerHeatingStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(RuntimeVaporizerHeatingDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(RuntimeVaporizerHeatingEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(RuntimeVaporizerHeatingEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("RuntimeVaporizerHotWaterMonth",
             "VD WARMWASSER",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(RuntimeVaporizerHotWaterStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(RuntimeVaporizerHotWaterDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(RuntimeVaporizerHotWaterEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(RuntimeVaporizerHotWaterEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("RuntimeVaporizerDefrostMonth",
             "VD ABTAUEN",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(RuntimeVaporizerDefrostStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(RuntimeVaporizerDefrostDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(RuntimeVaporizerDefrostEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(RuntimeVaporizerDefrostEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("ReheatingStages1Month",
             "NHZ 1",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ReheatingStages1StartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(ReheatingStages1DeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(ReheatingStages1EndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(ReheatingStages1EndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("ReheatingStages2Month",
             "NHZ 2",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ReheatingStages2StartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(ReheatingStages2DeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(ReheatingStages2EndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(ReheatingStages2EndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("DefrostTimeMonth",
             "ZEIT ABTAUEN",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(DefrostTimeStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(DefrostTimeDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(DefrostTimeEndMonth), @Html.Raw(EndColorMonth));
+            @Html.Raw(DefrostTimeEndMonth), @Html.Raw(EndColorMonth)),
 
         drawStartEndChartMonth("DefrostStartsMonth",
             "STARTS ABTAUEN",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(DefrostStartsStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(DefrostStartsDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(DefrostStartsEndMonth), @Html.Raw(EndColorMonth));
-    }
-    if(tabName === "Years"){
-        drawBarChartYear("PerformanceFactorYear",
+            @Html.Raw(DefrostStartsEndMonth), @Html.Raw(EndColorMonth)),
+];
+
+var yearCharts = [
+drawBarChartYear("PerformanceFactorYear",
             "Arbeitszahl",
             @Html.Raw(XLabelsYear),
-            @Html.Raw(PerformanceFactorYear), @Html.Raw(AverageColorDay));
+            @Html.Raw(PerformanceFactorYear), @Html.Raw(AverageColorDay)),
           
         drawMinMaxChartYear("ReturnTemperatureYear",
             "RÜCKLAUFTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ReturnTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(ReturnTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(ReturnTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(ReturnTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("InletTemperatureYear",
             "VORLAUFTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(InletTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(InletTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(InletTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(InletTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("AntiFreezeTemperatureYear",
             "FROSTSCHUTZTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(AntiFreezeTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(AntiFreezeTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(AntiFreezeTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(AntiFreezeTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("OutdoorTemperatureYear",
             "AUSSENTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(OutdoorTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(OutdoorTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(OutdoorTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(OutdoorTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("ExhaustAirTemperatureYear",
             "FORTLUFTTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ExhaustAirTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(ExhaustAirTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(ExhaustAirTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(ExhaustAirTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("EvaporatorTemperatureYear",
             "VERDAMPFERTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(EvaporatorTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(EvaporatorTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(EvaporatorTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(EvaporatorTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("TotalPowerConsumptionYear",
             "VD HEIZEN SUMME  Wh   ",
             @Html.Raw(XLabelsYear),
             @Html.Raw(TotalPowerConsumptionStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(TotalPowerConsumptionDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(TotalPowerConsumptionEndYear), @Html.Raw(EndColorYear));        
+            @Html.Raw(TotalPowerConsumptionEndYear), @Html.Raw(EndColorYear)),        
 
         drawMinMaxChartYear("CompressorInletTemperatureYear",
             "VERDICHTEREINTRITTSTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(CompressorInletTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(CompressorInletTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(CompressorInletTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(CompressorInletTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("IntermediateInjectionTemperatureYear",
             "ZWISCHENEINSPRITZUNGSTEMP °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(IntermediateInjectionTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(IntermediateInjectionTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(IntermediateInjectionTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(IntermediateInjectionTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("HotGasTemperatureYear",
             "HEISSGASTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(HotGasTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(HotGasTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(HotGasTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(HotGasTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("CondenserTemperatureYear",
             "VERFLÜSSIGERTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(CondenserTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(CondenserTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(CondenserTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(CondenserTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("OilSumpTemperatureYear",
             "ÖLSUMPFTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(OilSumpTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(OilSumpTemperatureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(OilSumpTemperatureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(OilSumpTemperatureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("LowPressureYear",
             "DRUCK NIEDERDRUCK bar",
             @Html.Raw(XLabelsYear),
             @Html.Raw(LowPressureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(LowPressureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(LowPressureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(LowPressureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("PressureMediumYear",
             "DRUCK MITTELDRUCK bar",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PressureMediumMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(PressureMediumAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(PressureMediumMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(PressureMediumMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("HighPressureYear",
             "DRUCK HOCHDRUCK bar",
             @Html.Raw(XLabelsYear),
             @Html.Raw(HighPressureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(HighPressureAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(HighPressureMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(HighPressureMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("WaterVolumeCurrentYear",
             "WP WASSERVOLUMENSTROM l/min",
             @Html.Raw(XLabelsYear),
             @Html.Raw(WaterVolumeCurrentMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(WaterVolumeCurrentAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(WaterVolumeCurrentMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(WaterVolumeCurrentMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("VoltageInverterYear",
             "SPANNUNG INVERTER V",
             @Html.Raw(XLabelsYear),
             @Html.Raw(VoltageInverterMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(VoltageInverterAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(VoltageInverterMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(VoltageInverterMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("ActualSpeedDensifierYear",
             "ISTDREHZAHL VERDICHTER Hz",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ActualSpeedDensifierMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(ActualSpeedDensifierAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(ActualSpeedDensifierMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(ActualSpeedDensifierMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("SettingSpeedCompressedYear",
             "SOLLDREHZAHL VERDICHTER Hz",
             @Html.Raw(XLabelsYear),
             @Html.Raw(SettingSpeedCompressedMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(SettingSpeedCompressedAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(SettingSpeedCompressedMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(SettingSpeedCompressedMinYear), @Html.Raw(MinColorYear)),
 
         drawMinMaxChartYear("FanPowerRelYear",
             "LÜFTERLEISTUNG REL %",
             @Html.Raw(XLabelsYear),
             @Html.Raw(FanPowerRelMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(FanPowerRelAverageYear), @Html.Raw(AverageColorYear),
-            @Html.Raw(FanPowerRelMinYear), @Html.Raw(MinColorYear));
+            @Html.Raw(FanPowerRelMinYear), @Html.Raw(MinColorYear)),
 
         drawStartEndChartYear("VaporizerHeatQuantityHeatingYear",
             "VD HEIZEN TAG Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(VaporizerHeatQuantityHeatingDayMinYear), @Html.Raw(StartColorYear),
             @Html.Raw(VaporizerHeatQuantityHeatingDayAverageYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(VaporizerHeatQuantityHeatingDayMaxYear), @Html.Raw(EndColorYear));
+            @Html.Raw(VaporizerHeatQuantityHeatingDayMaxYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("VaporizerHeatQuantityHeatingTotalYear",
             "VD HEIZEN SUMME Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(VaporizerHeatQuantityHeatingTotalStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(VaporizerHeatQuantityHeatingTotalEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(VaporizerHeatQuantityHeatingTotalEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("VaporizerHeatQuantityHotWaterYear",
             "VD WARMWASSER TAG Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(VaporizerHeatQuantityHotWaterDayStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(VaporizerHeatQuantityHotWaterDayEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(VaporizerHeatQuantityHotWaterDayEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("VaporizerHeatQuantityHotWaterTotalYear",
             "VD WARMWASSER SUMME Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("ReheatingStagesHeatQuantityHeatingSumYear",
             "NHZ HEIZEN SUMME  Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("ReheatingStagesHeatQuantityHotWaterTotalYear",
             "NHZ WARMWASSER SUMME  Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("PowerConsumptionHeatingYear",
             "VD HEIZEN TAG  Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PowerConsumptionHeatingDayStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(PowerConsumptionHeatingDayDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(PowerConsumptionHeatingDayEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(PowerConsumptionHeatingDayEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("PowerConsumptionHeatingSumYear",
             "VD HEIZEN SUMME Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PowerConsumptionHeatingSumStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(PowerConsumptionHeatingSumDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(PowerConsumptionHeatingSumEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(PowerConsumptionHeatingSumEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("PowerConsumptionHotWaterYear",
             "VD WARMWASSER TAG Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PowerConsumptionHotWaterDayStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(PowerConsumptionHotWaterDayDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(PowerConsumptionHotWaterDayEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(PowerConsumptionHotWaterDayEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("PowerConsumptionHotWaterSumYear",
             "VD WARMWASSER SUMME Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PowerConsumptionHotWaterSumStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(PowerConsumptionHotWaterSumDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(PowerConsumptionHotWaterSumEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(PowerConsumptionHotWaterSumEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("RuntimeVaporizerHeatingYear",
             "VD HEIZEN",
             @Html.Raw(XLabelsYear),
             @Html.Raw(RuntimeVaporizerHeatingStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(RuntimeVaporizerHeatingDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(RuntimeVaporizerHeatingEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(RuntimeVaporizerHeatingEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("RuntimeVaporizerHotWaterYear",
             "VD WARMWASSER",
             @Html.Raw(XLabelsYear),
             @Html.Raw(RuntimeVaporizerHotWaterStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(RuntimeVaporizerHotWaterDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(RuntimeVaporizerHotWaterEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(RuntimeVaporizerHotWaterEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("RuntimeVaporizerDefrostYear",
             "VD ABTAUEN",
             @Html.Raw(XLabelsYear),
             @Html.Raw(RuntimeVaporizerDefrostStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(RuntimeVaporizerDefrostDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(RuntimeVaporizerDefrostEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(RuntimeVaporizerDefrostEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("ReheatingStages1Year",
             "NHZ 1",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ReheatingStages1StartYear), @Html.Raw(StartColorYear),
             @Html.Raw(ReheatingStages1DeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(ReheatingStages1EndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(ReheatingStages1EndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("ReheatingStages2Year",
             "NHZ 2",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ReheatingStages2StartYear), @Html.Raw(StartColorYear),
             @Html.Raw(ReheatingStages2DeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(ReheatingStages2EndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(ReheatingStages2EndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("DefrostTimeYear",
             "ZEIT ABTAUEN",
             @Html.Raw(XLabelsYear),
             @Html.Raw(DefrostTimeStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(DefrostTimeDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(DefrostTimeEndYear), @Html.Raw(EndColorYear));
+            @Html.Raw(DefrostTimeEndYear), @Html.Raw(EndColorYear)),
 
         drawStartEndChartYear("DefrostStartsYear",
             "STARTS ABTAUEN",
             @Html.Raw(XLabelsYear),
             @Html.Raw(DefrostStartsStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(DefrostStartsDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(DefrostStartsEndYear), @Html.Raw(EndColorYear)); 
-    }
-    if(tabName === "Total"){
+            @Html.Raw(DefrostStartsEndYear), @Html.Raw(EndColorYear)), 
+
+];
+
+var totalCharts = [
        drawBarChartTotal("PerformanceFactorTotal",
             "Arbeitszahl",
             @Html.Raw(XLabelsTotal),
-            @Html.Raw(PerformanceFactorTotal), @Html.Raw(ColorTotal));
+            @Html.Raw(PerformanceFactorTotal), @Html.Raw(ColorTotal))
+];
+
+function openTabOnLoad(ctx, tabName) {
+      // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    ctx.className += " active";
+    if(tabName === "Days"){
+        dayCharts.forEach(chart => {
+            if (typeof chart !== 'undefined'){
+                chart.destroy()
+            }
+        });
+        dayCharts.forEach(chart => {
+            if (typeof chart !== 'undefined'){
+                chart.update()
+            }
+        });
+    }
+    if(tabName === "Weeks"){        
+        weekCharts.forEach(chart => {
+            if (typeof chart !== 'undefined'){
+                chart.destroy()
+            }
+        });
+        weekCharts.forEach(chart => {
+            if (typeof chart !== 'undefined'){
+                chart.update()
+            }
+        });
+    }
+    if(tabName === "Months"){
+        monthCharts.forEach(chart => {
+            if (typeof chart !== 'undefined'){
+                chart.destroy()
+            }
+        });
+        monthCharts.forEach(chart => {
+            if (typeof chart !== 'undefined'){
+                chart.update()
+            }
+        });
+    }
+    if(tabName === "Years"){
+        yearCharts.forEach(chart => {
+            if (typeof chart !== 'undefined'){
+                chart.destroy()
+            }
+        });
+        yearCharts.forEach(chart => {
+            if (typeof chart !== 'undefined'){
+                chart.update()
+            }
+        });
+    }
+    if(tabName === "Total"){
+        totalCharts.forEach(chart => {
+            if (typeof chart !== 'undefined'){
+                chart.destroy()
+            }
+        });
+        totalCharts.forEach(chart => {
+            if (typeof chart !== 'undefined'){
+                chart.update()
+            }
+        });
     }
   }  
   function openTab(evt, tabName) {
@@ -3201,4 +3264,3 @@ window.addEventListener("load", function(){
     openTabOnLoad(document.getElementById('Days'), 'Days');
 });
 </script>
-<script src="js/site.js" asp-append-version="true"></script>
