@@ -1,33 +1,18 @@
-﻿function drawMinMaxChartInternal(period, chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
+﻿function getDataSets(labels, data, backgroundColors, borderColors, fill, tension, borderWith) {
+    return labels.map((label, i) => ({
+        label,
+        data: data[i],
+        borderColor: borderColors[i],
+        backgroundColor: backgroundColors[i],
+        fill,
+        tension: tension,
+        borderWidth: borderWith
+    }));
+}
+
+function drawMinMaxChartInternal(period, chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
     var ctx = document.getElementById(chartName).getContext('2d');
-    var data = {
-        labels: labels,
-        datasets: [{
-            label: "Max",
-            borderWidth: 5,
-            data: maxYs,
-            fill: false,
-            tension: 0,
-            borderColor: 'rgba(233, 241, 221, 1)',
-            backgroundColor: maxYsColors,
-        }, {
-            label: "Mittel",
-            borderWidth: 5,
-            data: averageYs,
-            fill: false,
-            tension: 0,
-            borderColor: 'rgba(140, 173, 88, 1)',
-            backgroundColor: averageYsColor,
-        }, {
-            label: "Min",
-            borderWidth: 5,
-            data: minYs,
-            fill: false,
-            tension: 0,
-            borderColor: 'rgba(132, 133, 135, 1)',
-            backgroundColor: minYsColor,
-        }]
-    };
+    var dataSets = getDataSets(["Max","Mittel","Min"],[maxYs,averageYs,minYs],[maxYsColors,averageYsColor,minYsColor],['rgba(233, 241, 221, 1)','rgba(140, 173, 88, 1)','rgba(132, 133, 135, 1)'],false,0,5);
     var x = {
         offset: true,
         type: 'time',
@@ -80,7 +65,10 @@
 
     new Chart(ctx, {
         options: options,
-        data: data,
+        data: {
+            labels: labels,
+            datasets: dataSets
+        },
         type: 'line'
     }).update();
 }
@@ -102,33 +90,10 @@ function drawMinMaxChartMonth(chartName, chartTitle, labels, maxYs, maxYsColors,
 
 function drawStartEndChartInternal(period, chartName, chartTitle, labels, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
     var ctx = document.getElementById(chartName).getContext('2d');
+    var dataSets = getDataSets(["Start","Delta","End"],[startYs,deltaYs,endYs],[startYsColors,deltaYsColor,endYsColor],['rgba(233, 241, 221, 1)','rgba(140, 173, 88, 1)','rgba(132, 133, 135, 1)'],false,0,5);
     var data = {
         labels: labels,
-        datasets: [{
-            label: "Start",
-            borderWidth: 5,
-            data: startYs,
-            fill: false,
-            tension: 0,
-            borderColor: 'rgba(233, 241, 221, 1)',
-            backgroundColor: startYsColors,
-        }, {
-            label: "Delta",
-            borderWidth: 5,
-            data: deltaYs,
-            fill: false,
-            tension: 0,
-            borderColor: 'rgba(140, 173, 88, 1)',
-            backgroundColor: deltaYsColor,
-        }, {
-            label: "End",
-            borderWidth: 5,
-            data: endYs,
-            fill: false,
-            tension: 0,
-            borderColor: 'rgba(132, 133, 135, 1)',
-            backgroundColor: endYsColor,
-        }]
+        datasets: dataSets
     };
     var x = {
         offset: true,
@@ -204,13 +169,10 @@ function drawStartEndChart(chartName, chartTitle, labels, startYs, startYsColors
 
 function drawBarChartInternal(period, chartName, chartTitle, xAxisLabel, Ys, YsColors) {
     var ctx = document.getElementById(chartName).getContext('2d');
+    var dataSets = getDataSets(["Mittel"],[Ys],[YsColors],['rgba(140, 173, 88, 1)'],false,0,0);
     var data = {
         labels: xAxisLabel,
-        datasets: [{
-            label: "Mittel",
-            backgroundColor: YsColors,
-            data: Ys
-        }]
+        datasets: dataSets
     };
     var x = {
         offset: true,
