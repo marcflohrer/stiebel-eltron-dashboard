@@ -36,12 +36,12 @@ function createChart(ctx, config) {
     return new Chart(ctx, config);
 }
 
-function drawChartBase(period, chartName, chartTitle, rawDates, datasets, type) {
+function drawChartBase(unit, chartName, chartTitle, rawDates, datasets, type) {
     var ctx = document.getElementById(chartName).getContext('2d');
     var labels;
-    if (period === 'total') {
+    if (unit === 'total') {
         labels = rawDates;
-    }else{
+    } else {
         labels = rawDates.map(date => moment(date).toDate());
     }
     var x = {
@@ -49,7 +49,7 @@ function drawChartBase(period, chartName, chartTitle, rawDates, datasets, type) 
         type: 'time',
         time: {
             parser: 'YYYY-MM-DD HH:mm:ss',
-            unit: period,
+            unit: unit,
             isoWeekday: true,
             displayFormats: {
                 year: 'YYYY',
@@ -68,7 +68,7 @@ function drawChartBase(period, chartName, chartTitle, rawDates, datasets, type) 
             }
         }
     };
-    if (period === 'total') {
+    if (unit === 'total') {
         x = {
             offset: true,
             grid: {
@@ -118,62 +118,17 @@ function drawChartBase(period, chartName, chartTitle, rawDates, datasets, type) 
     return createChart(ctx, config);
 }
 
-function drawMinMaxChartInternal(period, chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
+function drawMaxAvgMinChart(unit, chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
     var datasets = createDataSets(["Max", "Mittel", "Min"], [maxYs, averageYs, minYs], [maxYsColors, averageYsColor, minYsColor], STACKED_LINE_CHART_COLORS, false, 0, 5);
-    drawChartBase(period, chartName, chartTitle, rawDates, datasets, 'line');
-}
-function drawMinMaxChart(chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
-    drawMinMaxChartInternal('day', chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor);
-}
-function drawMinMaxChartDay(chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
-    drawMinMaxChartInternal('day', chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor);
-}
-function drawMinMaxChartWeek(chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
-    drawMinMaxChartInternal('week', chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor);
-}
-function drawMinMaxChartMonth(chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
-    drawMinMaxChartInternal('month', chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor);
-}
-function drawMinMaxChartYear(chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
-    drawMinMaxChartInternal('year', chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor);
+    drawChartBase(unit, chartName, chartTitle, rawDates, datasets, 'line');
 }
 
-function drawStartEndChartInternal(period, chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
+function drawStartDeltaEndChart(unit, chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
     var datasets = createDataSets(["Start", "Delta", "End"], [startYs, deltaYs, endYs], [startYsColors, deltaYsColor, endYsColor], STACKED_LINE_CHART_COLORS, false, 0, 5);
-    drawChartBase(period, chartName, chartTitle, rawDates, datasets, 'line');
-}
-function drawStartEndChart(chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
-    drawStartEndChartInternal('day', chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
-}
-function drawStartEndChartDay(chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
-    drawStartEndChartInternal('day', chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
-}
-function drawStartEndChartWeek(chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
-    drawStartEndChartInternal('week', chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
-}
-function drawStartEndChartMonth(chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
-    drawStartEndChartInternal('month', chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
-}
-function drawStartEndChartYear(chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
-    drawStartEndChartInternal('year', chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor);
+    drawChartBase(unit, chartName, chartTitle, rawDates, datasets, 'line');
 }
 
-function drawBarChartInternal(period, chartName, chartTitle, rawDates, Ys, YsColors) {
+function drawBarChart(unit, chartName, chartTitle, rawDates, Ys, YsColors) {
     var datasets = createDataSets(["Mittel"], [Ys], [YsColors], [STACKED_LINE_CHART_COLORS[1]], false, 0, 0);
-    drawChartBase(period, chartName, chartTitle, rawDates, datasets, 'bar');
-}
-function drawBarChartDay(chartName, chartTitle, rawDates, Ys, YsColors) {
-    drawBarChartInternal('day', chartName, chartTitle, rawDates, Ys, YsColors);
-}
-function drawBarChartWeek(chartName, chartTitle, rawDates, Ys, YsColors) {
-    drawBarChartInternal('week', chartName, chartTitle, rawDates, Ys, YsColors);
-}
-function drawBarChartMonth(chartName, chartTitle, rawDates, Ys, YsColors) {
-    drawBarChartInternal('month', chartName, chartTitle, rawDates, Ys, YsColors);
-}
-function drawBarChartYear(chartName, chartTitle, rawDates, Ys, YsColors) {
-    drawBarChartInternal('year', chartName, chartTitle, rawDates, Ys, YsColors);
-}
-function drawBarChartTotal(chartName, chartTitle, xAxisLabel, Ys, YsColors) {
-    drawBarChartInternal('total', chartName, chartTitle, xAxisLabel, Ys, YsColors);
+    drawChartBase(unit, chartName, chartTitle, rawDates, datasets, 'bar');
 }

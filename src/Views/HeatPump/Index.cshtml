@@ -17,36 +17,36 @@
     var XLabelsYear = "{}";
     var XLabelsTotal = "{}";
 
-    var StartColorDay = "{}";    
-    var EndColorDay = "{}";    
+    var StartColorDay = "{}";
+    var EndColorDay = "{}";
     var DeltaColorDay = "{}";
     var MinColorDay = "{}";
     var MaxColorDay = "{}";
     var AverageColorDay = "{}";
 
-    var StartColorWeek = "{}";  
-    var EndColorWeek = "{}";    
-    var DeltaColorWeek = "{}";  
-    
+    var StartColorWeek = "{}";
+    var EndColorWeek = "{}";
+    var DeltaColorWeek = "{}";
+
     var MinColorWeek = "{}";
     var MaxColorWeek = "{}";
     var AverageColorWeek = "{}";
 
-    var StartColorMonth = "{}";    
-    var EndColorMonth = "{}";    
+    var StartColorMonth = "{}";
+    var EndColorMonth = "{}";
     var DeltaColorMonth = "{}";
     var MinColorMonth = "{}";
     var MaxColorMonth = "{}";
-    var AverageColorMonth = "{}"; 
+    var AverageColorMonth = "{}";
 
-    var StartColorYear = "{}";    
-    var EndColorYear = "{}";    
+    var StartColorYear = "{}";
+    var EndColorYear = "{}";
     var DeltaColorYear = "{}";
     var MinColorYear = "{}";
     var MaxColorYear = "{}";
-    var AverageColorYear = "{}"; 
+    var AverageColorYear = "{}";
 
-    var ColorTotal = "{}"; 
+    var ColorTotal = "{}";
 
     var PerformanceFactorDay = "{}";
     var ReturnTemperatureMinDay = "{}";
@@ -387,7 +387,7 @@
     var DefrostStartsEndMonth = "{}";
     var DefrostStartsDeltaMonth = "{}";
 
-	var PerformanceFactorYear = "{}";
+    var PerformanceFactorYear = "{}";
     var ReturnTemperatureMinYear = "{}";
     var ReturnTemperatureMaxYear = "{}";
     var ReturnTemperatureAverageYear = "{}";
@@ -499,10 +499,10 @@
     var DefrostStartsStartYear = "{}";
     var DefrostStartsEndYear = "{}";
     var DefrostStartsDeltaYear = "{}";
-    
+
     var PerformanceFactorTotal = "{}";
     var newestRecord = DateTime.MinValue;
-    
+
     if (Model == null)
     {
         Console.WriteLine("No data showed up in HeatPump/index.cshtml!");
@@ -512,44 +512,44 @@
         XLabelsDay = Model.GetDays().Select(x => new DateTime((int)x.Year, 1, 1).Add(TimeSpan.FromDays(x.PeriodNumber - 1))).ToList().ToJson();
         XLabelsWeek = Model.GetWeeks().Select(x => new DateTime((int)x.Year, 1, 1).FirstDateOfWeek((int)x.PeriodNumber, new System.Globalization.CultureInfo("de-DE"))).ToList().ToJson();
         XLabelsMonth = Model.GetMonths().Select(x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1)).ToList().ToJson();
-        XLabelsYear = Model.GetYears().Select(x => new DateTime((int)x.Year, 1,1)).ToList().ToJson();
+        XLabelsYear = Model.GetYears().Select(x => new DateTime((int)x.Year, 1, 1)).ToList().ToJson();
         newestRecord = Model.Select(m => m.DateUpdated).Max();
 
-        XLabelsTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(h => "Total").Take(1).ToList().ToJson();        
+        XLabelsTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(h => "Total").Take(1).ToList().ToJson();
 
         StartColorDay = Model.GetDays().Select(x => x.VaporizerHeatQuantityHeatingDayStart).Select(c => startColor).ToList().ToJson();
         DeltaColorDay = Model.GetDays().Select(x => x.VaporizerHeatQuantityHeatingDayDelta).Select(c => deltaColor).ToList().ToJson();
-        EndColorDay = Model.GetDays().Select(x => x.VaporizerHeatQuantityHeatingDayEnd).Select(c => endColor).ToList().ToJson();      
-        MinColorDay = Model.GetDays().Select(x => x.ReturnTemperatureMin).Select(c => minColor).ToList().ToJson(); 
+        EndColorDay = Model.GetDays().Select(x => x.VaporizerHeatQuantityHeatingDayEnd).Select(c => endColor).ToList().ToJson();
+        MinColorDay = Model.GetDays().Select(x => x.ReturnTemperatureMin).Select(c => minColor).ToList().ToJson();
         MaxColorDay = Model.GetDays().Select(x => x.ReturnTemperatureMax).Select(c => maxColor).ToList().ToJson();
-        AverageColorDay = Model.GetDays().Select(x => x.ReturnTemperatureAverage).Select(c => averageColor).ToList().ToJson();    
+        AverageColorDay = Model.GetDays().Select(x => x.ReturnTemperatureAverage).Select(c => averageColor).ToList().ToJson();
 
-        StartColorWeek =  Model.GetWeeks().Select(x => x.VaporizerHeatQuantityHeatingDayStart).Select(c => startColor).ToList().ToJson();
-        DeltaColorWeek =  Model.GetWeeks().Select(x => x.VaporizerHeatQuantityHeatingDayDelta).Select(c => deltaColor).ToList().ToJson();
-        EndColorWeek =  Model.GetWeeks().Select(x => x.VaporizerHeatQuantityHeatingDayEnd).Select(c => endColor).ToList().ToJson();      
-        MinColorWeek =  Model.GetWeeks().Select(x => x.ReturnTemperatureMin).Select(c => minColor).ToList().ToJson(); 
-        MaxColorWeek =  Model.GetWeeks().Select(x => x.ReturnTemperatureMax).Select(c => maxColor).ToList().ToJson();
-        AverageColorWeek =  Model.GetWeeks().Select(x => x.ReturnTemperatureAverage).Select(c => averageColor).ToList().ToJson();
+        StartColorWeek = Model.GetWeeks().Select(x => x.VaporizerHeatQuantityHeatingDayStart).Select(c => startColor).ToList().ToJson();
+        DeltaColorWeek = Model.GetWeeks().Select(x => x.VaporizerHeatQuantityHeatingDayDelta).Select(c => deltaColor).ToList().ToJson();
+        EndColorWeek = Model.GetWeeks().Select(x => x.VaporizerHeatQuantityHeatingDayEnd).Select(c => endColor).ToList().ToJson();
+        MinColorWeek = Model.GetWeeks().Select(x => x.ReturnTemperatureMin).Select(c => minColor).ToList().ToJson();
+        MaxColorWeek = Model.GetWeeks().Select(x => x.ReturnTemperatureMax).Select(c => maxColor).ToList().ToJson();
+        AverageColorWeek = Model.GetWeeks().Select(x => x.ReturnTemperatureAverage).Select(c => averageColor).ToList().ToJson();
 
-		StartColorMonth = Model.GetMonths().Select(x => x.VaporizerHeatQuantityHeatingDayStart).Select(c => startColor).ToList().ToJson();
+        StartColorMonth = Model.GetMonths().Select(x => x.VaporizerHeatQuantityHeatingDayStart).Select(c => startColor).ToList().ToJson();
         DeltaColorMonth = Model.GetMonths().Select(x => x.VaporizerHeatQuantityHeatingDayDelta).Select(c => deltaColor).ToList().ToJson();
-        EndColorMonth = Model.GetMonths().Select(x => x.VaporizerHeatQuantityHeatingDayEnd).Select(c => endColor).ToList().ToJson();      
-        MinColorMonth = Model.GetMonths().Select(x => x.ReturnTemperatureMin).Select(c => minColor).ToList().ToJson(); 
+        EndColorMonth = Model.GetMonths().Select(x => x.VaporizerHeatQuantityHeatingDayEnd).Select(c => endColor).ToList().ToJson();
+        MinColorMonth = Model.GetMonths().Select(x => x.ReturnTemperatureMin).Select(c => minColor).ToList().ToJson();
         MaxColorMonth = Model.GetMonths().Select(x => x.ReturnTemperatureMax).Select(c => maxColor).ToList().ToJson();
         AverageColorMonth = Model.GetMonths().Select(x => x.ReturnTemperatureAverage).Select(c => averageColor).ToList().ToJson();
 
-		StartColorYear = Model.GetYears().Select(x => x.VaporizerHeatQuantityHeatingDayStart).Select(c => startColor).ToList().ToJson();
+        StartColorYear = Model.GetYears().Select(x => x.VaporizerHeatQuantityHeatingDayStart).Select(c => startColor).ToList().ToJson();
         DeltaColorYear = Model.GetYears().Select(x => x.VaporizerHeatQuantityHeatingDayDelta).Select(c => deltaColor).ToList().ToJson();
-        EndColorYear = Model.GetYears().Select(x => x.VaporizerHeatQuantityHeatingDayEnd).Select(c => endColor).ToList().ToJson();      
-        MinColorYear = Model.GetYears().Select(x => x.ReturnTemperatureMin).Select(c => minColor).ToList().ToJson(); 
+        EndColorYear = Model.GetYears().Select(x => x.VaporizerHeatQuantityHeatingDayEnd).Select(c => endColor).ToList().ToJson();
+        MinColorYear = Model.GetYears().Select(x => x.ReturnTemperatureMin).Select(c => minColor).ToList().ToJson();
         MaxColorYear = Model.GetYears().Select(x => x.ReturnTemperatureMax).Select(c => maxColor).ToList().ToJson();
-        AverageColorYear = Model.GetYears().Select(x => x.ReturnTemperatureAverage).Select(c => averageColor).ToList().ToJson();        
+        AverageColorYear = Model.GetYears().Select(x => x.ReturnTemperatureAverage).Select(c => averageColor).ToList().ToJson();
 
         ColorTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => x.PerformanceFactorPeriod()).Select(x => averageColor).Take(1).ToList().ToJson();
 
         PerformanceFactorDay = Model.GetDays().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
-        
-        ReturnTemperatureMinDay = Model.GetDays().Select(x => x.ReturnTemperatureMin).ToList().ToJson(); 
+
+        ReturnTemperatureMinDay = Model.GetDays().Select(x => x.ReturnTemperatureMin).ToList().ToJson();
         ReturnTemperatureMaxDay = Model.GetDays().Select(x => x.ReturnTemperatureMax).ToList().ToJson();
         ReturnTemperatureAverageDay = Model.GetDays().Select(x => x.ReturnTemperatureAverage).ToList().ToJson();
         InletTemperatureMinDay = Model.GetDays().Select(x => x.InletTemperatureMin).ToList().ToJson();
@@ -621,51 +621,51 @@
         VaporizerHeatQuantityHotWaterTotalStartDay = Model.GetDays().Select(x => x.VaporizerHeatQuantityHotWaterTotalStart).ToList().ToJson();
         VaporizerHeatQuantityHotWaterTotalEndDay = Model.GetDays().Select(x => x.VaporizerHeatQuantityHotWaterTotalEnd).ToList().ToJson();
         VaporizerHeatQuantityHotWaterTotalDeltaDay = Model.GetDays().Select(x => x.VaporizerHeatQuantityHotWaterTotalDelta).ToList().ToJson();
-        ReheatingStagesHeatQuantityHeatingSumStartDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHeatingSumStart).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHeatingSumEndDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHeatingSumEnd).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHeatingSumDeltaDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHeatingSumDelta).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalStartDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalStart).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalEndDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalEnd).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalDeltaDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalDelta).ToList().ToJson(); 
-        PowerConsumptionHeatingDayStartDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingDayStart).ToList().ToJson(); 
-        PowerConsumptionHeatingDayEndDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingDayEnd).ToList().ToJson(); 
-        PowerConsumptionHeatingDayDeltaDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingDayDelta).ToList().ToJson(); 
-        PowerConsumptionHeatingSumStartDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingSumStart).ToList().ToJson(); 
-        PowerConsumptionHeatingSumEndDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingSumEnd).ToList().ToJson(); 
-        PowerConsumptionHeatingSumDeltaDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingSumDelta).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayStartDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterDayStart).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayEndDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterDayEnd).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayDeltaDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterDayDelta).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumStartDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterSumStart).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumEndDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterSumEnd).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumDeltaDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterSumDelta).ToList().ToJson(); 
-        RuntimeVaporizerHeatingStartDay = Model.GetDays().Select(x => x.RuntimeVaporizerHeatingStart).ToList().ToJson(); 
-        RuntimeVaporizerHeatingEndDay = Model.GetDays().Select(x => x.RuntimeVaporizerHeatingEnd).ToList().ToJson(); 
-        RuntimeVaporizerHeatingDeltaDay = Model.GetDays().Select(x => x.RuntimeVaporizerHeatingDelta).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterStartDay = Model.GetDays().Select(x => x.RuntimeVaporizerHotWaterStart).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterEndDay = Model.GetDays().Select(x => x.RuntimeVaporizerHotWaterEnd).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterDeltaDay = Model.GetDays().Select(x => x.RuntimeVaporizerHotWaterDelta).ToList().ToJson(); 
-        RuntimeVaporizerDefrostStartDay = Model.GetDays().Select(x => x.RuntimeVaporizerDefrostStart).ToList().ToJson(); 
-        RuntimeVaporizerDefrostEndDay = Model.GetDays().Select(x => x.RuntimeVaporizerDefrostEnd).ToList().ToJson(); 
-        RuntimeVaporizerDefrostDeltaDay = Model.GetDays().Select(x => x.RuntimeVaporizerDefrostDelta).ToList().ToJson(); 
-        ReheatingStages1StartDay = Model.GetDays().Select(x => x.ReheatingStages1Start).ToList().ToJson(); 
-        ReheatingStages1EndDay = Model.GetDays().Select(x => x.ReheatingStages1End).ToList().ToJson(); 
-        ReheatingStages1DeltaDay = Model.GetDays().Select(x => x.ReheatingStages1Delta).ToList().ToJson(); 
-        ReheatingStages2StartDay = Model.GetDays().Select(x => x.ReheatingStages2Start).ToList().ToJson(); 
-        ReheatingStages2EndDay = Model.GetDays().Select(x => x.ReheatingStages2End).ToList().ToJson(); 
-        ReheatingStages2DeltaDay = Model.GetDays().Select(x => x.ReheatingStages2Delta).ToList().ToJson(); 
-        DefrostTimeStartDay = Model.GetDays().Select(x => x.DefrostTimeStart).ToList().ToJson(); 
-        DefrostTimeEndDay = Model.GetDays().Select(x => x.DefrostTimeEnd).ToList().ToJson(); 
-        DefrostTimeDeltaDay = Model.GetDays().Select(x => x.DefrostTimeDelta).ToList().ToJson(); 
-        DefrostStartsStartDay = Model.GetDays().Select(x => x.DefrostStartsStart).ToList().ToJson(); 
-        DefrostStartsEndDay = Model.GetDays().Select(x => x.DefrostStartsEnd).ToList().ToJson(); 
+        ReheatingStagesHeatQuantityHeatingSumStartDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHeatingSumStart).ToList().ToJson();
+        ReheatingStagesHeatQuantityHeatingSumEndDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHeatingSumEnd).ToList().ToJson();
+        ReheatingStagesHeatQuantityHeatingSumDeltaDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHeatingSumDelta).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalStartDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalStart).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalEndDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalEnd).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalDeltaDay = Model.GetDays().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalDelta).ToList().ToJson();
+        PowerConsumptionHeatingDayStartDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingDayStart).ToList().ToJson();
+        PowerConsumptionHeatingDayEndDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingDayEnd).ToList().ToJson();
+        PowerConsumptionHeatingDayDeltaDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingDayDelta).ToList().ToJson();
+        PowerConsumptionHeatingSumStartDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingSumStart).ToList().ToJson();
+        PowerConsumptionHeatingSumEndDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingSumEnd).ToList().ToJson();
+        PowerConsumptionHeatingSumDeltaDay = Model.GetDays().Select(x => x.PowerConsumptionHeatingSumDelta).ToList().ToJson();
+        PowerConsumptionHotWaterDayStartDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterDayStart).ToList().ToJson();
+        PowerConsumptionHotWaterDayEndDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterDayEnd).ToList().ToJson();
+        PowerConsumptionHotWaterDayDeltaDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterDayDelta).ToList().ToJson();
+        PowerConsumptionHotWaterSumStartDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterSumStart).ToList().ToJson();
+        PowerConsumptionHotWaterSumEndDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterSumEnd).ToList().ToJson();
+        PowerConsumptionHotWaterSumDeltaDay = Model.GetDays().Select(x => x.PowerConsumptionHotWaterSumDelta).ToList().ToJson();
+        RuntimeVaporizerHeatingStartDay = Model.GetDays().Select(x => x.RuntimeVaporizerHeatingStart).ToList().ToJson();
+        RuntimeVaporizerHeatingEndDay = Model.GetDays().Select(x => x.RuntimeVaporizerHeatingEnd).ToList().ToJson();
+        RuntimeVaporizerHeatingDeltaDay = Model.GetDays().Select(x => x.RuntimeVaporizerHeatingDelta).ToList().ToJson();
+        RuntimeVaporizerHotWaterStartDay = Model.GetDays().Select(x => x.RuntimeVaporizerHotWaterStart).ToList().ToJson();
+        RuntimeVaporizerHotWaterEndDay = Model.GetDays().Select(x => x.RuntimeVaporizerHotWaterEnd).ToList().ToJson();
+        RuntimeVaporizerHotWaterDeltaDay = Model.GetDays().Select(x => x.RuntimeVaporizerHotWaterDelta).ToList().ToJson();
+        RuntimeVaporizerDefrostStartDay = Model.GetDays().Select(x => x.RuntimeVaporizerDefrostStart).ToList().ToJson();
+        RuntimeVaporizerDefrostEndDay = Model.GetDays().Select(x => x.RuntimeVaporizerDefrostEnd).ToList().ToJson();
+        RuntimeVaporizerDefrostDeltaDay = Model.GetDays().Select(x => x.RuntimeVaporizerDefrostDelta).ToList().ToJson();
+        ReheatingStages1StartDay = Model.GetDays().Select(x => x.ReheatingStages1Start).ToList().ToJson();
+        ReheatingStages1EndDay = Model.GetDays().Select(x => x.ReheatingStages1End).ToList().ToJson();
+        ReheatingStages1DeltaDay = Model.GetDays().Select(x => x.ReheatingStages1Delta).ToList().ToJson();
+        ReheatingStages2StartDay = Model.GetDays().Select(x => x.ReheatingStages2Start).ToList().ToJson();
+        ReheatingStages2EndDay = Model.GetDays().Select(x => x.ReheatingStages2End).ToList().ToJson();
+        ReheatingStages2DeltaDay = Model.GetDays().Select(x => x.ReheatingStages2Delta).ToList().ToJson();
+        DefrostTimeStartDay = Model.GetDays().Select(x => x.DefrostTimeStart).ToList().ToJson();
+        DefrostTimeEndDay = Model.GetDays().Select(x => x.DefrostTimeEnd).ToList().ToJson();
+        DefrostTimeDeltaDay = Model.GetDays().Select(x => x.DefrostTimeDelta).ToList().ToJson();
+        DefrostStartsStartDay = Model.GetDays().Select(x => x.DefrostStartsStart).ToList().ToJson();
+        DefrostStartsEndDay = Model.GetDays().Select(x => x.DefrostStartsEnd).ToList().ToJson();
         DefrostStartsDeltaDay = Model.GetDays().Select(x => x.DefrostStartsDelta).ToList().ToJson();
 
         PerformanceFactorWeek = Model.GetWeeks().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
 
-        ReturnTemperatureMinWeek = Model.GetWeeks().Select(x => x.ReturnTemperatureMin).ToList().ToJson(); 
+        ReturnTemperatureMinWeek = Model.GetWeeks().Select(x => x.ReturnTemperatureMin).ToList().ToJson();
         ReturnTemperatureMaxWeek = Model.GetWeeks().Select(x => x.ReturnTemperatureMax).ToList().ToJson();
-        ReturnTemperatureAverageWeek = Model.GetWeeks().Select(x => x.ReturnTemperatureAverage).ToList().ToJson();        
+        ReturnTemperatureAverageWeek = Model.GetWeeks().Select(x => x.ReturnTemperatureAverage).ToList().ToJson();
         InletTemperatureMinWeek = Model.GetWeeks().Select(x => x.InletTemperatureMin).ToList().ToJson();
         InletTemperatureMaxWeek = Model.GetWeeks().Select(x => x.InletTemperatureMax).ToList().ToJson();
         InletTemperatureAverageWeek = Model.GetWeeks().Select(x => x.InletTemperatureAverage).ToList().ToJson();
@@ -735,51 +735,51 @@
         VaporizerHeatQuantityHotWaterTotalStartWeek = Model.GetWeeks().Select(x => x.VaporizerHeatQuantityHotWaterTotalStart).ToList().ToJson();
         VaporizerHeatQuantityHotWaterTotalEndWeek = Model.GetWeeks().Select(x => x.VaporizerHeatQuantityHotWaterTotalEnd).ToList().ToJson();
         VaporizerHeatQuantityHotWaterTotalDeltaWeek = Model.GetWeeks().Select(x => x.VaporizerHeatQuantityHotWaterTotalDelta).ToList().ToJson();
-        ReheatingStagesHeatQuantityHeatingSumStartWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHeatingSumStart).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHeatingSumEndWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHeatingSumEnd).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHeatingSumDeltaWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHeatingSumDelta).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalStartWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalStart).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalEndWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalEnd).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalDeltaWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalDelta).ToList().ToJson(); 
-        PowerConsumptionHeatingDayStartWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingDayStart).ToList().ToJson(); 
-        PowerConsumptionHeatingDayEndWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingDayEnd).ToList().ToJson(); 
-        PowerConsumptionHeatingDayDeltaWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingDayDelta).ToList().ToJson(); 
-        PowerConsumptionHeatingSumStartWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingSumStart).ToList().ToJson(); 
-        PowerConsumptionHeatingSumEndWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingSumEnd).ToList().ToJson(); 
-        PowerConsumptionHeatingSumDeltaWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingSumDelta).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayStartWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterDayStart).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayEndWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterDayEnd).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayDeltaWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterDayDelta).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumStartWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterSumStart).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumEndWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterSumEnd).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumDeltaWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterSumDelta).ToList().ToJson(); 
-        RuntimeVaporizerHeatingStartWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHeatingStart).ToList().ToJson(); 
-        RuntimeVaporizerHeatingEndWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHeatingEnd).ToList().ToJson(); 
-        RuntimeVaporizerHeatingDeltaWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHeatingDelta).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterStartWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHotWaterStart).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterEndWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHotWaterEnd).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterDeltaWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHotWaterDelta).ToList().ToJson(); 
-        RuntimeVaporizerDefrostStartWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerDefrostStart).ToList().ToJson(); 
-        RuntimeVaporizerDefrostEndWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerDefrostEnd).ToList().ToJson(); 
-        RuntimeVaporizerDefrostDeltaWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerDefrostDelta).ToList().ToJson(); 
-        ReheatingStages1StartWeek = Model.GetWeeks().Select(x => x.ReheatingStages1Start).ToList().ToJson(); 
-        ReheatingStages1EndWeek = Model.GetWeeks().Select(x => x.ReheatingStages1End).ToList().ToJson(); 
-        ReheatingStages1DeltaWeek = Model.GetWeeks().Select(x => x.ReheatingStages1Delta).ToList().ToJson(); 
-        ReheatingStages2StartWeek = Model.GetWeeks().Select(x => x.ReheatingStages2Start).ToList().ToJson(); 
-        ReheatingStages2EndWeek = Model.GetWeeks().Select(x => x.ReheatingStages2End).ToList().ToJson(); 
-        ReheatingStages2DeltaWeek = Model.GetWeeks().Select(x => x.ReheatingStages2Delta).ToList().ToJson(); 
-        DefrostTimeStartWeek = Model.GetWeeks().Select(x => x.DefrostTimeStart).ToList().ToJson(); 
-        DefrostTimeEndWeek = Model.GetWeeks().Select(x => x.DefrostTimeEnd).ToList().ToJson(); 
-        DefrostTimeDeltaWeek = Model.GetWeeks().Select(x => x.DefrostTimeDelta).ToList().ToJson(); 
-        DefrostStartsStartWeek = Model.GetWeeks().Select(x => x.DefrostStartsStart).ToList().ToJson(); 
-        DefrostStartsEndWeek = Model.GetWeeks().Select(x => x.DefrostStartsEnd).ToList().ToJson(); 
+        ReheatingStagesHeatQuantityHeatingSumStartWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHeatingSumStart).ToList().ToJson();
+        ReheatingStagesHeatQuantityHeatingSumEndWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHeatingSumEnd).ToList().ToJson();
+        ReheatingStagesHeatQuantityHeatingSumDeltaWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHeatingSumDelta).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalStartWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalStart).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalEndWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalEnd).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalDeltaWeek = Model.GetWeeks().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalDelta).ToList().ToJson();
+        PowerConsumptionHeatingDayStartWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingDayStart).ToList().ToJson();
+        PowerConsumptionHeatingDayEndWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingDayEnd).ToList().ToJson();
+        PowerConsumptionHeatingDayDeltaWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingDayDelta).ToList().ToJson();
+        PowerConsumptionHeatingSumStartWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingSumStart).ToList().ToJson();
+        PowerConsumptionHeatingSumEndWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingSumEnd).ToList().ToJson();
+        PowerConsumptionHeatingSumDeltaWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHeatingSumDelta).ToList().ToJson();
+        PowerConsumptionHotWaterDayStartWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterDayStart).ToList().ToJson();
+        PowerConsumptionHotWaterDayEndWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterDayEnd).ToList().ToJson();
+        PowerConsumptionHotWaterDayDeltaWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterDayDelta).ToList().ToJson();
+        PowerConsumptionHotWaterSumStartWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterSumStart).ToList().ToJson();
+        PowerConsumptionHotWaterSumEndWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterSumEnd).ToList().ToJson();
+        PowerConsumptionHotWaterSumDeltaWeek = Model.GetWeeks().Select(x => x.PowerConsumptionHotWaterSumDelta).ToList().ToJson();
+        RuntimeVaporizerHeatingStartWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHeatingStart).ToList().ToJson();
+        RuntimeVaporizerHeatingEndWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHeatingEnd).ToList().ToJson();
+        RuntimeVaporizerHeatingDeltaWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHeatingDelta).ToList().ToJson();
+        RuntimeVaporizerHotWaterStartWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHotWaterStart).ToList().ToJson();
+        RuntimeVaporizerHotWaterEndWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHotWaterEnd).ToList().ToJson();
+        RuntimeVaporizerHotWaterDeltaWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerHotWaterDelta).ToList().ToJson();
+        RuntimeVaporizerDefrostStartWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerDefrostStart).ToList().ToJson();
+        RuntimeVaporizerDefrostEndWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerDefrostEnd).ToList().ToJson();
+        RuntimeVaporizerDefrostDeltaWeek = Model.GetWeeks().Select(x => x.RuntimeVaporizerDefrostDelta).ToList().ToJson();
+        ReheatingStages1StartWeek = Model.GetWeeks().Select(x => x.ReheatingStages1Start).ToList().ToJson();
+        ReheatingStages1EndWeek = Model.GetWeeks().Select(x => x.ReheatingStages1End).ToList().ToJson();
+        ReheatingStages1DeltaWeek = Model.GetWeeks().Select(x => x.ReheatingStages1Delta).ToList().ToJson();
+        ReheatingStages2StartWeek = Model.GetWeeks().Select(x => x.ReheatingStages2Start).ToList().ToJson();
+        ReheatingStages2EndWeek = Model.GetWeeks().Select(x => x.ReheatingStages2End).ToList().ToJson();
+        ReheatingStages2DeltaWeek = Model.GetWeeks().Select(x => x.ReheatingStages2Delta).ToList().ToJson();
+        DefrostTimeStartWeek = Model.GetWeeks().Select(x => x.DefrostTimeStart).ToList().ToJson();
+        DefrostTimeEndWeek = Model.GetWeeks().Select(x => x.DefrostTimeEnd).ToList().ToJson();
+        DefrostTimeDeltaWeek = Model.GetWeeks().Select(x => x.DefrostTimeDelta).ToList().ToJson();
+        DefrostStartsStartWeek = Model.GetWeeks().Select(x => x.DefrostStartsStart).ToList().ToJson();
+        DefrostStartsEndWeek = Model.GetWeeks().Select(x => x.DefrostStartsEnd).ToList().ToJson();
         DefrostStartsDeltaWeek = Model.GetWeeks().Select(x => x.DefrostStartsDelta).ToList().ToJson();
-        
+
         PerformanceFactorMonth = Model.GetMonths().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
-        
-        ReturnTemperatureMinMonth = Model.GetMonths().Select(x => x.ReturnTemperatureMin).ToList().ToJson(); 
+
+        ReturnTemperatureMinMonth = Model.GetMonths().Select(x => x.ReturnTemperatureMin).ToList().ToJson();
         ReturnTemperatureMaxMonth = Model.GetMonths().Select(x => x.ReturnTemperatureMax).ToList().ToJson();
-        ReturnTemperatureAverageMonth = Model.GetMonths().Select(x => x.ReturnTemperatureAverage).ToList().ToJson();        
+        ReturnTemperatureAverageMonth = Model.GetMonths().Select(x => x.ReturnTemperatureAverage).ToList().ToJson();
         InletTemperatureMinMonth = Model.GetMonths().Select(x => x.InletTemperatureMin).ToList().ToJson();
         InletTemperatureMaxMonth = Model.GetMonths().Select(x => x.InletTemperatureMax).ToList().ToJson();
         InletTemperatureAverageMonth = Model.GetMonths().Select(x => x.InletTemperatureAverage).ToList().ToJson();
@@ -849,51 +849,51 @@
         VaporizerHeatQuantityHotWaterTotalStartMonth = Model.GetMonths().Select(x => x.VaporizerHeatQuantityHotWaterTotalStart).ToList().ToJson();
         VaporizerHeatQuantityHotWaterTotalEndMonth = Model.GetMonths().Select(x => x.VaporizerHeatQuantityHotWaterTotalEnd).ToList().ToJson();
         VaporizerHeatQuantityHotWaterTotalDeltaMonth = Model.GetMonths().Select(x => x.VaporizerHeatQuantityHotWaterTotalDelta).ToList().ToJson();
-        ReheatingStagesHeatQuantityHeatingSumStartMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHeatingSumStart).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHeatingSumEndMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHeatingSumEnd).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHeatingSumDeltaMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHeatingSumDelta).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalStartMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalStart).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalEndMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalEnd).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalDeltaMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalDelta).ToList().ToJson(); 
-        PowerConsumptionHeatingDayStartMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingDayStart).ToList().ToJson(); 
-        PowerConsumptionHeatingDayEndMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingDayEnd).ToList().ToJson(); 
-        PowerConsumptionHeatingDayDeltaMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingDayDelta).ToList().ToJson(); 
-        PowerConsumptionHeatingSumStartMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingSumStart).ToList().ToJson(); 
-        PowerConsumptionHeatingSumEndMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingSumEnd).ToList().ToJson(); 
-        PowerConsumptionHeatingSumDeltaMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingSumDelta).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayStartMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterDayStart).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayEndMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterDayEnd).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayDeltaMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterDayDelta).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumStartMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterSumStart).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumEndMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterSumEnd).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumDeltaMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterSumDelta).ToList().ToJson(); 
-        RuntimeVaporizerHeatingStartMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHeatingStart).ToList().ToJson(); 
-        RuntimeVaporizerHeatingEndMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHeatingEnd).ToList().ToJson(); 
-        RuntimeVaporizerHeatingDeltaMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHeatingDelta).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterStartMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHotWaterStart).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterEndMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHotWaterEnd).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterDeltaMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHotWaterDelta).ToList().ToJson(); 
-        RuntimeVaporizerDefrostStartMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerDefrostStart).ToList().ToJson(); 
-        RuntimeVaporizerDefrostEndMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerDefrostEnd).ToList().ToJson(); 
-        RuntimeVaporizerDefrostDeltaMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerDefrostDelta).ToList().ToJson(); 
-        ReheatingStages1StartMonth = Model.GetMonths().Select(x => x.ReheatingStages1Start).ToList().ToJson(); 
-        ReheatingStages1EndMonth = Model.GetMonths().Select(x => x.ReheatingStages1End).ToList().ToJson(); 
-        ReheatingStages1DeltaMonth = Model.GetMonths().Select(x => x.ReheatingStages1Delta).ToList().ToJson(); 
-        ReheatingStages2StartMonth = Model.GetMonths().Select(x => x.ReheatingStages2Start).ToList().ToJson(); 
-        ReheatingStages2EndMonth = Model.GetMonths().Select(x => x.ReheatingStages2End).ToList().ToJson(); 
-        ReheatingStages2DeltaMonth = Model.GetMonths().Select(x => x.ReheatingStages2Delta).ToList().ToJson(); 
-        DefrostTimeStartMonth = Model.GetMonths().Select(x => x.DefrostTimeStart).ToList().ToJson(); 
-        DefrostTimeEndMonth = Model.GetMonths().Select(x => x.DefrostTimeEnd).ToList().ToJson(); 
-        DefrostTimeDeltaMonth = Model.GetMonths().Select(x => x.DefrostTimeDelta).ToList().ToJson(); 
-        DefrostStartsStartMonth = Model.GetMonths().Select(x => x.DefrostStartsStart).ToList().ToJson(); 
-        DefrostStartsEndMonth = Model.GetMonths().Select(x => x.DefrostStartsEnd).ToList().ToJson(); 
+        ReheatingStagesHeatQuantityHeatingSumStartMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHeatingSumStart).ToList().ToJson();
+        ReheatingStagesHeatQuantityHeatingSumEndMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHeatingSumEnd).ToList().ToJson();
+        ReheatingStagesHeatQuantityHeatingSumDeltaMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHeatingSumDelta).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalStartMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalStart).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalEndMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalEnd).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalDeltaMonth = Model.GetMonths().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalDelta).ToList().ToJson();
+        PowerConsumptionHeatingDayStartMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingDayStart).ToList().ToJson();
+        PowerConsumptionHeatingDayEndMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingDayEnd).ToList().ToJson();
+        PowerConsumptionHeatingDayDeltaMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingDayDelta).ToList().ToJson();
+        PowerConsumptionHeatingSumStartMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingSumStart).ToList().ToJson();
+        PowerConsumptionHeatingSumEndMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingSumEnd).ToList().ToJson();
+        PowerConsumptionHeatingSumDeltaMonth = Model.GetMonths().Select(x => x.PowerConsumptionHeatingSumDelta).ToList().ToJson();
+        PowerConsumptionHotWaterDayStartMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterDayStart).ToList().ToJson();
+        PowerConsumptionHotWaterDayEndMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterDayEnd).ToList().ToJson();
+        PowerConsumptionHotWaterDayDeltaMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterDayDelta).ToList().ToJson();
+        PowerConsumptionHotWaterSumStartMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterSumStart).ToList().ToJson();
+        PowerConsumptionHotWaterSumEndMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterSumEnd).ToList().ToJson();
+        PowerConsumptionHotWaterSumDeltaMonth = Model.GetMonths().Select(x => x.PowerConsumptionHotWaterSumDelta).ToList().ToJson();
+        RuntimeVaporizerHeatingStartMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHeatingStart).ToList().ToJson();
+        RuntimeVaporizerHeatingEndMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHeatingEnd).ToList().ToJson();
+        RuntimeVaporizerHeatingDeltaMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHeatingDelta).ToList().ToJson();
+        RuntimeVaporizerHotWaterStartMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHotWaterStart).ToList().ToJson();
+        RuntimeVaporizerHotWaterEndMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHotWaterEnd).ToList().ToJson();
+        RuntimeVaporizerHotWaterDeltaMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerHotWaterDelta).ToList().ToJson();
+        RuntimeVaporizerDefrostStartMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerDefrostStart).ToList().ToJson();
+        RuntimeVaporizerDefrostEndMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerDefrostEnd).ToList().ToJson();
+        RuntimeVaporizerDefrostDeltaMonth = Model.GetMonths().Select(x => x.RuntimeVaporizerDefrostDelta).ToList().ToJson();
+        ReheatingStages1StartMonth = Model.GetMonths().Select(x => x.ReheatingStages1Start).ToList().ToJson();
+        ReheatingStages1EndMonth = Model.GetMonths().Select(x => x.ReheatingStages1End).ToList().ToJson();
+        ReheatingStages1DeltaMonth = Model.GetMonths().Select(x => x.ReheatingStages1Delta).ToList().ToJson();
+        ReheatingStages2StartMonth = Model.GetMonths().Select(x => x.ReheatingStages2Start).ToList().ToJson();
+        ReheatingStages2EndMonth = Model.GetMonths().Select(x => x.ReheatingStages2End).ToList().ToJson();
+        ReheatingStages2DeltaMonth = Model.GetMonths().Select(x => x.ReheatingStages2Delta).ToList().ToJson();
+        DefrostTimeStartMonth = Model.GetMonths().Select(x => x.DefrostTimeStart).ToList().ToJson();
+        DefrostTimeEndMonth = Model.GetMonths().Select(x => x.DefrostTimeEnd).ToList().ToJson();
+        DefrostTimeDeltaMonth = Model.GetMonths().Select(x => x.DefrostTimeDelta).ToList().ToJson();
+        DefrostStartsStartMonth = Model.GetMonths().Select(x => x.DefrostStartsStart).ToList().ToJson();
+        DefrostStartsEndMonth = Model.GetMonths().Select(x => x.DefrostStartsEnd).ToList().ToJson();
         DefrostStartsDeltaMonth = Model.GetMonths().Select(x => x.DefrostStartsDelta).ToList().ToJson();
-        
+
         PerformanceFactorYear = Model.GetYears().Select(x => x.PerformanceFactorPeriod()).ToList().ToJson();
 
-        ReturnTemperatureMinYear = Model.GetYears().Select(x => x.ReturnTemperatureMin).ToList().ToJson(); 
+        ReturnTemperatureMinYear = Model.GetYears().Select(x => x.ReturnTemperatureMin).ToList().ToJson();
         ReturnTemperatureMaxYear = Model.GetYears().Select(x => x.ReturnTemperatureMax).ToList().ToJson();
-        ReturnTemperatureAverageYear = Model.GetYears().Select(x => x.ReturnTemperatureAverage).ToList().ToJson();                 
+        ReturnTemperatureAverageYear = Model.GetYears().Select(x => x.ReturnTemperatureAverage).ToList().ToJson();
         InletTemperatureMinYear = Model.GetYears().Select(x => x.InletTemperatureMin).ToList().ToJson();
         InletTemperatureMaxYear = Model.GetYears().Select(x => x.InletTemperatureMax).ToList().ToJson();
         InletTemperatureAverageYear = Model.GetYears().Select(x => x.InletTemperatureAverage).ToList().ToJson();
@@ -963,44 +963,44 @@
         VaporizerHeatQuantityHotWaterTotalStartYear = Model.GetYears().Select(x => x.VaporizerHeatQuantityHotWaterTotalStart).ToList().ToJson();
         VaporizerHeatQuantityHotWaterTotalEndYear = Model.GetYears().Select(x => x.VaporizerHeatQuantityHotWaterTotalEnd).ToList().ToJson();
         VaporizerHeatQuantityHotWaterTotalDeltaYear = Model.GetYears().Select(x => x.VaporizerHeatQuantityHotWaterTotalDelta).ToList().ToJson();
-        ReheatingStagesHeatQuantityHeatingSumStartYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHeatingSumStart).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHeatingSumEndYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHeatingSumEnd).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHeatingSumDeltaYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHeatingSumDelta).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalStartYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalStart).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalEndYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalEnd).ToList().ToJson(); 
-        ReheatingStagesHeatQuantityHotWaterTotalDeltaYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalDelta).ToList().ToJson(); 
-        PowerConsumptionHeatingDayStartYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingDayStart).ToList().ToJson(); 
-        PowerConsumptionHeatingDayEndYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingDayEnd).ToList().ToJson(); 
-        PowerConsumptionHeatingDayDeltaYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingDayDelta).ToList().ToJson(); 
-        PowerConsumptionHeatingSumStartYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingSumStart).ToList().ToJson(); 
-        PowerConsumptionHeatingSumEndYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingSumEnd).ToList().ToJson(); 
-        PowerConsumptionHeatingSumDeltaYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingSumDelta).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayStartYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterDayStart).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayEndYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterDayEnd).ToList().ToJson(); 
-        PowerConsumptionHotWaterDayDeltaYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterDayDelta).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumStartYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterSumStart).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumEndYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterSumEnd).ToList().ToJson(); 
-        PowerConsumptionHotWaterSumDeltaYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterSumDelta).ToList().ToJson(); 
-        RuntimeVaporizerHeatingStartYear = Model.GetYears().Select(x => x.RuntimeVaporizerHeatingStart).ToList().ToJson(); 
-        RuntimeVaporizerHeatingEndYear = Model.GetYears().Select(x => x.RuntimeVaporizerHeatingEnd).ToList().ToJson(); 
-        RuntimeVaporizerHeatingDeltaYear = Model.GetYears().Select(x => x.RuntimeVaporizerHeatingDelta).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterStartYear = Model.GetYears().Select(x => x.RuntimeVaporizerHotWaterStart).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterEndYear = Model.GetYears().Select(x => x.RuntimeVaporizerHotWaterEnd).ToList().ToJson(); 
-        RuntimeVaporizerHotWaterDeltaYear = Model.GetYears().Select(x => x.RuntimeVaporizerHotWaterDelta).ToList().ToJson(); 
-        RuntimeVaporizerDefrostStartYear = Model.GetYears().Select(x => x.RuntimeVaporizerDefrostStart).ToList().ToJson(); 
-        RuntimeVaporizerDefrostEndYear = Model.GetYears().Select(x => x.RuntimeVaporizerDefrostEnd).ToList().ToJson(); 
-        RuntimeVaporizerDefrostDeltaYear = Model.GetYears().Select(x => x.RuntimeVaporizerDefrostDelta).ToList().ToJson(); 
-        ReheatingStages1StartYear = Model.GetYears().Select(x => x.ReheatingStages1Start).ToList().ToJson(); 
-        ReheatingStages1EndYear = Model.GetYears().Select(x => x.ReheatingStages1End).ToList().ToJson(); 
-        ReheatingStages1DeltaYear = Model.GetYears().Select(x => x.ReheatingStages1Delta).ToList().ToJson(); 
-        ReheatingStages2StartYear = Model.GetYears().Select(x => x.ReheatingStages2Start).ToList().ToJson(); 
-        ReheatingStages2EndYear = Model.GetYears().Select(x => x.ReheatingStages2End).ToList().ToJson(); 
-        ReheatingStages2DeltaYear = Model.GetYears().Select(x => x.ReheatingStages2Delta).ToList().ToJson(); 
-        DefrostTimeStartYear = Model.GetYears().Select(x => x.DefrostTimeStart).ToList().ToJson(); 
-        DefrostTimeEndYear = Model.GetYears().Select(x => x.DefrostTimeEnd).ToList().ToJson(); 
-        DefrostTimeDeltaYear = Model.GetYears().Select(x => x.DefrostTimeDelta).ToList().ToJson(); 
-        DefrostStartsStartYear = Model.GetYears().Select(x => x.DefrostStartsStart).ToList().ToJson(); 
-        DefrostStartsEndYear = Model.GetYears().Select(x => x.DefrostStartsEnd).ToList().ToJson(); 
+        ReheatingStagesHeatQuantityHeatingSumStartYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHeatingSumStart).ToList().ToJson();
+        ReheatingStagesHeatQuantityHeatingSumEndYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHeatingSumEnd).ToList().ToJson();
+        ReheatingStagesHeatQuantityHeatingSumDeltaYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHeatingSumDelta).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalStartYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalStart).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalEndYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalEnd).ToList().ToJson();
+        ReheatingStagesHeatQuantityHotWaterTotalDeltaYear = Model.GetYears().Select(x => x.ReheatingStagesHeatQuantityHotWaterTotalDelta).ToList().ToJson();
+        PowerConsumptionHeatingDayStartYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingDayStart).ToList().ToJson();
+        PowerConsumptionHeatingDayEndYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingDayEnd).ToList().ToJson();
+        PowerConsumptionHeatingDayDeltaYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingDayDelta).ToList().ToJson();
+        PowerConsumptionHeatingSumStartYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingSumStart).ToList().ToJson();
+        PowerConsumptionHeatingSumEndYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingSumEnd).ToList().ToJson();
+        PowerConsumptionHeatingSumDeltaYear = Model.GetYears().Select(x => x.PowerConsumptionHeatingSumDelta).ToList().ToJson();
+        PowerConsumptionHotWaterDayStartYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterDayStart).ToList().ToJson();
+        PowerConsumptionHotWaterDayEndYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterDayEnd).ToList().ToJson();
+        PowerConsumptionHotWaterDayDeltaYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterDayDelta).ToList().ToJson();
+        PowerConsumptionHotWaterSumStartYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterSumStart).ToList().ToJson();
+        PowerConsumptionHotWaterSumEndYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterSumEnd).ToList().ToJson();
+        PowerConsumptionHotWaterSumDeltaYear = Model.GetYears().Select(x => x.PowerConsumptionHotWaterSumDelta).ToList().ToJson();
+        RuntimeVaporizerHeatingStartYear = Model.GetYears().Select(x => x.RuntimeVaporizerHeatingStart).ToList().ToJson();
+        RuntimeVaporizerHeatingEndYear = Model.GetYears().Select(x => x.RuntimeVaporizerHeatingEnd).ToList().ToJson();
+        RuntimeVaporizerHeatingDeltaYear = Model.GetYears().Select(x => x.RuntimeVaporizerHeatingDelta).ToList().ToJson();
+        RuntimeVaporizerHotWaterStartYear = Model.GetYears().Select(x => x.RuntimeVaporizerHotWaterStart).ToList().ToJson();
+        RuntimeVaporizerHotWaterEndYear = Model.GetYears().Select(x => x.RuntimeVaporizerHotWaterEnd).ToList().ToJson();
+        RuntimeVaporizerHotWaterDeltaYear = Model.GetYears().Select(x => x.RuntimeVaporizerHotWaterDelta).ToList().ToJson();
+        RuntimeVaporizerDefrostStartYear = Model.GetYears().Select(x => x.RuntimeVaporizerDefrostStart).ToList().ToJson();
+        RuntimeVaporizerDefrostEndYear = Model.GetYears().Select(x => x.RuntimeVaporizerDefrostEnd).ToList().ToJson();
+        RuntimeVaporizerDefrostDeltaYear = Model.GetYears().Select(x => x.RuntimeVaporizerDefrostDelta).ToList().ToJson();
+        ReheatingStages1StartYear = Model.GetYears().Select(x => x.ReheatingStages1Start).ToList().ToJson();
+        ReheatingStages1EndYear = Model.GetYears().Select(x => x.ReheatingStages1End).ToList().ToJson();
+        ReheatingStages1DeltaYear = Model.GetYears().Select(x => x.ReheatingStages1Delta).ToList().ToJson();
+        ReheatingStages2StartYear = Model.GetYears().Select(x => x.ReheatingStages2Start).ToList().ToJson();
+        ReheatingStages2EndYear = Model.GetYears().Select(x => x.ReheatingStages2End).ToList().ToJson();
+        ReheatingStages2DeltaYear = Model.GetYears().Select(x => x.ReheatingStages2Delta).ToList().ToJson();
+        DefrostTimeStartYear = Model.GetYears().Select(x => x.DefrostTimeStart).ToList().ToJson();
+        DefrostTimeEndYear = Model.GetYears().Select(x => x.DefrostTimeEnd).ToList().ToJson();
+        DefrostTimeDeltaYear = Model.GetYears().Select(x => x.DefrostTimeDelta).ToList().ToJson();
+        DefrostStartsStartYear = Model.GetYears().Select(x => x.DefrostStartsStart).ToList().ToJson();
+        DefrostStartsEndYear = Model.GetYears().Select(x => x.DefrostStartsEnd).ToList().ToJson();
         DefrostStartsDeltaYear = Model.GetYears().Select(x => x.DefrostStartsDelta).ToList().ToJson();
 
         PerformanceFactorTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => x.PerformanceFactorTotal()).Take(1).ToList().ToJson();
@@ -1009,16 +1009,16 @@
 
 <!-- Tab links -->
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'Days')">Letzte Tage</button>
-  <button class="tablinks" onclick="openTab(event, 'Weeks')">Letzte Wochen</button>
-  <button class="tablinks" onclick="openTab(event, 'Months')">Letzte Monate</button>
-  <button class="tablinks" onclick="openTab(event, 'Years')">Letzte Jahre</button>
-  <button class="tablinks" onclick="openTab(event, 'Total')">Gesamt</button>
+    <button class="tablinks" onclick="openTab(event, 'Days')">Letzte Tage</button>
+    <button class="tablinks" onclick="openTab(event, 'Weeks')">Letzte Wochen</button>
+    <button class="tablinks" onclick="openTab(event, 'Months')">Letzte Monate</button>
+    <button class="tablinks" onclick="openTab(event, 'Years')">Letzte Jahre</button>
+    <button class="tablinks" onclick="openTab(event, 'Total')">Gesamt</button>
 </div>
 
 <!-- Tab content -->
 <div id="Days" class="tabcontent">
-  <h3>Tagesübersicht</h3>
+    <h3>Tagesübersicht</h3>
     <!--Arbeitszahl-->
     <div class="chart-style">
         <div class="chart-container" id="PerformanceFactorDayChart">
@@ -1283,11 +1283,11 @@
             <canvas id="DefrostStartsDay" class="canvas-style"></canvas>
         </div>
     </div>
- </div>
+</div>
 
 <div id="Weeks" class="tabcontent">
-  <h3>Wochenübersicht</h3>
-      <!--Arbeitszahl-->
+    <h3>Wochenübersicht</h3>
+    <!--Arbeitszahl-->
     <div class="chart-style">
         <div class="chart-container" id="PerformanceFactorWeekChart">
             <canvas id="PerformanceFactorWeek" class="canvas-style"></canvas>
@@ -1554,7 +1554,7 @@
 </div>
 
 <div id="Months" class="tabcontent">
-  <h3>Monatsübersicht</h3>
+    <h3>Monatsübersicht</h3>
     <!--Arbeitszahl-->
     <div class="chart-style">
         <div class="chart-container" id="PerformanceFactorMonthChart">
@@ -1822,7 +1822,7 @@
 </div>
 
 <div id="Years" class="tabcontent">
-  <h3>Jahresübersicht</h3>
+    <h3>Jahresübersicht</h3>
     <!--Arbeitszahl-->
     <div class="chart-style">
         <div class="chart-container" id="PerformanceFactorYearChart">
@@ -2104,299 +2104,302 @@
 <script src="js/site.js" asp-append-version="true"></script>
 <script>
 var dayCharts =  [
-    drawBarChartDay("PerformanceFactorDay",
+    drawBarChart("day", "PerformanceFactorDay",
     "Arbeitszahl",
     @Html.Raw(XLabelsDay),
     @Html.Raw(PerformanceFactorDay), @Html.Raw(AverageColorDay)
-), 
-drawMinMaxChartDay("ReturnTemperatureDay",
+),
+
+drawMaxAvgMinChart("day", "ReturnTemperatureDay",
     "RÜCKLAUFTEMPERATUR °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(ReturnTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(ReturnTemperatureAverageDay), @Html.Raw(AverageColorDay),
-    @Html.Raw(ReturnTemperatureMinDay), @Html.Raw(MinColorDay)
-    ),drawMinMaxChartDay("InletTemperatureDay",
+    @Html.Raw(ReturnTemperatureMinDay), @Html.Raw(MinColorDay)),
+
+drawMaxAvgMinChart("day", "InletTemperatureDay",
     "VORLAUFTEMPERATUR °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(InletTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(InletTemperatureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(InletTemperatureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("AntiFreezeTemperatureDay",
+drawMaxAvgMinChart("day", "AntiFreezeTemperatureDay",
     "FROSTSCHUTZTEMPERATUR °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(AntiFreezeTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(AntiFreezeTemperatureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(AntiFreezeTemperatureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("OutdoorTemperatureDay",
+drawMaxAvgMinChart("day", "OutdoorTemperatureDay",
     "AUSSENTEMPERATUR °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(OutdoorTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(OutdoorTemperatureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(OutdoorTemperatureMinDay), @Html.Raw(MinColorDay)),
 
-
-drawMinMaxChartDay("ExhaustAirTemperatureDay",
+drawMaxAvgMinChart("day", "ExhaustAirTemperatureDay",
     "FORTLUFTTEMPERATUR °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(ExhaustAirTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(ExhaustAirTemperatureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(ExhaustAirTemperatureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("EvaporatorTemperatureDay",
+drawMaxAvgMinChart("day", "EvaporatorTemperatureDay",
     "VERDAMPFERTEMPERATUR °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(EvaporatorTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(EvaporatorTemperatureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(EvaporatorTemperatureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("TotalPowerConsumptionDay",
+drawMaxAvgMinChart("day", "TotalPowerConsumptionDay",
     "VD HEIZEN SUMME  Wh ",
     @Html.Raw(XLabelsDay),
     @Html.Raw(TotalPowerConsumptionStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(TotalPowerConsumptionDeltaDay), @Html.Raw(DeltaColorDay),
-    @Html.Raw(TotalPowerConsumptionEndDay), @Html.Raw(EndColorDay)),        
+    @Html.Raw(TotalPowerConsumptionEndDay), @Html.Raw(EndColorDay)),
 
-drawMinMaxChartDay("CompressorInletTemperatureDay",
+drawMaxAvgMinChart("day", "CompressorInletTemperatureDay",
     "VERDICHTEREINTRITTSTEMPERATUR °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(CompressorInletTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(CompressorInletTemperatureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(CompressorInletTemperatureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("IntermediateInjectionTemperatureDay",
+drawMaxAvgMinChart("day", "IntermediateInjectionTemperatureDay",
     "ZWISCHENEINSPRITZUNGSTEMP °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(IntermediateInjectionTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(IntermediateInjectionTemperatureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(IntermediateInjectionTemperatureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("HotGasTemperatureDay",
+drawMaxAvgMinChart("day", "HotGasTemperatureDay",
     "HEISSGASTEMPERATUR °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(HotGasTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(HotGasTemperatureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(HotGasTemperatureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("CondenserTemperatureDay",
+drawMaxAvgMinChart("day", "CondenserTemperatureDay",
     "VERFLÜSSIGERTEMPERATUR °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(CondenserTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(CondenserTemperatureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(CondenserTemperatureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("OilSumpTemperatureDay",
+drawMaxAvgMinChart("day", "OilSumpTemperatureDay",
     "ÖLSUMPFTEMPERATUR °C",
     @Html.Raw(XLabelsDay),
     @Html.Raw(OilSumpTemperatureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(OilSumpTemperatureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(OilSumpTemperatureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("LowPressureDay",
+drawMaxAvgMinChart("day", "LowPressureDay",
     "DRUCK NIEDERDRUCK bar",
     @Html.Raw(XLabelsDay),
     @Html.Raw(LowPressureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(LowPressureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(LowPressureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("PressureMediumDay",
+drawMaxAvgMinChart("day", "PressureMediumDay",
     "DRUCK MITTELDRUCK bar",
     @Html.Raw(XLabelsDay),
     @Html.Raw(PressureMediumMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(PressureMediumAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(PressureMediumMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("HighPressureDay",
+drawMaxAvgMinChart("day", "HighPressureDay",
     "DRUCK HOCHDRUCK bar",
     @Html.Raw(XLabelsDay),
     @Html.Raw(HighPressureMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(HighPressureAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(HighPressureMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("WaterVolumeCurrentDay",
+drawMaxAvgMinChart("day", "WaterVolumeCurrentDay",
     "WP WASSERVOLUMENSTROM l/min",
     @Html.Raw(XLabelsDay),
     @Html.Raw(WaterVolumeCurrentMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(WaterVolumeCurrentAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(WaterVolumeCurrentMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("VoltageInverterDay",
+drawMaxAvgMinChart("day", "VoltageInverterDay",
     "SPANNUNG INVERTER V",
     @Html.Raw(XLabelsDay),
     @Html.Raw(VoltageInverterMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(VoltageInverterAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(VoltageInverterMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("ActualSpeedDensifierDay",
+drawMaxAvgMinChart("day", "ActualSpeedDensifierDay",
     "ISTDREHZAHL VERDICHTER Hz",
     @Html.Raw(XLabelsDay),
     @Html.Raw(ActualSpeedDensifierMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(ActualSpeedDensifierAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(ActualSpeedDensifierMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("SettingSpeedCompressedDay",
+drawMaxAvgMinChart("day", "SettingSpeedCompressedDay",
     "SOLLDREHZAHL VERDICHTER Hz",
     @Html.Raw(XLabelsDay),
     @Html.Raw(SettingSpeedCompressedMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(SettingSpeedCompressedAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(SettingSpeedCompressedMinDay), @Html.Raw(MinColorDay)),
 
-drawMinMaxChartDay("FanPowerRelDay",
+drawMaxAvgMinChart("day", "FanPowerRelDay",
     "LÜFTERLEISTUNG REL %",
     @Html.Raw(XLabelsDay),
     @Html.Raw(FanPowerRelMaxDay), @Html.Raw(MaxColorDay),
     @Html.Raw(FanPowerRelAverageDay), @Html.Raw(AverageColorDay),
     @Html.Raw(FanPowerRelMinDay), @Html.Raw(MinColorDay)),
 
-drawStartEndChartDay("VaporizerHeatQuantityHeatingDay",
+drawStartDeltaEndChart("day", "VaporizerHeatQuantityHeatingDay",
     "VD HEIZEN TAG Wh",
     @Html.Raw(XLabelsDay),
     @Html.Raw(VaporizerHeatQuantityHeatingDayStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(VaporizerHeatQuantityHeatingDayDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(VaporizerHeatQuantityHeatingDayEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("VaporizerHeatQuantityHeatingTotalDay",
+drawStartDeltaEndChart("day", "VaporizerHeatQuantityHeatingTotalDay",
     "VD HEIZEN SUMME Wh",
     @Html.Raw(XLabelsDay),
     @Html.Raw(VaporizerHeatQuantityHeatingTotalStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(VaporizerHeatQuantityHeatingTotalEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("VaporizerHeatQuantityHotWaterDay",
+drawStartDeltaEndChart("day", "VaporizerHeatQuantityHotWaterDay",
     "VD WARMWASSER TAG Wh",
     @Html.Raw(XLabelsDay),
     @Html.Raw(VaporizerHeatQuantityHotWaterDayStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(VaporizerHeatQuantityHotWaterDayEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("VaporizerHeatQuantityHotWaterTotalDay",
+drawStartDeltaEndChart("day", "VaporizerHeatQuantityHotWaterTotalDay",
     "VD WARMWASSER SUMME Wh",
     @Html.Raw(XLabelsDay),
     @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("ReheatingStagesHeatQuantityHeatingSumDay",
+drawStartDeltaEndChart("day", "ReheatingStagesHeatQuantityHeatingSumDay",
     "NHZ HEIZEN SUMME  Wh",
     @Html.Raw(XLabelsDay),
     @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("ReheatingStagesHeatQuantityHotWaterTotalDay",
+drawStartDeltaEndChart("day", "ReheatingStagesHeatQuantityHotWaterTotalDay",
     "NHZ WARMWASSER SUMME  Wh",
     @Html.Raw(XLabelsDay),
     @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("PowerConsumptionHeatingDay",
+drawStartDeltaEndChart("day", "PowerConsumptionHeatingDay",
     "VD HEIZEN TAG  Wh",
     @Html.Raw(XLabelsDay),
     @Html.Raw(PowerConsumptionHeatingDayStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(PowerConsumptionHeatingDayDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(PowerConsumptionHeatingDayEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("PowerConsumptionHeatingSumDay",
+drawStartDeltaEndChart("day", "PowerConsumptionHeatingSumDay",
     "VD HEIZEN SUMME Wh",
     @Html.Raw(XLabelsDay),
     @Html.Raw(PowerConsumptionHeatingSumStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(PowerConsumptionHeatingSumDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(PowerConsumptionHeatingSumEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("PowerConsumptionHotWaterDay",
+drawStartDeltaEndChart("day", "PowerConsumptionHotWaterDay",
     "VD WARMWASSER TAG Wh",
     @Html.Raw(XLabelsDay),
     @Html.Raw(PowerConsumptionHotWaterDayStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(PowerConsumptionHotWaterDayDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(PowerConsumptionHotWaterDayEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("PowerConsumptionHotWaterSumDay",
+drawStartDeltaEndChart("day", "PowerConsumptionHotWaterSumDay",
     "VD WARMWASSER SUMME Wh",
     @Html.Raw(XLabelsDay),
     @Html.Raw(PowerConsumptionHotWaterSumStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(PowerConsumptionHotWaterSumDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(PowerConsumptionHotWaterSumEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("RuntimeVaporizerHeatingDay",
+
+drawStartDeltaEndChart("day", "RuntimeVaporizerHeatingDay",
     "VD HEIZEN",
     @Html.Raw(XLabelsDay),
     @Html.Raw(RuntimeVaporizerHeatingStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(RuntimeVaporizerHeatingDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(RuntimeVaporizerHeatingEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("RuntimeVaporizerHotWaterDay",
+drawStartDeltaEndChart("day", "RuntimeVaporizerHotWaterDay",
     "VD WARMWASSER",
     @Html.Raw(XLabelsDay),
     @Html.Raw(RuntimeVaporizerHotWaterStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(RuntimeVaporizerHotWaterDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(RuntimeVaporizerHotWaterEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("RuntimeVaporizerDefrostDay",
+drawStartDeltaEndChart("day", "RuntimeVaporizerDefrostDay",
     "VD ABTAUEN",
     @Html.Raw(XLabelsDay),
     @Html.Raw(RuntimeVaporizerDefrostStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(RuntimeVaporizerDefrostDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(RuntimeVaporizerDefrostEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("ReheatingStages1Day",
+drawStartDeltaEndChart("day", "ReheatingStages1Day",
     "NHZ 1",
     @Html.Raw(XLabelsDay),
     @Html.Raw(ReheatingStages1StartDay), @Html.Raw(StartColorDay),
     @Html.Raw(ReheatingStages1DeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(ReheatingStages1EndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("ReheatingStages2Day",
+    drawStartDeltaEndChart("day", "ReheatingStages2Day",
     "NHZ 2",
     @Html.Raw(XLabelsDay),
     @Html.Raw(ReheatingStages2StartDay), @Html.Raw(StartColorDay),
     @Html.Raw(ReheatingStages2DeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(ReheatingStages2EndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("DefrostTimeDay",
+    drawStartDeltaEndChart("day", "DefrostTimeDay",
     "ZEIT ABTAUEN",
     @Html.Raw(XLabelsDay),
     @Html.Raw(DefrostTimeStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(DefrostTimeDeltaDay), @Html.Raw(DeltaColorDay),
     @Html.Raw(DefrostTimeEndDay), @Html.Raw(EndColorDay)),
 
-drawStartEndChartDay("DefrostStartsDay",
+    drawStartDeltaEndChart("day", "DefrostStartsDay",
     "STARTS ABTAUEN",
     @Html.Raw(XLabelsDay),
     @Html.Raw(DefrostStartsStartDay), @Html.Raw(StartColorDay),
     @Html.Raw(DefrostStartsDeltaDay), @Html.Raw(DeltaColorDay),
-    @Html.Raw(DefrostStartsEndDay), @Html.Raw(EndColorDay)),
+    @Html.Raw(DefrostStartsEndDay), @Html.Raw(EndColorDay))
 ];
 
-var weekCharts =  [ 
-drawBarChartWeek("PerformanceFactorWeek",
+var weekCharts =
+[
+drawBarChart('week', "PerformanceFactorWeek",
     "Arbeitszahl",
     @Html.Raw(XLabelsWeek),
-    @Html.Raw(PerformanceFactorWeek), @Html.Raw(AverageColorDay)),  
+    @Html.Raw(PerformanceFactorWeek), @Html.Raw(AverageColorDay)),
 
-drawMinMaxChartWeek("ReturnTemperatureWeek",
+drawMaxAvgMinChart("week", "ReturnTemperatureWeek",
     "RÜCKLAUFTEMPERATUR °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(ReturnTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(ReturnTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
-    @Html.Raw(ReturnTemperatureMinWeek), @Html.Raw(MinColorWeek)),            
+    @Html.Raw(ReturnTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("InletTemperatureWeek",
+drawMaxAvgMinChart("week", "InletTemperatureWeek",
     "VORLAUFTEMPERATUR °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(InletTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(InletTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(InletTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("AntiFreezeTemperatureWeek",
+drawMaxAvgMinChart("week", "AntiFreezeTemperatureWeek",
     "FROSTSCHUTZTEMPERATUR °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(AntiFreezeTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(AntiFreezeTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(AntiFreezeTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("OutdoorTemperatureWeek",
+drawMaxAvgMinChart("week", "OutdoorTemperatureWeek",
     "AUSSENTEMPERATUR °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(OutdoorTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
@@ -2404,266 +2407,267 @@ drawMinMaxChartWeek("OutdoorTemperatureWeek",
     @Html.Raw(OutdoorTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
 
-drawMinMaxChartWeek("ExhaustAirTemperatureWeek",
+drawMaxAvgMinChart("week", "ExhaustAirTemperatureWeek",
     "FORTLUFTTEMPERATUR °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(ExhaustAirTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(ExhaustAirTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(ExhaustAirTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("EvaporatorTemperatureWeek",
+drawMaxAvgMinChart("week", "EvaporatorTemperatureWeek",
     "VERDAMPFERTEMPERATUR °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(EvaporatorTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(EvaporatorTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(EvaporatorTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("TotalPowerConsumptionWeek",
+drawMaxAvgMinChart("week", "TotalPowerConsumptionWeek",
     "VD HEIZEN SUMME  Wh   ",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(TotalPowerConsumptionStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(TotalPowerConsumptionDeltaWeek), @Html.Raw(DeltaColorWeek),
-    @Html.Raw(TotalPowerConsumptionEndWeek), @Html.Raw(EndColorWeek)),        
+    @Html.Raw(TotalPowerConsumptionEndWeek), @Html.Raw(EndColorWeek)),
 
-drawMinMaxChartWeek("CompressorInletTemperatureWeek",
+drawMaxAvgMinChart("week", "CompressorInletTemperatureWeek",
     "VERDICHTEREINTRITTSTEMPERATUR °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(CompressorInletTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(CompressorInletTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(CompressorInletTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("IntermediateInjectionTemperatureWeek",
+drawMaxAvgMinChart("week", "IntermediateInjectionTemperatureWeek",
     "ZWISCHENEINSPRITZUNGSTEMP °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(IntermediateInjectionTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(IntermediateInjectionTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(IntermediateInjectionTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("HotGasTemperatureWeek",
+drawMaxAvgMinChart("week", "HotGasTemperatureWeek",
     "HEISSGASTEMPERATUR °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(HotGasTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(HotGasTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(HotGasTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("CondenserTemperatureWeek",
+drawMaxAvgMinChart("week", "CondenserTemperatureWeek",
     "VERFLÜSSIGERTEMPERATUR °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(CondenserTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(CondenserTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(CondenserTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("OilSumpTemperatureWeek",
+drawMaxAvgMinChart("week", "OilSumpTemperatureWeek",
     "ÖLSUMPFTEMPERATUR °C",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(OilSumpTemperatureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(OilSumpTemperatureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(OilSumpTemperatureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("LowPressureWeek",
+drawMaxAvgMinChart("week", "LowPressureWeek",
     "DRUCK NIEDERDRUCK bar",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(LowPressureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(LowPressureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(LowPressureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("PressureMediumWeek",
+drawMaxAvgMinChart("week", "PressureMediumWeek",
     "DRUCK MITTELDRUCK bar",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(PressureMediumMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(PressureMediumAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(PressureMediumMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("HighPressureWeek",
+drawMaxAvgMinChart("week", "HighPressureWeek",
     "DRUCK HOCHDRUCK bar",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(HighPressureMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(HighPressureAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(HighPressureMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("WaterVolumeCurrentWeek",
+drawMaxAvgMinChart("week", "WaterVolumeCurrentWeek",
     "WP WASSERVOLUMENSTROM l/min",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(WaterVolumeCurrentMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(WaterVolumeCurrentAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(WaterVolumeCurrentMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("VoltageInverterWeek",
+drawMaxAvgMinChart("week", "VoltageInverterWeek",
     "SPANNUNG INVERTER V",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(VoltageInverterMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(VoltageInverterAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(VoltageInverterMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("ActualSpeedDensifierWeek",
+drawMaxAvgMinChart("week", "ActualSpeedDensifierWeek",
     "ISTDREHZAHL VERDICHTER Hz",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(ActualSpeedDensifierMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(ActualSpeedDensifierAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(ActualSpeedDensifierMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("SettingSpeedCompressedWeek",
+drawMaxAvgMinChart("week", "SettingSpeedCompressedWeek",
     "SOLLDREHZAHL VERDICHTER Hz",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(SettingSpeedCompressedMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(SettingSpeedCompressedAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(SettingSpeedCompressedMinWeek), @Html.Raw(MinColorWeek)),
 
-drawMinMaxChartWeek("FanPowerRelWeek",
+drawMaxAvgMinChart("week", "FanPowerRelWeek",
     "LÜFTERLEISTUNG REL %",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(FanPowerRelMaxWeek), @Html.Raw(MaxColorWeek),
     @Html.Raw(FanPowerRelAverageWeek), @Html.Raw(AverageColorWeek),
     @Html.Raw(FanPowerRelMinWeek), @Html.Raw(MinColorWeek)),
 
-drawStartEndChartWeek("VaporizerHeatQuantityHeatingWeek",
+drawStartDeltaEndChart("week", "VaporizerHeatQuantityHeatingWeek",
     "VD HEIZEN TAG Wh",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(VaporizerHeatQuantityHeatingDayMinWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(VaporizerHeatQuantityHeatingDayAverageWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(VaporizerHeatQuantityHeatingDayMaxWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("VaporizerHeatQuantityHeatingTotalWeek",
+drawStartDeltaEndChart("week", "VaporizerHeatQuantityHeatingTotalWeek",
     "VD HEIZEN SUMME Wh",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(VaporizerHeatQuantityHeatingTotalStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(VaporizerHeatQuantityHeatingTotalEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("VaporizerHeatQuantityHotWaterWeek",
+drawStartDeltaEndChart("week", "VaporizerHeatQuantityHotWaterWeek",
     "VD WARMWASSER TAG Wh",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(VaporizerHeatQuantityHotWaterDayStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(VaporizerHeatQuantityHotWaterDayEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("VaporizerHeatQuantityHotWaterTotalWeek",
+drawStartDeltaEndChart("week", "VaporizerHeatQuantityHotWaterTotalWeek",
     "VD WARMWASSER SUMME Wh",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("ReheatingStagesHeatQuantityHeatingSumWeek",
+drawStartDeltaEndChart("week", "ReheatingStagesHeatQuantityHeatingSumWeek",
     "NHZ HEIZEN SUMME  Wh",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("ReheatingStagesHeatQuantityHotWaterTotalWeek",
+drawStartDeltaEndChart("week", "ReheatingStagesHeatQuantityHotWaterTotalWeek",
     "NHZ WARMWASSER SUMME  Wh",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("PowerConsumptionHeatingWeek",
+drawStartDeltaEndChart("week", "PowerConsumptionHeatingWeek",
     "VD HEIZEN TAG  Wh",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(PowerConsumptionHeatingDayStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(PowerConsumptionHeatingDayDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(PowerConsumptionHeatingDayEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("PowerConsumptionHeatingSumWeek",
+drawStartDeltaEndChart("week", "PowerConsumptionHeatingSumWeek",
     "VD HEIZEN SUMME Wh",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(PowerConsumptionHeatingSumStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(PowerConsumptionHeatingSumDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(PowerConsumptionHeatingSumEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("PowerConsumptionHotWaterWeek",
+drawStartDeltaEndChart("week", "PowerConsumptionHotWaterWeek",
     "VD WARMWASSER TAG Wh",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(PowerConsumptionHotWaterDayStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(PowerConsumptionHotWaterDayDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(PowerConsumptionHotWaterDayEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("PowerConsumptionHotWaterSumWeek",
+drawStartDeltaEndChart("week", "PowerConsumptionHotWaterSumWeek",
     "VD WARMWASSER SUMME Wh",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(PowerConsumptionHotWaterSumStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(PowerConsumptionHotWaterSumDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(PowerConsumptionHotWaterSumEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("RuntimeVaporizerHeatingWeek",
+drawStartDeltaEndChart("week", "RuntimeVaporizerHeatingWeek",
     "VD HEIZEN",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(RuntimeVaporizerHeatingStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(RuntimeVaporizerHeatingDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(RuntimeVaporizerHeatingEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("RuntimeVaporizerHotWaterWeek",
+drawStartDeltaEndChart("week", "RuntimeVaporizerHotWaterWeek",
     "VD WARMWASSER",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(RuntimeVaporizerHotWaterStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(RuntimeVaporizerHotWaterDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(RuntimeVaporizerHotWaterEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("RuntimeVaporizerDefrostWeek",
+drawStartDeltaEndChart("week", "RuntimeVaporizerDefrostWeek",
     "VD ABTAUEN",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(RuntimeVaporizerDefrostStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(RuntimeVaporizerDefrostDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(RuntimeVaporizerDefrostEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("ReheatingStages1Week",
+drawStartDeltaEndChart("week", "ReheatingStages1Week",
     "NHZ 1",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(ReheatingStages1StartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(ReheatingStages1DeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(ReheatingStages1EndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("ReheatingStages2Week",
+drawStartDeltaEndChart("week", "ReheatingStages2Week",
     "NHZ 2",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(ReheatingStages2StartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(ReheatingStages2DeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(ReheatingStages2EndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("DefrostTimeWeek",
+drawStartDeltaEndChart("week", "DefrostTimeWeek",
     "ZEIT ABTAUEN",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(DefrostTimeStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(DefrostTimeDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(DefrostTimeEndWeek), @Html.Raw(EndColorWeek)),
 
-drawStartEndChartWeek("DefrostStartsWeek",
+drawStartDeltaEndChart("week", "DefrostStartsWeek",
     "STARTS ABTAUEN",
     @Html.Raw(XLabelsWeek),
     @Html.Raw(DefrostStartsStartWeek), @Html.Raw(StartColorWeek),
     @Html.Raw(DefrostStartsDeltaWeek), @Html.Raw(DeltaColorWeek),
     @Html.Raw(DefrostStartsEndWeek), @Html.Raw(EndColorWeek)),
-]
+
+];
 
 var monthCharts = [
-drawBarChartMonth("PerformanceFactorMonth",
+drawBarChart("month", "PerformanceFactorMonth",
             "Arbeitszahl",
             @Html.Raw(XLabelsMonth),
-            @Html.Raw(PerformanceFactorMonth), @Html.Raw(AverageColorDay)),          
+            @Html.Raw(PerformanceFactorMonth), @Html.Raw(AverageColorDay)),
 
-        drawMinMaxChartMonth("ReturnTemperatureMonth",
+        drawMaxAvgMinChart("month", "ReturnTemperatureMonth",
             "RÜCKLAUFTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ReturnTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(ReturnTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(ReturnTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("InletTemperatureMonth",
+        drawMaxAvgMinChart("month", "InletTemperatureMonth",
             "VORLAUFTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(InletTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(InletTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(InletTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("AntiFreezeTemperatureMonth",
+        drawMaxAvgMinChart("month", "AntiFreezeTemperatureMonth",
             "FROSTSCHUTZTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(AntiFreezeTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(AntiFreezeTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(AntiFreezeTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("OutdoorTemperatureMonth",
+        drawMaxAvgMinChart("month", "OutdoorTemperatureMonth",
             "AUSSENTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(OutdoorTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
@@ -2671,231 +2675,231 @@ drawBarChartMonth("PerformanceFactorMonth",
             @Html.Raw(OutdoorTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
 
-        drawMinMaxChartMonth("ExhaustAirTemperatureMonth",
+        drawMaxAvgMinChart("month", "ExhaustAirTemperatureMonth",
             "FORTLUFTTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ExhaustAirTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(ExhaustAirTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(ExhaustAirTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("EvaporatorTemperatureMonth",
+        drawMaxAvgMinChart("month", "EvaporatorTemperatureMonth",
             "VERDAMPFERTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(EvaporatorTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(EvaporatorTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(EvaporatorTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("TotalPowerConsumptionMonth",
+        drawMaxAvgMinChart("month", "TotalPowerConsumptionMonth",
             "VD HEIZEN SUMME  Wh   ",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(TotalPowerConsumptionStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(TotalPowerConsumptionDeltaMonth), @Html.Raw(DeltaColorMonth),
-            @Html.Raw(TotalPowerConsumptionEndMonth), @Html.Raw(EndColorMonth)),        
+            @Html.Raw(TotalPowerConsumptionEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawMinMaxChartMonth("CompressorInletTemperatureMonth",
+        drawMaxAvgMinChart("month", "CompressorInletTemperatureMonth",
             "VERDICHTEREINTRITTSTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(CompressorInletTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(CompressorInletTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(CompressorInletTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("IntermediateInjectionTemperatureMonth",
+        drawMaxAvgMinChart("month", "IntermediateInjectionTemperatureMonth",
             "ZWISCHENEINSPRITZUNGSTEMP °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(IntermediateInjectionTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(IntermediateInjectionTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(IntermediateInjectionTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("HotGasTemperatureMonth",
+        drawMaxAvgMinChart("month", "HotGasTemperatureMonth",
             "HEISSGASTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(HotGasTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(HotGasTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(HotGasTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("CondenserTemperatureMonth",
+        drawMaxAvgMinChart("month", "CondenserTemperatureMonth",
             "VERFLÜSSIGERTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(CondenserTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(CondenserTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(CondenserTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("OilSumpTemperatureMonth",
+        drawMaxAvgMinChart("month", "OilSumpTemperatureMonth",
             "ÖLSUMPFTEMPERATUR °C",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(OilSumpTemperatureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(OilSumpTemperatureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(OilSumpTemperatureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("LowPressureMonth",
+        drawMaxAvgMinChart("month", "LowPressureMonth",
             "DRUCK NIEDERDRUCK bar",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(LowPressureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(LowPressureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(LowPressureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("PressureMediumMonth",
+        drawMaxAvgMinChart("month", "PressureMediumMonth",
             "DRUCK MITTELDRUCK bar",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(PressureMediumMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(PressureMediumAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(PressureMediumMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("HighPressureMonth",
+        drawMaxAvgMinChart("month", "HighPressureMonth",
             "DRUCK HOCHDRUCK bar",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(HighPressureMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(HighPressureAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(HighPressureMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("WaterVolumeCurrentMonth",
+        drawMaxAvgMinChart("month", "WaterVolumeCurrentMonth",
             "WP WASSERVOLUMENSTROM l/min",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(WaterVolumeCurrentMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(WaterVolumeCurrentAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(WaterVolumeCurrentMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("VoltageInverterMonth",
+        drawMaxAvgMinChart("month", "VoltageInverterMonth",
             "SPANNUNG INVERTER V",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(VoltageInverterMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(VoltageInverterAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(VoltageInverterMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("ActualSpeedDensifierMonth",
+        drawMaxAvgMinChart("month", "ActualSpeedDensifierMonth",
             "ISTDREHZAHL VERDICHTER Hz",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ActualSpeedDensifierMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(ActualSpeedDensifierAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(ActualSpeedDensifierMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("SettingSpeedCompressedMonth",
+        drawMaxAvgMinChart("month", "SettingSpeedCompressedMonth",
             "SOLLDREHZAHL VERDICHTER Hz",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(SettingSpeedCompressedMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(SettingSpeedCompressedAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(SettingSpeedCompressedMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawMinMaxChartMonth("FanPowerRelMonth",
+        drawMaxAvgMinChart("month", "FanPowerRelMonth",
             "LÜFTERLEISTUNG REL %",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(FanPowerRelMaxMonth), @Html.Raw(MaxColorMonth),
             @Html.Raw(FanPowerRelAverageMonth), @Html.Raw(AverageColorMonth),
             @Html.Raw(FanPowerRelMinMonth), @Html.Raw(MinColorMonth)),
 
-        drawStartEndChartMonth("VaporizerHeatQuantityHeatingMonth",
+        drawStartDeltaEndChart("month", "VaporizerHeatQuantityHeatingMonth",
             "VD HEIZEN TAG Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(VaporizerHeatQuantityHeatingDayMinMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(VaporizerHeatQuantityHeatingDayAverageMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(VaporizerHeatQuantityHeatingDayMaxMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("VaporizerHeatQuantityHeatingTotalMonth",
+        drawStartDeltaEndChart("month", "VaporizerHeatQuantityHeatingTotalMonth",
             "VD HEIZEN SUMME Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(VaporizerHeatQuantityHeatingTotalStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(VaporizerHeatQuantityHeatingTotalEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("VaporizerHeatQuantityHotWaterMonth",
+        drawStartDeltaEndChart("month", "VaporizerHeatQuantityHotWaterMonth",
             "VD WARMWASSER TAG Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(VaporizerHeatQuantityHotWaterDayStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(VaporizerHeatQuantityHotWaterDayEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("VaporizerHeatQuantityHotWaterTotalMonth",
+        drawStartDeltaEndChart("month", "VaporizerHeatQuantityHotWaterTotalMonth",
             "VD WARMWASSER SUMME Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("ReheatingStagesHeatQuantityHeatingSumMonth",
+        drawStartDeltaEndChart("month", "ReheatingStagesHeatQuantityHeatingSumMonth",
             "NHZ HEIZEN SUMME  Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("ReheatingStagesHeatQuantityHotWaterTotalMonth",
+        drawStartDeltaEndChart("month", "ReheatingStagesHeatQuantityHotWaterTotalMonth",
             "NHZ WARMWASSER SUMME  Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("PowerConsumptionHeatingMonth",
+        drawStartDeltaEndChart("month", "PowerConsumptionHeatingMonth",
             "VD HEIZEN TAG  Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(PowerConsumptionHeatingDayStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(PowerConsumptionHeatingDayDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(PowerConsumptionHeatingDayEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("PowerConsumptionHeatingSumMonth",
+        drawStartDeltaEndChart("month", "PowerConsumptionHeatingSumMonth",
             "VD HEIZEN SUMME Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(PowerConsumptionHeatingSumStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(PowerConsumptionHeatingSumDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(PowerConsumptionHeatingSumEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("PowerConsumptionHotWaterMonth",
+        drawStartDeltaEndChart("month", "PowerConsumptionHotWaterMonth",
             "VD WARMWASSER TAG Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(PowerConsumptionHotWaterDayStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(PowerConsumptionHotWaterDayDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(PowerConsumptionHotWaterDayEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("PowerConsumptionHotWaterSumMonth",
+        drawStartDeltaEndChart("month", "PowerConsumptionHotWaterSumMonth",
             "VD WARMWASSER SUMME Wh",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(PowerConsumptionHotWaterSumStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(PowerConsumptionHotWaterSumDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(PowerConsumptionHotWaterSumEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("RuntimeVaporizerHeatingMonth",
+        drawStartDeltaEndChart("month", "RuntimeVaporizerHeatingMonth",
             "VD HEIZEN",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(RuntimeVaporizerHeatingStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(RuntimeVaporizerHeatingDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(RuntimeVaporizerHeatingEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("RuntimeVaporizerHotWaterMonth",
+        drawStartDeltaEndChart("month", "RuntimeVaporizerHotWaterMonth",
             "VD WARMWASSER",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(RuntimeVaporizerHotWaterStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(RuntimeVaporizerHotWaterDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(RuntimeVaporizerHotWaterEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("RuntimeVaporizerDefrostMonth",
+        drawStartDeltaEndChart("month", "RuntimeVaporizerDefrostMonth",
             "VD ABTAUEN",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(RuntimeVaporizerDefrostStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(RuntimeVaporizerDefrostDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(RuntimeVaporizerDefrostEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("ReheatingStages1Month",
+        drawStartDeltaEndChart("month", "ReheatingStages1Month",
             "NHZ 1",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ReheatingStages1StartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(ReheatingStages1DeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(ReheatingStages1EndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("ReheatingStages2Month",
+        drawStartDeltaEndChart("month", "ReheatingStages2Month",
             "NHZ 2",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(ReheatingStages2StartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(ReheatingStages2DeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(ReheatingStages2EndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("DefrostTimeMonth",
+        drawStartDeltaEndChart("month", "DefrostTimeMonth",
             "ZEIT ABTAUEN",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(DefrostTimeStartMonth), @Html.Raw(StartColorMonth),
             @Html.Raw(DefrostTimeDeltaMonth), @Html.Raw(DeltaColorMonth),
             @Html.Raw(DefrostTimeEndMonth), @Html.Raw(EndColorMonth)),
 
-        drawStartEndChartMonth("DefrostStartsMonth",
+        drawStartDeltaEndChart("month", "DefrostStartsMonth",
             "STARTS ABTAUEN",
             @Html.Raw(XLabelsMonth),
             @Html.Raw(DefrostStartsStartMonth), @Html.Raw(StartColorMonth),
@@ -2904,274 +2908,274 @@ drawBarChartMonth("PerformanceFactorMonth",
 ];
 
 var yearCharts = [
-drawBarChartYear("PerformanceFactorYear",
+drawBarChart("year", "PerformanceFactorYear",
             "Arbeitszahl",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PerformanceFactorYear), @Html.Raw(AverageColorDay)),
-          
-        drawMinMaxChartYear("ReturnTemperatureYear",
+
+        drawMaxAvgMinChart("year", "ReturnTemperatureYear",
             "RÜCKLAUFTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ReturnTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(ReturnTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(ReturnTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("InletTemperatureYear",
+        drawMaxAvgMinChart("year", "InletTemperatureYear",
             "VORLAUFTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(InletTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(InletTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(InletTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("AntiFreezeTemperatureYear",
+        drawMaxAvgMinChart("year", "AntiFreezeTemperatureYear",
             "FROSTSCHUTZTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(AntiFreezeTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(AntiFreezeTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(AntiFreezeTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("OutdoorTemperatureYear",
+        drawMaxAvgMinChart("year", "OutdoorTemperatureYear",
             "AUSSENTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(OutdoorTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(OutdoorTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(OutdoorTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("ExhaustAirTemperatureYear",
+        drawMaxAvgMinChart("year", "ExhaustAirTemperatureYear",
             "FORTLUFTTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ExhaustAirTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(ExhaustAirTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(ExhaustAirTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("EvaporatorTemperatureYear",
+        drawMaxAvgMinChart("year", "EvaporatorTemperatureYear",
             "VERDAMPFERTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(EvaporatorTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(EvaporatorTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(EvaporatorTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("TotalPowerConsumptionYear",
+        drawMaxAvgMinChart("year", "TotalPowerConsumptionYear",
             "VD HEIZEN SUMME  Wh   ",
             @Html.Raw(XLabelsYear),
             @Html.Raw(TotalPowerConsumptionStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(TotalPowerConsumptionDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(TotalPowerConsumptionEndYear), @Html.Raw(EndColorYear)),        
+            @Html.Raw(TotalPowerConsumptionEndYear), @Html.Raw(EndColorYear)),
 
-        drawMinMaxChartYear("CompressorInletTemperatureYear",
+        drawMaxAvgMinChart("year", "CompressorInletTemperatureYear",
             "VERDICHTEREINTRITTSTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(CompressorInletTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(CompressorInletTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(CompressorInletTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("IntermediateInjectionTemperatureYear",
+        drawMaxAvgMinChart("year", "IntermediateInjectionTemperatureYear",
             "ZWISCHENEINSPRITZUNGSTEMP °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(IntermediateInjectionTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(IntermediateInjectionTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(IntermediateInjectionTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("HotGasTemperatureYear",
+        drawMaxAvgMinChart("year", "HotGasTemperatureYear",
             "HEISSGASTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(HotGasTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(HotGasTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(HotGasTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("CondenserTemperatureYear",
+        drawMaxAvgMinChart("year", "CondenserTemperatureYear",
             "VERFLÜSSIGERTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(CondenserTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(CondenserTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(CondenserTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("OilSumpTemperatureYear",
+        drawMaxAvgMinChart("year", "OilSumpTemperatureYear",
             "ÖLSUMPFTEMPERATUR °C",
             @Html.Raw(XLabelsYear),
             @Html.Raw(OilSumpTemperatureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(OilSumpTemperatureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(OilSumpTemperatureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("LowPressureYear",
+        drawMaxAvgMinChart("year", "LowPressureYear",
             "DRUCK NIEDERDRUCK bar",
             @Html.Raw(XLabelsYear),
             @Html.Raw(LowPressureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(LowPressureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(LowPressureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("PressureMediumYear",
+        drawMaxAvgMinChart("year", "PressureMediumYear",
             "DRUCK MITTELDRUCK bar",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PressureMediumMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(PressureMediumAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(PressureMediumMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("HighPressureYear",
+        drawMaxAvgMinChart("year", "HighPressureYear",
             "DRUCK HOCHDRUCK bar",
             @Html.Raw(XLabelsYear),
             @Html.Raw(HighPressureMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(HighPressureAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(HighPressureMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("WaterVolumeCurrentYear",
+        drawMaxAvgMinChart("year", "WaterVolumeCurrentYear",
             "WP WASSERVOLUMENSTROM l/min",
             @Html.Raw(XLabelsYear),
             @Html.Raw(WaterVolumeCurrentMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(WaterVolumeCurrentAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(WaterVolumeCurrentMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("VoltageInverterYear",
+        drawMaxAvgMinChart("year", "VoltageInverterYear",
             "SPANNUNG INVERTER V",
             @Html.Raw(XLabelsYear),
             @Html.Raw(VoltageInverterMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(VoltageInverterAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(VoltageInverterMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("ActualSpeedDensifierYear",
+        drawMaxAvgMinChart("year", "ActualSpeedDensifierYear",
             "ISTDREHZAHL VERDICHTER Hz",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ActualSpeedDensifierMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(ActualSpeedDensifierAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(ActualSpeedDensifierMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("SettingSpeedCompressedYear",
+        drawMaxAvgMinChart("year", "SettingSpeedCompressedYear",
             "SOLLDREHZAHL VERDICHTER Hz",
             @Html.Raw(XLabelsYear),
             @Html.Raw(SettingSpeedCompressedMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(SettingSpeedCompressedAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(SettingSpeedCompressedMinYear), @Html.Raw(MinColorYear)),
 
-        drawMinMaxChartYear("FanPowerRelYear",
+        drawMaxAvgMinChart("year", "FanPowerRelYear",
             "LÜFTERLEISTUNG REL %",
             @Html.Raw(XLabelsYear),
             @Html.Raw(FanPowerRelMaxYear), @Html.Raw(MaxColorYear),
             @Html.Raw(FanPowerRelAverageYear), @Html.Raw(AverageColorYear),
             @Html.Raw(FanPowerRelMinYear), @Html.Raw(MinColorYear)),
 
-        drawStartEndChartYear("VaporizerHeatQuantityHeatingYear",
+        drawStartDeltaEndChart("year", "VaporizerHeatQuantityHeatingYear",
             "VD HEIZEN TAG Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(VaporizerHeatQuantityHeatingDayMinYear), @Html.Raw(StartColorYear),
             @Html.Raw(VaporizerHeatQuantityHeatingDayAverageYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(VaporizerHeatQuantityHeatingDayMaxYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("VaporizerHeatQuantityHeatingTotalYear",
+        drawStartDeltaEndChart("year", "VaporizerHeatQuantityHeatingTotalYear",
             "VD HEIZEN SUMME Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(VaporizerHeatQuantityHeatingTotalStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(VaporizerHeatQuantityHeatingTotalDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(VaporizerHeatQuantityHeatingTotalEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("VaporizerHeatQuantityHotWaterYear",
+        drawStartDeltaEndChart("year", "VaporizerHeatQuantityHotWaterYear",
             "VD WARMWASSER TAG Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(VaporizerHeatQuantityHotWaterDayStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(VaporizerHeatQuantityHotWaterDayDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(VaporizerHeatQuantityHotWaterDayEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("VaporizerHeatQuantityHotWaterTotalYear",
+        drawStartDeltaEndChart("year", "VaporizerHeatQuantityHotWaterTotalYear",
             "VD WARMWASSER SUMME Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(VaporizerHeatQuantityHotWaterTotalStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(VaporizerHeatQuantityHotWaterTotalDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(VaporizerHeatQuantityHotWaterTotalEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("ReheatingStagesHeatQuantityHeatingSumYear",
+        drawStartDeltaEndChart("year", "ReheatingStagesHeatQuantityHeatingSumYear",
             "NHZ HEIZEN SUMME  Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ReheatingStagesHeatQuantityHeatingSumStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(ReheatingStagesHeatQuantityHeatingSumDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(ReheatingStagesHeatQuantityHeatingSumEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("ReheatingStagesHeatQuantityHotWaterTotalYear",
+        drawStartDeltaEndChart("year", "ReheatingStagesHeatQuantityHotWaterTotalYear",
             "NHZ WARMWASSER SUMME  Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(ReheatingStagesHeatQuantityHotWaterTotalEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("PowerConsumptionHeatingYear",
+        drawStartDeltaEndChart("year", "PowerConsumptionHeatingYear",
             "VD HEIZEN TAG  Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PowerConsumptionHeatingDayStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(PowerConsumptionHeatingDayDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(PowerConsumptionHeatingDayEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("PowerConsumptionHeatingSumYear",
+        drawStartDeltaEndChart("year", "PowerConsumptionHeatingSumYear",
             "VD HEIZEN SUMME Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PowerConsumptionHeatingSumStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(PowerConsumptionHeatingSumDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(PowerConsumptionHeatingSumEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("PowerConsumptionHotWaterYear",
+        drawStartDeltaEndChart("year", "PowerConsumptionHotWaterYear",
             "VD WARMWASSER TAG Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PowerConsumptionHotWaterDayStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(PowerConsumptionHotWaterDayDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(PowerConsumptionHotWaterDayEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("PowerConsumptionHotWaterSumYear",
+        drawStartDeltaEndChart("year", "PowerConsumptionHotWaterSumYear",
             "VD WARMWASSER SUMME Wh",
             @Html.Raw(XLabelsYear),
             @Html.Raw(PowerConsumptionHotWaterSumStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(PowerConsumptionHotWaterSumDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(PowerConsumptionHotWaterSumEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("RuntimeVaporizerHeatingYear",
+        drawStartDeltaEndChart("year", "RuntimeVaporizerHeatingYear",
             "VD HEIZEN",
             @Html.Raw(XLabelsYear),
             @Html.Raw(RuntimeVaporizerHeatingStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(RuntimeVaporizerHeatingDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(RuntimeVaporizerHeatingEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("RuntimeVaporizerHotWaterYear",
+        drawStartDeltaEndChart("year", "RuntimeVaporizerHotWaterYear",
             "VD WARMWASSER",
             @Html.Raw(XLabelsYear),
             @Html.Raw(RuntimeVaporizerHotWaterStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(RuntimeVaporizerHotWaterDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(RuntimeVaporizerHotWaterEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("RuntimeVaporizerDefrostYear",
+        drawStartDeltaEndChart("year", "RuntimeVaporizerDefrostYear",
             "VD ABTAUEN",
             @Html.Raw(XLabelsYear),
             @Html.Raw(RuntimeVaporizerDefrostStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(RuntimeVaporizerDefrostDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(RuntimeVaporizerDefrostEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("ReheatingStages1Year",
+        drawStartDeltaEndChart("year", "ReheatingStages1Year",
             "NHZ 1",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ReheatingStages1StartYear), @Html.Raw(StartColorYear),
             @Html.Raw(ReheatingStages1DeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(ReheatingStages1EndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("ReheatingStages2Year",
+        drawStartDeltaEndChart("year", "ReheatingStages2Year",
             "NHZ 2",
             @Html.Raw(XLabelsYear),
             @Html.Raw(ReheatingStages2StartYear), @Html.Raw(StartColorYear),
             @Html.Raw(ReheatingStages2DeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(ReheatingStages2EndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("DefrostTimeYear",
+        drawStartDeltaEndChart("year", "DefrostTimeYear",
             "ZEIT ABTAUEN",
             @Html.Raw(XLabelsYear),
             @Html.Raw(DefrostTimeStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(DefrostTimeDeltaYear), @Html.Raw(DeltaColorYear),
             @Html.Raw(DefrostTimeEndYear), @Html.Raw(EndColorYear)),
 
-        drawStartEndChartYear("DefrostStartsYear",
+        drawStartDeltaEndChart("year", "DefrostStartsYear",
             "STARTS ABTAUEN",
             @Html.Raw(XLabelsYear),
             @Html.Raw(DefrostStartsStartYear), @Html.Raw(StartColorYear),
             @Html.Raw(DefrostStartsDeltaYear), @Html.Raw(DeltaColorYear),
-            @Html.Raw(DefrostStartsEndYear), @Html.Raw(EndColorYear)), 
+            @Html.Raw(DefrostStartsEndYear), @Html.Raw(EndColorYear)),
 
 ];
 
 var totalCharts = [
-       drawBarChartTotal("PerformanceFactorTotal",
+       drawBarChart("total", "PerformanceFactorTotal",
             "Arbeitszahl",
             @Html.Raw(XLabelsTotal),
             @Html.Raw(PerformanceFactorTotal), @Html.Raw(ColorTotal))
@@ -3208,7 +3212,7 @@ function openTabOnLoad(ctx, tabName) {
             }
         });
     }
-    if(tabName === "Weeks"){        
+    if(tabName === "Weeks"){
         weekCharts.forEach(chart => {
             if (typeof chart !== 'undefined'){
                 chart.destroy()
@@ -3256,7 +3260,7 @@ function openTabOnLoad(ctx, tabName) {
             }
         });
     }
-  }  
+  }
   function openTab(evt, tabName) {
       openTabOnLoad(evt.currentTarget, tabName);
   }
