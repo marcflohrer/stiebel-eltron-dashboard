@@ -1,4 +1,4 @@
-﻿const STACKED_LINE_CHART_COLORS = [
+﻿const LINE_CHART_COLORS = [
     'rgba(233, 241, 221, 1)',
     'rgba(140, 173, 88, 1)',
     'rgba(132, 133, 135, 1)'
@@ -37,7 +37,11 @@ function createChart(ctx, config) {
 }
 
 function drawChartBase(unit, chartName, chartTitle, rawDates, datasets, type) {
-    var ctx = document.getElementById(chartName).getContext('2d');
+    if (typeof document.getElementById(chartName) === "undefined") {
+        return;
+    }
+    var canvas = document.getElementById(chartName);
+    var ctx = canvas.getContext('2d');
     var labels;
     if (unit === 'total') {
         labels = rawDates;
@@ -119,16 +123,29 @@ function drawChartBase(unit, chartName, chartTitle, rawDates, datasets, type) {
 }
 
 function drawMaxAvgMinChart(unit, chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
-    var datasets = createDataSets(["Max", "Mittel", "Min"], [maxYs, averageYs, minYs], [maxYsColors, averageYsColor, minYsColor], STACKED_LINE_CHART_COLORS, false, 0, 5);
-    drawChartBase(unit, chartName, chartTitle, rawDates, datasets, 'line');
+    var datasets = createDataSets(["Max", "Mittel", "Min"], [maxYs, averageYs, minYs], [maxYsColors, averageYsColor, minYsColor], LINE_CHART_COLORS, false, 0, 5);
+    return drawChartBase(unit, chartName, chartTitle, rawDates, datasets, 'line');
 }
 
 function drawStartDeltaEndChart(unit, chartName, chartTitle, rawDates, startYs, startYsColors, deltaYs, deltaYsColor, endYs, endYsColor) {
-    var datasets = createDataSets(["Start", "Delta", "End"], [startYs, deltaYs, endYs], [startYsColors, deltaYsColor, endYsColor], STACKED_LINE_CHART_COLORS, false, 0, 5);
-    drawChartBase(unit, chartName, chartTitle, rawDates, datasets, 'line');
+    var datasets = createDataSets(["Start", "Delta", "End"], [startYs, deltaYs, endYs], [startYsColors, deltaYsColor, endYsColor], LINE_CHART_COLORS, false, 0, 5);
+    return drawChartBase(unit, chartName, chartTitle, rawDates, datasets, 'line');
 }
 
 function drawBarChart(unit, chartName, chartTitle, rawDates, Ys, YsColors) {
-    var datasets = createDataSets(["Mittel"], [Ys], [YsColors], [STACKED_LINE_CHART_COLORS[1]], false, 0, 0);
-    drawChartBase(unit, chartName, chartTitle, rawDates, datasets, 'bar');
+    var datasets = createDataSets(["Mittel"], [Ys], [YsColors], [LINE_CHART_COLORS[1]], false, 0, 0);
+    return drawChartBase(unit, chartName, chartTitle, rawDates, datasets, 'bar');
+}
+
+; function drawMinMaxChartDay(chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
+    return drawMinMaxChartInternal('day', chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor);
+};
+; function drawMinMaxChartWeek(chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
+    return drawMinMaxChartInternal('week', chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor);
+}
+; function drawMinMaxChartMonth(chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
+    return drawMinMaxChartInternal('month', chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor);
+}
+; function drawMinMaxChartYear(chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
+    return drawMinMaxChartInternal('year', chartName, chartTitle, labels, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor);
 }

@@ -9,6 +9,8 @@ public static class HeatPumpDataPerPeriodListExtensions
 {
     public static string ToJson(this IEnumerable<HeatPumpDataPerPeriod> heatPumpDataPerPeriod)
         => JsonConvert.SerializeObject(heatPumpDataPerPeriod);
+    public static IList<HeatPumpDataPerPeriod> GetTimeUnit(this IEnumerable<HeatPumpDataPerPeriod> heatPumpDataPerPeriods, string timeUnit)
+        => heatPumpDataPerPeriods.Where(x => x.PeriodKind == timeUnit).ToList(); 
     public static IList<HeatPumpDataPerPeriod> GetDays(this IEnumerable<HeatPumpDataPerPeriod> heatPumpDataPerPeriods)
         => heatPumpDataPerPeriods.Where(x => x.PeriodKind == "Day").ToList();
     public static IList<HeatPumpDataPerPeriod> GetWeeks(this IEnumerable<HeatPumpDataPerPeriod> heatPumpDataPerPeriods)
