@@ -38,5 +38,9 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
+	  <None Remove="Views\DeltaValues\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Views\DeltaValues\" />
 	</ItemGroup>
 </Project>
