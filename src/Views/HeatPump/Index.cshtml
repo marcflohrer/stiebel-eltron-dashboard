@@ -16,27 +16,6 @@
     };
 
     var metricsValueMap = new Dictionary<string, string>();
-    var metrics = new string[] {
-        "ReturnTemperature",
-        "InletTemperature",
-        "AntiFreezeTemperature",
-        "OutdoorTemperature",
-        "ExhaustAirTemperature",
-        "EvaporatorTemperature",
-        "CompressorInletTemperature",
-        "IntermediateInjectionTemperature",
-        "HotGasTemperature",
-        "CondenserTemperature",
-        "OilSumpTemperature",
-        "LowPressure",
-        "PressureMedium",
-        "HighPressure",
-        "WaterVolumeCurrent",
-        "VoltageInverter",
-        "ActualSpeedDensifier",
-        "SettingSpeedCompressed",
-        "FanPowerRel"
-    };
 
     var chartTitles = new Dictionary<string, string>
 {
@@ -101,7 +80,7 @@
 
         newestRecord = Model.Select(m => m.DateUpdated).Max();
 
-        foreach (var metric in metrics)
+        foreach (var metric in chartTitles.Keys)
         {
             foreach (var timeUnit in timeUnits)
             {
@@ -123,7 +102,7 @@
 @foreach (var timeUnit in timeUnits)
 {
     <div id="@(timeUnit)s" class="tabcontent">
-        @foreach (var minMaxAvgMetric in metrics)
+        @foreach (var minMaxAvgMetric in chartTitles.Keys)
         {
             // The output of the for the input minMaxAvgMetric = ReturnTemperature and timeUnit = Day
             // is this
@@ -191,7 +170,7 @@ function openTabOnLoad(ctx, tabName) {
         }
     }
         const metrics = [
-            @foreach (string entry in metrics)
+            @foreach (string entry in chartTitles.Keys)
             {
                 <text>"@(entry)",
                 </text>
@@ -215,8 +194,8 @@ function openTabOnLoad(ctx, tabName) {
         ]);
 
         const metricsValueMap = new Map([
-            @for (var ii = 0; ii < metrics.Length; ii += 1) {
-                var metric = metrics[ii];
+            @for (var ii = 0; ii < chartTitles.Keys.Count; ii += 1) {
+                var metric = chartTitles.Keys.ToArray()[ii];
                 @for (var ij = 0; ij < timeUnits.Length; ij += 1) {
                     var timeUnit = timeUnits[ij];
                     @for (var ik = 0; ik < minAvgMaxList.Length; ik += 1) {
