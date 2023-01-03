@@ -1,6 +1,7 @@
 ﻿using System;
 using StiebelEltronDashboard.Models.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
+using Serilog;
 #nullable disable
 
 namespace StiebelEltronDashboard.Models
@@ -142,5 +143,25 @@ namespace StiebelEltronDashboard.Models
         public DateTime DateCreated { get; set; }
         public DateTime First { get; set; }
         public DateTime Last { get; set; }
+
+        public double? PerformanceFactorPeriod
+        {
+            get
+            {
+                var heatQuantityProducedInPeriod = this.VaporizerHeatQuantityHeatingTotalEnd - this.VaporizerHeatQuantityHeatingTotalStart;
+                var hotWaterProducedInPeriod = this.VaporizerHeatQuantityHotWaterTotalEnd - this.VaporizerHeatQuantityHotWaterTotalStart;
+                var powerConsumedForHeat = this.PowerConsumptionHeatingSumEnd - this.PowerConsumptionHeatingSumStart;
+                var powerConsumedForHotWater = this.PowerConsumptionHotWaterSumEnd - this.PowerConsumptionHotWaterSumStart;
+                var result = (heatQuantityProducedInPeriod + hotWaterProducedInPeriod) / (powerConsumedForHeat + powerConsumedForHotWater);
+                Log.Debug($"Performance Factor Period: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
+                return result;
+            }
+        }
+
+        public double? PerformanceFactorTotal
+        {
+            get => (this.VaporizerHeatQuantityHeatingTotalEnd + this.VaporizerHeatQuantityHotWaterTotalEnd)
+                    / (this.PowerConsumptionHeatingSumEnd + this.PowerConsumptionHotWaterSumEnd);
+        }
     }
 }

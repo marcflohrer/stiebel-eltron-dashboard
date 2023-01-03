@@ -13,6 +13,7 @@
         { "Delta", deltaColor },
         { "End", startColor }
     };
+    var colorTotal = "{}";
 
     var metricsValueMap = new Dictionary<string, string>();
 
@@ -35,7 +36,9 @@
         { "ReheatingStages1", "NHZ 1" },
         { "ReheatingStages2", "NHZ 2" },
         { "DefrostTime", "ZEIT ABTAUEN" },
-        { "DefrostStarts", "STARTS ABTAUEN" }
+        { "DefrostStarts", "STARTS ABTAUEN" },
+        { "PerformanceFactorPeriod", "Arbeitszahl" },
+        { "PerformanceFactorTotal", "Arbeitszahl" }
     };
 
     var timeUnits = new string[] { "Day", "Week", "Month", "Year" };
@@ -43,6 +46,7 @@
 
     var newestRecord = DateTime.MinValue;
     var xLabelsPerTimeUnit = new Dictionary<string, string>();
+    var xLabelsTotal = "{}";
 
     var startColorOfTimeUnit = new Dictionary<string, string>();
     var deltaColorOfTimeUnit = new Dictionary<string, string>();
@@ -60,6 +64,7 @@
         xLabelsPerTimeUnit["Week"] = Model.GetWeeks().Select(x => new DateTime((int)x.Year, 1, 1).FirstDateOfWeek((int)x.PeriodNumber, new System.Globalization.CultureInfo("de-DE"))).ToList().ToJson();
         xLabelsPerTimeUnit["Month"] = Model.GetMonths().Select(x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1)).ToList().ToJson();
         xLabelsPerTimeUnit["Year"] = Model.GetYears().Select(x => new DateTime((int)x.Year, 1, 1)).ToList().ToJson();
+        xLabelsTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(h => "Total").Take(1).ToList().ToJson();
 
         foreach (var timeUnit in timeUnits)
         {
@@ -75,11 +80,16 @@
         {
             endColorOfTimeUnit[timeUnit] = Model.GetTimeUnit(timeUnit).Select(x => x.ReturnTemperatureMax).Select(c => endColor).ToList().ToJson();
         }
+        colorTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => x.PerformanceFactorPeriod).Select(x => deltaColor).Take(1).ToList().ToJson();
 
         newestRecord = Model.Select(m => m.DateUpdated).Max();
 
         foreach (var metric in chartTitles.Keys)
         {
+            if (metric.StartsWith("PerformanceFactor"))
+            {
+                continue;
+            }
             foreach (var timeUnit in timeUnits)
             {
                 foreach (var sde in colors.Keys)
@@ -88,6 +98,11 @@
                 }
             }
         }
+        foreach (var timeUnit in timeUnits)
+        {
+            metricsValueMap[$"PerformanceFactor{timeUnit}"] = Model.GetTimeUnit(timeUnit).Select(x => HeatPumpDataPerPeriod.GetPropertyValue(x, $"PerformanceFactorPeriod")).ToList().ToJson();
+        }
+        metricsValueMap[$"PerformanceFactorTotal"] = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => x.PerformanceFactorTotal).Take(1).ToList().ToJson();
     }
 } <!-- Tab links -->
 <div class="tab">
@@ -95,13 +110,24 @@
     <button class="tablinks" onclick="openTab(event, 'Weeks')"> Letzte Wochen </button>
     <button class="tablinks" onclick="openTab(event, 'Months')"> Letzte Monate </button>
     <button class="tablinks" onclick="openTab(event, 'Years')"> Letzte Jahre </button>
+    <button class="tablinks" onclick="openTab(event, 'Total')">Gesamt</button>
 </div> <!-- Tab content -->
 <h3> Tagesübersicht </h3>
 @foreach (var timeUnit in timeUnits)
 {
     <div id="@(timeUnit)s" class="tabcontent">
+        <!--Arbeitszahl-->
+        <div class="chart-style">
+            <div class="chart-container" id="PerformanceFactorPeriod@(timeUnit)Chart">
+                <canvas id="PerformanceFactorPeriod@(timeUnit)" class="canvas-style"></canvas>
+            </div>
+        </div>
         @foreach (var startDeltaEndMetric in chartTitles.Keys)
         {
+            @if (startDeltaEndMetric.StartsWith("PerformanceFactor"))
+            {
+                continue;
+            }
             // The output of the for the input startDeltaEndMetric = ReturnTemperature and timeUnit = Day
             // is this
             // <div class="chart-style"> <div class="chart-container" id="ReturnTemperatureDayChart"><canvas id="ReturnTemperatureDay" class="canvas-style"> </canvas> </div> </div> <!--VORLAUFTEMPERATUR-->
@@ -113,6 +139,15 @@
         }
     </div>
 }
+<div id="Total" class="tabcontent">
+    <h3>Gesamt</h3>
+    <!--Arbeitszahl-->
+    <div class="chart-style-center">
+        <div class="chart-container" id="PerformanceFactorTotalChart">
+            <canvas id="PerformanceFactorTotal" class="canvas-style"></canvas>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
@@ -122,24 +157,10 @@
 
 var charts2TimeUnitMap = new Map();
 function openTabOnLoad(ctx, tabName) {
-        //Declare all variables
-        var i;
-        var j;
-        var k;
-        var tabcontent;
-        var tablinks;
-        var metric;
-        var timeUnit;
-        var startValues;
-        var deltaValues;
-        var endValues;
-        var xLabelsTimeUnit;
-        var chart;
-
-        // Get all elements with class = "tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i += 1) {
-            tabcontent[i].style.display = "none";
+    // Get all elements with class = "tabcontent" and hide them
+    var tabcontent = document.getElementsByClassName("tabcontent");
+    for (var i = 0; i < tabcontent.length; i += 1) {
+        tabcontent[i].style.display = "none";
     }
     var tabTimeSelected = tabName.substring(0, tabName.length - 1);
     console.log("tab time aggregation selected: " + tabTimeSelected);
@@ -156,7 +177,8 @@ function openTabOnLoad(ctx, tabName) {
                         chart.destroy();
                         console.log("chart destroyed: chart id: " + chart.Id);
                     } else {
-                        console.log("chart is " + typeof chart[1]);
+                        console.log("chart is " + typeof chart);
+                        console.log("chart is " + chart);
                     }
                 }
             } else {
@@ -164,131 +186,184 @@ function openTabOnLoad(ctx, tabName) {
             }
         }
     }
+    charts2TimeUnitMap = new Map();
         const metrics = [
             @foreach (string entry in chartTitles.Keys)
             {
-                <text>"@(entry)",
-                </text>
+                <text>                "@(entry)",
+</text>
             }
         ];
 
         const timeUnits = [
             @foreach (string entry in timeUnits)
             {
-                <text>"@(entry)",
-                </text>
+                <text>                "@(entry)",
+</text>
             }
         ];
 
         const chartTitles = new Map([
             @foreach (KeyValuePair<string, string> entry in chartTitles)
             {
-                <text>["@(entry.Key)", "@(Html.Raw(entry.Value))"],
-                </text>
+                <text>                ["@(entry.Key)", "@(Html.Raw(entry.Value))"],
+</text>
             }
         ]);
 
-        const metricsValueMap = new Map([
+        metricsValueMap = new Map([
             @for (var ii = 0; ii < chartTitles.Keys.Count; ii += 1) {
                 var metric = chartTitles.Keys.ToArray()[ii];
+                @if (metric.StartsWith("PerformanceFactor"))
+                {
+                        continue;
+                }
                 @for (var ij = 0; ij < timeUnits.Length; ij += 1) {
                     var timeUnit = timeUnits[ij];
                     @for (var ik = 0; ik < colors.Keys.Count; ik += 1) {
                         var mam = colors.Keys.ToArray()[ik];
-                        <text>["@(Html.Raw(metric + mam + timeUnit))", @Model.GetTimeUnit(timeUnit).Select(x => HeatPumpDataPerPeriod.GetPropertyValue(x, metric+mam)).ToList().ToJson()],
-                        </text>
+                        <text>                ["@(Html.Raw(metric + mam + timeUnit))", @Model.GetTimeUnit(timeUnit).Select(x => HeatPumpDataPerPeriod.GetPropertyValue(x, metric+mam)).ToList().ToJson()],
+</text>
                     }
                 }
             }
+        @for (var ij = 0; ij < timeUnits.Length; ij += 1) {
+                var timeUnit = timeUnits[ij];
+                <text>                ["@(Html.Raw("PerformanceFactorPeriod" + timeUnit))", @Model.GetTimeUnit(timeUnit).Select(x => {
+                                                                                           var result = HeatPumpDataPerPeriod.GetPropertyValue(x, "PerformanceFactorPeriod");
+                                                                                           if (double.IsNaN(result))
+                                                                                           {
+                                                                                               return 0;
+                                                                                           }
+                                                                                           return result;
+                                                                                       }).ToList().ToJson()],
+</text>
+            }
+                ["@(Html.Raw("PerformanceFactorTotal"))", @Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => {
+                                                         var result = x.PerformanceFactorTotal ?? 0;
+                                                         if (double.IsNaN(result))
+                                                         {
+                                                             return 0;
+                                                         }
+                                                         return result;
+                                                         } ).Take(1).ToList().ToJson()]
         ]);
 
-        const xLabels = new Map([
-            @foreach (KeyValuePair<string, string> entry in xLabelsPerTimeUnit)
+                    const xLabels = new Map([
+                        @foreach (KeyValuePair<string, string> entry in xLabelsPerTimeUnit)
             {
                 <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
                 </text>
             }
         ]);
 
-        const startColors = new Map([
-            @foreach (KeyValuePair<string, string> entry in startColorOfTimeUnit)
+                    const startColors = new Map([
+                        @foreach (KeyValuePair<string, string> entry in startColorOfTimeUnit)
             {
-                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
-                </text>
+                <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
+</text>
             }
         ]);
 
-        const deltaColors = new Map([
-            @foreach (KeyValuePair<string, string> entry in deltaColorOfTimeUnit)
+                    const deltaColors = new Map([
+                        @foreach (KeyValuePair<string, string> entry in deltaColorOfTimeUnit)
             {
-                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
-                </text>
+                <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
+</text>
             }
         ]);
 
-        const endColors = new Map([
-            @foreach (KeyValuePair<string, string> entry in endColorOfTimeUnit)
+                    const endColors = new Map([
+                        @foreach (KeyValuePair<string, string> entry in endColorOfTimeUnit)
             {
-                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
-                </text>
+                <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
+</text>
             }
         ]);
 
-        for (var j = 0; j < metrics.length; j += 1) {
-            var metric = metrics[j];
-            for (var k = 0; k < timeUnits.length; k += 1) {
-                timeUnit = timeUnits[k];
-                startValues = metricsValueMap.get(metric + "Start" + timeUnit);
-                deltaValues = metricsValueMap.get(metric + "Delta" + timeUnit);
-                endValues = metricsValueMap.get(metric + "End" + timeUnit);
-                xLabel = xLabels.get(timeUnit);
-                startColor = startColors.get(timeUnit);
-                deltaColor = deltaColors.get(timeUnit);
-                endColor = endColors.get(timeUnit);
-                chart = drawStartDeltaEndChart(timeUnit.toLowerCase(), metric + timeUnit,
-                            chartTitles.get(metric),
-                            xLabel,
-                            startValues, startColor,
-                            deltaValues, deltaColor,
-                            endValues, endColor
-                );
-                var chartList = new Array();
-                if (charts2TimeUnitMap.has(timeUnit)) {
-                    chartList = charts2TimeUnitMap.get(timeUnit);
-                }
-                chartList.push(chart);
-                charts2TimeUnitMap.set(timeUnit, chartList);
-            }
-        }
-        // Get all elements with class = "tablinks"
-        // and remove the class "active"
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i += 1) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        // Show the current tab,and add an "active" class to the button that opened the tab
-        document.getElementById(tabName).style.display = "block";
-        ctx.className += " active";
-        console.log("tabName selected: " + tabName);
-
-        var charts = charts2TimeUnitMap.get(tabTimeSelected);
-        if (typeof chartsLists !== 'undefined') {
-            for (var charts of chartsLists) {
-                if (typeof charts[1] !== 'undefined') {
-                    for (var chart of charts[1]) {
-                        if (typeof chart !== 'undefined') {
-                            chart.update();
-                            console.log("chart updated: chart id: " + chart.Id);
-                        } else {
-                            console.log("chart is " + typeof chart[1]);
+                    for (var j = 0; j < metrics.length; j += 1) {
+                        var metric = metrics[j];
+                        for (var k = 0; k < timeUnits.length; k += 1) {
+                            var timeUnit = timeUnits[k];
+                            var startValues = metricsValueMap.get(metric + "Start" + timeUnit);
+                            var deltaValues = metricsValueMap.get(metric + "Delta" + timeUnit);
+                            var endValues = metricsValueMap.get(metric + "End" + timeUnit);
+                            var xLabel = xLabels.get(timeUnit);
+                            var startColor = startColors.get(timeUnit);
+                            var deltaColor = deltaColors.get(timeUnit);
+                            var endColor = endColors.get(timeUnit);
+                            if (metric.startsWith("PerformanceFactorTotal")) {
+                                continue;
+                            } else if (metric.startsWith("PerformanceFactor")) {
+                                var performanceFactorValues = metricsValueMap.get("PerformanceFactorPeriod" + timeUnit);
+                                chart = drawBarChart(timeUnit.toLowerCase(), "PerformanceFactorPeriod" + timeUnit,
+                                    chartTitles.get(metric),
+                                    xLabel, performanceFactorValues,
+                                    deltaColor);
+                            } else  {
+                                chart = drawStartDeltaEndChart(timeUnit.toLowerCase(), metric + timeUnit,
+                                    chartTitles.get(metric),
+                                    xLabel,
+                                    startValues, startColor,
+                                    deltaValues, deltaColor,
+                                    endValues, endColor
+                                );
+                            }
+                            var chartList = new Array();
+                            if (charts2TimeUnitMap.has(timeUnit)) {
+                                chartList = charts2TimeUnitMap.get(timeUnit);
+                            }
+                            chartList.push(chart);
+                            charts2TimeUnitMap.set(timeUnit, chartList);
                         }
                     }
-                } else {
-                    console.log("charts are " + typeof charts[1]);
+
+                    var performanceFactorTotalValues = metricsValueMap.get("PerformanceFactorTotal");
+                    //function drawBarChart(unit, chartName, chartTitle, rawDates, Ys, YsColors)
+                    chart = drawBarChart("total", "PerformanceFactorTotal",
+                        chartTitles.get(metric),
+                        ["Total"], performanceFactorTotalValues,
+                        deltaColor);
+                    var chartListTotal = new Array();
+                    if (charts2TimeUnitMap.has("Total")) {
+                        chartListTotal = charts2TimeUnitMap.get(timeUnit);
+                    }
+                    chartListTotal.push(chart);
+                    charts2TimeUnitMap.set("Total", chartListTotal);
+
+                    for (var k = 0; k < timeUnits.length; k += 1)
+                    {
+                        timeUnit = timeUnits[k];
+                    }
+                    // Get all elements with class = "tablinks"
+                    // and remove the class "active"
+                    var tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i += 1) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    // Show the current tab,and add an "active" class to the button that opened the tab
+                    document.getElementById(tabName).style.display = "block";
+                    ctx.className += " active";
+                    console.log("tabName selected: " + tabName);
+
+                    var charts = charts2TimeUnitMap.get(tabTimeSelected);
+                    if (typeof chartsLists !== 'undefined') {
+                        for (var charts of chartsLists) {
+                            if (typeof charts[1] !== 'undefined') {
+                                for (var chart of charts[1]) {
+                                    if (typeof chart !== 'undefined') {
+                                        chart.update();
+                                        console.log("chart updated: chart id: " + chart.Id);
+                                    } else {
+                                        console.log("chart is " + typeof chart[1]);
+                                    }
+                                }
+                            } else {
+                                console.log("charts are " + typeof charts[1]);
+                            }
+                        }
+                    }
                 }
-            }
-        }
-    }
     function openTab(evt, tabName) {
         openTabOnLoad(evt.currentTarget, tabName);
     }

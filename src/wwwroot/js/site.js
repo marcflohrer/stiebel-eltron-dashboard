@@ -40,86 +40,90 @@ function drawChartBase(unit, chartName, chartTitle, rawDates, datasets, type) {
     if (typeof document.getElementById(chartName) === "undefined") {
         return;
     }
-    var canvas = document.getElementById(chartName);
-    var ctx = canvas.getContext('2d');
-    var labels;
-    if (unit === 'total') {
-        labels = rawDates;
-    } else {
-        labels = rawDates.map(date => moment(date).toDate());
-    }
-    var x = {
-        offset: true,
-        type: 'time',
-        time: {
-            parser: 'YYYY-MM-DD HH:mm:ss',
-            unit: unit,
-            isoWeekday: true,
-            displayFormats: {
-                year: 'YYYY',
-                month: 'MMM YY',
-                week: 'K[W] W',
-                day: 'MMM D'
-            }
-        },
-        display: true,
-        grid: {
-            display: false
-        },
-        ticks: {
-            major: {
-                enabled: false
-            }
+    try {
+        var canvas = document.getElementById(chartName);
+        var ctx = canvas.getContext('2d');
+        var labels;
+        if (unit === 'total') {
+            labels = rawDates;
+        } else {
+            labels = rawDates.map(date => moment(date).toDate());
         }
-    };
-    if (unit === 'total') {
-        x = {
+        var x = {
             offset: true,
+            type: 'time',
+            time: {
+                parser: 'YYYY-MM-DD HH:mm:ss',
+                unit: unit,
+                isoWeekday: true,
+                displayFormats: {
+                    year: 'YYYY',
+                    month: 'MMM YY',
+                    week: 'K[W] W',
+                    day: 'MMM D'
+                }
+            },
+            display: true,
             grid: {
                 display: false
             },
-            display: true,
             ticks: {
                 major: {
                     enabled: false
                 }
             }
         };
-    }
-    var options = {
-        maintainAspectRatio: false,
-        plugins: {
-            title: {
-                display: true,
-                text: chartTitle
-            },
-            legend: {
-                display: true
-            }
-        },
-        scales: {
-            x: x,
-            y: {
-                display: true,
-                title: {
-                    display: true
-                },
+        if (unit === 'total') {
+            x = {
+                offset: true,
                 grid: {
+                    display: false
+                },
+                display: true,
+                ticks: {
+                    major: {
+                        enabled: false
+                    }
+                }
+            };
+        }
+        var options = {
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
                     display: true,
-                    color: X_AXIS_COLOR
+                    text: chartTitle
+                },
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                x: x,
+                y: {
+                    display: true,
+                    title: {
+                        display: true
+                    },
+                    grid: {
+                        display: true,
+                        color: X_AXIS_COLOR
+                    }
                 }
             }
-        }
-    };
-    var config = {
-        type: type,
-        options: options,
-        data: {
-            labels: labels,
-            datasets: datasets
-        }
-    };
-    return createChart(ctx, config);
+        };
+        var config = {
+            type: type,
+            options: options,
+            data: {
+                labels: labels,
+                datasets: datasets
+            }
+        };
+        return createChart(ctx, config);
+    } catch (err) {
+        console.log("drawChart failed for " + unit + " " + chartName + " " + err);
+    }
 }
 
 function drawMaxAvgMinChart(unit, chartName, chartTitle, rawDates, maxYs, maxYsColors, averageYs, averageYsColor, minYs, minYsColor) {
