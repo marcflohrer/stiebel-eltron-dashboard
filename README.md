@@ -95,7 +95,11 @@ Here is a screen shot of the dashboard:
 * This project has only been tested with the heat pump version WPL 20 A.
 * The dashboard labels are partly in German and there is no option to change the language.
 * The first day after starting the application no information are available in the database and the site will show an error "Sequence contains no elements".
-* The website is not ready for mobile devices. It works at first glance but when switch between views the widgets disappear. This is probably duet to a memory limitation on mobile devices.
+* After migrating to the .NET 6 version make sure your database connection string contains this ```;TrustServerCertificate=True``` in your .env file. e.g.:
+
+```keyvaluepair
+DatabaseConnectionString="Server=db;Database=master;User=sa;Password=MySuperSecretPassword;TrustServerCertificate=True"
+```
 
 ### Prerequisites
 
