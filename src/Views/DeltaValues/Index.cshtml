@@ -41,6 +41,14 @@
         { "PerformanceFactorTotal", "Arbeitszahl" }
     };
 
+    var tabTitles = new Dictionary<string, string>
+{
+        { "Day", "Tagesübersicht" },
+        { "Week", "Wochenübersicht" },
+        { "Month", "Monatsübersicht" },
+        { "Year", "Jahresübersicht" }
+    };
+
     var timeUnits = new string[] { "Day", "Week", "Month", "Year" };
 
 
@@ -105,10 +113,11 @@
     <button class="tablinks" onclick="openTab(event, 'Years')"> Letzte Jahre </button>
     <button class="tablinks" onclick="openTab(event, 'Total')">Gesamt</button>
 </div> <!-- Tab content -->
-<h3> Tagesübersicht </h3>
+
 @foreach (var timeUnit in timeUnits)
 {
     <div id="@(timeUnit)s" class="tabcontent">
+        <h3> @tabTitles[@timeUnit] </h3>
         <!--Arbeitszahl-->
         <div class="chart-style">
             <div class="chart-container" id="PerformanceFactorPeriod@(timeUnit)Chart">
@@ -141,7 +150,7 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.1.1"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
 <script src="js/site.js" asp-append-version="true"></script>
@@ -245,7 +254,7 @@ function openTabOnLoad(ctx, tabName) {
                                                          } ).Take(1).ToList().ToJson()]
                 ]);
 
-                    const xLabels = new Map([
+                const xLabels = new Map([
                         @foreach (KeyValuePair<string, string> entry in xLabelsPerTimeUnit)
             {
                 <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
@@ -261,7 +270,7 @@ function openTabOnLoad(ctx, tabName) {
             }
                 ]);
 
-                    const deltaColors = new Map([
+                const deltaColors = new Map([
                         @foreach (KeyValuePair<string, string> entry in deltaColorOfTimeUnit)
             {
                 <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
@@ -269,7 +278,7 @@ function openTabOnLoad(ctx, tabName) {
             }
                 ]);
 
-                    const endColors = new Map([
+                const endColors = new Map([
                         @foreach (KeyValuePair<string, string> entry in endColorOfTimeUnit)
             {
                 <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
@@ -363,6 +372,30 @@ function openTabOnLoad(ctx, tabName) {
     function openTab(evt, tabName) {
         openTabOnLoad(evt.currentTarget, tabName);
     }
+    function beforePrintHandler () {
+        var chartsLists = charts2TimeUnitMap.entries();
+        if (typeof chartsLists !== 'undefined') {
+            for (var charts of chartsLists) {
+                if (typeof charts[1] !== 'undefined') {
+                    for (var chart of charts[1]) {
+                        if (typeof chart !== 'undefined') {
+                            chart.resize();
+                            console.log("chart resized: chart id: " + chart.id);
+                        } else {
+                            console.log("chart is " + typeof chart);
+                            console.log("chart is " + chart);
+                        }
+                    }
+                } else {
+                    console.log("charts are " + typeof charts[1]);
+                }
+            }
+    }
+    for (let id in Chart.instances) {
+        charts2TimeUnitMap.instances[id].resize();
+    }
+}
+
     window.addEventListener
         (
             "load",

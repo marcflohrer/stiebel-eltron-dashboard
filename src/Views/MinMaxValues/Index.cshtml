@@ -39,6 +39,14 @@
         { "FanPowerRel", "LÜFTERLEISTUNG REL %" }
     };
 
+    var tabTitles = new Dictionary<string, string>
+{
+        { "Day", "Tagesübersicht" },
+        { "Week", "Wochenübersicht" },
+        { "Month", "Monatsübersicht" },
+        { "Year", "Jahresübersicht" }
+    };
+
     var timeUnits = new string[] { "Day", "Week", "Month", "Year" };
 
 
@@ -97,10 +105,10 @@
     <button class="tablinks" onclick="openTab(event, 'Months')"> Letzte Monate </button>
     <button class="tablinks" onclick="openTab(event, 'Years')"> Letzte Jahre </button>
 </div> <!-- Tab content -->
-<h3> Tagesübersicht </h3>
 @foreach (var timeUnit in timeUnits)
 {
     <div id="@(timeUnit)s" class="tabcontent">
+        <h3> @tabTitles[@timeUnit] </h3>
         @foreach (var minMaxAvgMetric in chartTitles.Keys)
         {
             // The output of the for the input minMaxAvgMetric = ReturnTemperature and timeUnit = Day
@@ -111,9 +119,9 @@
                     <canvas id="@minMaxAvgMetric@timeUnit" class="canvas-style" />
                 </div>
             </div> <!--@chartTitles[@minMaxAvgMetric]-->
-        }
-    </div>
-}
+            }
+        </div>
+    }
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
