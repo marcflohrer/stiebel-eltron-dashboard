@@ -69,17 +69,10 @@
         foreach (var timeUnit in timeUnits)
         {
             startColorOfTimeUnit[timeUnit] = Model.GetTimeUnit(timeUnit).Select(x => x.ReturnTemperatureMax).Select(c => startColor).ToList().ToJson();
-        }
-
-        foreach (var timeUnit in timeUnits)
-        {
             deltaColorOfTimeUnit[timeUnit] = Model.GetTimeUnit(timeUnit).Select(x => x.ReturnTemperatureMax).Select(c => deltaColor).ToList().ToJson();
-        }
-
-        foreach (var timeUnit in timeUnits)
-        {
             endColorOfTimeUnit[timeUnit] = Model.GetTimeUnit(timeUnit).Select(x => x.ReturnTemperatureMax).Select(c => endColor).ToList().ToJson();
         }
+
         colorTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => x.PerformanceFactorPeriod).Select(x => deltaColor).Take(1).ToList().ToJson();
 
         newestRecord = Model.Select(m => m.DateUpdated).Max();
@@ -186,6 +179,9 @@ function openTabOnLoad(ctx, tabName) {
             }
         }
     }
+    // The reason for this weird spaces around the <text> tags and the array
+    // closing command ]; is that the spaces are output as well. This way the
+    // spaces in the generated javascript code is well formatted.
     charts2TimeUnitMap = new Map();
         const metrics = [
             @foreach (string entry in chartTitles.Keys)
@@ -193,7 +189,7 @@ function openTabOnLoad(ctx, tabName) {
                 <text>                "@(entry)",
 </text>
             }
-        ];
+                ];
 
         const timeUnits = [
             @foreach (string entry in timeUnits)
@@ -201,7 +197,7 @@ function openTabOnLoad(ctx, tabName) {
                 <text>                "@(entry)",
 </text>
             }
-        ];
+                ];
 
         const chartTitles = new Map([
             @foreach (KeyValuePair<string, string> entry in chartTitles)
@@ -209,7 +205,7 @@ function openTabOnLoad(ctx, tabName) {
                 <text>                ["@(entry.Key)", "@(Html.Raw(entry.Value))"],
 </text>
             }
-        ]);
+                ]);
 
         metricsValueMap = new Map([
             @for (var ii = 0; ii < chartTitles.Keys.Count; ii += 1) {
@@ -247,7 +243,7 @@ function openTabOnLoad(ctx, tabName) {
                                                          }
                                                          return result;
                                                          } ).Take(1).ToList().ToJson()]
-        ]);
+                ]);
 
                     const xLabels = new Map([
                         @foreach (KeyValuePair<string, string> entry in xLabelsPerTimeUnit)
@@ -255,7 +251,7 @@ function openTabOnLoad(ctx, tabName) {
                 <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
                 </text>
             }
-        ]);
+                ]);
 
                     const startColors = new Map([
                         @foreach (KeyValuePair<string, string> entry in startColorOfTimeUnit)
@@ -263,7 +259,7 @@ function openTabOnLoad(ctx, tabName) {
                 <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
 </text>
             }
-        ]);
+                ]);
 
                     const deltaColors = new Map([
                         @foreach (KeyValuePair<string, string> entry in deltaColorOfTimeUnit)
@@ -271,7 +267,7 @@ function openTabOnLoad(ctx, tabName) {
                 <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
 </text>
             }
-        ]);
+                ]);
 
                     const endColors = new Map([
                         @foreach (KeyValuePair<string, string> entry in endColorOfTimeUnit)
@@ -279,7 +275,7 @@ function openTabOnLoad(ctx, tabName) {
                 <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
 </text>
             }
-        ]);
+                ]);
 
                     for (var j = 0; j < metrics.length; j += 1) {
                         var metric = metrics[j];
