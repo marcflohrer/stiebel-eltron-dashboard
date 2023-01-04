@@ -168,7 +168,7 @@ function openTabOnLoad(ctx, tabName) {
                 for (var chart of charts[1]) {
                     if (typeof chart !== 'undefined') {
                         chart.destroy();
-                        console.log("chart destroyed: chart id: " + chart.Id);
+                        console.log("chart destroyed: chart id: " + chart.id);
                     } else {
                         console.log("chart is " + typeof chart);
                         console.log("chart is " + chart);
@@ -342,14 +342,14 @@ function openTabOnLoad(ctx, tabName) {
                     ctx.className += " active";
                     console.log("tabName selected: " + tabName);
 
-                    var charts = charts2TimeUnitMap.get(tabTimeSelected);
+                    var chartsLists = charts2TimeUnitMap.entries();
                     if (typeof chartsLists !== 'undefined') {
                         for (var charts of chartsLists) {
                             if (typeof charts[1] !== 'undefined') {
                                 for (var chart of charts[1]) {
                                     if (typeof chart !== 'undefined') {
                                         chart.update();
-                                        console.log("chart updated: chart id: " + chart.Id);
+                                        console.log("chart updated: chart id: " + chart.id);
                                     } else {
                                         console.log("chart is " + typeof chart[1]);
                                     }
