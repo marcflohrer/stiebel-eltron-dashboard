@@ -1,0 +1,306 @@
+﻿@using StiebelEltronDashboard.Extensions;
+@model List<HeatPumpDataPerPeriod>
+@{
+    ViewData["Title"] = "Wärmepumpe Seite 1";
+    Layout = "/Views/Shared/_Layout.cshtml";
+
+    var minColor = "rgba(132, 133, 135, 1)";
+    var averageColor = "rgba(140, 173, 88, 1)";
+    var maxColor = "rgba(233, 241, 221, 1)";
+
+    var colors = new Dictionary<string, string> {
+        { "Min", minColor },
+        { "Average", averageColor },
+        { "Max", maxColor }
+    };
+
+    var metricsValueMap = new Dictionary<string, string>();
+
+    var chartTitles = new Dictionary<string, string>
+{
+        { "ReturnTemperature", "RÜCKLAUFTEMPERATUR °C" },
+        { "InletTemperature", "VORLAUFTEMPERATUR °C" },
+        { "AntiFreezeTemperature", "FROSTSCHUTZTEMPERATUR °C" },
+        { "OutdoorTemperature", "AUSSENTEMPERATUR °C" },
+        { "ExhaustAirTemperature", "FORTLUFTTEMPERATUR °C" },
+        { "EvaporatorTemperature", "VERDAMPFERTEMPERATUR °C" },
+        { "CompressorInletTemperature", "VERDICHTEREINTRITTSTEMPERATUR °C" },
+        { "IntermediateInjectionTemperature", "ZWISCHENEINSPRITZUNGSTEMP °C" },
+        { "HotGasTemperature", "HEISSGASTEMPERATUR °C" },
+        { "CondenserTemperature", "VERFLÜSSIGERTEMPERATUR °C" },
+        { "OilSumpTemperature", "ÖLSUMPFTEMPERATUR °C" },
+        { "LowPressure", "DRUCK NIEDERDRUCK bar" },
+        { "PressureMedium", "DRUCK MITTELDRUCK bar" },
+        { "HighPressure", "DRUCK HOCHDRUCK bar" },
+        { "WaterVolumeCurrent", "WP WASSERVOLUMENSTROM l/min" },
+        { "VoltageInverter", "SPANNUNG INVERTER V" },
+        { "ActualSpeedDensifier", "ISTDREHZAHL VERDICHTER Hz" },
+        { "SettingSpeedCompressed", "SOLLDREHZAHL VERDICHTER Hz" },
+        { "FanPowerRel", "LÜFTERLEISTUNG REL %" }
+    };
+
+    var timeUnits = new string[] { "Day", "Week", "Month", "Year" };
+
+
+    var newestRecord = DateTime.MinValue;
+    var xLabelsPerTimeUnit = new Dictionary<string, string>();
+
+    var maxColorOfTimeUnit = new Dictionary<string, string>();
+    var averageColorOfTimeUnit = new Dictionary<string, string>();
+    var minColorOfTimeUnit = new Dictionary<string, string>();
+
+    var chart2TimeUnitMap = new Dictionary<string, List<object>>();
+
+    if (Model == null)
+    {
+        Console.WriteLine("No data showed up in HeatPump1/index.cshtml!");
+    }
+    else
+    {
+        xLabelsPerTimeUnit["Day"] = Model.GetDays().Select(x => new DateTime((int)x.Year, 1, 1).Add(TimeSpan.FromDays(x.PeriodNumber - 1))).ToList().ToJson();
+        xLabelsPerTimeUnit["Week"] = Model.GetWeeks().Select(x => new DateTime((int)x.Year, 1, 1).FirstDateOfWeek((int)x.PeriodNumber, new System.Globalization.CultureInfo("de-DE"))).ToList().ToJson();
+        xLabelsPerTimeUnit["Month"] = Model.GetMonths().Select(x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1)).ToList().ToJson();
+        xLabelsPerTimeUnit["Year"] = Model.GetYears().Select(x => new DateTime((int)x.Year, 1, 1)).ToList().ToJson();
+
+        foreach (var timeUnit in timeUnits)
+        {
+            maxColorOfTimeUnit[timeUnit] = Model.GetTimeUnit(timeUnit).Select(x => x.ReturnTemperatureMax).Select(c => maxColor).ToList().ToJson();
+        }
+
+        foreach (var timeUnit in timeUnits)
+        {
+            averageColorOfTimeUnit[timeUnit] = Model.GetTimeUnit(timeUnit).Select(x => x.ReturnTemperatureMax).Select(c => averageColor).ToList().ToJson();
+        }
+
+        foreach (var timeUnit in timeUnits)
+        {
+            minColorOfTimeUnit[timeUnit] = Model.GetTimeUnit(timeUnit).Select(x => x.ReturnTemperatureMax).Select(c => minColor).ToList().ToJson();
+        }
+
+        newestRecord = Model.Select(m => m.DateUpdated).Max();
+
+        foreach (var metric in chartTitles.Keys)
+        {
+            foreach (var timeUnit in timeUnits)
+            {
+                foreach (var mam in colors.Keys)
+                {
+                    metricsValueMap[$"{metric}{mam}{timeUnit}"] = Model.GetTimeUnit(timeUnit).Select(x => HeatPumpDataPerPeriod.GetPropertyValue(x, $"{metric}{mam}")).ToList().ToJson();
+                }
+            }
+        }
+    }
+} <!-- Tab links -->
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'Days')"> Letzte Tage </button>
+    <button class="tablinks" onclick="openTab(event, 'Weeks')"> Letzte Wochen </button>
+    <button class="tablinks" onclick="openTab(event, 'Months')"> Letzte Monate </button>
+    <button class="tablinks" onclick="openTab(event, 'Years')"> Letzte Jahre </button>
+</div> <!-- Tab content -->
+<h3> Tagesübersicht </h3>
+@foreach (var timeUnit in timeUnits)
+{
+    <div id="@(timeUnit)s" class="tabcontent">
+        @foreach (var minMaxAvgMetric in chartTitles.Keys)
+        {
+            // The output of the for the input minMaxAvgMetric = ReturnTemperature and timeUnit = Day
+            // is this
+            // <div class="chart-style"> <div class="chart-container" id="ReturnTemperatureDayChart"><canvas id="ReturnTemperatureDay" class="canvas-style"> </canvas> </div> </div> <!--VORLAUFTEMPERATUR-->
+            <div class="chart-style">
+                <div class="chart-container" id="@minMaxAvgMetric@(timeUnit)Chart">
+                    <canvas id="@minMaxAvgMetric@timeUnit" class="canvas-style" />
+                </div>
+            </div> <!--@chartTitles[@minMaxAvgMetric]-->
+        }
+    </div>
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
+<script src="js/site.js" asp-append-version="true"></script>
+
+<script>
+
+var charts2TimeUnitMap = new Map();
+function openTabOnLoad(ctx, tabName) {
+        //Declare all variables
+        var i;
+        var j;
+        var k;
+        var tabcontent;
+        var tablinks;
+        var metric;
+        var timeUnit;
+        var maxValues;
+        var averageValues;
+        var minValues;
+        var xLabelsTimeUnit;
+        var maxColorTimeUnit;
+        var averageColorTimeUnit;
+        var minColorTimeUnit;
+        var chart;
+
+        // Get all elements with class = "tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i += 1) {
+            tabcontent[i].style.display = "none";
+    }
+    var tabTimeSelected = tabName.substring(0, tabName.length - 1);
+    console.log("tab time aggregation selected: " + tabTimeSelected);
+    var chartList = charts2TimeUnitMap.get(tabTimeSelected);
+    if (typeof chartList !== 'undefined') {
+        console.log("number of charts in selected aggregation: " + chartList.length);
+    }
+    var chartsLists = charts2TimeUnitMap.entries();
+    if (typeof chartsLists !== 'undefined') {
+        for (var charts of chartsLists) {
+            if (typeof charts[1] !== 'undefined') {
+                for (var chart of charts[1]) {
+                    if (typeof chart !== 'undefined') {
+                        chart.destroy();
+                        console.log("chart destroyed: chart id: " + chart.Id);
+                    } else {
+                        console.log("chart is " + typeof chart[1]);
+                    }
+                }
+            } else {
+                console.log("charts are " + typeof charts[1]);
+            }
+        }
+    }
+    charts2TimeUnitMap = new Map();
+        const metrics = [
+            @foreach (string entry in chartTitles.Keys)
+            {
+                <text>"@(entry)",
+                </text>
+            }
+        ];
+
+        const timeUnits = [
+            @foreach (string entry in timeUnits)
+            {
+                <text>"@(entry)",
+                </text>
+            }
+        ];
+
+        const chartTitles = new Map([
+            @foreach (KeyValuePair<string, string> entry in chartTitles)
+            {
+                <text>["@(entry.Key)", "@(Html.Raw(entry.Value))"],
+                </text>
+            }
+        ]);
+
+        const metricsValueMap = new Map([
+            @for (var ii = 0; ii < chartTitles.Keys.Count; ii += 1) {
+                var metric = chartTitles.Keys.ToArray()[ii];
+                @for (var ij = 0; ij < timeUnits.Length; ij += 1) {
+                    var timeUnit = timeUnits[ij];
+                    @for (var ik = 0; ik < colors.Keys.Count; ik += 1) {
+                        var mam = colors.Keys.ToArray()[ik];
+                        <text>["@(Html.Raw(metric + mam + timeUnit))", @Model.GetTimeUnit(timeUnit).Select(x => HeatPumpDataPerPeriod.GetPropertyValue(x, metric+mam)).ToList().ToJson()],
+                        </text>
+                    }
+                }
+            }
+        ]);
+
+        const xLabels = new Map([
+            @foreach (KeyValuePair<string, string> entry in xLabelsPerTimeUnit)
+            {
+                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
+                </text>
+            }
+        ]);
+
+        const maxColors = new Map([
+            @foreach (KeyValuePair<string, string> entry in maxColorOfTimeUnit)
+            {
+                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
+                </text>
+            }
+        ]);
+
+        const averageColors = new Map([
+            @foreach (KeyValuePair<string, string> entry in averageColorOfTimeUnit)
+            {
+                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
+                </text>
+            }
+        ]);
+
+        const minColors = new Map([
+            @foreach (KeyValuePair<string, string> entry in minColorOfTimeUnit)
+            {
+                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
+                </text>
+            }
+        ]);
+
+        for (var j = 0; j < metrics.length; j += 1) {
+            var metric = metrics[j];
+            for (var k = 0; k < timeUnits.length; k += 1) {
+                timeUnit = timeUnits[k];
+                maxValues = metricsValueMap.get(metric + "Max" + timeUnit);
+                averageValues = metricsValueMap.get(metric + "Average" + timeUnit);
+                minValues = metricsValueMap.get(metric + "Min" + timeUnit);
+                xLabel = xLabels.get(timeUnit);
+                maxColor = maxColors.get(timeUnit);
+                averageColor = averageColors.get(timeUnit);
+                minColor = minColors.get(timeUnit);
+                chart = drawMaxAvgMinChart(timeUnit.toLowerCase(), metric + timeUnit,
+                            chartTitles.get(metric),
+                            xLabel,
+                            maxValues, maxColor,
+                            averageValues, averageColor,
+                            minValues, minColor
+                );
+                var chartList = new Array();
+                if (charts2TimeUnitMap.has(timeUnit)) {
+                    chartList = charts2TimeUnitMap.get(timeUnit);
+                }
+                chartList.push(chart);
+                charts2TimeUnitMap.set(timeUnit, chartList);
+            }
+        }
+        // Get all elements with class = "tablinks"
+        // and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i += 1) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        // Show the current tab,and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "block";
+        ctx.className += " active";
+        console.log("tabName selected: " + tabName);
+
+        var charts = charts2TimeUnitMap.get(tabTimeSelected);
+        if (typeof chartsLists !== 'undefined') {
+            for (var charts of chartsLists) {
+                if (typeof charts[1] !== 'undefined') {
+                    for (var chart of charts[1]) {
+                        if (typeof chart !== 'undefined') {
+                            chart.update();
+                            console.log("chart updated: chart id: " + chart.Id);
+                        } else {
+                            console.log("chart is " + typeof chart[1]);
+                        }
+                    }
+                } else {
+                    console.log("charts are " + typeof charts[1]);
+                }
+            }
+        }
+    }
+    function openTab(evt, tabName) {
+        openTabOnLoad(evt.currentTarget, tabName);
+    }
+    window.addEventListener
+        (
+            "load",
+            function () {
+                openTabOnLoad(document.getElementById('Days'), 'Days');
+            }
+        );</script>

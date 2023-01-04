@@ -36,4 +36,11 @@
 		<Content Remove="stiebel-eltron-dashboard-tests\obj\project.assets.json" />
 		<Content Remove="stiebel-eltron-dashboard-tests\obj\stiebel-eltron-dashboard-tests.csproj.nuget.dgspec.json" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
+	  <None Remove="Views\DeltaValues\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Views\DeltaValues\" />
+	</ItemGroup>
 </Project>
