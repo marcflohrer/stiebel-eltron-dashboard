@@ -9,6 +9,7 @@ services:
                 ServiceWeltUrl: "${ServiceWeltUrl}"
             context: .
         container_name: "dashboard"
+        restart: always
         ports:
             - "80:6003"
             - "443:6004"

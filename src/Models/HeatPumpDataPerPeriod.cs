@@ -1,13 +1,14 @@
 ﻿using System;
 using StiebelEltronDashboard.Models.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
+using Serilog;
 #nullable disable
 
 namespace StiebelEltronDashboard.Models
 {
     public partial class HeatPumpDataPerPeriod : ValueObject
     {
-        [IgnoreMember]     
+        [IgnoreMember]
         public int Id { get; set; }
         public double ReturnTemperatureMin { get; set; }
         public double ReturnTemperatureMax { get; set; }
@@ -27,9 +28,6 @@ namespace StiebelEltronDashboard.Models
         public double EvaporatorTemperatureMin { get; set; }
         public double EvaporatorTemperatureMax { get; set; }
         public double EvaporatorTemperatureAverage { get; set; }
-        public double TotalPowerConsumptionStart { get; set; }
-        public double TotalPowerConsumptionEnd { get; set; }
-        public double TotalPowerConsumptionDelta { get; set; }
         public double CompressorInletTemperatureMin { get; set; }
         public double CompressorInletTemperatureMax { get; set; }
         public double CompressorInletTemperatureAverage { get; set; }
@@ -69,7 +67,10 @@ namespace StiebelEltronDashboard.Models
         public double FanPowerRelMin { get; set; }
         public double FanPowerRelMax { get; set; }
         public double FanPowerRelAverage { get; set; }
-        
+
+        public double TotalPowerConsumptionStart { get; set; }
+        public double TotalPowerConsumptionEnd { get; set; }
+        public double TotalPowerConsumptionDelta { get; set; }
         [Column("VaporizerHeatQuantityHeatingDayStart")]
         public double VaporizerHeatQuantityHeatingDayStart { get; set; }
         [Column("VaporizerHeatQuantityHeatingDayEnd")]
@@ -98,7 +99,7 @@ namespace StiebelEltronDashboard.Models
         public double PowerConsumptionHeatingDayStart { get; set; }
         [Column("PowerConsumptionHeatingDayEnd")]
         public double PowerConsumptionHeatingDayEnd { get; set; }
-         [Column("PowerConsumptionHeatingDayDelta")]
+        [Column("PowerConsumptionHeatingDayDelta")]
         public double PowerConsumptionHeatingDayDelta { get; set; }
         public double PowerConsumptionHeatingSumStart { get; set; }
         public double PowerConsumptionHeatingSumEnd { get; set; }
@@ -136,11 +137,31 @@ namespace StiebelEltronDashboard.Models
         public double Year { get; set; }
         public string PeriodKind { get; set; }
         public int PeriodNumber { get; set; }
-        [IgnoreMember]  
+        [IgnoreMember]
         public DateTime DateUpdated { get; set; }
-        [IgnoreMember]  
+        [IgnoreMember]
         public DateTime DateCreated { get; set; }
         public DateTime First { get; set; }
         public DateTime Last { get; set; }
+
+        public double? PerformanceFactorPeriod
+        {
+            get
+            {
+                var heatQuantityProducedInPeriod = this.VaporizerHeatQuantityHeatingTotalEnd - this.VaporizerHeatQuantityHeatingTotalStart;
+                var hotWaterProducedInPeriod = this.VaporizerHeatQuantityHotWaterTotalEnd - this.VaporizerHeatQuantityHotWaterTotalStart;
+                var powerConsumedForHeat = this.PowerConsumptionHeatingSumEnd - this.PowerConsumptionHeatingSumStart;
+                var powerConsumedForHotWater = this.PowerConsumptionHotWaterSumEnd - this.PowerConsumptionHotWaterSumStart;
+                var result = (heatQuantityProducedInPeriod + hotWaterProducedInPeriod) / (powerConsumedForHeat + powerConsumedForHotWater);
+                Log.Debug($"Performance Factor Period: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
+                return result;
+            }
+        }
+
+        public double? PerformanceFactorTotal
+        {
+            get => (this.VaporizerHeatQuantityHeatingTotalEnd + this.VaporizerHeatQuantityHotWaterTotalEnd)
+                    / (this.PowerConsumptionHeatingSumEnd + this.PowerConsumptionHotWaterSumEnd);
+        }
     }
 }

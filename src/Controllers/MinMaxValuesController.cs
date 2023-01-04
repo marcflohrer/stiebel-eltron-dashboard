@@ -9,22 +9,22 @@ using System.Linq;
 namespace StiebelEltronDashboard.Controllers
 {
     [Authorize]
-    public class HeatPumpController : Controller
+    public class MinMaxValuesController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public HeatPumpController(
+        public MinMaxValuesController(
             IUnitOfWork unitOfWork
             )
         {
             _unitOfWork = unitOfWork;
         }
         //
-        // GET: /HeatPump/Index
+        // GET: /MinMaxValues/Index
         [HttpGet]
         public IActionResult Index()
         {
-            Log.Information("Entering HeatPump/Index");
+            Log.Information("Entering MinMaxValues/Index");
             var recentSevenDays = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentSevenDays(DateTime.Now).AsEnumerable();
             if (!recentSevenDays.Any())
             {
