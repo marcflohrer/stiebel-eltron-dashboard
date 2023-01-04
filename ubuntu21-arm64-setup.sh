@@ -55,7 +55,6 @@ docker run hello-world
 sudo apt-get install libffi-dev libssl-dev -y
 sudo apt install python3-dev -y
 sudo apt-get install -y python3 python3-pip -y
-sudo pip3 install docker-compose
 
 HASH=caa0e6fb-770c-4b21-ba55-30154a7a9e11/3231af451861147352aaf43cf23b16ea
 FILE=dotnet-sdk-7.0.101-linux-arm64.tar.gz

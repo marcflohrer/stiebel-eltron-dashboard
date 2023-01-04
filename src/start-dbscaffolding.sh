@@ -8,5 +8,5 @@ dotnet user-secrets set ConnectionStrings:DefaultConnection "${DatabaseConnectio
 dotnet user-secrets set ServiceWeltUser "${ServiceWeltUser}" --project .
 dotnet user-secrets set ServiceWeltPassword "${ServiceWeltPassword}" --project .
 dotnet user-secrets set ServiceWeltUrl "${ServiceWeltUrl}" --project .
-docker-compose -f docker-compose-dbscaffold.yml up --build --remove-orphans 
+docker compose -f docker-compose-dbscaffold.yml up --build --remove-orphans 
 dotnet user-secrets clear

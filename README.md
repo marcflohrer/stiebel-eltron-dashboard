@@ -60,7 +60,6 @@ On top it adds the missing performance factor chart (Arbeitszahl).
 
 This section lists major frameworks and projects that were used:
 
-* [docker-compose](https://docs.docker.com/compose/)
 * [docker](https://docs.docker.com/)
 * [Asp.net](https://dotnet.microsoft.com/apps/aspnet)
 * [SQL Server on Linux](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-overview?view=sql-server-ver15)
@@ -99,11 +98,10 @@ Here is a screen shot of the dashboard:
 
 ### Prerequisites
 
-You need docker and docker-compose on the machine where you want to run the application:
+You need docker on the machine where you want to run the application:
 
 * git
 * docker
-* docker-compose
 * [dotnet 7.0](https://dotnet.microsoft.com/download/dotnet/7.0)
 * either [armv7](https://en.wikipedia.org/wiki/ARM_architecture)+ && [ubuntu 22.04](https://ubuntu.com/download/desktop?version=22.04&architecture=amd64)
 * or x64 && (linux, mac)
