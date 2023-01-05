@@ -28,9 +28,10 @@ namespace StiebelEltronDashboard.Repositories
         public void Update(HeatPumpDataPerPeriod heatPumpDataPerPeriod)
             => _applicationDbContext.HeatPumpDataPerPeriods.Update(heatPumpDataPerPeriod);
 
-        public List<HeatPumpDataPerPeriod> GetRecentSevenDays(DateTime now)
+        public List<HeatPumpDataPerPeriod> GetRecentDays(DateTime now)
         {
-            var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(7));
+            var numberOfDaysRequesting = 24;
+            var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(numberOfDaysRequesting));
             var firstDay = startOfRequestedPeriod.DayOfYear;
             var yearOfFirstDay = startOfRequestedPeriod.Year;
             var resultInYearOfFirstDay = _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp
@@ -40,7 +41,7 @@ namespace StiebelEltronDashboard.Repositories
                     && hpdpp.First != DateTime.MaxValue);
             var resultList = resultInYearOfFirstDay.OrderBy(x => x.Last)
                        .MyDistinctBy(x => x.PeriodNumber)
-                       .Take(7).ToList();
+                       .Take(numberOfDaysRequesting).ToList();
 
             var endOfRequestedPeriod = now;
             var lastDay = endOfRequestedPeriod.DayOfYear;
@@ -85,9 +86,10 @@ namespace StiebelEltronDashboard.Repositories
             return result;
         }
 
-        public List<HeatPumpDataPerPeriod> GetRecentTwelveWeeks(DateTime now, CultureInfo cultureInfo)
+        public List<HeatPumpDataPerPeriod> GetRecentWeeks(DateTime now, CultureInfo cultureInfo)
         {
-            var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(12 * 7));
+            var numberOfWeekRequesting = 24;
+            var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(numberOfWeekRequesting * 7));
             var firstWeekNumberOfRequestedPeriod = startOfRequestedPeriod.WeekOfYear(cultureInfo);
             var yearOfFirstWeek = startOfRequestedPeriod.Year;
             var listForYearOfFirstWeekNumber = _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp
@@ -99,7 +101,7 @@ namespace StiebelEltronDashboard.Repositories
             result = GetDistinctPeriodNumber(listForYearOfFirstWeekNumber, result, previous);
             var resultList = result.OrderBy(x => x.Last)
                          .MyDistinctBy(x => x.PeriodNumber)
-                         .Take(12).ToList();
+                         .Take(numberOfWeekRequesting).ToList();
 
             var endOfRequestedPeriod = now;
             var lastWeekNumberOfRequestedPeriod = endOfRequestedPeriod.WeekOfYear(cultureInfo);
@@ -121,9 +123,10 @@ namespace StiebelEltronDashboard.Repositories
             return resultList;
         }
 
-        public List<HeatPumpDataPerPeriod> GetRecentTwelveMonths(DateTime now)
+        public List<HeatPumpDataPerPeriod> GetRecentMonths(DateTime now)
         {
-            var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(365));
+            var numberOfMonthsRequesting = 24;
+            var startOfRequestedPeriod = now.Subtract(TimeSpan.FromDays(numberOfMonthsRequesting * 31));
             var yearOfFirstMonth = startOfRequestedPeriod.Year;
             var firstMonthOfRequestedPeriod = startOfRequestedPeriod.Month;
             var list = _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp
@@ -133,7 +136,7 @@ namespace StiebelEltronDashboard.Repositories
             result = GetDistinctPeriodNumber(list, result, previous);
             var resultList = result.OrderBy(x => x.Last)
                          .MyDistinctBy(x => x.PeriodNumber)
-                         .Take(12)
+                         .Take(numberOfMonthsRequesting)
                          .ToList();
 
             var endOfRequestedPeriod = now;
@@ -159,6 +162,7 @@ namespace StiebelEltronDashboard.Repositories
 
         public List<HeatPumpDataPerPeriod> GetYearlyRecords(DateTime now)
         {
+            var numberOfYearsRequesting = 24;
             var list = _applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp
                 => hpdpp.PeriodKind == "Year");
             var result = new List<HeatPumpDataPerPeriod>();
@@ -166,7 +170,7 @@ namespace StiebelEltronDashboard.Repositories
             result = GetDistinctPeriodNumber(list, result, previous);
             return result.OrderBy(x => x.Last)
                          .MyDistinctBy(x => x.PeriodNumber)
-                         .Take(12).ToList();
+                         .Take(numberOfYearsRequesting).ToList();
         }
 
         public List<HeatPumpDataPerPeriod> GetAllRecordsFromRecent366Days(DateTime now)

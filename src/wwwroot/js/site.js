@@ -88,6 +88,7 @@ function drawChartBase(unit, chartName, chartTitle, rawDates, datasets, type) {
             };
         }
         var options = {
+            responsive: true,
             maintainAspectRatio: false,
             plugins: {
                 title: {

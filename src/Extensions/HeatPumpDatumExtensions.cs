@@ -26,7 +26,7 @@ namespace StiebelEltronDashboard.Extensions
                     min = metric;
                 }
             }
-            return min;
+            return Math.Round(min, 1);
         }
 
         public static double? GetMaxForMetric(this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector)
@@ -47,7 +47,7 @@ namespace StiebelEltronDashboard.Extensions
                     max = metric;
                 }
             }
-            return max;
+            return Math.Round(max, 1);
         }
 
         public static double? GetAverageForMetric(this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector)
@@ -71,7 +71,7 @@ namespace StiebelEltronDashboard.Extensions
                 Log.Error("null <-- !Any() <-- GetAverageForMetric!");
             }
             var result = sum / heatPumpData.Count();
-            return result;
+            return Math.Round(result, 1);
         }
 
         public static double? GetStartForMetric(this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector)
@@ -89,7 +89,7 @@ namespace StiebelEltronDashboard.Extensions
                 Log.Error("null <-- startMetric <-- GetStartForMetric!");
             }
             var result = startMetric?.FirstOrDefault() ?? 0.0;
-            return result;
+            return Math.Round(result, 1);
         }
 
         public static double? GetEndForMetric(this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector)
@@ -107,7 +107,7 @@ namespace StiebelEltronDashboard.Extensions
                 Log.Error("null <-- endMetric <-- GetEndForMetric!");
             }
             var result = endMetric?.FirstOrDefault() ?? 0.0;
-            return result;
+            return Math.Round(result, 1);
         }
 
         public static double? GetDeltaForMetric(this IEnumerable<HeatPumpDatum> heatPumpData, Func<HeatPumpDatum, double> selector)
@@ -120,7 +120,7 @@ namespace StiebelEltronDashboard.Extensions
             var min = GetMinForMetric(heatPumpData, selector);
             var max = GetMaxForMetric(heatPumpData, selector);
             var delta = max - min;
-            return delta;
+            return Math.Round(delta ?? 0, 1);
         }
 
         public static DateTime GetFirst(this IEnumerable<HeatPumpDatum> heatPumpData)

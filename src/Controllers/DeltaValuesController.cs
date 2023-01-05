@@ -25,71 +25,71 @@ namespace StiebelEltronDashboard.Controllers
         public IActionResult Index()
         {
             Log.Information("Entering DeltaValues/Index");
-            var recentSevenDays = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentSevenDays(DateTime.Now).AsEnumerable();
-            if (!recentSevenDays.Any())
+            var recentDays = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentDays(DateTime.Now).AsEnumerable();
+            if (!recentDays.Any())
             {
-                Log.Debug($"Index: Recent 7 Days. No results. {recentSevenDays.Count()}");
+                Log.Debug($"Index: Recent 14 Days. No results. {recentDays.Count()}");
             }
             else
             {
-                Log.Debug($"Index: Recent 7 Days. Results: {recentSevenDays.Count()}");
-                foreach (var rsd in recentSevenDays)
+                Log.Debug($"Index: Recent 14 Days. Results: {recentDays.Count()}");
+                foreach (var rsd in recentDays)
                 {
-                    Log.Debug($"Index: Recent {recentSevenDays.Count()}  {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} {rsd.PeriodKind}");
-                    Log.Debug($"Index: Recent {recentSevenDays.Count()}  {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (start) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayStart} ");
-                    Log.Debug($"Index: Recent {recentSevenDays.Count()}  {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (delta) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayDelta} ");
+                    Log.Debug($"Index: Recent {recentDays.Count()}  {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} {rsd.PeriodKind}");
+                    Log.Debug($"Index: Recent {recentDays.Count()}  {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (start) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayStart} ");
+                    Log.Debug($"Index: Recent {recentDays.Count()}  {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (delta) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayDelta} ");
                     Log.Debug("------------------------------");
                 }
             }
-            var result = recentSevenDays.ToList();
+            var result = recentDays.ToList();
 
-            var recent12Weeks = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentTwelveWeeks(DateTime.Now, new CultureInfo("de-DE")).AsEnumerable();
-            if (!recent12Weeks.Any())
+            var recentWeeks = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentWeeks(DateTime.Now, new CultureInfo("de-DE")).AsEnumerable();
+            if (!recentWeeks.Any())
             {
-                Log.Debug($"Index: Recent 12 Weeks. No results. {recentSevenDays.Count()}");
-
-            }
-            else
-            {
-                Log.Debug($"Index: Recent 12 Weeks. Results: {recentSevenDays.Count()}");
-                foreach (var rsd in recent12Weeks)
-                {
-                    Log.Debug($"Index: Recent {recent12Weeks.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} ");
-                    Log.Debug($"Index: Recent {recent12Weeks.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (start) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayStart} ");
-                    Log.Debug($"Index: Recent {recent12Weeks.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (delta) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayDelta} ");
-                    Log.Debug("------------------------------");
-                }
-            }
-            result.AddRange(recent12Weeks);
-
-            var recent12Months = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentTwelveMonths(DateTime.Now).AsEnumerable();
-            if (!recent12Months.Any())
-            {
-                Log.Debug($"Index: Recent 12 Months. No results. {recentSevenDays.Count()}");
+                Log.Debug($"Index: Recent 12 Weeks. No results. {recentDays.Count()}");
 
             }
             else
             {
-                Log.Debug($"Index: Recent 12 Months. Results: {recentSevenDays.Count()}");
-                foreach (var rsd in recent12Months)
+                Log.Debug($"Index: Recent 12 Weeks. Results: {recentDays.Count()}");
+                foreach (var rsd in recentWeeks)
                 {
-                    Log.Debug($"Index: Recent {recent12Months.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} ");
-                    Log.Debug($"Index: Recent {recent12Months.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (start) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayStart} ");
-                    Log.Debug($"Index: Recent {recent12Months.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (delta) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayDelta} ");
+                    Log.Debug($"Index: Recent {recentWeeks.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} ");
+                    Log.Debug($"Index: Recent {recentWeeks.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (start) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayStart} ");
+                    Log.Debug($"Index: Recent {recentWeeks.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (delta) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayDelta} ");
                     Log.Debug("------------------------------");
                 }
             }
-            result.AddRange(recent12Months);
+            result.AddRange(recentWeeks);
+
+            var recentMonths = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetRecentMonths(DateTime.Now).AsEnumerable();
+            if (!recentMonths.Any())
+            {
+                Log.Debug($"Index: Recent 12 Months. No results. {recentDays.Count()}");
+
+            }
+            else
+            {
+                Log.Debug($"Index: Recent 12 Months. Results: {recentDays.Count()}");
+                foreach (var rsd in recentMonths)
+                {
+                    Log.Debug($"Index: Recent {recentMonths.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} ");
+                    Log.Debug($"Index: Recent {recentMonths.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (start) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayStart} ");
+                    Log.Debug($"Index: Recent {recentMonths.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (delta) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayDelta} ");
+                    Log.Debug("------------------------------");
+                }
+            }
+            result.AddRange(recentMonths);
 
             var recentYears = _unitOfWork.HeatPumpStatisticsPerPeriodRepository.GetYearlyRecords(DateTime.Now).AsEnumerable();
             if (!recentYears.Any())
             {
-                Log.Debug($"Index: Recent Years. No results. {recentSevenDays.Count()}");
+                Log.Debug($"Index: Recent Years. No results. {recentDays.Count()}");
 
             }
             else
             {
-                Log.Debug($"Index: Recent Years. Results: {recentSevenDays.Count()}");
+                Log.Debug($"Index: Recent Years. Results: {recentDays.Count()}");
                 foreach (var rsd in recentYears)
                 {
                     Log.Debug($"Index: Recent {recentYears.Count()} {rsd.PeriodKind}s. PowerConsumptionHotWaterDay Results: (end) {rsd.First}; {rsd.Last}; {rsd.PowerConsumptionHotWaterDayEnd} ");
