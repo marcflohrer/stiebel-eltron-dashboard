@@ -148,11 +148,23 @@ namespace StiebelEltronDashboard.Models
         {
             get
             {
-                var heatQuantityProducedInPeriod = this.VaporizerHeatQuantityHeatingTotalEnd - this.VaporizerHeatQuantityHeatingTotalStart;
-                var hotWaterProducedInPeriod = this.VaporizerHeatQuantityHotWaterTotalEnd - this.VaporizerHeatQuantityHotWaterTotalStart;
-                var powerConsumedForHeat = this.PowerConsumptionHeatingSumEnd - this.PowerConsumptionHeatingSumStart;
-                var powerConsumedForHotWater = this.PowerConsumptionHotWaterSumEnd - this.PowerConsumptionHotWaterSumStart;
-                var result = (heatQuantityProducedInPeriod + hotWaterProducedInPeriod) / (powerConsumedForHeat + powerConsumedForHotWater);
+                var heatQuantityProducedInPeriodEndMinusStart = this.VaporizerHeatQuantityHeatingTotalEnd - this.VaporizerHeatQuantityHeatingTotalStart;
+                var hotWaterProducedInPeriodEndMinusStart = this.VaporizerHeatQuantityHotWaterTotalEnd - this.VaporizerHeatQuantityHotWaterTotalStart;
+                var powerConsumedForHeatEndMinusStart = this.PowerConsumptionHeatingSumEnd - this.PowerConsumptionHeatingSumStart;
+                var powerConsumedForHotWaterEndMinusStart = this.PowerConsumptionHotWaterSumEnd - this.PowerConsumptionHotWaterSumStart;
+
+                var heatQuantityProducedInPeriodDelta = this.VaporizerHeatQuantityHeatingTotalDelta;
+                var hotWaterProducedInPeriodDelta = this.VaporizerHeatQuantityHotWaterTotalDelta;
+                var powerConsumedForHeatDelta = this.PowerConsumptionHeatingSumDelta;
+                var powerConsumedForHotWaterDelta = this.PowerConsumptionHotWaterSumDelta;
+
+                var heatQuantityProducedInPeriod = heatQuantityProducedInPeriodEndMinusStart > heatQuantityProducedInPeriodDelta ? heatQuantityProducedInPeriodEndMinusStart : heatQuantityProducedInPeriodDelta;
+                var hotWaterProducedInPeriod = hotWaterProducedInPeriodEndMinusStart > hotWaterProducedInPeriodDelta ? hotWaterProducedInPeriodEndMinusStart : hotWaterProducedInPeriodDelta;
+                var powerConsumedForHeat = powerConsumedForHeatEndMinusStart > powerConsumedForHeatDelta ? powerConsumedForHeatEndMinusStart : powerConsumedForHeatDelta;
+                var powerConsumedForHotWater = powerConsumedForHotWaterEndMinusStart > powerConsumedForHotWaterDelta ? powerConsumedForHotWaterEndMinusStart : powerConsumedForHotWaterDelta;
+
+                var result = CalculatePerformanceFactor(heatQuantityProducedInPeriod, hotWaterProducedInPeriod, powerConsumedForHeat, powerConsumedForHotWater);
+                result = SetNanOrInfiniteToZero(heatQuantityProducedInPeriod, hotWaterProducedInPeriod, powerConsumedForHeat, powerConsumedForHotWater, result);
                 Log.Debug($"Performance Factor Period: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
                 return result;
             }
@@ -160,8 +172,35 @@ namespace StiebelEltronDashboard.Models
 
         public double? PerformanceFactorTotal
         {
-            get => (this.VaporizerHeatQuantityHeatingTotalEnd + this.VaporizerHeatQuantityHotWaterTotalEnd)
-                    / (this.PowerConsumptionHeatingSumEnd + this.PowerConsumptionHotWaterSumEnd);
+            get
+            {
+                var heatQuantityProducedInPeriod = this.VaporizerHeatQuantityHeatingTotalEnd;
+                var hotWaterProducedInPeriod = this.VaporizerHeatQuantityHotWaterTotalEnd;
+                var powerConsumedForHeat = this.PowerConsumptionHeatingSumEnd;
+                var powerConsumedForHotWater = this.PowerConsumptionHotWaterSumEnd;
+                var result = CalculatePerformanceFactor(heatQuantityProducedInPeriod, hotWaterProducedInPeriod, powerConsumedForHeat, powerConsumedForHotWater);
+                result = SetNanOrInfiniteToZero(heatQuantityProducedInPeriod, hotWaterProducedInPeriod, powerConsumedForHeat, powerConsumedForHotWater, result);
+                Log.Debug($"Performance Factor Total: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
+                return result;
+            }
+        }
+
+        private static double CalculatePerformanceFactor(double heatQuantityProducedInPeriod, double hotWaterProducedInPeriod, double powerConsumedForHeat, double powerConsumedForHotWater) => (heatQuantityProducedInPeriod + hotWaterProducedInPeriod) / (powerConsumedForHeat + powerConsumedForHotWater);
+
+        private static double SetNanOrInfiniteToZero(double heatQuantityProducedInPeriod, double hotWaterProducedInPeriod, double powerConsumedForHeat, double powerConsumedForHotWater, double result)
+        {
+            if (Double.IsInfinity(result))
+            {
+                Log.Warning($"Performance Factor Period is infinite: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
+                result = 0;
+            }
+            if (Double.IsNaN(result))
+            {
+                Log.Warning($"Performance Factor Period is NaN: ({heatQuantityProducedInPeriod}+{hotWaterProducedInPeriod})/({powerConsumedForHeat}+{powerConsumedForHotWater})={result}");
+                result = 0;
+            }
+
+            return result;
         }
     }
 }
