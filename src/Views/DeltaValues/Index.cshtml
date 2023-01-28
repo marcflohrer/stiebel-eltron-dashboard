@@ -68,10 +68,10 @@
     }
     else
     {
-        xLabelsPerTimeUnit["Day"] = Model.GetDays().Select(x => new DateTime((int)x.Year, 1, 1).Add(TimeSpan.FromDays(x.PeriodNumber - 1))).ToList().ToJson();
-        xLabelsPerTimeUnit["Week"] = Model.GetWeeks().Select(x => new DateTime((int)x.Year, 1, 1).FirstDateOfWeek((int)x.PeriodNumber, new System.Globalization.CultureInfo("de-DE"))).ToList().ToJson();
-        xLabelsPerTimeUnit["Month"] = Model.GetMonths().Select(x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1)).ToList().ToJson();
-        xLabelsPerTimeUnit["Year"] = Model.GetYears().Select(x => new DateTime((int)x.Year, 1, 1)).ToList().ToJson();
+        xLabelsPerTimeUnit["Day"] = Model.GetTimeUnit("Day").Select(x => new DateTime((int)x.Year, 1, 1).Add(TimeSpan.FromDays(x.PeriodNumber - 1))).ToList().ToJson();
+        xLabelsPerTimeUnit["Week"] = Model.GetTimeUnit("Week").Select(x => new DateTime((int)x.Year, 1, 1).FirstDateOfWeek((int)x.PeriodNumber, new System.Globalization.CultureInfo("de-DE"))).ToList().ToJson();
+        xLabelsPerTimeUnit["Month"] = Model.GetTimeUnit("Month").Select(x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1)).ToList().ToJson();
+        xLabelsPerTimeUnit["Year"] = Model.GetTimeUnit("Year").Select(x => new DateTime((int)x.Year, 1, 1)).ToList().ToJson();
         xLabelsTotal = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(h => "Total").Take(1).ToList().ToJson();
 
         foreach (var timeUnit in timeUnits)

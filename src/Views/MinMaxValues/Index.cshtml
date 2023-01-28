@@ -49,7 +49,6 @@
 
     var timeUnits = new string[] { "Day", "Week", "Month", "Year" };
 
-
     var newestRecord = DateTime.MinValue;
     var xLabelsPerTimeUnit = new Dictionary<string, string>();
 
@@ -65,10 +64,10 @@
     }
     else
     {
-        xLabelsPerTimeUnit["Day"] = Model.GetDays().Select(x => new DateTime((int)x.Year, 1, 1).Add(TimeSpan.FromDays(x.PeriodNumber - 1))).ToList().ToJson();
-        xLabelsPerTimeUnit["Week"] = Model.GetWeeks().Select(x => new DateTime((int)x.Year, 1, 1).FirstDateOfWeek((int)x.PeriodNumber, new System.Globalization.CultureInfo("de-DE"))).ToList().ToJson();
-        xLabelsPerTimeUnit["Month"] = Model.GetMonths().Select(x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1)).ToList().ToJson();
-        xLabelsPerTimeUnit["Year"] = Model.GetYears().Select(x => new DateTime((int)x.Year, 1, 1)).ToList().ToJson();
+        xLabelsPerTimeUnit["Day"] = Model.GetTimeUnit("Day").Select(HeatPumpDataPerPeriodListExtensions.GetDayOfYear()).ToList().ToJson();
+        xLabelsPerTimeUnit["Week"] = Model.GetTimeUnit("Week").Select(HeatPumpDataPerPeriodListExtensions.GetWeekNumber()).ToList().ToJson();
+        xLabelsPerTimeUnit["Month"] = Model.GetTimeUnit("Month").Select(HeatPumpDataPerPeriodListExtensions.GetMonthNumber()).ToList().ToJson();
+        xLabelsPerTimeUnit["Year"] = Model.GetTimeUnit("Year").Select(HeatPumpDataPerPeriodListExtensions.GetYearNumber()).ToList().ToJson();
 
         foreach (var timeUnit in timeUnits)
         {
