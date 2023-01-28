@@ -177,7 +177,6 @@ function openTabOnLoad(ctx, tabName) {
                 for (var chart of charts[1]) {
                     if (typeof chart !== 'undefined') {
                         chart.destroy();
-                        console.log("chart destroyed: chart id: " + chart.id);
                     } else {
                         console.log("chart is " + typeof chart);
                         console.log("chart is " + chart);
@@ -358,7 +357,6 @@ function openTabOnLoad(ctx, tabName) {
                                 for (var chart of charts[1]) {
                                     if (typeof chart !== 'undefined') {
                                         chart.update();
-                                        console.log("chart updated: chart id: " + chart.id);
                                     } else {
                                         console.log("chart is " + typeof chart[1]);
                                     }

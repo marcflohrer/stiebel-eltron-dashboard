@@ -118,9 +118,9 @@
                     <canvas id="@minMaxAvgMetric@timeUnit" class="canvas-style" />
                 </div>
             </div> <!--@chartTitles[@minMaxAvgMetric]-->
-            }
-        </div>
-    }
+        }
+    </div>
+}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.1.1"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
@@ -165,7 +165,6 @@ function openTabOnLoad(ctx, tabName) {
                 for (var chart of charts[1]) {
                     if (typeof chart !== 'undefined') {
                         chart.destroy();
-                        console.log("chart destroyed: chart id: " + chart.id);
                     } else {
                         console.log("chart is " + typeof chart[1]);
                     }
@@ -195,8 +194,8 @@ function openTabOnLoad(ctx, tabName) {
         const chartTitles = new Map([
             @foreach (KeyValuePair<string, string> entry in chartTitles)
             {
-                <text>["@(entry.Key)", "@(Html.Raw(entry.Value))"],
-                </text>
+                <text>                ["@(entry.Key)", "@(Html.Raw(entry.Value))"],
+</text>
             }
         ]);
 
@@ -207,8 +206,8 @@ function openTabOnLoad(ctx, tabName) {
                     var timeUnit = timeUnits[ij];
                     @for (var ik = 0; ik < colors.Keys.Count; ik += 1) {
                         var mam = colors.Keys.ToArray()[ik];
-                        <text>["@(Html.Raw(metric + mam + timeUnit))", @Model.GetTimeUnit(timeUnit).Select(x => HeatPumpDataPerPeriod.GetPropertyValue(x, metric+mam)).ToList().ToJson()],
-                        </text>
+                        <text>                ["@(Html.Raw(metric + mam + timeUnit))", @Model.GetTimeUnit(timeUnit).Select(x => HeatPumpDataPerPeriod.GetPropertyValue(x, metric+mam)).ToList().ToJson()],
+</text>
                     }
                 }
             }
@@ -217,32 +216,32 @@ function openTabOnLoad(ctx, tabName) {
         const xLabels = new Map([
             @foreach (KeyValuePair<string, string> entry in xLabelsPerTimeUnit)
             {
-                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
-                </text>
+                <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
+</text>
             }
         ]);
 
         const maxColors = new Map([
             @foreach (KeyValuePair<string, string> entry in maxColorOfTimeUnit)
             {
-                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
-                </text>
+                <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
+</text>
             }
         ]);
 
         const averageColors = new Map([
             @foreach (KeyValuePair<string, string> entry in averageColorOfTimeUnit)
             {
-                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
-                </text>
+                <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
+</text>
             }
         ]);
 
         const minColors = new Map([
             @foreach (KeyValuePair<string, string> entry in minColorOfTimeUnit)
             {
-                <text>["@(entry.Key)", @(Html.Raw(entry.Value))],
-                </text>
+                <text>                ["@(entry.Key)", @(Html.Raw(entry.Value))],
+</text>
             }
         ]);
 
@@ -290,7 +289,6 @@ function openTabOnLoad(ctx, tabName) {
                     for (var chart of charts[1]) {
                         if (typeof chart !== 'undefined') {
                             chart.update();
-                            console.log("chart updated: chart id: " + chart.id);
                         } else {
                             console.log("chart is " + typeof chart[1]);
                         }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Serilog;
 namespace StiebelEltronDashboard.Models.Shared
 {
     // source: https://github.com/jhewlett/ValueObject
@@ -46,11 +45,9 @@ namespace StiebelEltronDashboard.Models.Shared
         private bool PropertiesAreEqual(object obj, PropertyInfo p)
         {
             var isEqual = object.Equals(p.GetValue(this, null), p.GetValue(obj, null));
-            if(!isEqual && p.GetValue(this, null).GetType() == typeof(System.Double)){
+            if (!isEqual && p.GetValue(this, null).GetType() == typeof(System.Double))
+            {
                 isEqual = Math.Abs((double)p.GetValue(this, null) - (double)p.GetValue(obj, null)) <= Double.Epsilon;
-            }
-            if(!isEqual){
-                Log.Debug($"Not Equal: {p}");
             }
             return isEqual;
         }
@@ -58,9 +55,6 @@ namespace StiebelEltronDashboard.Models.Shared
         private bool FieldsAreEqual(object obj, FieldInfo f)
         {
             var isEqual = object.Equals(f.GetValue(this), f.GetValue(obj));
-            if(!isEqual){
-                Log.Debug($"Not Equal: {f}");
-            }
             return isEqual;
         }
 
