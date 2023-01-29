@@ -67,7 +67,6 @@ namespace StiebelEltronDashboard.Services
                     _logger.Information($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob add {newStatisticsResult.First}-{newStatisticsResult.Last}.");
                     unitOfWork.HeatPumpStatisticsPerPeriodRepository.Add(newStatisticsResult);
                 }
-                _logger.Information($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob saving changes.");
                 var changes = await unitOfWork.SaveChanges();
                 _logger.Information($"{DateTime.Now:hh:mm:ss} HeatPumpStatisticsCalculatorJob saved {changes} changed database rows.");
             }
