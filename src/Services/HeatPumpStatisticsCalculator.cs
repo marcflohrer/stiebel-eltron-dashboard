@@ -40,7 +40,7 @@ namespace StiebelEltronDashboard.Services
                     var dailyStatistics = GetDailyStatistics(heatPumpData, dailyStatisticsContainer, now);
                     if (dailyStatistics.Any())
                     {
-                        Log.Debug($"{dailyStatistics.Count()} <-- Calculate daily statistics: {dailyStatistics.First().DateUpdated}");
+                        Log.Debug($"{dailyStatistics.Count} <-- Calculate daily statistics: {dailyStatistics.First().DateUpdated}");
                         statistics.AddRange(dailyStatistics);
                         Log.Debug($"<-- AddRange daily statistics: {dailyStatistics.First().DateUpdated}");
                     }
@@ -157,8 +157,7 @@ namespace StiebelEltronDashboard.Services
             {
                 Log.Debug($"Not enough data for yearly stats. {yearlyStatisticCreationDates.Select(hpd => hpd).Max()} latest statistic: {latestYearlyStatistic}");
             }
-            var dataSetsToRemove = heatPumpData.Where(hpd => hpd.DateCreated < now.Subtract(TimeSpan.FromDays(366))).ToList();
-            return new StatisticsResult(dataSetsToRemove, statistics);
+            return new StatisticsResult(new List<HeatPumpDatum>(), statistics);
         }
 
         private IList<HeatPumpDataPerPeriod> GetDailyStatistics(IList<HeatPumpDatum> heatPumpData, IList<PeriodStatistics> containers, DateTime now)

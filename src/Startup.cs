@@ -109,12 +109,6 @@ namespace StiebelEltronDashboard
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
                     c.CronExpression = @"0 0 * * *";
-                })
-                // Executes every day at 13:00
-                .AddCronJob<DeleteOldHeatPumpStatisticsJob>(c =>
-                {
-                    c.TimeZoneInfo = TimeZoneInfo.Local;
-                    c.CronExpression = @"0 13 * * *";
                 });
             services.AddHttpClientForServiceWelt(new Uri(Configuration["ServiceWeltUrl"]));
 
