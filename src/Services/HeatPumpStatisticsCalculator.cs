@@ -184,10 +184,10 @@ namespace StiebelEltronDashboard.Services
             return result;
         }
 
-        private IList<PeriodStatistics> GetEmptyDailyStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now)
-            => GetEmptyPeriodStatisticsContainer(heatPumpData, oldestRecord, now, PeriodKind.Day, c => c.AddDays(1));
+        private static IList<PeriodStatistics> GetEmptyDailyStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now)
+            => GetEmptyDailyPeriodStatisticsContainer(heatPumpData, oldestRecord, now, PeriodKind.Day, c => c.AddDays(1));
 
-        private IList<PeriodStatistics> GetEmptyWeeklyStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now)
+        private static IList<PeriodStatistics> GetEmptyWeeklyStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now)
         {
             var periodStatistics = new List<PeriodStatistics>();
             var startOfPeriod = oldestRecord;
@@ -246,7 +246,7 @@ namespace StiebelEltronDashboard.Services
             return periodStatistics;
         }
 
-        private IList<PeriodStatistics> GetEmptyYearlyStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now)
+        private static IList<PeriodStatistics> GetEmptyYearlyStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now)
         {
             var periodStatistics = new List<PeriodStatistics>();
             var startOfPeriod = oldestRecord;
@@ -273,7 +273,12 @@ namespace StiebelEltronDashboard.Services
             return periodStatistics;
         }
 
-        private IList<PeriodStatistics> GetEmptyPeriodStatisticsContainer(IList<HeatPumpDatum> heatPumpData, DateTime oldestRecord, DateTime now, PeriodKind periodKind, Func<DateTime, DateTime> increaseByPeriod)
+        private static IList<PeriodStatistics> GetEmptyDailyPeriodStatisticsContainer(
+            IList<HeatPumpDatum> heatPumpData,
+            DateTime oldestRecord,
+            DateTime now,
+            PeriodKind periodKind,
+            Func<DateTime, DateTime> increaseByPeriod)
         {
             var periodStatistics = new List<PeriodStatistics>();
             var startOfPeriod = oldestRecord;
