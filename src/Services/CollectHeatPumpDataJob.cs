@@ -37,7 +37,8 @@ namespace StiebelEltronDashboard.Services
         {
             try
             {
-                _logger.Information($"{DateTime.Now:hh:mm:ss} CollectHeatPumpDataJob is working.");
+                var formatString = "yyyyMMddHHmmss";
+                _logger.Information($"{DateTime.Now.ToString(formatString)} CollectHeatPumpDataJob is working.");
                 var isgLanguage = await ReadCurrentIsgLanguage();
 
                 // Parsing only works when language setting is german
@@ -57,13 +58,14 @@ namespace StiebelEltronDashboard.Services
 
         private async Task<IServiceScope> ParseAndStoreHeatPumpMetrics()
         {
+            var formatString = "yyyyMMddHHmmss";
             var heatPumpData = await _serviceWeltService.GetHeatPumpInformationAsync();
             using var scope = _serviceScopeFactory.CreateScope();
             var unitOfWork = scope.ServiceProvider.GetService<IUnitOfWork>();
             unitOfWork.HeatPumpDataRepository.InsertHeatPumpData(heatPumpData);
-            _logger.Information($"{DateTime.Now:hh:mm:ss} CollectHeatPumpDataJob saving changes.");
+            _logger.Information($"{DateTime.Now.ToString(formatString)} CollectHeatPumpDataJob saving changes.");
             var changes = await unitOfWork.SaveChanges();
-            _logger.Information($"{DateTime.Now:hh:mm:ss} CollectHeatPumpDataJob saved {changes} changed database rows.");
+            _logger.Information($"{DateTime.Now.ToString(formatString)} CollectHeatPumpDataJob saved {changes} changed database rows.");
             return scope;
         }
 
