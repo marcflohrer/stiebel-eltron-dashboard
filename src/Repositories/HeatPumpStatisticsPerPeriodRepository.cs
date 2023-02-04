@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using StiebelEltronDashboard.Extensions;
 using StiebelEltronDashboard.Models;
@@ -5,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace StiebelEltronDashboard.Repositories
 {
@@ -186,5 +188,17 @@ namespace StiebelEltronDashboard.Repositories
         {
             _applicationDbContext.HeatPumpDataPerPeriods.Remove(heatPumpDataPerPeriod);
         }
+
+        public async Task<List<HeatPumpDataPerPeriod>> GetRecordsWithoutPeriodStartEndAsync(int chunkSize)
+            => await _applicationDbContext.HeatPumpDataPerPeriods
+                .Where(hpd => (hpd.PeriodStart.Year == DateTime.MinValue.Year
+                && hpd.PeriodStart.DayOfYear == DateTime.MinValue.DayOfYear)
+                        || (hpd.PeriodEnd.Year == DateTime.MinValue.Year
+                && hpd.PeriodEnd.DayOfYear == DateTime.MinValue.DayOfYear))
+                .OrderBy(hpd => hpd.Year)
+                .OrderBy(hpd => hpd.PeriodKind)
+                .OrderBy(hpd => hpd.PeriodNumber)
+                .Take(chunkSize)
+                .ToListAsync();
     }
 }

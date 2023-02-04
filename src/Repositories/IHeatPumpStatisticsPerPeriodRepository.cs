@@ -2,6 +2,7 @@ using StiebelEltronDashboard.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace StiebelEltronDashboard.Repositories
 {
@@ -13,6 +14,7 @@ namespace StiebelEltronDashboard.Repositories
         List<HeatPumpDataPerPeriod> GetRecentMonths(DateTime now);
         List<HeatPumpDataPerPeriod> GetAllRecordsFromRecent366Days(DateTime now);
         List<HeatPumpDataPerPeriod> GetYearlyRecords(DateTime now);
+        Task<List<HeatPumpDataPerPeriod>> GetRecordsWithoutPeriodStartEndAsync(int chunkSize);
         void Add(HeatPumpDataPerPeriod heatPumpDataPerPeriod);
         void Update(HeatPumpDataPerPeriod heatPumpDataPerPeriod);
         void Remove(HeatPumpDataPerPeriod heatPumpDataPerPeriod);

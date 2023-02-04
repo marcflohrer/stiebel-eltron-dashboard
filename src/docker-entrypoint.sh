@@ -5,7 +5,7 @@ set -ex
 mkdir -p mssql/data
 
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!"
->&2 echo "Running entrypoint.sh !!!11!!!!!!11!!!!!"
+>&2 echo "Running docker-entrypoint.sh !!!11!!!!!!11!!!!!"
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!"
 
 dotnet dev-certs https
@@ -33,5 +33,5 @@ done
 dotnet stiebel-eltron-dashboard.dll
 
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!1!!!!!!11!!!!!"
->&2 echo "Running entrypoint.sh :: APP RUNNING !!!!!!!!!!11!!!!!"
+>&2 echo "Running docker-entrypoint.sh :: APP RUNNING !!!!!!!!!!11!!!!!"
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!1!!!!!!11!!!!!"

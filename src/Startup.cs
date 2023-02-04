@@ -38,6 +38,7 @@ using System;
 using StiebelEltronDashboard.Extensions;
 using StiebelEltronDashboard.Services.HtmlServices;
 using Serilog.Events;
+using StiebelEltronDashboard.Jobs;
 
 namespace StiebelEltronDashboard
 {
@@ -109,7 +110,7 @@ namespace StiebelEltronDashboard
                 {
                     c.TimeZoneInfo = TimeZoneInfo.Local;
                     c.CronExpression = @"0 0 * * *";
-                });
+                }).AddHostedService<PeriodLimitFixHostedServiceJob>();
             services.AddHttpClientForServiceWelt(new Uri(Configuration["ServiceWeltUrl"]));
 
             services.AddIdentityCore<ApplicationUser>()
