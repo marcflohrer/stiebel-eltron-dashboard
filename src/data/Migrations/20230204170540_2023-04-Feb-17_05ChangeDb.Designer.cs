@@ -395,11 +395,17 @@ namespace StiebelEltronDashboard.Data.Migrations
                     b.Property<double>("OutdoorTemperatureMin")
                         .HasColumnType("float");
 
+                    b.Property<DateTime>("PeriodEnd")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("PeriodKind")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PeriodNumber")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("PeriodStart")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("PowerConsumptionHeatingDayDelta")
                         .HasColumnType("float")
