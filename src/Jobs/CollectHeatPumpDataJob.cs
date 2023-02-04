@@ -5,9 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using StiebelEltronDashboard.Extensions;
 using StiebelEltronDashboard.Repositories;
+using StiebelEltronDashboard.Services;
 using StiebelEltronDashboard.Services.HtmlServices;
 
-namespace StiebelEltronDashboard.Services
+namespace StiebelEltronDashboard.Jobs
 {
     public class CollectHeatPumpDataJob : CronJobService
     {
