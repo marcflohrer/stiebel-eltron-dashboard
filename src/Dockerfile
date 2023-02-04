@@ -12,7 +12,7 @@ COPY stiebel-eltron-dashboard.csproj .
 RUN dotnet restore stiebel-eltron-dashboard.csproj
 COPY . .
 RUN dotnet build stiebel-eltron-dashboard.csproj
-RUN chmod +x ./entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh
 
 FROM build AS publish
 RUN dotnet publish -c Release -o /app stiebel-eltron-dashboard.csproj
@@ -37,10 +37,10 @@ WORKDIR /app
 
 RUN mkdir logs && touch /app/logs/dashboard.log
 
-COPY --from=publish /app/entrypoint.sh .
+COPY --from=publish /app/docker-entrypoint.sh .
 COPY --from=publish /app .
 COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
 
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
-ENTRYPOINT [./entrypoint.sh, $ConnectionString, $ServiceWeltUrl, $ServiceWeltUser, $ServiceWeltPassword]
+ENTRYPOINT docker-entrypoint.sh $ConnectionString $ServiceWeltUrl $ServiceWeltUser $ServiceWeltPassword
