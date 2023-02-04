@@ -12,8 +12,8 @@ using StiebelEltronDashboard.Models;
 namespace StiebelEltronDashboard.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221230122340_2022-30-Dec-12_23ChangeDb")]
-    partial class _202230Dec1223ChangeDb
+    [Migration("20230204170540_2023-04-Feb-17_05ChangeDb")]
+    partial class _202304Feb1705ChangeDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
