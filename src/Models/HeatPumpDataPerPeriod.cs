@@ -10,6 +10,8 @@ namespace StiebelEltronDashboard.Models
     {
         [IgnoreMember]
         public int Id { get; set; }
+        public DateTime PeriodStart { get; set; }
+        public DateTime PeriodEnd { get; set; }
         public double ReturnTemperatureMin { get; set; }
         public double ReturnTemperatureMax { get; set; }
         public double ReturnTemperatureAverage { get; set; }

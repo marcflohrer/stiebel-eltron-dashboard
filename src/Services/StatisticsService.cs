@@ -12,9 +12,11 @@ namespace StiebelEltronDashboard.Services
         public HeatPumpDataPerPeriod GetHeatPumpDataPerPeriod(IEnumerable<HeatPumpDatum> heatPumpData, int year, string periodKind, int periodNumber, DateTime now)
         {
             Log.Debug($"--> GetHeatPumpDataPerPeriod: heatPumpData.Count = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
-            Log.Debug($"--> GetHeatPumpDataPerPeriod: PowerConsumptionHotWaterDayEnd = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
+            Enum.TryParse(periodKind, out PeriodKind periodKindEnum);
             var result = new HeatPumpDataPerPeriod()
             {
+                PeriodStart = PeriodDateProvider.GetPeriodStart(year, periodKindEnum, periodNumber),
+                PeriodEnd = PeriodDateProvider.GetPeriodEnd(year, periodKindEnum, periodNumber),
                 ReturnTemperatureMin = heatPumpData.GetMinForMetric(h => h.ReturnTemperature) ?? Double.MinValue,
                 ReturnTemperatureMax = heatPumpData.GetMaxForMetric(h => h.ReturnTemperature) ?? Double.MinValue,
                 ReturnTemperatureAverage = heatPumpData.GetAverageForMetric(h => h.ReturnTemperature) ?? Double.MinValue,

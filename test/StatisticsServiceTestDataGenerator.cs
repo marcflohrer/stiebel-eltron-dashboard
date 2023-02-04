@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using StiebelEltronDashboard.Models;
 
-namespace StiebelEltronDashboardTests {
-    public class StatisticsServiceTestDailyPeriodDataGenerator : IEnumerable<object[]> {
+namespace StiebelEltronDashboardTests
+{
+    public class StatisticsServiceTestDailyPeriodDataGenerator : IEnumerable<object[]>
+    {
 
         public static IEnumerable<object[]> GetHeatPumpTestData()
         {
@@ -30,6 +32,8 @@ namespace StiebelEltronDashboardTests {
                     new HeatPumpDatum ().SetDoubles (14).SetDateTimes (new DateTime(2021,5,1).Subtract (TimeSpan.FromHours (1)))
                 },
                 new HeatPumpDataPerPeriod {
+                    PeriodStart = new DateTime(2021,1,13, 0, 0, 0),
+                    PeriodEnd = new DateTime(2021,1,14, 0, 0, 0),
                     ReturnTemperatureMin = 1,
                     ReturnTemperatureMax = 14,
                     ReturnTemperatureAverage = 7.5,
@@ -148,12 +152,12 @@ namespace StiebelEltronDashboardTests {
                     Last = new DateTime(2021,5,1).Subtract (TimeSpan.FromHours (1)),
                     DateUpdated = new DateTime(2021,4,30,10,0,0),
                     DateCreated = new DateTime(2021,4,30,10,0,0),
-                }                
+                }
             }
         };
 
-        public IEnumerator<object[]> GetEnumerator () => _data.GetEnumerator ();
+        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator () => GetEnumerator ();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
