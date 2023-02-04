@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy@sha256:7c808ca379d3836044627a0bb5d4fc84520f41bca775706d37ca6863fea3567b AS build
 ARG ConnectionString=default_connection_string
 ENV ConnectionString=$ConnectionString
 ARG ServiceWeltUrl=http://servicewelturl.local
@@ -17,7 +17,7 @@ RUN chmod +x ./docker-entrypoint.sh
 FROM build AS publish
 RUN dotnet publish -c Release -o /app stiebel-eltron-dashboard.csproj
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy AS final
+FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy@sha256:7c808ca379d3836044627a0bb5d4fc84520f41bca775706d37ca6863fea3567b AS final
 ARG ConnectionString=default_connection_string
 ENV ConnectionString=$ConnectionString
 ARG ServiceWeltUrl=http://servicewelturl.local
@@ -43,4 +43,4 @@ COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
 
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
-ENTRYPOINT docker-entrypoint.sh $ConnectionString $ServiceWeltUrl $ServiceWeltUser $ServiceWeltPassword
+ENTRYPOINT ./docker-entrypoint.sh $ConnectionString $ServiceWeltUrl $ServiceWeltUser $ServiceWeltPassword
