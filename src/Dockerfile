@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy AS build
 ARG ConnectionString=default_connection_string
 ENV ConnectionString=$ConnectionString
 ARG ServiceWeltUrl=http://servicewelturl.local
@@ -17,7 +17,7 @@ RUN chmod +x ./entrypoint.sh
 FROM build AS publish
 RUN dotnet publish -c Release -o /app stiebel-eltron-dashboard.csproj
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS final
+FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy AS final
 ARG ConnectionString=default_connection_string
 ENV ConnectionString=$ConnectionString
 ARG ServiceWeltUrl=http://servicewelturl.local
@@ -31,7 +31,7 @@ ENV DOTNET_TieredPGO = 1
 ENV DOTNET_TC_QuickJitForLoops = 1
 
 ENV ASPNETCORE_ENVIRONMENT=Development
-ENV ASPNETCORE_URLS=http://+:6003;https://+:6004  
+ENV ASPNETCORE_URLS=http://+:6003;https://+:6004
 EXPOSE 6003 6004
 WORKDIR /app
 
@@ -41,6 +41,6 @@ COPY --from=publish /app/entrypoint.sh .
 COPY --from=publish /app .
 COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
 
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false    
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
-ENTRYPOINT ./entrypoint.sh $ConnectionString $ServiceWeltUrl $ServiceWeltUser $ServiceWeltPassword
+ENTRYPOINT [./entrypoint.sh, $ConnectionString, $ServiceWeltUrl, $ServiceWeltUser, $ServiceWeltPassword]
