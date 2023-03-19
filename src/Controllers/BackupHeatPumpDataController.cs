@@ -28,10 +28,11 @@ namespace StiebelEltronDashboard.Controllers
             // Retrieve the data from the database
             var heatPumpData = (await unitOfWork.HeatPumpDataRepository.AllAsync()).ToList();
             // Create a ZIP file and add the CSV file to it using DotNetZip
-            var csvFilename = ZipperService.CsvFileName<HeatPumpDatum>();
+            var csvFilename = CsvService.CsvFileName<HeatPumpDatum>();
             using var memoryStream = new MemoryStream();
             using var zipFile = new ZipFile();
-            var zipStream = ZipperService.ToCsvAndZip(heatPumpData, memoryStream, zipFile, csvFilename);
+            var cvsString = CsvService.ToCsvString(heatPumpData);
+            var zipStream = ZipperService.Zip(cvsString, memoryStream, zipFile, csvFilename);
 
             // Set the appropriate HTTP headers to indicate that the response should be downloaded as a file
             var zipFileName = ZipperService.ZipFileName<HeatPumpDataPerPeriod>();
