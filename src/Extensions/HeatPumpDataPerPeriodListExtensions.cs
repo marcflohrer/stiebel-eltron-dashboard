@@ -40,16 +40,16 @@ public static class HeatPumpDataPerPeriodListExtensions
 
     private static Func<HeatPumpDataPerPeriod, string> GetDistinctCriteria(string timeUnit) => timeUnit switch
     {
-        "Day" => (GetDayOfYearString()),
+        "Day" => GetDayOfYearString(),
         "Week" => GetWeekNumberString(),
-        "Month" => (GetMonthNumberString()),
-        "Year" => (GetYearNumberString()),
+        "Month" => GetMonthNumberString(),
+        "Year" => GetYearNumberString(),
         _ => throw new InvalidProgramException($"Unknown timeunit {timeUnit}")
     };
 
     public static Func<HeatPumpDataPerPeriod, DateTime> GetDayOfYear() => x => new DateTime((int)x.Year, 1, 1).Add(TimeSpan.FromDays(x.PeriodNumber - 1));
     public static Func<HeatPumpDataPerPeriod, DateTime> GetYearNumber() => x => new DateTime((int)x.Year, 1, 1);
-    public static Func<HeatPumpDataPerPeriod, DateTime> GetMonthNumber() => x => new DateTime((int)x.Year, (int)x.PeriodNumber, 1);
+    public static Func<HeatPumpDataPerPeriod, DateTime> GetMonthNumber() => x => new DateTime((int)x.Year, x.PeriodNumber, 1);
     public static Func<HeatPumpDataPerPeriod, DateTime> GetWeekNumber() => x => new DateTime((int)x.Year, 1, 1).FirstDateOfWeek((int)x.PeriodNumber, new System.Globalization.CultureInfo("de-DE"));
 
     private static Func<HeatPumpDataPerPeriod, string> GetDayOfYearString() => x => GetDayOfYear().Invoke(x).ToString("s");
