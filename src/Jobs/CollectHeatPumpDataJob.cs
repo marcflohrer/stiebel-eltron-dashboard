@@ -63,7 +63,7 @@ namespace StiebelEltronDashboard.Jobs
             var heatPumpData = await _serviceWeltService.GetHeatPumpInformationAsync();
             using var scope = _serviceScopeFactory.CreateScope();
             var unitOfWork = scope.ServiceProvider.GetService<IUnitOfWork>();
-            unitOfWork.HeatPumpDataRepository.InsertHeatPumpData(heatPumpData);
+            unitOfWork.HeatPumpDataRepository.Add(heatPumpData);
             _logger.Information($"{DateTime.Now.ToString(formatString)} CollectHeatPumpDataJob saving changes.");
             var changes = await unitOfWork.SaveChanges();
             _logger.Information($"{DateTime.Now.ToString(formatString)} CollectHeatPumpDataJob saved {changes} changed database rows.");

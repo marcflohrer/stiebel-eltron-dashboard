@@ -39,6 +39,7 @@ using StiebelEltronDashboard.Extensions;
 using StiebelEltronDashboard.Services.HtmlServices;
 using Serilog.Events;
 using StiebelEltronDashboard.Jobs;
+using Microsoft.OpenApi.Models;
 
 namespace StiebelEltronDashboard
 {
@@ -84,6 +85,12 @@ namespace StiebelEltronDashboard
                 options.UseSqlServer(connection));
 
             services.AddMvc();
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Backup/Restore API", Version = "v1" });
+            });
+            services.AddControllers();
             services.AddTransient<IXpathService, XpathService>()
                 .AddSingleton(logger)
                 .AddTransient<IHtmlScanner, HtmlScanner>()
@@ -142,6 +149,15 @@ namespace StiebelEltronDashboard
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backup/Restore API V1");
+            });
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

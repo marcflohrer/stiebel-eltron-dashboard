@@ -6,7 +6,7 @@ namespace StiebelEltronDashboard.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly ApplicationDbContext applicationDbContext;
         public IHeatPumpDataRepository HeatPumpDataRepository { get; set; }
         public IHeatPumpStatisticsPerPeriodRepository HeatPumpStatisticsPerPeriodRepository { get; set; }
 
@@ -14,17 +14,17 @@ namespace StiebelEltronDashboard.Repositories
         {
             HeatPumpDataRepository = new HeatPumpDataRepository(applicationDbContext);
             HeatPumpStatisticsPerPeriodRepository = new HeatPumpStatisticsPerPeriodRepository(applicationDbContext);
-            _applicationDbContext = applicationDbContext;
+            this.applicationDbContext = applicationDbContext;
         }
 
         public async Task<int> SaveChanges()
         {
-            return await _applicationDbContext.SaveChangesAsync();
+            return await applicationDbContext.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            _applicationDbContext.Dispose();
+            applicationDbContext.Dispose();
         }
     }
 }

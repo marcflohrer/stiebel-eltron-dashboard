@@ -15,6 +15,10 @@ namespace StiebelEltronDashboard.Repositories
 
         public async Task<List<HeatPumpDatum>> AllAsync() => await applicationDbContext.HeatPumpData.ToListAsync();
 
+        public async Task<List<HeatPumpDatum>> FindByDateCreated(DateTime dateCreated)
+            => await applicationDbContext.HeatPumpData
+                .Where(hpd => hpd.DateCreated == dateCreated)
+                .ToListAsync();
 
         public HeatPumpDatum[] GetLastYear()
         {
@@ -22,6 +26,8 @@ namespace StiebelEltronDashboard.Repositories
             return applicationDbContext.HeatPumpData.Where(a => a.DateCreated >= oneYearAgo).ToArray();
         }
 
-        public void InsertHeatPumpData(HeatPumpDatum heatPump) => applicationDbContext.HeatPumpData.Add(heatPump);
+        public void Add(HeatPumpDatum heatPump) => applicationDbContext.HeatPumpData.Add(heatPump);
+        public void Remove(HeatPumpDatum heatPump) => applicationDbContext.HeatPumpData.Remove(heatPump);
+        public void Update(HeatPumpDatum heatPump) => applicationDbContext.HeatPumpData.Update(heatPump);
     }
 }

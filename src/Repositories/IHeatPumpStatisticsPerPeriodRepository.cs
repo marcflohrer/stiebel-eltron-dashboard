@@ -19,4 +19,5 @@ public interface IHeatPumpStatisticsPerPeriodRepository
     void Add(HeatPumpDataPerPeriod heatPumpDataPerPeriod);
     void Update(HeatPumpDataPerPeriod heatPumpDataPerPeriod);
     void Remove(HeatPumpDataPerPeriod heatPumpDataPerPeriod);
+    Task<List<HeatPumpDataPerPeriod>> FindByPeriodAsync(double year, string periodKind, int periodNumber);
 }

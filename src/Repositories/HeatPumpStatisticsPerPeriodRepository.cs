@@ -203,5 +203,12 @@ namespace StiebelEltronDashboard.Repositories
 
         public async Task<List<HeatPumpDataPerPeriod>> AllAsync()
             => await applicationDbContext.HeatPumpDataPerPeriods.ToListAsync();
+
+        public async Task<List<HeatPumpDataPerPeriod>> FindByPeriodAsync(double year, string periodKind, int periodNumber)
+            => await applicationDbContext.HeatPumpDataPerPeriods
+                .Where(hpd => hpd.PeriodStart.Year == year &&
+                hpd.PeriodKind == periodKind &&
+                hpd.PeriodNumber == periodNumber)
+                .ToListAsync();
     }
 }
