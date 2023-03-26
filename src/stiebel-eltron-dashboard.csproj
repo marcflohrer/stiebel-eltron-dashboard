@@ -47,12 +47,10 @@
 	  <None Remove="Views\DeltaValues\" />
 	  <None Remove="Jobs\" />
 	  <None Remove="Repositories\Models\" />
-	  <None Remove="secrets\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Views\DeltaValues\" />
 	  <Folder Include="Jobs\" />
 	  <Folder Include="Repositories\Models\" />
-	  <Folder Include="secrets\" />
 	</ItemGroup>
 </Project>

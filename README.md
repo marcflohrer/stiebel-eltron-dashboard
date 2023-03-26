@@ -144,23 +144,6 @@ The installation I tested is the combination ubuntu 22.04 on raspberry pi 4 but 
    ./start-dbscaffolding.sh
    ```
 
-### Local development
-
-If you want to develop the project locally on your machine you have to put  an appsettings.json file in the folder src/secrets with the following structure:
-
-```json
-{
-    "DatabasePassword": "<MySuperSecretPassword>",
-    "DefaultConnection": "Server=localhost,1433;Database=master;User=sa;Password=<MySuperSecretPassword>;TrustServerCertificate=True",
-    "ServiceWeltUser": "<serviceweltusername>",
-    "ServiceWeltPassword": "<serviceweltpassword>",
-    "ServiceWeltUrl": "<servicewelturl>"
-}
-```
-
-Replace the placeholders <MySuperSecretPassword>, <serviceweltusername>, <serviceweltpassword>, <servicewelturl> with the respective values in your environment.
-After running the project in the IDE of your choice the website http://localhost:55876/ should be up and running after some time.
-
 ### Installation somewhere else
 
 1. Install the dependencies listed under **Prerequisites** and then run in the **src** folder of the repository:
