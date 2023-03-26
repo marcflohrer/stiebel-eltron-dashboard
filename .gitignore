@@ -14,3 +14,7 @@ machine-key
 src/web/root/.aspnet/DataProtection-Keys
 src/data/*
 src/secrets/*
+src/clean-start.sh
+src/.env
+src/obj
+src/bin
