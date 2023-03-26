@@ -41,9 +41,11 @@ namespace StiebelEltronDashboard.Repositories
                     && hpdpp.PeriodKind == "Day"
                     && hpdpp.PeriodNumber >= firstDay
                     && hpdpp.First != DateTime.MaxValue);
-            var resultList = resultInYearOfFirstDay.OrderBy(x => x.Last)
-                       .MyDistinctBy(x => x.PeriodNumber)
-                       .Take(numberOfDaysRequesting).ToList();
+            var resultList = resultInYearOfFirstDay
+                        .OrderBy(x => x.Year)
+                        .ThenBy(x => x.PeriodNumber)
+                        .MyDistinctBy(x => x.PeriodNumber)
+                        .Take(numberOfDaysRequesting).ToList();
 
             var endOfRequestedPeriod = now;
             var lastDay = endOfRequestedPeriod.DayOfYear;
@@ -63,7 +65,10 @@ namespace StiebelEltronDashboard.Repositories
                 Log.Debug("Number of days found in both years: " + resultList.Count());
             }
 
-            return resultList;
+            return resultList
+                .OrderBy(x => x.Year)
+                .ThenBy(x => x.PeriodNumber)
+                .ToList();
         }
 
         private static List<HeatPumpDataPerPeriod> GetDistinctPeriodNumber(IQueryable<HeatPumpDataPerPeriod> list, List<HeatPumpDataPerPeriod> result, HeatPumpDataPerPeriod previous)
@@ -101,9 +106,12 @@ namespace StiebelEltronDashboard.Repositories
             var result = new List<HeatPumpDataPerPeriod>();
             HeatPumpDataPerPeriod previous = null;
             result = GetDistinctPeriodNumber(listForYearOfFirstWeekNumber, result, previous);
-            var resultList = result.OrderBy(x => x.Last)
-                         .MyDistinctBy(x => x.PeriodNumber)
-                         .Take(numberOfWeekRequesting).ToList();
+            var resultList = result
+                .OrderBy(x => x.Year)
+                .ThenBy(x => x.PeriodNumber)
+                .MyDistinctBy(x => x.PeriodNumber)
+                .Take(numberOfWeekRequesting)
+                .ToList();
 
             var endOfRequestedPeriod = now;
             var lastWeekNumberOfRequestedPeriod = endOfRequestedPeriod.WeekOfYear(cultureInfo);
@@ -113,7 +121,10 @@ namespace StiebelEltronDashboard.Repositories
                 var listInNewYear = applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp
                 => hpdpp.Year == yearOfLastWeek
                     && hpdpp.PeriodKind == "Week"
-                    && hpdpp.PeriodNumber <= lastWeekNumberOfRequestedPeriod);
+                    && hpdpp.PeriodNumber <= lastWeekNumberOfRequestedPeriod)
+                .OrderBy(x => x.Year)
+                .ThenBy(x => x.PeriodNumber)
+                .MyDistinctBy(x => x.PeriodNumber);
 
                 Log.Debug("Number of weeks found in old year: " + resultList.Count());
                 Log.Debug("Number of weeks found in new year: " + listInNewYear.Count());
@@ -122,7 +133,10 @@ namespace StiebelEltronDashboard.Repositories
 
                 Log.Debug("Number of weeks found in both years: " + resultList.Count());
             }
-            return resultList;
+            return resultList
+                .OrderBy(x => x.Year)
+                .ThenBy(x => x.PeriodNumber)
+                .ToList();
         }
 
         public List<HeatPumpDataPerPeriod> GetRecentMonths(DateTime now)
@@ -136,10 +150,11 @@ namespace StiebelEltronDashboard.Repositories
             var result = new List<HeatPumpDataPerPeriod>();
             HeatPumpDataPerPeriod previous = null;
             result = GetDistinctPeriodNumber(list, result, previous);
-            var resultList = result.OrderBy(x => x.Last)
-                         .MyDistinctBy(x => x.PeriodNumber)
-                         .Take(numberOfMonthsRequesting)
-                         .ToList();
+            var resultList = result
+                .OrderBy(x => x.Year)
+                .ThenBy(x => x.PeriodNumber)
+                .Take(numberOfMonthsRequesting)
+                .ToList();
 
             var endOfRequestedPeriod = now;
             var lastMonthOfRequestedPeriod = endOfRequestedPeriod.Month;
@@ -149,7 +164,9 @@ namespace StiebelEltronDashboard.Repositories
                 var listInNewYear = applicationDbContext.HeatPumpDataPerPeriods.Where(hpdpp
                 => hpdpp.Year == yearOfLastMonth
                     && hpdpp.PeriodKind == "Month"
-                    && hpdpp.PeriodNumber <= lastMonthOfRequestedPeriod);
+                    && hpdpp.PeriodNumber <= lastMonthOfRequestedPeriod)
+                    .OrderBy(x => x.Year)
+                    .ThenBy(x => x.PeriodNumber);
 
                 Log.Debug("Number of months found in old year: " + resultList.Count());
                 Log.Debug("Number of months found in new year: " + listInNewYear.Count());
@@ -159,7 +176,10 @@ namespace StiebelEltronDashboard.Repositories
                 Log.Debug("Number of months found in both years: " + resultList.Count());
             }
 
-            return resultList;
+            return resultList
+                .OrderBy(x => x.Year)
+                .ThenBy(x => x.PeriodNumber)
+                .ToList();
         }
 
         public List<HeatPumpDataPerPeriod> GetYearlyRecords(DateTime now)
@@ -170,9 +190,12 @@ namespace StiebelEltronDashboard.Repositories
             var result = new List<HeatPumpDataPerPeriod>();
             HeatPumpDataPerPeriod previous = null;
             result = GetDistinctPeriodNumber(list, result, previous);
-            return result.OrderBy(x => x.Last)
-                         .MyDistinctBy(x => x.PeriodNumber)
-                         .Take(numberOfYearsRequesting).ToList();
+            return result
+                .OrderBy(x => x.Year)
+                .ThenBy(x => x.PeriodNumber)
+                .MyDistinctBy(x => x.PeriodNumber)
+                .Take(numberOfYearsRequesting)
+                .ToList();
         }
 
         public List<HeatPumpDataPerPeriod> GetAllRecordsFromRecent366Days(DateTime now)
@@ -196,8 +219,8 @@ namespace StiebelEltronDashboard.Repositories
                         || (hpd.PeriodEnd.Year == DateTime.MinValue.Year
                 && hpd.PeriodEnd.DayOfYear == DateTime.MinValue.DayOfYear))
                 .OrderBy(hpd => hpd.Year)
-                .OrderBy(hpd => hpd.PeriodKind)
-                .OrderBy(hpd => hpd.PeriodNumber)
+                .ThenBy(hpd => hpd.PeriodKind)
+                .ThenBy(hpd => hpd.PeriodNumber)
                 .Take(chunkSize)
                 .ToListAsync();
 
