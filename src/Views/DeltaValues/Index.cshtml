@@ -105,15 +105,18 @@
         }
         metricsValueMap[$"PerformanceFactorTotal"] = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => x.PerformanceFactorTotal).Take(1).ToList().ToJson();
     }
-} <!-- Tab links -->
-<div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'Days')"> Letzte Tage </button>
-    <button class="tablinks" onclick="openTab(event, 'Weeks')"> Letzte Wochen </button>
-    <button class="tablinks" onclick="openTab(event, 'Months')"> Letzte Monate </button>
-    <button class="tablinks" onclick="openTab(event, 'Years')"> Letzte Jahre </button>
-    <button class="tablinks" onclick="openTab(event, 'Total')">Gesamt</button>
-</div> <!-- Tab content -->
-
+}
+<!-- Tab content -->
+<div class="dropdown">
+  <button class="dropbtn">Zeitraum wählen</button>
+  <div class="dropdown-content">
+    <a onclick="openTab(event, 'Days')">Tage</a>
+    <a onclick="openTab(event, 'Weeks')">Wochen</a>
+    <a onclick="openTab(event, 'Months')">Monate</a>
+    <a onclick="openTab(event, 'Years')">Jahre</a>
+    <a onclick="openTab(event, 'Total')">Gesamt</a>
+  </div>
+</div>
 @foreach (var timeUnit in timeUnits)
 {
     <div id="@(timeUnit)s" class="tabcontent">
@@ -138,9 +141,9 @@
                     <canvas id="@startDeltaEndMetric@timeUnit" class="canvas-style" />
                 </div>
             </div> <!--@chartTitles[@startDeltaEndMetric]-->
-        }
-    </div>
-}
+            }
+        </div>
+    }
 <div id="Total" class="tabcontent">
     <h3>Gesamt</h3>
     <!--Arbeitszahl-->

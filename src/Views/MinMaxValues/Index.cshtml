@@ -97,13 +97,18 @@
             }
         }
     }
-} <!-- Tab links -->
-<div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'Days')"> Letzte Tage </button>
-    <button class="tablinks" onclick="openTab(event, 'Weeks')"> Letzte Wochen </button>
-    <button class="tablinks" onclick="openTab(event, 'Months')"> Letzte Monate </button>
-    <button class="tablinks" onclick="openTab(event, 'Years')"> Letzte Jahre </button>
-</div> <!-- Tab content -->
+}
+<!-- Tab content -->
+<div class="dropdown">
+  <button class="dropbtn">Zeitraum wählen</button>
+  <div class="dropdown-content">
+    <a onclick="openTab(event, 'Days')">Tage</a>
+    <a onclick="openTab(event, 'Weeks')">Wochen</a>
+    <a onclick="openTab(event, 'Months')">Monate</a>
+    <a onclick="openTab(event, 'Years')">Jahre</a>
+  </div>
+</div>
+<!-- Tab content -->
 @foreach (var timeUnit in timeUnits)
 {
     <div id="@(timeUnit)s" class="tabcontent">
