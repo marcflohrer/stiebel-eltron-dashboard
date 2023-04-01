@@ -4,6 +4,30 @@
 }
 
 <h1>@ViewData["Title"].</h1>
+<style>
+    body {
+        margin: 0;
+        padding: 120;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        flex: 1;
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 50px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding-top: 15px;
+    }
+</style>
 <p class="text-success">@ViewData["StatusMessage"]</p>
 
 <div>
@@ -33,18 +57,18 @@
                 for details on setting up this ASP.NET application to support two-factor authentication using SMS.
             </p>
             @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;<a asp-controller="Manage" asp-action="AddPhoneNumber">Change</a>&nbsp;&nbsp;]</text>
-                    <form asp-controller="Manage" asp-action="RemovePhoneNumber" method="post" role="form">
-                        [<button type="submit" class="btn-link">Remove</button>]
-                    </form>
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;<a asp-controller="Manage" asp-action="AddPhoneNumber">Add</a>&nbsp;&nbsp;]</text>
-                }
+            @if (Model.PhoneNumber != null)
+            {
+                <br />
+                <text>[&nbsp;&nbsp;<a asp-controller="Manage" asp-action="AddPhoneNumber">Change</a>&nbsp;&nbsp;]</text>
+                <form asp-controller="Manage" asp-action="RemovePhoneNumber" method="post" role="form">
+                    [<button type="submit" class="btn-link">Remove</button>]
+                </form>
+            }
+            else
+            {
+                <text>[&nbsp;&nbsp;<a asp-controller="Manage" asp-action="AddPhoneNumber">Add</a>&nbsp;&nbsp;]</text>
+            }
         </dd>
 
         <dt>Two-Factor Authentication:</dt>
@@ -54,17 +78,17 @@
                 for setting up this application to support two-factor authentication.
             </p>-->
             @if (Model.TwoFactor)
-                {
-                    <form asp-controller="Manage" asp-action="DisableTwoFactorAuthentication" method="post" class="form-horizontal" role="form">
-                        Enabled [<button type="submit" class="btn-link">Disable</button>]
-                    </form>
-                }
-                else
-                {
-                    <form asp-controller="Manage" asp-action="EnableTwoFactorAuthentication" method="post" class="form-horizontal" role="form">
-                        [<button type="submit" class="btn-link">Enable</button>] Disabled
-                    </form>
-                }
+            {
+                <form asp-controller="Manage" asp-action="DisableTwoFactorAuthentication" method="post" class="form-horizontal" role="form">
+                    Enabled [<button type="submit" class="btn-link">Disable</button>]
+                </form>
+            }
+            else
+            {
+                <form asp-controller="Manage" asp-action="EnableTwoFactorAuthentication" method="post" class="form-horizontal" role="form">
+                    [<button type="submit" class="btn-link">Enable</button>] Disabled
+                </form>
+            }
         </dd>
         <dt>Authentication App:</dt>
         <dd>

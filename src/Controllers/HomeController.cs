@@ -33,7 +33,7 @@ namespace StiebelEltronDashboard.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/MinMaxValues");
         }
     }
 }
