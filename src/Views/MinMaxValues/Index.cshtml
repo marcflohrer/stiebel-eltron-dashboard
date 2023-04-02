@@ -100,13 +100,13 @@
 }
 <!-- Tab content -->
 <div class="dropdown">
-  <button class="dropbtn">Zeitraum wählen</button>
-  <div class="dropdown-content">
-    <a onclick="openTab(event, 'Days')">Tage</a>
-    <a onclick="openTab(event, 'Weeks')">Wochen</a>
-    <a onclick="openTab(event, 'Months')">Monate</a>
-    <a onclick="openTab(event, 'Years')">Jahre</a>
-  </div>
+    <button class="dropbtn">Zeitraum wählen</button>
+    <div class="dropdown-content">
+        <a onclick="openTab(event, 'Days')">Tage</a>
+        <a onclick="openTab(event, 'Weeks')">Wochen</a>
+        <a onclick="openTab(event, 'Months')">Monate</a>
+        <a onclick="openTab(event, 'Years')">Jahre</a>
+    </div>
 </div>
 <!-- Tab content -->
 @foreach (var timeUnit in timeUnits)
@@ -126,7 +126,7 @@
         }
     </div>
 }
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.1.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
 <script src="js/site.js" asp-append-version="true"></script>
@@ -184,7 +184,7 @@ function openTabOnLoad(ctx, tabName) {
             @foreach (string entry in chartTitles.Keys)
             {
                 <text>                "@(entry)",
-                </text>
+</text>
             }
         ];
 
@@ -192,7 +192,7 @@ function openTabOnLoad(ctx, tabName) {
             @foreach (string entry in timeUnits)
             {
                 <text>                "@(entry)",
-                </text>
+</text>
             }
         ];
 

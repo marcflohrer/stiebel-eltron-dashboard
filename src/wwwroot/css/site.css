@@ -1,160 +1,209 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
-}
-
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
+    padding-top: 50px;
 }
 
 /* Carousel */
 .carousel-caption {
-    z-index: 10 !important;
+    z-index: 10;
 }
 
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
+    .carousel-caption p {
+        font-size: 20px;
+        line-height: 1.4;
+    }
 
 @media (min-width: 768px) {
     .carousel-caption {
-        z-index: 10 !important;
+        z-index: 10;
     }
 }
 
-.float {
-    float: left;
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-    shape-outside: inset(calc(100% - 100px) 0 0);
-}
-
-.nav-header {
-    background-color: #8CAE5A;
-}
-
-.chart-style{
-    width: 451px; 
-    float:left; 
-    height:300px; 
-    margin:10px
-}
-
-.chart-style-center{
-  width: 451px; 
-  float:center; 
-  height:300px; 
-  margin:10px
-}
-
-.chart-container{
-    width: 451px; 
-    float:left; 
-    height:300px; 
-    margin:10px
-}
-
-.canvas-style{
-    width: 100%; 
+/* Chart Styles */
+.canvas-style {
     height: 290px;
+    width: 100%;
 }
 
-/* Style the tab */
-.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-  }
-  
-  /* Style the buttons that are used to open the tab content */
-  .tab button {
-    background-color: inherit;
+.chart-container {
     float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-  }
-  
-  /* Change background color of buttons on hover */
-  .tab button:hover {
-    background-color: #ddd;
-  }
-  
-  /* Create an active/current tablink class */
-  .tab button.active {
-    background-color: #ccc;
-  }
-  
-  /* Style the tab content */
-  .tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-  }
+    height: 300px;
+    margin: 10px;
+    max-width: 451px;
+    width: 100%;
+}
 
-  .tabcontent {
-    animation: fadeEffect 1s; /* Fading effect takes 1 second */
-  }
-  
-  /* Go from zero to full opacity */
-  @keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }
+.chart-style {
+    float: left;
+    height: 300px;
+    margin: 10px;
+    max-width: 451px;
+    width: 100%;
+}
+
+.chart-style-center {
+    height: 300px;
+    margin: 10px auto;
+    max-width: 451px;
+    width: 100%;
+}
 
 /* Dropdown Button */
 .dropbtn {
-  background-color: #8cad58;
-  color: #e9f1dd;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
+    background-color: #8cad58;
+    border: none;
+    color: #e9f1dd;
+    font-size: 16px;
+    padding: 10px;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+    background-color: #f1f1f1;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    display: none;
+    min-width: 160px;
+    position: absolute;
+    z-index: 1;
 }
 
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: black;
+        display: block;
+        padding: 12px 16px;
+        text-decoration: none;
+    }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #8cad58;
+            color: #e9f1dd;
+        }
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    display: inline-block;
+    position: relative;
 }
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+        background-color: #848587;
+        color: #e9f1dd;
+    }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #848587;}
+/* Float */
+.float {
+    align-items: flex-end;
+    display: flex;
+    float: left;
+    height: 100%;
+}
+
+/* Navigation Header */
+.nav-header {
+    background-color: #8CAE5A;
+}
+
+/* Style the tab */
+.tab {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+    /* Style the buttons that are used to open the tab content */
+    .tab button {
+        background-color: inherit;
+        border: none;
+        cursor: pointer;
+        float: left;
+        outline: initial;
+        padding: 14px 16px;
+        transition: transform 0.25s;
+    }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+    /* Create an active/current tablink class */
+    .tab .active {
+        background-color: #ccc;
+    }
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #8cad58;
+    border: none;
+    color: #e9f1dd;
+    font-size: 16px;
+    padding: 10px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    background-color: #f1f1f1;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    display: none;
+    min-width: 160px;
+    position: absolute;
+    z-index: 1;
+}
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: black;
+        display: block;
+        padding: 12px 16px;
+        text-decoration: none;
+    }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #8cad58;
+            color: #e9f1dd;
+        }
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+        background-color: #848587;
+        color: #e9f1dd;
+    }
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Style the tab content */
+.tabcontent {
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+    border: 1px solid #ccc;
+    display: none;
+    padding: 6px 12px;
+}
