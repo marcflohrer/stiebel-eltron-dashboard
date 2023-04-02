@@ -22,15 +22,16 @@ ENV ASPNETCORE_URLS=http://+:6003;https://+:6004
 EXPOSE 6003 6004
 WORKDIR /app
 
-RUN mkdir logs && touch /app/logs/dashboard.log
-RUN mkdir -p mssql/data
-
 COPY --from=publish /app .
 COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
 COPY --from=build /root/.dotnet/corefx/cryptography/x509stores/my/* /root/.dotnet/corefx/cryptography/x509stores/my/
 
+RUN touch /app/logs/dashboard.log
+RUN mkdir -p mssql/data
+RUN chmod +x stiebel-eltron-dashboard
+
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
     # Enable detection of running in a container
-    DOTNET_RUNNING_IN_CONTAINER=tr
+    DOTNET_RUNNING_IN_CONTAINER=true
 
 ENTRYPOINT ["./stiebel-eltron-dashboard"]
