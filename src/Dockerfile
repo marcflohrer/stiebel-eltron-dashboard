@@ -26,6 +26,7 @@ COPY --from=publish /app .
 COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
 COPY --from=build /root/.dotnet/corefx/cryptography/x509stores/my/* /root/.dotnet/corefx/cryptography/x509stores/my/
 
+RUN mkdir -p /app/logs/
 RUN touch /app/logs/dashboard.log
 RUN mkdir -p mssql/data
 RUN chmod +x stiebel-eltron-dashboard
