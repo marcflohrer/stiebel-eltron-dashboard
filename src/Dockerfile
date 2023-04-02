@@ -1,34 +1,21 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy@sha256:7c808ca379d3836044627a0bb5d4fc84520f41bca775706d37ca6863fea3567b AS build
-ARG ConnectionString=default_connection_string
-ENV ConnectionString=$ConnectionString
-ARG ServiceWeltUrl=http://servicewelturl.local
-ENV ServiceWeltUrl=$ServiceWeltUrl
-ARG ServiceWeltUser=service_welt_user
-ENV ServiceWeltUser=$ServiceWeltUser
-ARG ServiceWeltPassword=service_welt_password
-ENV ServiceWeltPassword=$ServiceWeltPassword
+
 WORKDIR /app
 COPY stiebel-eltron-dashboard.csproj .
 RUN dotnet restore stiebel-eltron-dashboard.csproj
 COPY . .
 RUN dotnet build stiebel-eltron-dashboard.csproj
-RUN chmod +x ./docker-entrypoint.sh
+RUN dotnet dev-certs https
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app stiebel-eltron-dashboard.csproj
+RUN dotnet publish stiebel-eltron-dashboard.csproj -c Release -o /app  --self-contained --runtime linux-x64
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy@sha256:7c808ca379d3836044627a0bb5d4fc84520f41bca775706d37ca6863fea3567b AS final
-ARG ConnectionString=default_connection_string
-ENV ConnectionString=$ConnectionString
-ARG ServiceWeltUrl=http://servicewelturl.local
-ENV ServiceWeltUrl=$ServiceWeltUrl
-ARG ServiceWeltUser=service_welt_user
-ENV ServiceWeltUser=$ServiceWeltUser
-ARG ServiceWeltPassword=service_welt_password
-ENV ServiceWeltPassword=$ServiceWeltPassword
+FROM mcr.microsoft.com/dotnet/runtime-deps:7.0-jammy AS final
 
 ENV DOTNET_TieredPGO = 1
 ENV DOTNET_TC_QuickJitForLoops = 1
+ENV DOTNET_TieredCompilation = 1
+ENV DOTNET_TC_QuickJit = 1
 
 ENV ASPNETCORE_ENVIRONMENT=Development
 ENV ASPNETCORE_URLS=http://+:6003;https://+:6004
@@ -36,11 +23,14 @@ EXPOSE 6003 6004
 WORKDIR /app
 
 RUN mkdir logs && touch /app/logs/dashboard.log
+RUN mkdir -p mssql/data
 
-COPY --from=publish /app/docker-entrypoint.sh .
 COPY --from=publish /app .
 COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
+COPY --from=build /root/.dotnet/corefx/cryptography/x509stores/my/* /root/.dotnet/corefx/cryptography/x509stores/my/
 
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
+    # Enable detection of running in a container
+    DOTNET_RUNNING_IN_CONTAINER=tr
 
-ENTRYPOINT ./docker-entrypoint.sh $ConnectionString $ServiceWeltUrl $ServiceWeltUser $ServiceWeltPassword
+ENTRYPOINT ["./stiebel-eltron-dashboard"]
