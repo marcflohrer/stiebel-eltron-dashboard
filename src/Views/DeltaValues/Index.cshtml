@@ -106,17 +106,22 @@
         metricsValueMap[$"PerformanceFactorTotal"] = Model.Where(m => m.DateUpdated.CompareTo(newestRecord) == 0).Select(x => x.PerformanceFactorTotal).Take(1).ToList().ToJson();
     }
 }
-<!-- Tab content -->
 <div class="dropdown">
-    <button class="dropbtn">Zeitraum wählen</button>
-    <div class="dropdown-content">
-        <a onclick="openTab(event, 'Days')">Tage</a>
-        <a onclick="openTab(event, 'Weeks')">Wochen</a>
-        <a onclick="openTab(event, 'Months')">Monate</a>
-        <a onclick="openTab(event, 'Years')">Jahre</a>
-        <a onclick="openTab(event, 'Total')">Gesamt</a>
-    </div>
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        Zeitraum wählen
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a onclick="openTab(event, 'Days')">Tage</a></li>
+        <li><a onclick="openTab(event, 'Weeks')">Wochen</a></li>
+        <li><a onclick="openTab(event, 'Months')">Monate</a></li>
+        <li><a onclick="openTab(event, 'Years')">Jahre</a></li>
+    </ul>
 </div>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 @foreach (var timeUnit in timeUnits)
 {
     <div id="@(timeUnit)s" class="tabcontent">

@@ -139,24 +139,47 @@
         background-color: #ccc;
     }
 
-/* Dropdown Button */
+/* Fancy Dropdown Button */
 .dropbtn {
-    background-color: #8cad58;
-    border: none;
-    color: #e9f1dd;
+    background-color: #fff;
+    color: #8cad58;
     font-size: 16px;
+    border: 2px solid #8cad58;
+    border-radius: 5px;
     padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    /* Hover effect for fancy dropdown button */
+    .dropbtn:hover {
+        background-color: #8cad58;
+        color: #fff;
+        cursor: pointer;
+    }
+
+.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover {
+    color: #fff;
+    background-color: #848587;
+    border-color: #8c8c8c;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
     background-color: #f1f1f1;
+    border: 2px solid #8cad58;
+    border-radius: 5px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     display: none;
     min-width: 160px;
     position: absolute;
     z-index: 1;
 }
+
+    .dropdown-content.show .dropbtn {
+        color: #fff;
+        background-color: #848587;
+        border-color: #8c8c8c;
+    }
 
     /* Links inside the dropdown */
     .dropdown-content a {
@@ -166,28 +189,29 @@
         text-decoration: none;
     }
 
-        /* Change color of dropdown links on hover */
-        .dropdown-content a:hover {
-            background-color: #8cad58;
-            color: #e9f1dd;
-        }
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-    display: inline-block;
-    position: relative;
+.dropdown-menu > li:not(.disabled) > a:hover,
+.dropdown-menu > li:not(.disabled) > a:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #8cad58;
 }
 
-    /* Show the dropdown menu on hover */
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
+.btn-default:hover {
+    color: #333;
+    background-color: #e9f1dd;
+    border-color: #adadad;
+}
 
-    /* Change the background color of the dropdown button when the dropdown content is shown */
-    .dropdown:hover .dropbtn {
-        background-color: #848587;
-        color: #e9f1dd;
-    }
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #e9f1dd;
+    color: #e9f1dd;
+}
 
 /* Go from zero to full opacity */
 @keyframes fadeEffect {
