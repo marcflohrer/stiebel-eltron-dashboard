@@ -148,19 +148,7 @@
     border-radius: 5px;
     padding: 10px;
     transition: background-color 0.3s, color 0.3s;
-}
-
-    /* Hover effect for fancy dropdown button */
-    .dropbtn:hover {
-        background-color: #8cad58;
-        color: #fff;
-        cursor: pointer;
-    }
-
-.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover {
-    color: #fff;
-    background-color: #848587;
-    border-color: #8c8c8c;
+    cursor: pointer;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -175,12 +163,6 @@
     z-index: 1;
 }
 
-    .dropdown-content.show .dropbtn {
-        color: #fff;
-        background-color: #848587;
-        border-color: #8c8c8c;
-    }
-
     /* Links inside the dropdown */
     .dropdown-content a {
         color: black;
@@ -189,18 +171,16 @@
         text-decoration: none;
     }
 
-.dropdown-menu > li:not(.disabled) > a:hover,
-.dropdown-menu > li:not(.disabled) > a:focus {
-    color: #fff;
-    text-decoration: none;
-    background-color: #8cad58;
-}
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #8cad58;
+            color: #fff;
+            text-decoration: none;
+        }
 
-.btn-default:hover {
-    color: #333;
-    background-color: #e9f1dd;
-    border-color: #adadad;
-}
+    .dropdown-content li {
+        list-style-type: none;
+    }
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
@@ -210,18 +190,8 @@
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
     background-color: #e9f1dd;
-    color: #e9f1dd;
-}
-
-/* Go from zero to full opacity */
-@keyframes fadeEffect {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    color: #fff;
+    border-color: #8c8c8c;
 }
 
 /* Style the tab content */

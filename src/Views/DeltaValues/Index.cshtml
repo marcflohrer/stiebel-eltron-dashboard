@@ -107,21 +107,22 @@
     }
 }
 <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-        Zeitraum wählen
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-        <li><a onclick="openTab(event, 'Days')">Tage</a></li>
-        <li><a onclick="openTab(event, 'Weeks')">Wochen</a></li>
-        <li><a onclick="openTab(event, 'Months')">Monate</a></li>
-        <li><a onclick="openTab(event, 'Years')">Jahre</a></li>
-    </ul>
+    <button class="dropbtn" onclick="toggleDropdown()">Zeitraum wählen</button>
+    <div class="dropdown-content" id="myDropdown">
+        <a onclick="openTab(event, 'Days')">Tage</a>
+        <a onclick="openTab(event, 'Weeks')">Wochen</a>
+        <a onclick="openTab(event, 'Months')">Monate</a>
+        <a onclick="openTab(event, 'Years')">Jahre</a>
+    </div>
 </div>
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Bootstrap JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>function toggleDropdown() {
+        var dropdown = document.getElementById("myDropdown");
+        if (dropdown.classList.contains("show")) {
+            dropdown.classList.remove("show");
+        } else {
+            dropdown.classList.add("show");
+        }
+    }</script>
 @foreach (var timeUnit in timeUnits)
 {
     <div id="@(timeUnit)s" class="tabcontent">
