@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using static StiebelEltronDashboard.Services.HtmlServices.Tags;
-using Serilog;
 
 namespace StiebelEltronDashboard.Services.HtmlServices
 {
