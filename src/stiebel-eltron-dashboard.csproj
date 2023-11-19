@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<UserSecretsId>d1e11783-8483-409b-956e-0f20d5dff1b4</UserSecretsId>
 		<RootNamespace>StiebelEltronDashboard</RootNamespace>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'stiebel-eltron-dashboard' " />
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.13" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.13" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
@@ -43,16 +43,16 @@
 		<Content Remove="stiebel-eltron-dashboard-tests\obj\stiebel-eltron-dashboard-tests.csproj.nuget.dgspec.json" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
-	  <None Remove="Views\DeltaValues\" />
-	  <None Remove="Jobs\" />
-	  <None Remove="Repositories\Models\" />
-	  <None Remove="secrets\" />
+		<None Remove="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
+		<None Remove="Views\DeltaValues\" />
+		<None Remove="Jobs\" />
+		<None Remove="Repositories\Models\" />
+		<None Remove="secrets\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Views\DeltaValues\" />
-	  <Folder Include="Jobs\" />
-	  <Folder Include="Repositories\Models\" />
-	  <Folder Include="secrets\" />
+		<Folder Include="Views\DeltaValues\" />
+		<Folder Include="Jobs\" />
+		<Folder Include="Repositories\Models\" />
+		<Folder Include="secrets\" />
 	</ItemGroup>
 </Project>

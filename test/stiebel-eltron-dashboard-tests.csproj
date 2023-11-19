@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<RootNamespace>stiebel_eltron_dashboard_tests</RootNamespace>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-		<PackageReference Include="xunit" Version="2.6.1" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+		<PackageReference Include="xunit" Version="2.6.2" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
@@ -80,21 +80,21 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="html\HeatPumpWebsite %28Kopie%29.html">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="html\HeatPumpWebsite-dot.html">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Extensions\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="ServiceWeltMockData.cs">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Compile>
-	  <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="ServiceWeltMockData %28Kopie%29.cs">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Compile>
+		<Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="ServiceWeltMockData.cs">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Compile>
+		<Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="ServiceWeltMockData %28Kopie%29.cs">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Compile>
 	</ItemGroup>
 </Project>
