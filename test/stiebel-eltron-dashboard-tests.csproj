@@ -13,7 +13,7 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="AutoMoqCore" Version="2.1.0" />
-		<PackageReference Include="AutoFixture" Version="4.18.0" />
+		<PackageReference Include="AutoFixture" Version="4.18.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\src\stiebel-eltron-dashboard.csproj" />
