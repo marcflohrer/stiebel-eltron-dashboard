@@ -19,7 +19,7 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.57" />
-		<PackageReference Include="Cronos" Version="0.7.1" />
+		<PackageReference Include="Cronos" Version="0.8.1" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
 		<PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
