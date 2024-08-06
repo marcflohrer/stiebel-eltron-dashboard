@@ -33,7 +33,7 @@
 		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.7.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.7.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.7.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Remove="stiebel-eltron-dashboard-tests\UnitTest1.cs" />
