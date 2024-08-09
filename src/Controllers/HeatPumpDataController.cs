@@ -61,11 +61,7 @@ namespace StiebelEltronDashboard.Controllers
                 foreach (var imported in heatputDataPerPeriodList)
                 {
                     // Ensure the DateTime is in UTC
-                    if (imported.DateCreated.Kind != DateTimeKind.Utc)
-                    {
-                        imported.DateCreated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
-                        imported.DateCreated = imported.DateCreated.ToUniversalTime();
-                    }
+                    ToDateTimeKindUtc(imported);
 
                     if ((await unitOfWork.HeatPumpDataRepository.FindByDateCreated(imported.DateCreated)).Count > 1)
                     {
@@ -93,7 +89,21 @@ namespace StiebelEltronDashboard.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest($"{ex.Message} - {ex.InnerException.Message}");
+            }
+        }
+
+        private static void ToDateTimeKindUtc(HeatPumpDatum imported)
+        {
+            if (imported.DateCreated.Kind != DateTimeKind.Utc)
+            {
+                imported.DateCreated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
+                imported.DateCreated = imported.DateCreated.ToUniversalTime();
+            }
+            if (imported.DateUpdated.Kind != DateTimeKind.Utc)
+            {
+                imported.DateUpdated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
+                imported.DateUpdated = imported.DateCreated.ToUniversalTime();
             }
         }
     }

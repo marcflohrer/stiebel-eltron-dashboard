@@ -59,6 +59,8 @@ namespace StiebelEltronDashboard.Controllers
                 // Check if data is already stored in database
                 foreach (var imported in heatputDataPerPeriodList)
                 {
+                    ToDateTimeKindUtc(imported);
+
                     var existingList = await unitOfWork.HeatPumpStatisticsPerPeriodRepository.FindByPeriodAsync(
                         imported.Year,
                         imported.PeriodKind,
@@ -89,7 +91,22 @@ namespace StiebelEltronDashboard.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest($"{ex.Message} - {ex.InnerException.Message}");
+            }
+        }
+    
+
+        private static void ToDateTimeKindUtc(HeatPumpDataPerPeriod imported)
+        {
+            if (imported.DateCreated.Kind != DateTimeKind.Utc)
+            {
+                imported.DateCreated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
+                imported.DateCreated = imported.DateCreated.ToUniversalTime();
+            }
+            if (imported.DateUpdated.Kind != DateTimeKind.Utc)
+            {
+                imported.DateUpdated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
+                imported.DateUpdated = imported.DateCreated.ToUniversalTime();
             }
         }
     }
