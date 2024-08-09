@@ -111,6 +111,8 @@ namespace StiebelEltronDashboard.Controllers
             imported.DateUpdated = EnsureDateTimeIsUtc(imported.DateUpdated);
             imported.PeriodStart = EnsureDateTimeIsUtc(imported.PeriodStart);
             imported.PeriodEnd = EnsureDateTimeIsUtc(imported.PeriodEnd);
+            imported.First = EnsureDateTimeIsUtc(imported.First);
+            imported.Last = EnsureDateTimeIsUtc(imported.Last);
         }
     }
 }
