@@ -12,7 +12,7 @@ namespace StiebelEltronDashboardTests
     public class ScrapingServiceTests
     {
         [Fact]
-        public void WhenScrapingServiceWeltTotalPowerConsumptionIsReturned()
+        public async Task WhenScrapingServiceWeltTotalPowerConsumptionIsReturned()
         {
             var autoMoqer = new AutoMoqer();
             var fixture = new Fixture();
@@ -37,14 +37,14 @@ namespace StiebelEltronDashboardTests
             var scrapingService = autoMoqer.Create<ServiceWeltService>();
 
             // Act
-            var result = scrapingService.GetHeatPumpInformationAsync(sessionId).Result;
+            var result = await scrapingService.GetHeatPumpInformationAsync(sessionId);
 
             // Assert
             Assert.Equal(17739000.0, result.TotalPowerConsumption);
         }
 
         [Fact]
-        public void WhenNotLoggedScrapingServiceWeltTotalPowerConsumptionIsReturned()
+        public async Task WhenNotLoggedScrapingServiceWeltTotalPowerConsumptionIsReturned()
         {
             var autoMoqer = new AutoMoqer();
             var fixture = new Fixture();
@@ -70,7 +70,7 @@ namespace StiebelEltronDashboardTests
             var scrapingService = autoMoqer.Create<ServiceWeltService>();
 
             // Act
-            var result = scrapingService.GetHeatPumpInformationAsync(sessionNotLoggedIn).Result;
+            var result = await scrapingService.GetHeatPumpInformationAsync(sessionNotLoggedIn);
 
             // Assert
             Assert.Equal(17739000.0, result.TotalPowerConsumption);

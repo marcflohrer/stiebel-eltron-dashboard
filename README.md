@@ -107,7 +107,7 @@ You need docker on the machine where you want to run the application:
 
 * git
 * docker
-* [dotnet 7.0](https://dotnet.microsoft.com/download/dotnet/7.0)
+* [dotnet 8.0](https://dotnet.microsoft.com/download/dotnet/8.0)
 * either [armv7](https://en.wikipedia.org/wiki/ARM_architecture)+ && [ubuntu 22.04](https://ubuntu.com/download/desktop?version=22.04&architecture=amd64)
 * or x64 && (linux, mac)
 
@@ -122,7 +122,7 @@ The installation I tested is the combination ubuntu 22.04 on raspberry pi 4 but 
 2. Go to the home directory and call the setup script with your passwords, usernames and your url:
 
    ```sh
-   sudo chmod +x ubuntu-arm64-setup.sh && ./ubuntu-arm64-setup.sh <databasepassword> <serviceweltusername> <serviceweltpassword> <servicewelturl>
+   sudo chmod +x ubuntu21-arm64-setup.sh && ./ubuntu21-arm64-setup.sh <databasepassword> <serviceweltusername> <serviceweltpassword> <servicewelturl>
    ```
 
 3. When you see 'Migration finished' stop and remove the migration container:
@@ -185,4 +185,3 @@ After running the project in the IDE of your choice the website http://localhost
 ## License
 
 This project is licensed under the Reciprocal Public License 1.5 (RPL1.5). This is a GPL-style license with very detailed liability protection and numerous requirements, created to close a perceived loophole in the GPL which let users sell modified software without 'fairly' distributing it. Disputes over this license must be settled through an American arbitration process.
-

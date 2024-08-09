@@ -41,7 +41,8 @@ namespace StiebelEltronDashboard.Controllers
 
             // Set the appropriate HTTP headers to indicate that the response should be downloaded as a file
             var zipFileName = ZipperService.ZipFileName<HeatPumpDatum>();
-            Response.Headers.Add("Content-Disposition", $"attachment; filename=\"{zipFileName}s\"");
+            Response.Headers.Append("Content-Disposition",
+                                    $"attachment; filename=\"{zipFileName}s\"");
             Response.ContentType = "application/zip";
 
             // Return the ZIP file as the response
