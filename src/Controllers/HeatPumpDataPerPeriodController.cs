@@ -108,6 +108,16 @@ namespace StiebelEltronDashboard.Controllers
                 imported.DateUpdated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
                 imported.DateUpdated = imported.DateCreated.ToUniversalTime();
             }
+            if (imported.PeriodStart.Kind != DateTimeKind.Utc)
+            {
+                imported.DateUpdated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
+                imported.DateUpdated = imported.DateCreated.ToUniversalTime();
+            }
+            if (imported.PeriodEnd.Kind != DateTimeKind.Utc)
+            {
+                imported.DateUpdated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
+                imported.DateUpdated = imported.DateCreated.ToUniversalTime();
+            }
         }
     }
 }
