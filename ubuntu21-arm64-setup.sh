@@ -38,7 +38,7 @@ git clone https://github.com/marcflohrer/stiebel-eltron-dashboard
 cd stiebel-eltron-dashboard/src
 touch .env
 echo 'DatabasePassword="$1"' >> .env
-echo 'DatabaseConnectionString="Host=db;Database=master;Username=sa;Password=$1;SslMode=Disable"' >> .env
+echo 'DatabaseConnectionString="Host=db;Database=postgres;Username=sa;Password=$1;SslMode=Disable"' >> .env
 echo 'ServiceWeltUser="$2"' >> .env
 echo 'ServiceWeltPassword="$3"' >> .env
 echo 'ServiceWeltUrl="$4"' >> .env

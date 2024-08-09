@@ -44,5 +44,5 @@ done
 >&2 echo "!!!11!!!!!!11!!!!!!11!!!!!!11!!!!!!11!!!1!!!!!!11!!!!!"
 
 >&2 echo "SQL Server is up - starting scaffolding ..."
-dotnet user-secrets init && dotnet user-secrets set "${ConnectionStringName}" "Host=db;Database=master;Username=sa;Password=$1;SslMode=Disable"
+dotnet user-secrets init && dotnet user-secrets set "${ConnectionStringName}" "Host=db;Database=postgres;Username=sa;Password=$1;SslMode=Disable"
 dotnet ef dbcontext scaffold Name="${ConnectionStringName}" Microsoft.EntityFrameworkCore.SqlServer -o DbModels -f --context ApplicationDbContext --context-dir DbModels --namespace StiebelEltronDashboard.Models --context-namespace StiebelEltronDashboard.Models

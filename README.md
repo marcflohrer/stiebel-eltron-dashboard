@@ -74,7 +74,7 @@ Here is a screenshot of the dashboard:
 * After migrating to the .NET 6 version or later, ensure your database connection string contains `;SslMode=Disable` in your .env file. Example:
 
 ```keyvaluepair
-DatabaseConnectionString="Host=db;Database=master;Username=sa;Password=MySuperSecretPassword;SslMode=Disable"
+DatabaseConnectionString="Host=db;Database=postgres;Username=sa;Password=MySuperSecretPassword;SslMode=Disable"
 ```
 
 ## Installation
@@ -139,7 +139,7 @@ You need docker on the machine where you want to run the application:
 
    ```env
     DatabasePassword=<MySuperSecretPassword>
-    DatabaseConnectionString="Host=db;Database=master;Username=sa;Password=<MySuperSecretPassword>;SslMode=Disable"
+    DatabaseConnectionString="Host=db;Database=postgres;Username=sa;Password=<MySuperSecretPassword>;SslMode=Disable"
     ServiceWeltUser="<serviceweltusername>"
     ServiceWeltPassword="<serviceweltpassword>"
     ServiceWeltUrl="<servicewelturl>"
@@ -183,7 +183,7 @@ If you want to develop the project locally on your machine you have to put  an a
 ```json
 {
     "DatabasePassword": "<MySuperSecretPassword>",
-    "DefaultConnection": "Host=localhost;Database=master;Username=sa;Password=<MySuperSecretPassword>;SslMode=Disable",
+    "DefaultConnection": "Host=localhost;Database=postgres;Username=sa;Password=<MySuperSecretPassword>;SslMode=Disable",
     "ServiceWeltUser": "<serviceweltusername>",
     "ServiceWeltPassword": "<serviceweltpassword>",
     "ServiceWeltUrl": "<servicewelturl>",
