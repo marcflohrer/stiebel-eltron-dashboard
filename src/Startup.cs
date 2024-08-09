@@ -76,7 +76,7 @@ namespace StiebelEltronDashboard
             // Context pooling can increase throughput in high-scale scenarios such as web servers by reusing context instances, 
             // rather than creating new instances for each request.
             services.AddDbContextPool<ApplicationDbContext>(options =>
-                options.UseSqlServer(connection));
+                options.UseNpgsql(connection));
 
             services.AddMvc();
             // Register the Swagger generator, defining 1 or more Swagger documents

@@ -165,6 +165,35 @@ The installation I tested is the combination ubuntu 22.04 on raspberry pi 4 but 
    chmod +x startup-app.sh && ./startup-app.sh &
    ```
 
+### Migrating from Raspberry Pi 4 (or older) to Raspberry Pi 5
+
+If you are moving from a Raspberry Pi 4 or older to a Raspberry Pi 5, you can easily back up and restore your existing data using the integrated Swagger API. The following steps will guide you through backing up your data on your Raspberry Pi 4 and restoring it on the Raspberry Pi 5:
+
+#### 1. Backing Up Data on the Raspberry Pi 4
+
+* Start your application on the Raspberry Pi 4.
+* Open a web browser and navigate to `http://<your-raspberry-pi-ip>:<port>/swagger/index.html`. Replace `<your-raspberry-pi-ip>` with your Raspberry Pi's IP address and `<port>` with the port on which your application is running.
+
+* You will see the Swagger API interface.
+* Use the API endpoints to back up your data:
+  * **GET `/HeatPumpData`**: Download the file containing all current data.
+  * **GET `/HeatPumpDataPerPeriod`**: Download the file containing the periodic data.
+* Save these files in a secure location.
+
+#### 2. Restoring Data on the Raspberry Pi 5
+
+* Set up your application on the Raspberry Pi 5 and ensure it is running properly.
+* Navigate to the Swagger API interface on your Raspberry Pi 5 (`http://<your-raspberry-pi-5-ip>:<port>/swagger/index.html`).
+* Upload the previously backed-up files using the following API endpoints:
+  * **POST `/HeatPumpData`**: Upload the file containing the current data.
+  * **POST `/HeatPumpDataPerPeriod`**: Upload the file containing the periodic data.
+* Once the files are uploaded, your data will be restored on the Raspberry Pi 5, and the application should continue functioning seamlessly.
+
+#### 3. Regular Data Backup
+
+To ensure your data is safe in case of hardware failure or other issues, it is recommended to perform regular data backups. Use the above steps to back up your data and store the files in a secure location regularly.
+
+
 ## Local development
 
 If you want to develop the project locally on your machine you have to put  an appsettings.json file in the folder src/secrets with the following structure:
@@ -179,8 +208,29 @@ If you want to develop the project locally on your machine you have to put  an a
 }
 ```
 
-Replace the placeholders <MySuperSecretPassword>, <serviceweltusername>, <serviceweltpassword>, <servicewelturl> with the respective values in your environment.
+Replace the placeholders \<MySuperSecretPassword\>, \<serviceweltusername\>, \<serviceweltpassword\>, \<servicewelturl\> with the respective values in your environment.
 After running the project in the IDE of your choice the website http://localhost:55876/ should be up and running after some time.
+
+Migrating from Raspberry Pi 4 (or older) to Raspberry Pi 5
+If you are moving from a Raspberry Pi 4 or older to a Raspberry Pi 5, you can easily back up and restore your existing data using the integrated Swagger API. The following steps will guide you through backing up your data on your Raspberry Pi 4 and restoring it on the Raspberry Pi 5:
+
+1. Backing Up Data on the Raspberry Pi 4
+Start your application on the Raspberry Pi 4.
+Open a web browser and navigate to http://"your-raspberry-pi-ip":"port"/swagger/index.html. Replace "your-raspberry-pi-ip" with your Raspberry Pi's IP address and "port" with the port on which your application is running.
+You will see the Swagger API interface.
+Use the API endpoints to back up your data:
+GET /HeatPumpData: Download the file containing all current data.
+GET /HeatPumpDataPerPeriod: Download the file containing the periodic data.
+Save these files in a secure location.
+2. Restoring Data on the Raspberry Pi 5
+Set up your application on the Raspberry Pi 5 and ensure it is running properly.
+Navigate to the Swagger API interface on your Raspberry Pi 5 (http://"your-raspberry-pi-5-ip":"port"/swagger/index.html).
+Upload the previously backed-up files using the following API endpoints:
+POST /HeatPumpData: Upload the file containing the current data.
+POST /HeatPumpDataPerPeriod: Upload the file containing the periodic data.
+Once the files are uploaded, your data will be restored on the Raspberry Pi 5, and the application should continue functioning seamlessly.
+3. Regular Data Backup
+To ensure your data is safe in case of hardware failure or other issues, it is recommended to perform regular data backups. Use the above steps to back up your data and store the files in a secure location regularly.
 
 ## License
 
