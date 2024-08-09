@@ -60,18 +60,24 @@ namespace StiebelEltronDashboard.Controllers
                 // Check if data is already stored in database
                 foreach (var imported in heatputDataPerPeriodList)
                 {
-                    var existingList = await unitOfWork.HeatPumpDataRepository.FindByDateCreated(imported.DateCreated);
-                    if (existingList.Count > 1)
+                    // Ensure the DateTime is in UTC
+                    if (imported.DateCreated.Kind != DateTimeKind.Utc)
                     {
-                        foreach (var existing in existingList)
+                        imported.DateCreated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
+                        imported.DateCreated = imported.DateCreated.ToUniversalTime();
+                    }
+
+                    if ((await unitOfWork.HeatPumpDataRepository.FindByDateCreated(imported.DateCreated)).Count > 1)
+                    {
+                        foreach (var existing in await unitOfWork.HeatPumpDataRepository.FindByDateCreated(imported.DateCreated))
                         {
                             unitOfWork.HeatPumpDataRepository.Remove(existing);
                         }
                         unitOfWork.HeatPumpDataRepository.Add(imported);
                     }
-                    else if (existingList.Any())
+                    else if ((await unitOfWork.HeatPumpDataRepository.FindByDateCreated(imported.DateCreated)).Count != 0)
                     {
-                        if (!existingList.Equals(imported))
+                        if (!(await unitOfWork.HeatPumpDataRepository.FindByDateCreated(imported.DateCreated)).Equals(imported))
                         {
                             unitOfWork.HeatPumpDataRepository.Update(imported);
                         }
