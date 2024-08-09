@@ -93,18 +93,20 @@ namespace StiebelEltronDashboard.Controllers
             }
         }
 
+        private static DateTime EnsureDateTimeIsUtc(DateTime dateTime)
+        {
+            if (dateTime.Kind != DateTimeKind.Utc)
+            {
+                dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+                dateTime = dateTime.ToUniversalTime();
+            }
+            return dateTime;
+        }
+
         private static void ToDateTimeKindUtc(HeatPumpDatum imported)
         {
-            if (imported.DateCreated.Kind != DateTimeKind.Utc)
-            {
-                imported.DateCreated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
-                imported.DateCreated = imported.DateCreated.ToUniversalTime();
-            }
-            if (imported.DateUpdated.Kind != DateTimeKind.Utc)
-            {
-                imported.DateUpdated = DateTime.SpecifyKind(imported.DateCreated, DateTimeKind.Utc);
-                imported.DateUpdated = imported.DateCreated.ToUniversalTime();
-            }
+            imported.DateCreated = EnsureDateTimeIsUtc(imported.DateCreated);
+            imported.DateUpdated = EnsureDateTimeIsUtc(imported.DateUpdated);
         }
     }
 }
