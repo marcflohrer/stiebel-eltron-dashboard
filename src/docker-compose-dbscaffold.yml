@@ -22,5 +22,6 @@ services:
         volumes:
             - ./data/postgres:/var/lib/postgresql/data
         environment:
-            POSTGRES_PASSWORD: ${DatabasePassword}  # Definiert das Passwort für den Postgres-Benutzer
+            POSTGRES_USER: sa                       # Benutzer 'sa' fest definiert
+            POSTGRES_PASSWORD: ${DatabasePassword}  # Passwort für den Benutzer 'sa'
 
