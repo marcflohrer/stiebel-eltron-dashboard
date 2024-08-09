@@ -21,16 +21,29 @@ if [ -z "$4" ]; then
     exit 1;
 fi
 
+if [ -z "$5" ]; then
+    echo "Missing Http port.\n Expected usage: ubuntu21-arm64-setup.sh databasepassword serviceweltusername serviceweltpassword servicewelturl httpport httpsport"
+    exit 1;
+fi
+
+if [ -z "$6" ]; then
+    echo "Missing Https port.\n Expected usage: ubuntu21-arm64-setup.sh databasepassword serviceweltusername serviceweltpassword servicewelturl httpport httpsport"
+    exit 1;
+fi
+
+
 
 git clone https://github.com/marcflohrer/stiebel-eltron-dashboard
 
 cd stiebel-eltron-dashboard/src
 touch .env
 echo 'DatabasePassword="$1"' >> .env
-echo 'DatabaseConnectionString="Server=db;Database=master;User=sa;Password=$1"'  >> .env
+echo 'DatabaseConnectionString="Host=db;Database=master;Username=sa;Password=$1;SslMode=Disable"' >> .env
 echo 'ServiceWeltUser="$2"' >> .env
 echo 'ServiceWeltPassword="$3"' >> .env
 echo 'ServiceWeltUrl="$4"' >> .env
+echo 'HttpPort="$5"' >> .env
+echo 'HttpsPort="$6"' >> .env
 
 sudo apt-get remove docker docker-engine docker.io containerd runc
 sudo apt-get remove docker docker.io containerd runc
