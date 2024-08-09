@@ -8,21 +8,19 @@ services:
                 ServiceWeltUrl: "${ServiceWeltUrl}"
             context: .
             dockerfile: Dockerfile_DbScaffold
-        container_name: "dashboard"             
+        container_name: "dashboard"
         volumes:
-            - ./Data/Generated:/app/DbModels:rw       
+            - ./Data/Generated:/app/DbModels:rw
         depends_on:
-            - db             
+            - db
     db:
-        image: "mcr.microsoft.com/azure-sql-edge:1.0.5"
-        user: root        
-        container_name: "mssql"
-        restart: always      
+        image: "postgres:latest"  # PostgreSQL wird verwendet, das auf ARM läuft
+        container_name: "postgres"
+        restart: always
         ports:
-            - "1433:1433"       
+            - "5432:5432"
         volumes:
-            - ./data/mssql/data/:/var/opt/mssql/data
+            - ./data/postgres:/var/lib/postgresql/data
         environment:
-            MSSQL_SA_PASSWORD: ${DatabasePassword}
-            ACCEPT_EULA: 1
-            MSSQL_PID: Developer
+            POSTGRES_PASSWORD: ${DatabasePassword}  # Definiert das Passwort für den Postgres-Benutzer
+
