@@ -1,7 +1,7 @@
 #!/bin/bash
 . .env
 
-mkdir -p mssql/data
+mkdir -p postgres/data
 
 dotnet build &
 dotnet user-secrets init 

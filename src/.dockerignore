@@ -2,7 +2,7 @@
 **/bin/
 **/obj/
 **/out/
-**/mssql/
+**/postgres/
 
 # files
 Dockerfile*

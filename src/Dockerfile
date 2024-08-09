@@ -30,6 +30,6 @@ COPY --from=build /root/.dotnet/corefx/cryptography/x509stores/my/* /root/.dotne
 
 RUN mkdir -p /app/logs/ && \
     touch /app/logs/dashboard.log && \
-    mkdir -p mssql/data
+    mkdir -p postgres/data
 
 ENTRYPOINT ["dotnet", "stiebel-eltron-dashboard.dll"]

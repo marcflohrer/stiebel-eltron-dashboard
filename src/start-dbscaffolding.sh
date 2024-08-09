@@ -1,6 +1,6 @@
 . .env
 
-mkdir -p mssql/data
+mkdir -p postgres/data
 
 cd Data/Generated/ && find . ! -wholename . -prune ! -wholename ../Models -exec rm {} \; && cd ../..
 dotnet build

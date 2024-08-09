@@ -3,7 +3,7 @@
 
 set -e
 
-mkdir -p mssql/data
+mkdir -p postgres/data
 
 run_cmd="dotnet stiebel-eltron-dashboard.dll"
 

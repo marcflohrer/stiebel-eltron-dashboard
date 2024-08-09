@@ -1,6 +1,7 @@
 . .env
 
-mkdir -p mssql/data
+# Ensure the Data/Generated directory exists
+mkdir -p Data/Generated
 
 cd Data/Generated/ && find . ! -name . -prune ! -wholename ../Models -exec rm {} \; && cd ../..
 dotnet build
