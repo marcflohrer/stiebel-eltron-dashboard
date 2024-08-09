@@ -91,7 +91,7 @@ namespace StiebelEltronDashboard.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"{ex.Message} - {ex.InnerException.Message}");
+                return BadRequest($"{ex.Message} - {ex.InnerException?.Message}");
             }
         }
     
