@@ -53,7 +53,7 @@ namespace StiebelEltronDashboard.Extensions
         public static string ToJson(this IEnumerable<DateTime> dateTimes)
             => JsonConvert.SerializeObject(dateTimes, new JsonSerializerSettings
             {
-                DateTimeZoneHandling = DateTimeZoneHandling.Unspecified,
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc,
                 DateFormatHandling = DateFormatHandling.IsoDateFormat
             });
     }
