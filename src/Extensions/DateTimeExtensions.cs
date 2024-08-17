@@ -28,7 +28,7 @@ namespace StiebelEltronDashboard.Extensions
             {
                 weekOfYear -= 1;
             }
-            return firstWeekDay.AddDays(weekOfYear * 7);
+            return EnsureDateTimeIsUtc(firstWeekDay.AddDays(weekOfYear * 7));
         }
         public static DateTime GetMondayOfWeek(this DateTime dateTime, int year, int weekOfYear, CultureInfo cultureInfo)
         {
@@ -48,7 +48,7 @@ namespace StiebelEltronDashboard.Extensions
                 }
                 current = current.AddDays(1);
             }
-            return current;
+            return DateTimeExtensions.EnsureDateTimeIsUtc(current);
         }
         public static string ToJson(this IEnumerable<DateTime> dateTimes)
             => JsonConvert.SerializeObject(dateTimes, new JsonSerializerSettings
@@ -56,5 +56,15 @@ namespace StiebelEltronDashboard.Extensions
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc,
                 DateFormatHandling = DateFormatHandling.IsoDateFormat
             });
+
+        public static DateTime EnsureDateTimeIsUtc(DateTime dateTime)
+        {
+            if (dateTime.Kind != DateTimeKind.Utc)
+            {
+                dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+                dateTime = dateTime.ToUniversalTime();
+            }
+            return dateTime;
+        }
     }
 }

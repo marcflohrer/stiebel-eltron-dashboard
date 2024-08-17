@@ -1,5 +1,4 @@
 using StiebelEltronDashboard.Models;
-using Serilog;
 
 namespace StiebelEltronDashboard.Extensions
 {
@@ -122,8 +121,8 @@ namespace StiebelEltronDashboard.Extensions
             heatPumpDataPerPeriod.PeriodKind = update.PeriodKind;
             heatPumpDataPerPeriod.PeriodNumber = update.PeriodNumber;
             heatPumpDataPerPeriod.DateUpdated = update.DateUpdated;
-            heatPumpDataPerPeriod.First = update.First;
-            heatPumpDataPerPeriod.Last = update.Last;
+            heatPumpDataPerPeriod.First = DateTimeExtensions.EnsureDateTimeIsUtc(update.First);
+            heatPumpDataPerPeriod.Last = DateTimeExtensions.EnsureDateTimeIsUtc(update.Last);
             return heatPumpDataPerPeriod;
         }
     }

@@ -131,10 +131,10 @@ namespace StiebelEltronDashboard.Services
                 Year = year,
                 PeriodKind = periodKind,
                 PeriodNumber = periodNumber,
-                First = heatPumpData.GetFirst(),
+                First = DateTimeExtensions.EnsureDateTimeIsUtc(heatPumpData.GetFirst()),
                 Last = heatPumpData.GetLast(),
-                DateUpdated = now,
-                DateCreated = now
+                DateUpdated = DateTimeExtensions.EnsureDateTimeIsUtc(now),
+                DateCreated = DateTimeExtensions.EnsureDateTimeIsUtc(now)
             };
             Log.Debug($"<-- GetHeatPumpDataPerPeriod: heatPumpData.Count = {heatPumpData.Count()}, year={year}, period={periodKind}, periodNumber={periodNumber}, now={now.ToLongDateString()}");
             return result;

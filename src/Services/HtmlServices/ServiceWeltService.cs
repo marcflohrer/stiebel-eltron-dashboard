@@ -82,8 +82,8 @@ namespace StiebelEltronDashboard.Services.HtmlServices
                 VaporizerHeatQuantityHotWaterTotal = htmlDocument.ParseFor(Metric.VaporizerHeatQuantityHotWaterTotal),
                 VoltageInverter = htmlDocument.ParseFor(Metric.VoltageInverter),
                 WaterVolumeCurrent = htmlDocument.ParseFor(Metric.WaterVolumeCurrent),
-                DateCreated = utcNow,
-                DateUpdated = utcNow
+                DateCreated = DateTimeExtensions.EnsureDateTimeIsUtc(utcNow),
+                DateUpdated = DateTimeExtensions.EnsureDateTimeIsUtc(utcNow)
             };
         }
 

@@ -1,5 +1,6 @@
 ﻿namespace StiebelEltronDashboard.Services
 {
+    using StiebelEltronDashboard.Extensions;
     using StiebelEltronDashboard.Models;
     using System;
     using System.Globalization;
@@ -8,10 +9,10 @@
     {
         public static DateTime GetPeriodStart(int year, PeriodKind periodKind, int periodNumber) => periodKind switch
         {
-            PeriodKind.Day => new DateTime(year, 1, 1).AddDays(periodNumber - 1),
-            PeriodKind.Week => FirstDateOfWeek(year, periodNumber, new CultureInfo("de-DE")),
-            PeriodKind.Month => new DateTime(year, periodNumber, 1),
-            PeriodKind.Year => new DateTime(year, 1, 1),
+            PeriodKind.Day => DateTimeExtensions.EnsureDateTimeIsUtc(new DateTime(year, 1, 1).AddDays(periodNumber - 1)),
+            PeriodKind.Week => DateTimeExtensions.EnsureDateTimeIsUtc(FirstDateOfWeek(year, periodNumber, new CultureInfo("de-DE"))),
+            PeriodKind.Month => DateTimeExtensions.EnsureDateTimeIsUtc(new DateTime(year, periodNumber, 1)),
+            PeriodKind.Year => DateTimeExtensions.EnsureDateTimeIsUtc(new DateTime(year, 1, 1)),
             _ => throw new ArgumentOutOfRangeException(nameof(periodKind), $"Not expected periodKind value: {periodKind}"),
         };
 
@@ -23,7 +24,7 @@
             {
                 nextMonth = new DateTime(year, periodNumber, 1).AddDays(31);
             }
-            return periodStart.Add(periodKind switch
+            var result = periodStart.Add(periodKind switch
             {
                 PeriodKind.Day => TimeSpan.FromDays(1),
                 PeriodKind.Week => TimeSpan.FromDays(7),
@@ -31,6 +32,7 @@
                 PeriodKind.Year => new DateTime(year + 1, 1, 1).Subtract(periodStart),
                 _ => throw new ArgumentOutOfRangeException(nameof(periodKind), $"Not expected periodKind value: {periodKind}"),
             });
+            return DateTimeExtensions.EnsureDateTimeIsUtc(result);
         }
 
         public static DateTime FirstDateOfWeek(int year, int weekOfYear, CultureInfo ci)
@@ -42,13 +44,13 @@
                 firstDayOfReferenceWeek = firstDayOfReferenceWeek.AddDays(1.0);
             }
             // What's the reference week number?
-            int refWeek = ci.Calendar.GetWeekOfYear(firstDayOfReferenceWeek, ci.DateTimeFormat.CalendarWeekRule, ci.DateTimeFormat.FirstDayOfWeek);
+            var refWeek = ci.Calendar.GetWeekOfYear(firstDayOfReferenceWeek, ci.DateTimeFormat.CalendarWeekRule, ci.DateTimeFormat.FirstDayOfWeek);
 
             // What's the offset in weeks from the reference week?
-            int weekOffset = weekOfYear - refWeek;
+            var weekOffset = weekOfYear - refWeek;
 
             // Offset times seven is the offset in days to the first day of the reference week
-            return firstDayOfReferenceWeek.AddDays(7 * weekOffset);
+            return DateTimeExtensions.EnsureDateTimeIsUtc(firstDayOfReferenceWeek.AddDays(7 * weekOffset));
         }
     }
 }

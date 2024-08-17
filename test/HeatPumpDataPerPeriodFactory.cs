@@ -14,7 +14,7 @@ namespace StiebelEltronDashboardTests
         {
             var heatPumpDataPerPeriod = new HeatPumpDataPerPeriod();
             heatPumpDataPerPeriod.Year = start.Year;
-            var now = new DateTime(2021, 5, 1);
+            var now = DateTimeExtensions.EnsureDateTimeIsUtc(new DateTime(2021, 5, 1));
             var result = new List<HeatPumpDataPerPeriod>();
             var index = 0;
             for (var i = 0; i < numberOfDataSets; ++i)

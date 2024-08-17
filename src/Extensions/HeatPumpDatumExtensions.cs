@@ -125,7 +125,7 @@ namespace StiebelEltronDashboard.Extensions
 
         public static DateTime GetFirst(this IEnumerable<HeatPumpDatum> heatPumpData)
         {
-            var first = DateTime.MaxValue;
+            var first = DateTimeExtensions.EnsureDateTimeIsUtc(DateTime.MaxValue);
             var creationDates = heatPumpData.Select(hpd => hpd.DateCreated);
             if (creationDates.Any())
             {
@@ -133,7 +133,7 @@ namespace StiebelEltronDashboard.Extensions
                 {
                     if (first > creationDate)
                     {
-                        first = creationDate;
+                        first = DateTimeExtensions.EnsureDateTimeIsUtc(creationDate);
                     }
                 }
             }
@@ -141,7 +141,7 @@ namespace StiebelEltronDashboard.Extensions
             {
                 Log.Debug("!Any() <-- GetDeltaForMetric!");
             }
-            return first;
+            return DateTimeExtensions.EnsureDateTimeIsUtc(first);
         }
 
         public static DateTime GetLast(this IEnumerable<HeatPumpDatum> heatPumpData)
@@ -162,7 +162,7 @@ namespace StiebelEltronDashboard.Extensions
             {
                 Log.Debug("!Any() <-- GetLast!");
             }
-            return last;
+            return DateTimeExtensions.EnsureDateTimeIsUtc(last);
         }
     }
 }

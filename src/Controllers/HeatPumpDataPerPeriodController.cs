@@ -4,6 +4,7 @@ namespace StiebelEltronDashboard.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using StiebelEltronDashboard.Extensions;
     using StiebelEltronDashboard.Models;
     using StiebelEltronDashboard.Repositories;
     using StiebelEltronDashboard.Repositories.Models;
@@ -93,26 +94,16 @@ namespace StiebelEltronDashboard.Controllers
             {
                 return BadRequest($"Bad Request: {ex.Message} - {ex.InnerException?.Message}");
             }
-        }    
-
-        private static DateTime EnsureDateTimeIsUtc(DateTime dateTime)
-        {
-            if (dateTime.Kind != DateTimeKind.Utc)
-            {
-                dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
-                dateTime = dateTime.ToUniversalTime();
-            }
-            return dateTime;
         }
 
         private static void ToDateTimeKindUtc(HeatPumpDataPerPeriod imported)
         {
-            imported.DateCreated = EnsureDateTimeIsUtc(imported.DateCreated);
-            imported.DateUpdated = EnsureDateTimeIsUtc(imported.DateUpdated);
-            imported.PeriodStart = EnsureDateTimeIsUtc(imported.PeriodStart);
-            imported.PeriodEnd = EnsureDateTimeIsUtc(imported.PeriodEnd);
-            imported.First = EnsureDateTimeIsUtc(imported.First);
-            imported.Last = EnsureDateTimeIsUtc(imported.Last);
+            imported.DateCreated = DateTimeExtensions.EnsureDateTimeIsUtc(imported.DateCreated);
+            imported.DateUpdated = DateTimeExtensions.EnsureDateTimeIsUtc(imported.DateUpdated);
+            imported.PeriodStart = DateTimeExtensions.EnsureDateTimeIsUtc(imported.PeriodStart);
+            imported.PeriodEnd = DateTimeExtensions.EnsureDateTimeIsUtc(imported.PeriodEnd);
+            imported.First = DateTimeExtensions.EnsureDateTimeIsUtc(imported.First);
+            imported.Last = DateTimeExtensions.EnsureDateTimeIsUtc(imported.Last);
         }
     }
 }
