@@ -18,7 +18,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.64" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.65" />
 		<PackageReference Include="Cronos" Version="0.8.4" />
 		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
 		<PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
