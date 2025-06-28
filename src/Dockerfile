@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
 WORKDIR /app
 COPY stiebel-eltron-dashboard.csproj .
@@ -10,7 +10,7 @@ RUN dotnet dev-certs https
 FROM build AS publish
 RUN dotnet publish stiebel-eltron-dashboard.csproj -c Release -o /app  --self-contained=false
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 
 ENV DOTNET_TieredPGO = 1
 ENV DOTNET_TC_QuickJitForLoops = 1

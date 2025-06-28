@@ -19,7 +19,7 @@ services:
         depends_on:
             - db
     db:
-        image: "postgres:latest"  # PostgreSQL wird verwendet, das auf ARM läuft
+        image: "postgres:16.3"  # PostgreSQL wird verwendet, das auf ARM läuft
         container_name: "postgres"
         restart: always
         ports:
@@ -29,3 +29,15 @@ services:
         environment:
             POSTGRES_USER: sa                       # Benutzer 'sa' fest definiert
             POSTGRES_PASSWORD: ${DatabasePassword}  # Passwort für den Benutzer 'sa'
+    db_upgrade:
+        image: postgres:17
+        container_name: "pg_upgrade"
+        volumes:
+            - ./data/postgres:/var/lib/postgresql/16/data
+            - ./data/postgres_new:/var/lib/postgresql/17/data
+            - ./upgrade_pg.sh:/upgrade_pg.sh
+        entrypoint: ["/bin/bash", "/upgrade_pg.sh"]
+        user: "root"  # <-- PostgreSQL läuft als postgres-Benutzer
+        depends_on:
+            - db
+
