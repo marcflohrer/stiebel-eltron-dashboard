@@ -27,7 +27,6 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Serilog;
 
 namespace StiebelEltronDashboard
 {
@@ -35,7 +34,7 @@ namespace StiebelEltronDashboard
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).UseSerilog().Build().Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

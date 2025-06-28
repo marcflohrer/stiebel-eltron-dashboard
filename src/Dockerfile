@@ -12,10 +12,10 @@ RUN dotnet publish stiebel-eltron-dashboard.csproj -c Release -o /app  --self-co
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 
-ENV DOTNET_TieredPGO = 1
-ENV DOTNET_TC_QuickJitForLoops = 1
-ENV DOTNET_TieredCompilation = 1
-ENV DOTNET_TC_QuickJit = 1
+ENV DOTNET_TieredPGO=1
+ENV DOTNET_TC_QuickJitForLoops=1
+ENV DOTNET_TieredCompilation=1
+ENV DOTNET_TC_QuickJit=1
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 ENV DOTNET_RUNNING_IN_CONTAINER=true
 ENV ASPNETCORE_ENVIRONMENT=Development
@@ -27,6 +27,7 @@ WORKDIR /app
 COPY --from=publish /app .
 COPY --from=publish /app/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
 COPY --from=build /root/.dotnet/corefx/cryptography/x509stores/my/* /root/.dotnet/corefx/cryptography/x509stores/my/
+RUN rm -rf /app/Data
 
 RUN mkdir -p /app/logs/ && \
     touch /app/logs/dashboard.log && \

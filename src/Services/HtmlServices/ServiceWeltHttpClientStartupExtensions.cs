@@ -1,12 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Serilog;
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Xml.Linq;
 
 namespace StiebelEltronDashboard.Services.HtmlServices;
 
@@ -14,8 +12,6 @@ public static class ServiceWeltHttpClientStartupExtensions
 {
     public static IServiceCollection AddHttpClientForServiceWelt(this IServiceCollection services, Uri serviceWeltBaseUrl)
     {
-        ArgumentNullException.ThrowIfNull(nameof(serviceWeltBaseUrl));
-
         services.ConfigurePostHttpClient(serviceWeltBaseUrl);
         services.ConfigureGetHttpClient(serviceWeltBaseUrl);
         return services;

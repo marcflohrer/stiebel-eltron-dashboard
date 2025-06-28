@@ -14,7 +14,7 @@ services:
         depends_on:
             - db
     db:
-        image: "postgres:latest"  # PostgreSQL wird verwendet, das auf ARM läuft
+        image: "postgres:16.3"  # PostgreSQL wird verwendet, das auf ARM läuft
         container_name: "postgres"
         restart: always
         ports:
@@ -22,6 +22,6 @@ services:
         volumes:
             - ./data/postgres:/var/lib/postgresql/data
         environment:
-            POSTGRES_USER: sa                       # Benutzer 'sa' fest definiert
-            POSTGRES_PASSWORD: ${DatabasePassword}  # Passwort für den Benutzer 'sa'
+            POSTGRES_USER: postgres                       # Benutzer 'postgres' fest definiert
+            POSTGRES_PASSWORD: ${DatabasePassword}  # Passwort für den Benutzer 'postgres'
 

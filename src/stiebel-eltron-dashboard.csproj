@@ -36,9 +36,6 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.1" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Remove="stiebel-eltron-dashboard-tests\UnitTest1.cs" />
-	</ItemGroup>
-	<ItemGroup>
 		<Content Remove="stiebel-eltron-dashboard-tests\obj\project.assets.json" />
 		<Content Remove="stiebel-eltron-dashboard-tests\obj\stiebel-eltron-dashboard-tests.csproj.nuget.dgspec.json" />
 	</ItemGroup>

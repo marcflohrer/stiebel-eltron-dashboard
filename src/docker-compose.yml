@@ -27,17 +27,6 @@ services:
         volumes:
             - ./data/postgres:/var/lib/postgresql/data
         environment:
-            POSTGRES_USER: sa                       # Benutzer 'sa' fest definiert
-            POSTGRES_PASSWORD: ${DatabasePassword}  # Passwort für den Benutzer 'sa'
-    db_upgrade:
-        image: postgres:17
-        container_name: "pg_upgrade"
-        volumes:
-            - ./data/postgres:/var/lib/postgresql/16/data
-            - ./data/postgres_new:/var/lib/postgresql/17/data
-            - ./upgrade_pg.sh:/upgrade_pg.sh
-        entrypoint: ["/bin/bash", "/upgrade_pg.sh"]
-        user: "root"  # <-- PostgreSQL läuft als postgres-Benutzer
-        depends_on:
-            - db
+            POSTGRES_USER: postgres                       # Benutzer 'postgres' fest definiert
+            POSTGRES_PASSWORD: ${DatabasePassword}  # Passwort für den Benutzer 'postgres'
 
