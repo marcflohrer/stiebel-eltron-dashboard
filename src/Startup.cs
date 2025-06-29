@@ -69,6 +69,7 @@ namespace StiebelEltronDashboard
                         .Enrich.FromLogContext()
                         .WriteTo.File("logs/dashboard.log", fileSizeLimitBytes: 1048576, rollOnFileSizeLimit: true,
                         rollingInterval: RollingInterval.Day, retainedFileCountLimit: 10)
+                        .WriteTo.Console()
                         .CreateLogger();
 
             // DbContext pooling: AddDbContextPool enables pooling of DbContext instances. 

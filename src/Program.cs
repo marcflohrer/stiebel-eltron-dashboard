@@ -27,32 +27,33 @@ This notice is intended to comply with the Apache Licence 2. 0 section 4.b. that
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace StiebelEltronDashboard
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main (string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder (args).UseSerilog().Build ().Run ();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostContext, webBuilder) =>
+        public static IHostBuilder CreateHostBuilder (string[] args) =>
+            Host.CreateDefaultBuilder (args)
+            .ConfigureAppConfiguration ((hostContext, webBuilder) =>
             {
-                webBuilder.AddEnvironmentVariables();
-                webBuilder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
-                webBuilder.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
-                webBuilder.AddUserSecrets<Program>();
-                webBuilder.AddJsonFile("secrets/appsettings.json", optional: true, reloadOnChange: false);
+                webBuilder.AddEnvironmentVariables ();
+                webBuilder.AddJsonFile ("appsettings.json", optional : false, reloadOnChange : false);
+                webBuilder.AddJsonFile ($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional : true);
+                webBuilder.AddUserSecrets<Program> ();
+                webBuilder.AddJsonFile ("secrets/appsettings.json", optional : true, reloadOnChange : false);
 
             })
-            .ConfigureWebHostDefaults(webBuilder =>
+            .ConfigureWebHostDefaults (webBuilder =>
             {
                 webBuilder
                 .SuppressStatusMessages(true)
-                .UseStartup<Startup>();
+                .UseStartup<Startup> ();
             });
     }
 }
