@@ -32,7 +32,7 @@
 		<PackageReference Include="DotNetZip.Original" Version="2025.2.15" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="9.0.4" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.3" />
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.4" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
 	</ItemGroup>
 	<ItemGroup>
